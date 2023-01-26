@@ -27,7 +27,7 @@ public final class PluginDescriptionFile {
     private Object commands = null;
     private String description = null;
     private ArrayList<String> authors = new ArrayList<String>();
-    private ArrayList<String> dependencies = null;
+    private ArrayList<String> dependencies = new ArrayList<>();
     private String website = null;
     private boolean database = false;
     private boolean visible = true;
@@ -274,7 +274,7 @@ public final class PluginDescriptionFile {
 
                 dependencies.addAll(extra);
             } catch (ClassCastException ex) {
-                throw new InvalidDescriptionException(ex, "authors are of wrong type");
+                throw new InvalidDescriptionException(ex, "dependencies are of wrong type");
             }
         }
 

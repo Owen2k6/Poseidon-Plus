@@ -66,6 +66,6 @@ public class MavenLibrary
 
     public String getRemote()
     {
-        return String.format("http://repo1.maven.org/maven2/%s/%s/%s/%s-%s.jar", group.replace(".", "/"), name, version, name, version);
+        return String.format("https://repo1.maven.org/maven2/%s/%s/%s/%s-%s.jar", group.replace(".", "/"), name, version, name, version);
     }
 }
