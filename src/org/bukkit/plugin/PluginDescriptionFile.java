@@ -27,7 +27,7 @@ public final class PluginDescriptionFile {
     private Object commands = null;
     private String description = null;
     private ArrayList<String> authors = new ArrayList<String>();
-    private ArrayList<String> dependencies = new ArrayList<>();
+    private ArrayList<String> dependencies = null;
     private String website = null;
     private boolean database = false;
     private boolean visible = true;
@@ -268,13 +268,11 @@ public final class PluginDescriptionFile {
             }
         }
 
-        if (map.containsKey("dependencies")) {
+        if (map.containsKey("depend")) {
             try {
-                ArrayList<String> extra = (ArrayList<String>) map.get("dependencies");
-
-                dependencies.addAll(extra);
+                dependencies = (ArrayList<String>) map.get("dependencies");
             } catch (ClassCastException ex) {
-                throw new InvalidDescriptionException(ex, "dependencies are of wrong type");
+                throw new InvalidDescriptionException(ex, "dependencies is of wrong type");
             }
         }
 
