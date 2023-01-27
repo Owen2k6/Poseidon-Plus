@@ -27,6 +27,8 @@ public class LibraryLoader
             urls.add(library.getFile().toURI().toURL());
         }
 
+        System.out.println("Loaded " + urls.size() + " libraries for plugin: " + description.getName());
+
         URLClassLoader loader = new URLClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader());
 
         return loader;

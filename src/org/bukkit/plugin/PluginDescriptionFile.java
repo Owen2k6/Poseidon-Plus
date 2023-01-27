@@ -268,7 +268,7 @@ public final class PluginDescriptionFile {
             }
         }
 
-        if (map.containsKey("depend")) {
+        if (map.containsKey("dependencies")) {
             try {
                 dependencies = (ArrayList<String>) map.get("dependencies");
             } catch (ClassCastException ex) {

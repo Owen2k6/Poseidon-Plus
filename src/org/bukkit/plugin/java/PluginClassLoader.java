@@ -28,6 +28,11 @@ public class PluginClassLoader extends URLClassLoader {
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
         try
         {
+            Thread.currentThread().setContextClassLoader(this);
+        } catch (Exception ignored) {}
+
+        try
+        {
             Class<?> result = super.loadClass(name, resolve);
             if (result != null) return result;
         } catch (ClassNotFoundException ignored) {}
