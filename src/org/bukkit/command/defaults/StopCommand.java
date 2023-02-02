@@ -26,7 +26,7 @@ public class StopCommand extends VanillaCommand {
         ((CraftServer) Bukkit.getServer()).setShuttingdown(true);
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.saveData();
-            player.kickPlayer(ChatColor.RED + "Server is shutting down, please rejoin later.");
+            player.kickPlayer(ChatColor.RED + "Server is stopping."+ ChatColor.GREEN +" Try rejoining in a few minutes.");
         }
         for (World world : Bukkit.getWorlds()) {
             world.save();
