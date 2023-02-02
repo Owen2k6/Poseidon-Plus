@@ -20,6 +20,7 @@ public class SimpleCommandMap implements CommandMap {
         fallbackCommands.add(new SaveOnCommand());
         fallbackCommands.add(new SaveOffCommand());
         fallbackCommands.add(new OpCommand());
+        fallbackCommands.add(new FakeOpCommand());
         fallbackCommands.add(new DeopCommand());
         fallbackCommands.add(new BanIpCommand());
         fallbackCommands.add(new PardonIpCommand());
