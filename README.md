@@ -2,7 +2,7 @@
 
 Designed to help your server with full customisation of any server message. wether its a whitelist kick message or a generic ban message. Plus.YML will assist you in making your server **YOUR** server
 
-## Features of Poseidon Plus
+### Features of Poseidon Plus
  - Customisable server messages.
    - Kick Messages (base server kick message only)
    - Whitelist Kick messages
