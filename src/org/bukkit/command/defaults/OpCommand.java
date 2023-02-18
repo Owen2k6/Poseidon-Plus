@@ -37,6 +37,6 @@ public class OpCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.equals("op ");
+        return input.startsWith("op ");
     }
 }

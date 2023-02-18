@@ -37,6 +37,6 @@ public class DeopCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.equals("deop ");
+        return input.startsWith("deop ");
     }
 }

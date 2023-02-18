@@ -49,6 +49,6 @@ public class SayCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.equals("say ");
+        return input.startsWith("say ");
     }
 }

@@ -49,6 +49,6 @@ public class TellCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.equals("tell ");
+        return input.startsWith("tell ");
     }
 }

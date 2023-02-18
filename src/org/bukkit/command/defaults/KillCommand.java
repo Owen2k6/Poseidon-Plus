@@ -34,6 +34,6 @@ public class KillCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.equals("kill");
+        return input.startsWith("kill");
     }
 }

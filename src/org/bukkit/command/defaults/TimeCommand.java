@@ -59,6 +59,6 @@ public class TimeCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.equals("time ");
+        return input.startsWith("time ");
     }
 }
