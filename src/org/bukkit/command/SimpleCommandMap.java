@@ -2,6 +2,7 @@ package org.bukkit.command;
 
 import org.bukkit.Server;
 import org.bukkit.command.defaults.*;
+import org.bukkit.command.plus.ModifyConfigCommand;
 
 import java.util.*;
 
@@ -37,6 +38,7 @@ public class SimpleCommandMap implements CommandMap {
         fallbackCommands.add(new KillCommand());
         fallbackCommands.add(new HelpCommand());
         fallbackCommands.add(new GarbageCommand());
+        fallbackCommands.add(new ModifyConfigCommand());
     }
 
     public SimpleCommandMap(final Server server) {
