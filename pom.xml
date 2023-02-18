@@ -143,11 +143,11 @@
                     <archive>
                         <manifestEntries>
                             <Main-Class>org.bukkit.craftbukkit.Main</Main-Class>
-                            <Implementation-Title>Project-Posiden</Implementation-Title>
-                            <Implementation-Vendor>RhysB</Implementation-Vendor>
-                            <Specification-Title>Bukkit</Specification-Title>
-                            <Specification-Version>${api.version}</Specification-Version>
-                            <Specification-Vendor>Bukkit Team</Specification-Vendor>
+                            <Implementation-Title>PoseidonPlus</Implementation-Title>
+                            <Implementation-Vendor>Owen2k6 and moderator_man</Implementation-Vendor>
+                            <Specification-Title>Project-Poseidon</Specification-Title>
+                            <Specification-Version>1.1.7</Specification-Version>
+                            <Specification-Vendor>RhysB</Specification-Vendor>
                             <Sealed>true</Sealed>
                         </manifestEntries>
                         <manifestSections>
