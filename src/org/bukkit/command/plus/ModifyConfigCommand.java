@@ -85,6 +85,6 @@ public class ModifyConfigCommand extends VanillaCommand
     @Override
     public boolean matches(String input)
     {
-        return input.startsWith("modifyconfig ");
+        return input.equals("modifyconfig ");
     }
 }
