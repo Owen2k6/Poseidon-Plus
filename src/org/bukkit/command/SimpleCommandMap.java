@@ -36,6 +36,7 @@ public class SimpleCommandMap implements CommandMap {
         fallbackCommands.add(new MeCommand());
         fallbackCommands.add(new KillCommand());
         fallbackCommands.add(new HelpCommand());
+        fallbackCommands.add(new GarbageCommand());
     }
 
     public SimpleCommandMap(final Server server) {
