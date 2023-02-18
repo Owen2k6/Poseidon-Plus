@@ -14,6 +14,7 @@ import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.util.FileUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -31,6 +32,7 @@ public final class SimplePluginManager implements PluginManager {
     private final List<Plugin> plugins = new ArrayList<Plugin>();
     private final Map<String, Plugin> lookupNames = new HashMap<String, Plugin>();
     private final Map<Event.Type, SortedSet<RegisteredListener>> listeners = new EnumMap<Event.Type, SortedSet<RegisteredListener>>(Event.Type.class);
+    private final Map<Event.Type, SortedSet<RegisteredListener>> superListeners = new EnumMap<Event.Type, SortedSet<RegisteredListener>>(Event.Type.class);
     private static File updateDirectory = null;
     private final SimpleCommandMap commandMap;
     private final Map<String, Permission> permissions = new HashMap<String, Permission>();
@@ -60,7 +62,7 @@ public final class SimplePluginManager implements PluginManager {
     // Project Poseidon Start
 
     @Override
-    public void registerEvents(Listener listener, Plugin plugin) {
+    public void registerEvents(Listener listener, @NotNull Plugin plugin) {
         if (!plugin.isEnabled()) {
             throw new IllegalPluginAccessException("Plugin attempted to register " + listener + " while not enabled");
         } else {
@@ -85,6 +87,33 @@ public final class SimplePluginManager implements PluginManager {
         }
     }
     // Project Poseidon End
+
+    // Poseidon Plus Start
+    public void registerSuperEvents(Listener listener, Plugin plugin) {
+        if (!plugin.isEnabled()) {
+            throw new IllegalPluginAccessException("Plugin attempted to register " + listener + " while not enabled");
+        } else {
+            for (Map.Entry<Class<? extends Event>, Set<RegisteredListener>> entry : plugin.getPluginLoader().createRegisteredListeners(listener, plugin).entrySet()) {
+                Class<? extends Event> clazz = entry.getKey();
+                Event.Type type = Event.Type.getTypeByName(clazz.getSimpleName().substring(0, clazz.getSimpleName().indexOf("Event")));
+                if (type != null) {
+                    getSuperEventListeners(type).addAll(entry.getValue());
+                } else {
+                    //If listener implements PoseidonCustomListener, we can be sure it is probably a custom event.
+                    if (listener instanceof PoseidonCustomListener) {
+                        server.getLogger().log(Level.INFO, plugin.getDescription().getName() + " is utilizing event handlers to receive the custom event " + clazz.getSimpleName() + ". Please be aware this is a hacky beta feature.");
+                        getSuperEventListeners(Event.Type.CUSTOM_EVENT).addAll(entry.getValue());
+                    } else {
+                        String cName = clazz.getName();
+                        server.getLogger().log(Level.SEVERE, String.format("Class %s failed to get Event.Type on @EventHandler", cName));
+                    }
+                }
+
+            }
+
+        }
+    }
+    // Poseidon Plus End
 
     /**
      * Registers the specified plugin loader
@@ -347,6 +376,38 @@ public final class SimplePluginManager implements PluginManager {
      */
     public synchronized void callEvent(Event event) {
         SortedSet<RegisteredListener> eventListeners = listeners.get(event.getType());
+        SortedSet<RegisteredListener> superEventListeners = superListeners.get(event.getType());
+
+        if (superEventListeners != null)
+        {
+            for (RegisteredListener registration : superEventListeners)
+            {
+                try
+                {
+                    registration.callEvent(event);
+                } catch (AuthorNagException ex) {
+                    Plugin plugin = registration.getPlugin();
+
+                    if (plugin.isNaggable()) {
+                        plugin.setNaggable(false);
+
+                        String author = "<NoAuthorGiven>";
+
+                        if (plugin.getDescription().getAuthors().size() > 0) {
+                            author = plugin.getDescription().getAuthors().get(0);
+                        }
+                        server.getLogger().log(Level.SEVERE, String.format(
+                                "Nag author: '%s' of '%s' about the following: %s",
+                                author,
+                                plugin.getDescription().getName(),
+                                ex.getMessage()
+                        ));
+                    }
+                } catch (Throwable ex) {
+                    server.getLogger().log(Level.SEVERE, "Could not pass event " + event.getType() + " to " + registration.getPlugin().getDescription().getName(), ex);
+                }
+            }
+        }
 
         if (eventListeners != null) {
             for (RegisteredListener registration : eventListeners) {
@@ -425,6 +486,18 @@ public final class SimplePluginManager implements PluginManager {
 
         eventListeners = new TreeSet<RegisteredListener>(comparer);
         listeners.put(type, eventListeners);
+        return eventListeners;
+    }
+
+    private SortedSet<RegisteredListener> getSuperEventListeners(Event.Type type) {
+        SortedSet<RegisteredListener> eventListeners = superListeners.get(type);
+
+        if (eventListeners != null) {
+            return eventListeners;
+        }
+
+        eventListeners = new TreeSet<RegisteredListener>(comparer);
+        superListeners.put(type, eventListeners);
         return eventListeners;
     }
 

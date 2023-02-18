@@ -31,10 +31,17 @@ public class PoseidonConfig extends Configuration
         this.save();
     }
 
-    private void write()
-    {
-        if (this.getString("config-version") == null || Integer.valueOf(this.getString("config-version")) < configVersion)
-        {
+    public void resetConfig() {
+        // Delete all the config options
+        for(String key : this.getKeys()) {
+            this.removeProperty(key);
+        }
+        // Reload the config
+        this.write();
+    }
+
+    private void write() {
+        if (this.getString("config-version") == null || Integer.valueOf(this.getString("config-version")) < configVersion) {
             System.out.println("Converting to Config Version: " + configVersion);
             convertToNewConfig();
         }
@@ -52,6 +59,7 @@ public class PoseidonConfig extends Configuration
         generateConfigOption("settings.whitelist-kick-message", "&cServer currently whitelisted. Please try again later.");
         generateConfigOption("settings.use-get-for-uuids.info", "This setting causes the server to use the GET method for Username to UUID conversion. This is useful incase the POST method goes offline.");
 
+
         //Watchdog
         //generateConfigOption("settings.enable-watchdog", true);
         generateConfigOption("settings.watchdog.info", "Watchdog is a automatic hang detection system which can print stacktraces and kill the server automatically after a predefined interval.");
@@ -62,10 +70,18 @@ public class PoseidonConfig extends Configuration
         generateConfigOption("settings.watchdog.debug-timeout.enabled", false);
         generateConfigOption("settings.watchdog.debug-timeout.value", 30);
         generateConfigOption("settings.watchdog.debug-timeout.info", "debug-timeout can be used to print a stack trace at a lower interval then the main timeout allowing admins to locate blocking tasks that cause hangs over a certain duration. Only enable this if you have experienced temporary hangs/server freezes.");
-
         //Packet Events
         generateConfigOption("settings.packet-events.enabled", false);
         generateConfigOption("settings.packet-events.info", "This setting causes the server to fire a Bukkit event for each packet received and sent to a player once they have finished the initial login process. This only needs to be enabled if you have a plugin that uses this specific feature.");
+
+//        generateConfigOption("settings.bukkit-event.disabled-plugin-unregister.value", true);
+//        generateConfigOption("settings.bukkit-event.disabled-plugin-unregister.info", "This setting will automatically unregister listeners from disabled plugins. This is useful if you have a plugin that can get disabled at runtime and you want to prevent errors to the disabled plugin.");
+
+        generateConfigOption("settings.packet-spam-detection.enabled", true);
+        generateConfigOption("settings.packet-spam-detection.info", "This setting causes the server to detect and kick malicious players who send too many packets in a short period of time. This is useful to prevent players from sending too many packets to the server to cause lag.");
+        generateConfigOption("settings.packet-spam-detection.threshold", 10000);
+
+
         //Statistics
         generateConfigOption("settings.statistics.key", UUID.randomUUID().toString());
         generateConfigOption("settings.statistics.enabled", true);
