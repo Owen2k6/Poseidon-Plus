@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -37,11 +38,13 @@ public class ServerConfigurationManager {
 
     // CraftBukkit start
     private CraftServer cserver;
+    private String whitelistKickMessage = "You are not white-listed on this server!";
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
         minecraftserver.server = new CraftServer(minecraftserver, this);
         minecraftserver.console = new ColouredConsoleSender(minecraftserver.server);
         this.cserver = minecraftserver.server;
+        whitelistKickMessage = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
 
         this.server = minecraftserver;
@@ -185,8 +188,6 @@ public class ServerConfigurationManager {
             event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.RED + "You are banned from this server.");
             // return null // CraftBukkit
         } else if (!this.isWhitelisted(s)) {
-            //TODO: Add Configurable Whitelist Message
-            String whitelistKickMessage = PoseidonConfig.getInstance().getString("settings.whitelist-kick-message", "&cServer currently whitelisted. Please try again later.");
             event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, ChatColor.translateAlternateColorCodes('&', whitelistKickMessage));
         } else if (this.banByIP.contains(s1)) {
             event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.RED + "Your IP address is banned from this server!");
