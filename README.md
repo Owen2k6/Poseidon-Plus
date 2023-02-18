@@ -1,8 +1,18 @@
 # Poseidon Plus
 
-This is Project Poseidon, with personalization and QoL features built in.
-
 Designed to help your server with full customisation of any server message. wether its a whitelist kick message or a generic ban message. Plus.YML will assist you in making your server **YOUR** server
+
+## Features of Poseidon Plus
+ - Customisable server messages.
+   - Kick Messages (base server kick message only)
+   - Whitelist Kick messages
+   - Ban messages (base server ban message only)
+   - IP Ban messages (base server ip ban message only)
+   - Server /stop message
+   - Server /say format (instead of \[server\] you can make it anything you want and even use the &colour code system from essentials.)
+ - Super Event System
+   - Great for Authentication plugins as this runs at the highest priority in the event system. This prevents any other plugin messing with your authentication plugin.
+   - Great for logging things. As this is ran above all other event listeners, you can listen to events even if theyre cancelled. so you can make chat loggers if you want to catch mute evaders!
 
 Below is the Project-Poseidon Description. You may get basic poseidon support there but any Poseidon Plus issues should be reported to Owen#0505 or moderator_man#4356
 
