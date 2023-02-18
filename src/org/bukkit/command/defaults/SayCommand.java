@@ -1,16 +1,19 @@
 package org.bukkit.command.defaults;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
 public class SayCommand extends VanillaCommand {
+    private String prefix = "&d[Server]";
     public SayCommand() {
         super("say");
         this.description = "Broadcasts the given message as the console";
         this.usageMessage = "/say <message>";
         this.setPermission("bukkit.command.say");
+        prefix = PlusConfig.getInstance().getString("messages.broadcast.prefix", "&d[Server]");
     }
 
     @Override
@@ -33,7 +36,7 @@ public class SayCommand extends VanillaCommand {
                 Bukkit.getLogger().info("[" + sender.getName() + "] " + message);
             }
 
-            Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE + "[Server] " + message);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + " " + message));
 
             return true;
         } catch (Exception e) {
