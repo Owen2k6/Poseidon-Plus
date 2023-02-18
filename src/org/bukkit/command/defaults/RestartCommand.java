@@ -36,7 +36,7 @@ public class RestartCommand extends VanillaCommand {
             world.save();
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(new PoseidonPlugin(), () -> {
-            Command.broadcastCommandMessage(sender, "Stopping the server..");
+            Command.broadcastCommandMessage(sender, "Restarting the server..");
             Bukkit.shutdown();
         }, 100);
 
