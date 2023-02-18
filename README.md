@@ -1,3 +1,12 @@
+# Poseidon Plus
+
+This is Project Poseidon, with personalization and QoL features built in.
+
+Designed to help your server with full customisation of any server message. wether its a whitelist kick message or a generic ban message. Plus.YML will assist you in making your server **YOUR** server
+
+Below is the Project-Poseidon Description. You may get basic poseidon support there but any Poseidon Plus issues should be reported to Owen#0505 or moderator_man#4356
+
+---
 # Project-Poseidon
 ## What is Project Poseidon
 A CraftBukkit CB1060 fork for Beta 1.7.3 fixing bugs and adding basic features.
