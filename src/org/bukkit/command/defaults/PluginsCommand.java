@@ -41,7 +41,7 @@ public class PluginsCommand extends Command {
             pluginCount = pluginCount + 1;
 
             if (pluginList.length() > 0) {
-                pluginList.append(ChatColor.WHITE);
+                pluginList.append(ChatColor.GRAY);
                 pluginList.append(", ");
             }
 
@@ -51,6 +51,6 @@ public class PluginsCommand extends Command {
             pluginList.append(plugin.getDescription().getName());
         }
 
-        return " (" + enabled + "/" + pluginCount + "): " + pluginList.toString();
+        return ChatColor.GRAY + " (" + ChatColor.DARK_GRAY + enabled + ChatColor.GRAY + "/" + ChatColor.DARK_GRAY + pluginCount + ChatColor.GRAY + "): " + pluginList.toString();
     }
 }

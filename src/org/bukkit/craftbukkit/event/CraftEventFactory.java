@@ -14,10 +14,7 @@ import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Type;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockFadeEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityTameEvent;
@@ -162,6 +159,20 @@ public class CraftEventFactory {
         Block blockClicked = craftWorld.getBlockAt(x, y, z);
 
         BlockDamageEvent event = new BlockDamageEvent(player, blockClicked, itemInHand, instaBreak);
+        craftServer.getPluginManager().callEvent(event);
+
+        return event;
+    }
+
+    public static BlockBreakEvent callBlockBreakEvent(EntityHuman who, int x, int y, int z) {
+        Player player = (who == null) ? null : (Player) who.getBukkitEntity();
+
+        CraftWorld craftWorld = (CraftWorld) player.getWorld();
+        CraftServer craftServer = (CraftServer) player.getServer();
+
+        Block blockClicked = craftWorld.getBlockAt(x, y, z);
+
+        BlockBreakEvent event = new BlockBreakEvent(blockClicked, player);
         craftServer.getPluginManager().callEvent(event);
 
         return event;

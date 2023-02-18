@@ -1,5 +1,7 @@
 package org.bukkit.plugin.java;
 
+import org.bukkit.Bukkit;
+
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
@@ -12,11 +14,65 @@ import java.util.Set;
 public class PluginClassLoader extends URLClassLoader {
     private final JavaPluginLoader loader;
     private final Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
+    private final ClassLoader classLoader;
+    private final ClassLoader libraryLoader;
 
-    public PluginClassLoader(final JavaPluginLoader loader, final URL[] urls, final ClassLoader parent) {
+    public PluginClassLoader(final JavaPluginLoader loader, final URL[] urls, final ClassLoader parent, final ClassLoader libraryLoader) {
         super(urls, parent);
 
         this.loader = loader;
+        this.classLoader = parent;
+        this.libraryLoader = libraryLoader;
+    }
+
+    protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
+        try
+        {
+            Thread.currentThread().setContextClassLoader(this);
+        } catch (Exception ignored) {}
+
+        try
+        {
+            Class<?> result = super.loadClass(name, resolve);
+            if (result != null) return result;
+        } catch (ClassNotFoundException ignored) {}
+
+        try
+        {
+            Class<?> result = classLoader.loadClass(name);
+            if (result != null) return result;
+        } catch (ClassNotFoundException ignored) {}
+
+        try
+        {
+            Class<?> result = ClassLoader.getSystemClassLoader().loadClass(name);
+            if (result != null) return result;
+        } catch (ClassNotFoundException ignored) {}
+
+        try
+        {
+            Class<?> result = getClass().getClassLoader().loadClass(name);
+            if (result != null) return result;
+        } catch (ClassNotFoundException ignored) {}
+
+        try
+        {
+            Class<?> result = Bukkit.class.getClassLoader().loadClass(name);
+            if (result != null) return result;
+        } catch (ClassNotFoundException ignored) {}
+
+        if (libraryLoader != null)
+        {
+            try
+            {
+                return libraryLoader.loadClass(name);
+            } catch (ClassNotFoundException ignored) {}
+        }
+
+        Class<?> result = loader.getClassByName(name);
+        if (result != null) return result;
+
+        throw new ClassNotFoundException(name);
     }
 
     @Override

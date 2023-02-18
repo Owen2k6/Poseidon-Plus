@@ -7,9 +7,8 @@ import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
-import org.bukkit.event.block.BlockCanBuildEvent;
-import org.bukkit.event.block.BlockFormEvent;
-import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.ItemSpawnEvent;
@@ -1528,6 +1527,12 @@ public class World implements IBlockAccess {
         }
 
         if (this.getTypeId(i, j, k) == Block.FIRE.id) {
+            if (entityhuman != null)
+            {
+                BlockBreakEvent event = CraftEventFactory.callBlockBreakEvent(entityhuman, i, j, k);
+                if (event.isCancelled()) return;
+            }
+
             this.a(entityhuman, 1004, i, j, k, 0);
             this.setTypeId(i, j, k, 0);
         }

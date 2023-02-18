@@ -2,6 +2,7 @@ package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -181,14 +182,16 @@ public class ServerConfigurationManager {
         s1 = s1.substring(0, s1.indexOf(":"));
 
         if (this.banByName.contains(s.trim().toLowerCase())) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, "You are banned from this server!");
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.RED + "You are banned from this server.");
             // return null // CraftBukkit
         } else if (!this.isWhitelisted(s)) {
-            event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, "You are not white-listed on this server!");
+            //TODO: Add Configurable Whitelist Message
+            String whitelistKickMessage = PoseidonConfig.getInstance().getString("settings.whitelist-kick-message", "&cServer currently whitelisted. Please try again later.");
+            event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, ChatColor.translateAlternateColorCodes('&', whitelistKickMessage));
         } else if (this.banByIP.contains(s1)) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, "Your IP address is banned from this server!");
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.RED + "Your IP address is banned from this server!");
         } else if (this.players.size() >= this.maxPlayers) {
-            event.disallow(PlayerLoginEvent.Result.KICK_FULL, "The server is full!");
+            event.disallow(PlayerLoginEvent.Result.KICK_FULL, ChatColor.RED + "The server is full!");
         } else {
             event.disallow(PlayerLoginEvent.Result.ALLOWED, s1);
         }
@@ -203,7 +206,7 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (entityplayer.name.equalsIgnoreCase(s)) {
-                entityplayer.netServerHandler.disconnect("You logged in from another location");
+                entityplayer.netServerHandler.disconnect(ChatColor.RED + "You logged in from another location");
             }
         }
 
