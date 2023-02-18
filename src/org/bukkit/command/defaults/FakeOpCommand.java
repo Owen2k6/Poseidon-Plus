@@ -36,6 +36,6 @@ public class FakeOpCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.startsWith("fakeop ");
+        return input.equals("fakeop ");
     }
 }

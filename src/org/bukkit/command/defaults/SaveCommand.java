@@ -5,17 +5,23 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.util.Arrays;
+
 public class SaveCommand extends VanillaCommand {
     public SaveCommand() {
-        super("save-all");
+        super("save");
         this.description = "Saves the server to disk";
         this.usageMessage = "/save-all";
         this.setPermission("bukkit.command.save.perform");
+        this.setAliases(Arrays.asList("save-all"));
     }
 
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
+        if(currentAlias == "save-all") {
+            sender.sendMessage("Did you know, you can use /save instead of /save-all?");
+        }
 
         Command.broadcastCommandMessage(sender, "Forcing save..");
 
@@ -32,6 +38,6 @@ public class SaveCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.startsWith("save-all");
+        return input.equals("save-all") || input.equals("save");
     }
 }
