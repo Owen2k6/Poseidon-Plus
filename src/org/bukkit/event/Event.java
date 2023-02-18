@@ -93,11 +93,7 @@ public abstract class Event implements Serializable {
          */
         PACKET,
 
-        /**
-         * Represents Player-based events
-         *
-         * @see Category.LIVING_ENTITY
-         */
+
         PLAYER,
         /**
          * Represents Entity-based events
@@ -137,11 +133,6 @@ public abstract class Event implements Serializable {
         MISCELLANEOUS;
     }
 
-    /**
-     * Provides a lookup for all core events
-     *
-     * @see org.bukkit.event.
-     */
     public enum Type {
 
         /**
@@ -441,17 +432,7 @@ public abstract class Event implements Serializable {
          * @see org.bukkit.event.block.BlockFadeEvent
          */
         BLOCK_FADE(Category.BLOCK),
-        /**
-         * Called when a piston extends
-         *
-         * @see org.bukkit.event.block.PistonExtendEvent
-         */
         BLOCK_PISTON_EXTEND(Category.BLOCK),
-        /**
-         * Called when a piston retracts
-         *
-         * @see org.bukkit.event.block.PistonRetractEvent
-         */
         BLOCK_PISTON_RETRACT(Category.BLOCK),
 
         /**
@@ -549,13 +530,6 @@ public abstract class Event implements Serializable {
          * @see org.bukkit.event.world.ChunkUnloadEvent
          */
         CHUNK_UNLOAD(Category.WORLD),
-        /**
-         * Called when a newly created chunk has been populated.
-         * <p>
-         * If your intent is to populate the chunk using this event, please see {@link BlockPopulator}
-         *
-         * @see org.bukkit.event.world.ChunkPopulateEvent
-         */
         CHUNK_POPULATED(Category.WORLD),
         /**
          * Called when an ItemEntity spawns in the world
