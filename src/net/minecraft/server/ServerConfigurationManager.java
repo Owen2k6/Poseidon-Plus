@@ -38,12 +38,18 @@ public class ServerConfigurationManager {
 
     // CraftBukkit start
     private CraftServer cserver;
+    private String banKickMessage = "You are banned from this server!";
+    private String alternateLocationKickMessage = "You logged in from another location";
+    private String fullKickMessage = "The server is full.";
     private String whitelistKickMessage = "You are not white-listed on this server!";
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
         minecraftserver.server = new CraftServer(minecraftserver, this);
         minecraftserver.console = new ColouredConsoleSender(minecraftserver.server);
         this.cserver = minecraftserver.server;
+        alternateLocationKickMessage = PlusConfig.getInstance().getString("messages.kick.alternateLocation", "&cYou logged in from another location!");
+        fullKickMessage = PlusConfig.getInstance().getString("messages.kick.full", "&cThe server is full.");
+        banKickMessage = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
         whitelistKickMessage = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
 
@@ -185,14 +191,14 @@ public class ServerConfigurationManager {
         s1 = s1.substring(0, s1.indexOf(":"));
 
         if (this.banByName.contains(s.trim().toLowerCase())) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.RED + "You are banned from this server.");
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.translateAlternateColorCodes('&', banKickMessage));
             // return null // CraftBukkit
         } else if (!this.isWhitelisted(s)) {
             event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, ChatColor.translateAlternateColorCodes('&', whitelistKickMessage));
         } else if (this.banByIP.contains(s1)) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.RED + "Your IP address is banned from this server!");
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.translateAlternateColorCodes('&', banKickMessage)); //TODO: use different message for this? i don't think it matters but it's possible
         } else if (this.players.size() >= this.maxPlayers) {
-            event.disallow(PlayerLoginEvent.Result.KICK_FULL, ChatColor.RED + "The server is full!");
+            event.disallow(PlayerLoginEvent.Result.KICK_FULL, ChatColor.translateAlternateColorCodes('&', fullKickMessage));
         } else {
             event.disallow(PlayerLoginEvent.Result.ALLOWED, s1);
         }
@@ -207,7 +213,7 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (entityplayer.name.equalsIgnoreCase(s)) {
-                entityplayer.netServerHandler.disconnect(ChatColor.RED + "You logged in from another location");
+                entityplayer.netServerHandler.disconnect(ChatColor.translateAlternateColorCodes('&', alternateLocationKickMessage));
             }
         }
 

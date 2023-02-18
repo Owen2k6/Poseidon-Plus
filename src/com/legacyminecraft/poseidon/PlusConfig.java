@@ -27,6 +27,8 @@ public class PlusConfig extends Configuration
         generateConfigOption("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         generateConfigOption("messages.kick.shutdown", "&cThe server is shutting down.");
         generateConfigOption("messages.kick.restart", "&cThe server is restarting.");
+        generateConfigOption("messages.kick.full", "&cThe server is full.");
+        generateConfigOption("messages.kick.alternateLocation", "&cYou logged in from another location!");
         generateConfigOption("messages.broadcast.prefix", "&d[Server]");
     }
 
