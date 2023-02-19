@@ -28,7 +28,7 @@ public class UnknownSoftDependencyException extends UnknownDependencyException {
     /**
      * Constructs a new UnknownSoftDependencyException based on the given Exception
      *
-     * @param message Brief message explaining the cause of the exception
+     * @param message   Brief message explaining the cause of the exception
      * @param throwable Exception that triggered this Exception
      */
     public UnknownSoftDependencyException(final Throwable throwable, final String message) {

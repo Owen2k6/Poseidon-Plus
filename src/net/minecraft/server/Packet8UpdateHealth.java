@@ -8,7 +8,8 @@ public class Packet8UpdateHealth extends Packet {
 
     public int a;
 
-    public Packet8UpdateHealth() {}
+    public Packet8UpdateHealth() {
+    }
 
     public Packet8UpdateHealth(int i) {
         this.a = i;

@@ -71,6 +71,7 @@ public class CraftWolf extends CraftAnimals implements Wolf {
     /**
      * The owner's name is how MC knows and persists the Wolf's owner. Since we choose to instead use an AnimalTamer, this functionality
      * is used only as a backup. If the animal tamer is a player, we will store their name, otherwise we store an empty string.
+     *
      * @return the owner's name, if they are a player; otherwise, the empty string or null.
      */
     String getOwnerName() {
@@ -84,6 +85,7 @@ public class CraftWolf extends CraftAnimals implements Wolf {
     /**
      * Only used internally at the moment, and there to set the path to null (that is stop the thing from running around)
      * TODO use this later to extend the API, when we have Path classes in Bukkit
+     *
      * @param pathentity currently the MC defined PathEntity class. Should be replaced with an API interface at some point.
      */
     private void setPath(PathEntity pathentity) {

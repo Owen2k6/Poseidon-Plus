@@ -15,7 +15,8 @@ public class TileEntityPiston extends TileEntity {
     private float l;
     private static List m = new ArrayList();
 
-    public TileEntityPiston() {}
+    public TileEntityPiston() {
+    }
 
     public TileEntityPiston(int i, int j, int k, boolean flag, boolean flag1) {
         this.a = i;

@@ -129,7 +129,7 @@ public class ItemInWorldManager {
                     this.m = this.lastDigTick;
                 }
             }
-        // CraftBukkit start - force blockreset to client
+            // CraftBukkit start - force blockreset to client
         } else {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             // CraftBukkit end
@@ -158,7 +158,7 @@ public class ItemInWorldManager {
             //Project Poseidon Start - Craft Bukkit backport
             // Tell client the block is gone immediately then process events
             if (world.getTileEntity(i, j, k) == null) {
-                ((EntityPlayer) this.player).netServerHandler.sendPacket(new ArtificialPacket53BlockChange(i, j, k, 0,0));
+                ((EntityPlayer) this.player).netServerHandler.sendPacket(new ArtificialPacket53BlockChange(i, j, k, 0, 0));
             }
             //Project Poseidon End
             BlockBreakEvent event = new BlockBreakEvent(block, (org.bukkit.entity.Player) this.player.getBukkitEntity());

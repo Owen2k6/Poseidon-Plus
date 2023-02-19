@@ -17,37 +17,36 @@ import java.util.NoSuchElementException;
 
 public class BlockIterator implements Iterator<Block> {
 
-    private final World  world;
-    private final int    maxDistance;
+    private final World world;
+    private final int maxDistance;
 
-    private static final int    gridSize = 1 << 24;
+    private static final int gridSize = 1 << 24;
 
-    private boolean      end = false;
+    private boolean end = false;
 
-    private Block[]      blockQueue = new Block[3];
-    private int          currentBlock = 0;
-    private int          currentDistance = 0;
-    private int          maxDistanceInt;
+    private Block[] blockQueue = new Block[3];
+    private int currentBlock = 0;
+    private int currentDistance = 0;
+    private int maxDistanceInt;
 
-    private int          secondError;
-    private int          thirdError;
+    private int secondError;
+    private int thirdError;
 
-    private int          secondStep;
-    private int          thirdStep;
+    private int secondStep;
+    private int thirdStep;
 
-    private BlockFace    mainFace;
-    private BlockFace    secondFace;
-    private BlockFace    thirdFace;
+    private BlockFace mainFace;
+    private BlockFace secondFace;
+    private BlockFace thirdFace;
 
     /**
      * Constructs the BlockIterator
      *
-     * @param world The world to use for tracing
-     * @param start A Vector giving the initial location for the trace
-     * @param direction A Vector pointing in the direction for the trace
-     * @param yOffset The trace begins vertically offset from the start vector by this value
+     * @param world       The world to use for tracing
+     * @param start       A Vector giving the initial location for the trace
+     * @param direction   A Vector pointing in the direction for the trace
+     * @param yOffset     The trace begins vertically offset from the start vector by this value
      * @param maxDistance This is the maximum distance in blocks for the trace. Setting this value above 140 may lead to problems with unloaded chunks. A value of 0 indicates no limit
-     *
      */
 
     public BlockIterator(World world, Vector start, Vector direction, double yOffset, int maxDistance) {
@@ -180,26 +179,26 @@ public class BlockIterator implements Iterator<Block> {
 
     private BlockFace reverseFace(BlockFace face) {
         switch (face) {
-        case UP:
-            return BlockFace.DOWN;
+            case UP:
+                return BlockFace.DOWN;
 
-        case DOWN:
-            return BlockFace.UP;
+            case DOWN:
+                return BlockFace.UP;
 
-        case NORTH:
-            return BlockFace.SOUTH;
+            case NORTH:
+                return BlockFace.SOUTH;
 
-        case SOUTH:
-            return BlockFace.NORTH;
+            case SOUTH:
+                return BlockFace.NORTH;
 
-        case EAST:
-            return BlockFace.WEST;
+            case EAST:
+                return BlockFace.WEST;
 
-        case WEST:
-            return BlockFace.EAST;
+            case WEST:
+                return BlockFace.EAST;
 
-        default:
-            return null;
+            default:
+                return null;
         }
     }
 
@@ -216,15 +215,15 @@ public class BlockIterator implements Iterator<Block> {
     }
 
     private double getXLength(Vector direction) {
-        return(Math.abs(direction.getX()));
+        return (Math.abs(direction.getX()));
     }
 
     private double getYLength(Vector direction) {
-        return(Math.abs(direction.getY()));
+        return (Math.abs(direction.getY()));
     }
 
     private double getZLength(Vector direction) {
-        return(Math.abs(direction.getZ()));
+        return (Math.abs(direction.getZ()));
     }
 
     private double getPosition(double direction, double position, int blockPosition) {
@@ -246,10 +245,9 @@ public class BlockIterator implements Iterator<Block> {
     /**
      * Constructs the BlockIterator
      *
-     * @param loc The location for the start of the ray trace
-     * @param yOffset The trace begins vertically offset from the start vector by this value
+     * @param loc         The location for the start of the ray trace
+     * @param yOffset     The trace begins vertically offset from the start vector by this value
      * @param maxDistance This is the maximum distance in blocks for the trace. Setting this value above 140 may lead to problems with unloaded chunks. A value of 0 indicates no limit
-     *
      */
 
     public BlockIterator(Location loc, double yOffset, int maxDistance) {
@@ -259,9 +257,8 @@ public class BlockIterator implements Iterator<Block> {
     /**
      * Constructs the BlockIterator.
      *
-     * @param loc The location for the start of the ray trace
+     * @param loc     The location for the start of the ray trace
      * @param yOffset The trace begins vertically offset from the start vector by this value
-     *
      */
 
     public BlockIterator(Location loc, double yOffset) {
@@ -272,7 +269,6 @@ public class BlockIterator implements Iterator<Block> {
      * Constructs the BlockIterator.
      *
      * @param loc The location for the start of the ray trace
-     *
      */
 
     public BlockIterator(Location loc) {
@@ -282,9 +278,8 @@ public class BlockIterator implements Iterator<Block> {
     /**
      * Constructs the BlockIterator.
      *
-     * @param entity Information from the entity is used to set up the trace
-     * @param maxDistance  This is the maximum distance in blocks for the trace. Setting this value above 140 may lead to problems with unloaded chunks. A value of 0 indicates no limit
-     *
+     * @param entity      Information from the entity is used to set up the trace
+     * @param maxDistance This is the maximum distance in blocks for the trace. Setting this value above 140 may lead to problems with unloaded chunks. A value of 0 indicates no limit
      */
 
     public BlockIterator(LivingEntity entity, int maxDistance) {
@@ -295,7 +290,6 @@ public class BlockIterator implements Iterator<Block> {
      * Constructs the BlockIterator.
      *
      * @param entity Information from the entity is used to set up the trace
-     *
      */
 
     public BlockIterator(LivingEntity entity) {
@@ -304,7 +298,6 @@ public class BlockIterator implements Iterator<Block> {
 
     /**
      * Returns true if the iteration has more elements
-     *
      */
 
     public boolean hasNext() {

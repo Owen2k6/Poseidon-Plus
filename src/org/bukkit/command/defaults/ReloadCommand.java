@@ -19,7 +19,7 @@ public class ReloadCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        if(args.length == 1 && args[0].equalsIgnoreCase("confirm")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("confirm")) {
             Bukkit.reload();
             sender.sendMessage(ChatColor.GREEN + "Reload complete.");
             sender.sendMessage(ChatColor.RED + "Remember, Restarting the server is much more efficient and stops your server from commiting die.");
@@ -28,7 +28,6 @@ public class ReloadCommand extends Command {
         sender.sendMessage(ChatColor.RED + "/reload is a bad idea. Please restart the server instead.");
         sender.sendMessage(ChatColor.RED + "This function is intended for development of a single plugin.");
         sender.sendMessage(ChatColor.RED + "To continue, type /reload confirm");
-
 
 
         return true;

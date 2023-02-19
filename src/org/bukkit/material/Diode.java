@@ -27,8 +27,7 @@ public class Diode extends MaterialData implements Directional {
     /**
      * Sets the delay of the repeater
      *
-     * @param delay
-     *            The new delay (1-4)
+     * @param delay The new delay (1-4)
      */
     public void setDelay(int delay) {
         if (delay > 4) {
@@ -56,21 +55,21 @@ public class Diode extends MaterialData implements Directional {
         byte data;
 
         switch (face) {
-        case SOUTH:
-            data = 0x1;
-            break;
+            case SOUTH:
+                data = 0x1;
+                break;
 
-        case WEST:
-            data = 0x2;
-            break;
+            case WEST:
+                data = 0x2;
+                break;
 
-        case NORTH:
-            data = 0x3;
-            break;
+            case NORTH:
+                data = 0x3;
+                break;
 
-        case EAST:
-        default:
-            data = 0x0;
+            case EAST:
+            default:
+                data = 0x0;
         }
 
         setData(data);
@@ -81,18 +80,18 @@ public class Diode extends MaterialData implements Directional {
         byte data = (byte) (getData() & 0x3);
 
         switch (data) {
-        case 0x0:
-        default:
-            return BlockFace.EAST;
+            case 0x0:
+            default:
+                return BlockFace.EAST;
 
-        case 0x1:
-            return BlockFace.SOUTH;
+            case 0x1:
+                return BlockFace.SOUTH;
 
-        case 0x2:
-            return BlockFace.WEST;
+            case 0x2:
+                return BlockFace.WEST;
 
-        case 0x3:
-            return BlockFace.NORTH;
+            case 0x3:
+                return BlockFace.NORTH;
         }
     }
 

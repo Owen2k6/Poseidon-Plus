@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;

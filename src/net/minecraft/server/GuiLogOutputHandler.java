@@ -17,9 +17,11 @@ public class GuiLogOutputHandler extends Handler {
         this.d = jtextarea;
     }
 
-    public void close() {}
+    public void close() {
+    }
 
-    public void flush() {}
+    public void flush() {
+    }
 
     public void publish(LogRecord logrecord) {
         int i = this.d.getDocument().getLength();

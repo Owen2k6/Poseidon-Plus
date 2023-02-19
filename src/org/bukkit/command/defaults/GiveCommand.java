@@ -37,7 +37,8 @@ public class GiveCommand extends VanillaCommand {
                 if (args.length >= 3) {
                     try {
                         amount = Integer.parseInt(args[2]);
-                    } catch (NumberFormatException ex) {}
+                    } catch (NumberFormatException ex) {
+                    }
 
                     if (amount < 1) amount = 1;
                     if (amount > 64) amount = 64;

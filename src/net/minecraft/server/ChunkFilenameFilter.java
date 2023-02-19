@@ -9,7 +9,8 @@ class ChunkFilenameFilter implements FilenameFilter {
 
     public static final Pattern a = Pattern.compile("c\\.(-?[0-9a-z]+)\\.(-?[0-9a-z]+)\\.dat");
 
-    private ChunkFilenameFilter() {}
+    private ChunkFilenameFilter() {
+    }
 
     public boolean accept(File file1, String s) {
         Matcher matcher = a.matcher(s);

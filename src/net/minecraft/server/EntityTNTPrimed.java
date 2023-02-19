@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Explosive;
@@ -35,7 +36,8 @@ public class EntityTNTPrimed extends Entity {
         this.lastZ = d2;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     protected boolean n() {
         return false;

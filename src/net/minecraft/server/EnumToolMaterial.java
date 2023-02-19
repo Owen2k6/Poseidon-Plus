@@ -8,7 +8,7 @@ public enum EnumToolMaterial {
     private final float h;
     private final int i;
 
-    private static final EnumToolMaterial[] j = new EnumToolMaterial[] { WOOD, STONE, IRON, DIAMOND, GOLD};
+    private static final EnumToolMaterial[] j = new EnumToolMaterial[]{WOOD, STONE, IRON, DIAMOND, GOLD};
 
     private EnumToolMaterial(String s, int i, int j, int k, float f, int l) {
         this.f = j;

@@ -11,7 +11,8 @@ public class NBTTagList extends NBTBase {
     private List a = new ArrayList();
     private byte b;
 
-    public NBTTagList() {}
+    public NBTTagList() {
+    }
 
     void a(DataOutput dataoutput) throws IOException {
         if (this.a.size() > 0) {

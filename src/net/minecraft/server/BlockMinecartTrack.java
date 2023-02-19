@@ -153,68 +153,68 @@ public class BlockMinecartTrack extends Block {
             boolean flag1 = true;
 
             switch (j1) {
-            case 0:
-                if (flag) {
-                    ++k;
-                } else {
-                    --k;
-                }
-                break;
+                case 0:
+                    if (flag) {
+                        ++k;
+                    } else {
+                        --k;
+                    }
+                    break;
 
-            case 1:
-                if (flag) {
-                    --i;
-                } else {
-                    ++i;
-                }
-                break;
+                case 1:
+                    if (flag) {
+                        --i;
+                    } else {
+                        ++i;
+                    }
+                    break;
 
-            case 2:
-                if (flag) {
-                    --i;
-                } else {
-                    ++i;
-                    ++j;
-                    flag1 = false;
-                }
+                case 2:
+                    if (flag) {
+                        --i;
+                    } else {
+                        ++i;
+                        ++j;
+                        flag1 = false;
+                    }
 
-                j1 = 1;
-                break;
+                    j1 = 1;
+                    break;
 
-            case 3:
-                if (flag) {
-                    --i;
-                    ++j;
-                    flag1 = false;
-                } else {
-                    ++i;
-                }
+                case 3:
+                    if (flag) {
+                        --i;
+                        ++j;
+                        flag1 = false;
+                    } else {
+                        ++i;
+                    }
 
-                j1 = 1;
-                break;
+                    j1 = 1;
+                    break;
 
-            case 4:
-                if (flag) {
-                    ++k;
-                } else {
-                    --k;
-                    ++j;
-                    flag1 = false;
-                }
+                case 4:
+                    if (flag) {
+                        ++k;
+                    } else {
+                        --k;
+                        ++j;
+                        flag1 = false;
+                    }
 
-                j1 = 0;
-                break;
+                    j1 = 0;
+                    break;
 
-            case 5:
-                if (flag) {
-                    ++k;
-                    ++j;
-                    flag1 = false;
-                } else {
-                    --k;
-                }
+                case 5:
+                    if (flag) {
+                        ++k;
+                        ++j;
+                        flag1 = false;
+                    } else {
+                        --k;
+                    }
 
-                j1 = 0;
+                    j1 = 0;
             }
 
             return this.a(world, i, j, k, flag, i1, j1) ? true : flag1 && this.a(world, i, j - 1, k, flag, i1, j1);

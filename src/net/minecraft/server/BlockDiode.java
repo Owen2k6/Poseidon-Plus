@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class BlockDiode extends Block {
 
-    public static final double[] a = new double[] { -0.0625D, 0.0625D, 0.1875D, 0.3125D};
-    private static final int[] b = new int[] { 1, 2, 3, 4};
+    public static final double[] a = new double[]{-0.0625D, 0.0625D, 0.1875D, 0.3125D};
+    private static final int[] b = new int[]{1, 2, 3, 4};
     private final boolean c;
 
     protected BlockDiode(int i, boolean flag) {
@@ -85,20 +85,20 @@ public class BlockDiode extends Block {
         int i1 = l & 3;
 
         switch (i1) {
-        case 0:
-            return world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) || world.getTypeId(i, j, k + 1) == Block.REDSTONE_WIRE.id && world.getData(i, j, k + 1) > 0;
+            case 0:
+                return world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) || world.getTypeId(i, j, k + 1) == Block.REDSTONE_WIRE.id && world.getData(i, j, k + 1) > 0;
 
-        case 1:
-            return world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) || world.getTypeId(i - 1, j, k) == Block.REDSTONE_WIRE.id && world.getData(i - 1, j, k) > 0;
+            case 1:
+                return world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) || world.getTypeId(i - 1, j, k) == Block.REDSTONE_WIRE.id && world.getData(i - 1, j, k) > 0;
 
-        case 2:
-            return world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) || world.getTypeId(i, j, k - 1) == Block.REDSTONE_WIRE.id && world.getData(i, j, k - 1) > 0;
+            case 2:
+                return world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) || world.getTypeId(i, j, k - 1) == Block.REDSTONE_WIRE.id && world.getData(i, j, k - 1) > 0;
 
-        case 3:
-            return world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5) || world.getTypeId(i + 1, j, k) == Block.REDSTONE_WIRE.id && world.getData(i + 1, j, k) > 0;
+            case 3:
+                return world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5) || world.getTypeId(i + 1, j, k) == Block.REDSTONE_WIRE.id && world.getData(i + 1, j, k) > 0;
 
-        default:
-            return false;
+            default:
+                return false;
         }
     }
 

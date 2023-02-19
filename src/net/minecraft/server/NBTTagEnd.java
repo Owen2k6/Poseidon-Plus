@@ -5,11 +5,14 @@ import java.io.DataOutput;
 
 public class NBTTagEnd extends NBTBase {
 
-    public NBTTagEnd() {}
+    public NBTTagEnd() {
+    }
 
-    void a(DataInput datainput) {}
+    void a(DataInput datainput) {
+    }
 
-    void a(DataOutput dataoutput) {}
+    void a(DataOutput dataoutput) {
+    }
 
     public byte a() {
         return (byte) 0;

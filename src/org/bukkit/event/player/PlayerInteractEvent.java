@@ -53,7 +53,7 @@ public class PlayerInteractEvent extends PlayerEvent implements Cancellable {
     /**
      * Sets the cancellation state of this event. A canceled event will not
      * be executed in the server, but will still pass to other plugins
-     *
+     * <p>
      * Canceling this event will prevent use of food (player won't lose the
      * food item), prevent bows/snowballs/eggs from firing, etc. (player won't
      * lose the ammo)
@@ -141,6 +141,7 @@ public class PlayerInteractEvent extends PlayerEvent implements Cancellable {
     /**
      * This controls the action to take with the block (if any) that was clicked on
      * This event gets processed for all blocks, but most don't have a default action
+     *
      * @return the action to take with the interacted block
      */
     public Result useInteractedBlock() {
@@ -158,6 +159,7 @@ public class PlayerInteractEvent extends PlayerEvent implements Cancellable {
      * This controls the action to take with the item the player is holding
      * This includes both blocks and items (such as flint and steel or records)
      * When this is set to default, it will be allowed if no action is taken on the interacted block
+     *
      * @return the action to take with the item in hand
      */
     public Result useItemInHand() {

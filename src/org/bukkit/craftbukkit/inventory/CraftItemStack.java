@@ -8,9 +8,9 @@ public class CraftItemStack extends ItemStack {
 
     public CraftItemStack(net.minecraft.server.ItemStack item) {
         super(
-            item != null ? item.id: 0,
-            item != null ? item.count : 0,
-            (short)(item != null ? item.damage : 0)
+                item != null ? item.id : 0,
+                item != null ? item.count : 0,
+                (short) (item != null ? item.damage : 0)
         );
         this.item = item;
     }

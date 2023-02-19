@@ -36,17 +36,17 @@ public class Ladder extends SimpleAttachableMaterialData {
         byte data = getData();
 
         switch (data) {
-        case 0x2:
-            return BlockFace.WEST;
+            case 0x2:
+                return BlockFace.WEST;
 
-        case 0x3:
-            return BlockFace.EAST;
+            case 0x3:
+                return BlockFace.EAST;
 
-        case 0x4:
-            return BlockFace.SOUTH;
+            case 0x4:
+                return BlockFace.SOUTH;
 
-        case 0x5:
-            return BlockFace.NORTH;
+            case 0x5:
+                return BlockFace.NORTH;
         }
 
         return null;
@@ -59,21 +59,21 @@ public class Ladder extends SimpleAttachableMaterialData {
         byte data = (byte) 0x0;
 
         switch (face) {
-        case WEST:
-            data = 0x2;
-            break;
+            case WEST:
+                data = 0x2;
+                break;
 
-        case EAST:
-            data = 0x3;
-            break;
+            case EAST:
+                data = 0x3;
+                break;
 
-        case SOUTH:
-            data = 0x4;
-            break;
+            case SOUTH:
+                data = 0x4;
+                break;
 
-        case NORTH:
-            data = 0x5;
-            break;
+            case NORTH:
+                data = 0x5;
+                break;
         }
 
         setData(data);

@@ -5,4 +5,5 @@ package org.bukkit.entity;
  *
  * @author sk89q
  */
-public interface PoweredMinecart extends Minecart {}
+public interface PoweredMinecart extends Minecart {
+}

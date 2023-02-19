@@ -8,7 +8,8 @@ public class Packet9Respawn extends Packet {
 
     public byte a;
 
-    public Packet9Respawn() {}
+    public Packet9Respawn() {
+    }
 
     public Packet9Respawn(byte b0) {
         this.a = b0;

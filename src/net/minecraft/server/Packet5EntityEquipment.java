@@ -11,7 +11,8 @@ public class Packet5EntityEquipment extends Packet {
     public int c;
     public int d;
 
-    public Packet5EntityEquipment() {}
+    public Packet5EntityEquipment() {
+    }
 
     public Packet5EntityEquipment(int i, int j, ItemStack itemstack) {
         this.a = i;

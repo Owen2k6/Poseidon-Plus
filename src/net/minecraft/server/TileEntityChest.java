@@ -10,7 +10,8 @@ public class TileEntityChest extends TileEntity implements IInventory {
     }
     // CraftBukkit end
 
-    public TileEntityChest() {}
+    public TileEntityChest() {
+    }
 
     public int getSize() {
         return 27;

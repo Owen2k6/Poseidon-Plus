@@ -102,10 +102,10 @@ public class LongHashtable<V> extends LongHash {
             if (((Entry) inner[i]).key == key) {
                 for (i++; i < inner.length; i++) {
                     if (inner[i] == null) break;
-                    inner[i-1] = inner[i];
+                    inner[i - 1] = inner[i];
                 }
 
-                inner[i-1] = null;
+                inner[i - 1] = null;
                 this.cache = null;
                 return;
             }
@@ -115,13 +115,13 @@ public class LongHashtable<V> extends LongHash {
     public synchronized ArrayList<V> values() {
         ArrayList<V> ret = new ArrayList<V>();
 
-        for (Object[][] outer: this.values) {
+        for (Object[][] outer : this.values) {
             if (outer == null) continue;
 
-            for (Object[] inner: outer) {
+            for (Object[] inner : outer) {
                 if (inner == null) continue;
 
-                for (Object entry: inner) {
+                for (Object entry : inner) {
                     if (entry == null) break;
 
                     ret.add((V) ((Entry) entry).value);

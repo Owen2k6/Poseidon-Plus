@@ -35,13 +35,13 @@ public interface Inventory {
      * Stores the ItemStack at the given index
      *
      * @param index The index where to put the ItemStack
-     * @param item The ItemStack to set
+     * @param item  The ItemStack to set
      */
     public void setItem(int index, ItemStack item);
 
     /**
      * Stores the given ItemStacks in the inventory.
-     *
+     * <p>
      * This will try to fill existing stacks and empty slots as good as it can.
      * It will return a HashMap of what it couldn't fit.
      *
@@ -52,7 +52,7 @@ public interface Inventory {
 
     /**
      * Removes the given ItemStacks from the inventory.
-     *
+     * <p>
      * It will try to remove 'as much as possible' from the types and amounts you
      * give as arguments. It will return a HashMap of what it couldn't remove.
      *
@@ -104,7 +104,7 @@ public interface Inventory {
      * Check if the inventory contains any ItemStacks with the given materialId and at least the minimum amount specified
      *
      * @param materialId The materialId to check for
-     * @param amount The minimum amount to look for
+     * @param amount     The minimum amount to look for
      * @return If any ItemStacks were found
      */
     public boolean contains(int materialId, int amount);

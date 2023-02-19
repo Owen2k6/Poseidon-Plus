@@ -8,7 +8,8 @@ public class Packet4UpdateTime extends Packet {
 
     public long a;
 
-    public Packet4UpdateTime() {}
+    public Packet4UpdateTime() {
+    }
 
     public Packet4UpdateTime(long i) {
         this.a = i;

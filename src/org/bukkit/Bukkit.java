@@ -27,7 +27,8 @@ public final class Bukkit {
     /**
      * Static class cannot be initialized.
      */
-    private Bukkit() {}
+    private Bukkit() {
+    }
 
     /**
      * Gets the current {@link Server} singleton
@@ -40,7 +41,7 @@ public final class Bukkit {
 
     /**
      * Attempts to set the {@link Server} singleton.
-     *
+     * <p>
      * This cannot be done if the Server is already set.
      *
      * @param server Server instance
@@ -245,7 +246,7 @@ public final class Bukkit {
     public static void unbanIP(String address) {
         server.unbanIP(address);
     }
-    
+
     public static Set<OfflinePlayer> getBannedPlayers() {
         return server.getBannedPlayers();
     }

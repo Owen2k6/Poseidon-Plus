@@ -27,9 +27,11 @@ public class AchievementList {
     public static Achievement t = (new Achievement(14, "killCow", 7, -3, Item.LEATHER, r)).c();
     public static Achievement u = (new Achievement(15, "flyPig", 8, -4, Item.SADDLE, t)).b().c();
 
-    public AchievementList() {}
+    public AchievementList() {
+    }
 
-    public static void a() {}
+    public static void a() {
+    }
 
     static {
         System.out.println(e.size() + " achievements");

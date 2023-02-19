@@ -26,11 +26,12 @@ public interface PluginLoader {
     public Plugin loadPlugin(File file) throws InvalidPluginException, InvalidDescriptionException, UnknownDependencyException;
 
     // Project Poseidon Start
+
     /**
      * Creates listener map for class
      *
      * @param listener listener class
-     * @param plugin plugin
+     * @param plugin   plugin
      * @return Map for all the events in the class
      */
     public Map<Class<? extends Event>, Set<RegisteredListener>> createRegisteredListeners(@NotNull Listener listener, @NotNull final Plugin plugin);
@@ -39,7 +40,7 @@ public interface PluginLoader {
     /**
      * Loads the plugin contained in the specified file
      *
-     * @param file File to attempt to load
+     * @param file                   File to attempt to load
      * @param ignoreSoftDependencies Loader will ignore soft dependencies if this flag is set to true
      * @return Plugin that was contained in the specified file, or null if
      * unsuccessful
@@ -55,14 +56,14 @@ public interface PluginLoader {
     /**
      * Creates and returns an event executor
      *
-     * @param type Type of the event executor to create
+     * @param type     Type of the event executor to create
      * @param listener the object that will handle the eventual call back
      */
     public EventExecutor createExecutor(Event.Type type, Listener listener);
 
     /**
      * Enables the specified plugin
-     *
+     * <p>
      * Attempting to enable a plugin that is already enabled will have no effect
      *
      * @param plugin Plugin to enable
@@ -71,7 +72,7 @@ public interface PluginLoader {
 
     /**
      * Disables the specified plugin
-     *
+     * <p>
      * Attempting to disable a plugin that is not enabled will have no effect
      *
      * @param plugin Plugin to disable

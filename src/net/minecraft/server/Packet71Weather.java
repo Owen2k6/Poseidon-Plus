@@ -12,7 +12,8 @@ public class Packet71Weather extends Packet {
     public int d;
     public int e;
 
-    public Packet71Weather() {}
+    public Packet71Weather() {
+    }
 
     public Packet71Weather(Entity entity) {
         this.a = entity.id;

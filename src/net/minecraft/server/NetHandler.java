@@ -2,15 +2,19 @@ package net.minecraft.server;
 
 public abstract class NetHandler {
 
-    public NetHandler() {}
+    public NetHandler() {
+    }
 
     public abstract boolean c();
 
-    public void a(Packet51MapChunk packet51mapchunk) {}
+    public void a(Packet51MapChunk packet51mapchunk) {
+    }
 
-    public void a(Packet packet) {}
+    public void a(Packet packet) {
+    }
 
-    public void a(String s, Object[] aobject) {}
+    public void a(String s, Object[] aobject) {
+    }
 
     public void a(Packet0KeepAlive packet0KeepAlive) {
         this.a((Packet) packet0KeepAlive);

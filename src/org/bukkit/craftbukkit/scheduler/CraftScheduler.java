@@ -87,7 +87,8 @@ public class CraftScheduler implements BukkitScheduler, Runnable {
             synchronized (schedulerQueue) {
                 try {
                     schedulerQueue.wait(sleepTime);
-                } catch (InterruptedException ie) {}
+                } catch (InterruptedException ie) {
+                }
             }
         }
     }

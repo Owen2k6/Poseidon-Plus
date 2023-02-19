@@ -89,7 +89,8 @@ public class RegionFile {
         return i;
     }
 
-    private void a(String s) {}
+    private void a(String s) {
+    }
 
     private void b(String s) {
         this.a(s + "\n");

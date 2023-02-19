@@ -5,7 +5,7 @@ import org.bukkit.event.Cancellable;
 
 /**
  * Called when an entity combusts due to the sun.
- *<p />
+ * <p/>
  * If an Entity Combust event is cancelled, the entity will not combust.
  */
 public class EntityCombustEvent extends EntityEvent implements Cancellable {

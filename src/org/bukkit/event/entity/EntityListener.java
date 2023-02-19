@@ -8,42 +8,51 @@ import org.bukkit.event.painting.PaintingPlaceEvent;
  * Handles all events fired in relation to entities
  */
 public class EntityListener implements Listener {
-    public EntityListener() {}
+    public EntityListener() {
+    }
 
     /**
      * Called when a creature is spawned into a world.
-     *<p />
+     * <p/>
      * If a Creature Spawn event is cancelled, the creature will not spawn.
      *
      * @param event Relevant event details
      */
-    public void onCreatureSpawn(CreatureSpawnEvent event) {}
+    public void onCreatureSpawn(CreatureSpawnEvent event) {
+    }
 
     /**
      * Called when an item is spawned into a world
      *
      * @param event Relevant event details
      */
-    public void onItemSpawn(ItemSpawnEvent event) {}
+    public void onItemSpawn(ItemSpawnEvent event) {
+    }
 
     /**
      * Called when an entity combusts due to the sun.
-     *<p />
+     * <p/>
      * If an Entity Combust event is cancelled, the entity will not combust.
      *
      * @param event Relevant event details
      */
-    public void onEntityCombust(EntityCombustEvent event) {}
+    public void onEntityCombust(EntityCombustEvent event) {
+    }
 
     /**
      * Called when an entity is damaged
      *
      * @param event Relevant event details
      */
-    public void onEntityDamage(EntityDamageEvent event) {}
+    public void onEntityDamage(EntityDamageEvent event) {
+    }
+
     // Project Poseidon Start
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {}
-    public void onEntityDamageByBlock(EntityDamageByBlockEvent event) {}
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+    }
+
+    public void onEntityDamageByBlock(EntityDamageByBlockEvent event) {
+    }
     // Project Poseidon End
 
     /**
@@ -51,98 +60,112 @@ public class EntityListener implements Listener {
      *
      * @param event Relevant event details
      */
-    public void onEntityExplode(EntityExplodeEvent event) {}
+    public void onEntityExplode(EntityExplodeEvent event) {
+    }
 
     /**
      * Called when an entity's fuse is lit
      *
      * @param event Relevant event details
      */
-    public void onExplosionPrime(ExplosionPrimeEvent event) {}
+    public void onExplosionPrime(ExplosionPrimeEvent event) {
+    }
 
     /**
      * Called when an entity dies
      *
      * @param event Relevant event details
      */
-    public void onEntityDeath(EntityDeathEvent event) {}
+    public void onEntityDeath(EntityDeathEvent event) {
+    }
 
     /**
      * Called when a creature targets another entity
      *
      * @param event Relevant event details
      */
-    public void onEntityTarget(EntityTargetEvent event) {}
+    public void onEntityTarget(EntityTargetEvent event) {
+    }
 
     /**
      * Called when an entity interacts with an object
      *
      * @param event Relevant event details
      */
-    public void onEntityInteract(EntityInteractEvent event) {}
+    public void onEntityInteract(EntityInteractEvent event) {
+    }
 
     /**
      * Called when an entity enters a portal
      *
      * @param event Relevant event details
      */
-    public void onEntityPortalEnter(EntityPortalEnterEvent event) {}
+    public void onEntityPortalEnter(EntityPortalEnterEvent event) {
+    }
 
     /**
      * Called when a painting is placed
      *
      * @param event Relevant event details
      */
-    public void onPaintingPlace(PaintingPlaceEvent event) {}
+    public void onPaintingPlace(PaintingPlaceEvent event) {
+    }
 
     /**
      * Called when a painting is broken
      *
      * @param event Relevant event details
      */
-    public void onPaintingBreak(PaintingBreakEvent event) {}
+    public void onPaintingBreak(PaintingBreakEvent event) {
+    }
 
     /**
      * Called when a Pig is struck by lightning
      *
      * @param event Relevant event details
      */
-    public void onPigZap(PigZapEvent event) {}
+    public void onPigZap(PigZapEvent event) {
+    }
 
     /**
      * Called when a Creeper is struck by lightning.
-     *<p />
+     * <p/>
      * If a Creeper Power event is cancelled, the Creeper will not be powered.
      *
      * @param event Relevant event details
      */
-    public void onCreeperPower(CreeperPowerEvent event) {}
+    public void onCreeperPower(CreeperPowerEvent event) {
+    }
 
     /**
      * Called when an entity is tamed (currently only applies to Wolves)
      *
      * @param event Relevant event details
      */
-    public void onEntityTame(EntityTameEvent event) {}
+    public void onEntityTame(EntityTameEvent event) {
+    }
 
     /**
      * Called when an entity regains health (currently only applies to Players)
      *
      * @param event Relevant event details
      */
-    public void onEntityRegainHealth(EntityRegainHealthEvent event) {}
+    public void onEntityRegainHealth(EntityRegainHealthEvent event) {
+    }
 
     /**
      * Called when a project hits an object
      *
      * @param event Relevant event details
      */
-    public void onProjectileHit(ProjectileHitEvent event) {}
+    public void onProjectileHit(ProjectileHitEvent event) {
+    }
 
     /**
      * Called when an item despawns from a world
      *
      * @param event Relevant event details
      */
-    public void onItemDespawn(ItemDespawnEvent event) {}
+    public void onItemDespawn(ItemDespawnEvent event) {
+    }
 }

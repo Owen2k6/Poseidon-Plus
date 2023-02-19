@@ -12,7 +12,8 @@ public class WorldChunkManager {
     public double[] c;
     public BiomeBase[] d;
 
-    protected WorldChunkManager() {}
+    protected WorldChunkManager() {
+    }
 
     public WorldChunkManager(World world) {
         this.e = new NoiseGeneratorOctaves2(new Random(world.getSeed() * 9871L), 4);
@@ -115,7 +116,7 @@ public class WorldChunkManager {
 
     // CraftBukkit start
     public double getHumidity(int x, int z) {
-        return this.f.a(this.rain, (double)x, (double)z, 1, 1, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D)[0];
+        return this.f.a(this.rain, (double) x, (double) z, 1, 1, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D)[0];
     }
     // CraftBukkit end
 }

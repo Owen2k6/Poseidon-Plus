@@ -1,8 +1,8 @@
 package org.bukkit.craftbukkit;
+
 /**
  * Credits for this class goes to user aioobe on stackoverflow.com
  * Source: http://stackoverflow.com/questions/4454630/j2me-calculate-the-the-distance-between-2-latitude-and-longitude
- *
  */
 public class TrigMath {
 
@@ -30,8 +30,8 @@ public class TrigMath {
 
     private static double msatan(double arg) {
         return arg < sq2m1 ? mxatan(arg)
-             : arg > sq2p1 ? PIO2 - mxatan(1 / arg)
-             : PIO2 / 2 + mxatan((arg - 1) / (arg + 1));
+                : arg > sq2p1 ? PIO2 - mxatan(1 / arg)
+                : PIO2 / 2 + mxatan((arg - 1) / (arg + 1));
     }
 
     public static double atan(double arg) {

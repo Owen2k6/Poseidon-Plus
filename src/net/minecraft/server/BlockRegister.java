@@ -4,7 +4,8 @@ public class BlockRegister {
 
     private static byte[] a = new byte[256];
 
-    public BlockRegister() {}
+    public BlockRegister() {
+    }
 
     public static void a(byte[] abyte) {
         for (int i = 0; i < abyte.length; ++i) {

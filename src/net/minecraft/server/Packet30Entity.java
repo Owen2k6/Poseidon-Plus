@@ -14,7 +14,8 @@ public class Packet30Entity extends Packet {
     public byte f;
     public boolean g = false;
 
-    public Packet30Entity() {}
+    public Packet30Entity() {
+    }
 
     public Packet30Entity(int i) {
         this.a = i;

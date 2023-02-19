@@ -5,7 +5,8 @@ package org.bukkit.entity;
 
 /**
  * Represents a Water Mob
- * @author Cogito
  *
+ * @author Cogito
  */
-public interface WaterMob extends Creature {}
+public interface WaterMob extends Creature {
+}

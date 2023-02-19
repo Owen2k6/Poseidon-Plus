@@ -5,4 +5,5 @@ package org.bukkit.block;
  *
  * @author sk89q
  */
-public interface Chest extends BlockState, ContainerBlock {}
+public interface Chest extends BlockState, ContainerBlock {
+}

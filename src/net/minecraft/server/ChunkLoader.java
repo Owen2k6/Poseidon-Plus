@@ -213,9 +213,12 @@ public class ChunkLoader implements IChunkLoader {
         return chunk;
     }
 
-    public void a() {}
+    public void a() {
+    }
 
-    public void b() {}
+    public void b() {
+    }
 
-    public void b(World world, Chunk chunk) {}
+    public void b(World world, Chunk chunk) {
+    }
 }

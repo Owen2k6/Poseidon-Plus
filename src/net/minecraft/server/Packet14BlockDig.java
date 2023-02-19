@@ -12,7 +12,8 @@ public class Packet14BlockDig extends Packet {
     public int face;
     public int e;
 
-    public Packet14BlockDig() {}
+    public Packet14BlockDig() {
+    }
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.e = datainputstream.read();

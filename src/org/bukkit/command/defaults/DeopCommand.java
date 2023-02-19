@@ -18,7 +18,7 @@ public class DeopCommand extends VanillaCommand {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        if (args.length != 1)  {
+        if (args.length != 1) {
             sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
             return false;
         }
@@ -29,7 +29,7 @@ public class DeopCommand extends VanillaCommand {
         player.setOp(false);
 
         if (player instanceof Player) {
-            ((Player)player).sendMessage(ChatColor.YELLOW + "You are no longer op!");
+            ((Player) player).sendMessage(ChatColor.YELLOW + "You are no longer op!");
         }
 
         return true;

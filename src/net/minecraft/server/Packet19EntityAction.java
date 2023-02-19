@@ -9,7 +9,8 @@ public class Packet19EntityAction extends Packet {
     public int a;
     public int animation;
 
-    public Packet19EntityAction() {}
+    public Packet19EntityAction() {
+    }
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();

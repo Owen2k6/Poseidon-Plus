@@ -68,7 +68,9 @@ public class BlockSapling extends BlockFlower {
     private class BlockChangeWithNotify implements BlockChangeDelegate {
         World world;
 
-        BlockChangeWithNotify(World world) { this.world = world; }
+        BlockChangeWithNotify(World world) {
+            this.world = world;
+        }
 
         public boolean setRawTypeId(int x, int y, int z, int type) {
             return this.world.setTypeId(x, y, z, type);

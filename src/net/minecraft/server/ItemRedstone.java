@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.craftbukkit.block.CraftBlockState;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -58,7 +59,7 @@ public class ItemRedstone extends Item {
                 return false;
             }
 
-            world.update( i, j, k, Block.REDSTONE_WIRE.id); // Must take place after BlockPlaceEvent, we need to update all other blocks.
+            world.update(i, j, k, Block.REDSTONE_WIRE.id); // Must take place after BlockPlaceEvent, we need to update all other blocks.
             // CraftBukkit end
 
             --itemstack.count; // CraftBukkit - ORDER MATTERS

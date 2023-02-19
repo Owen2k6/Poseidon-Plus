@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class WorldGenReed extends WorldGenerator {
 
-    public WorldGenReed() {}
+    public WorldGenReed() {
+    }
 
     public boolean a(World world, Random random, int i, int j, int k) {
         for (int l = 0; l < 20; ++l) {

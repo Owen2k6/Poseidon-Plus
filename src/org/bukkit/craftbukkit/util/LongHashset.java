@@ -68,7 +68,7 @@ public class LongHashset extends LongHash {
             long[] inner = outer[(int) ((key >> 32) & 255)];
             if (inner == null) return false;
 
-            for (long entry: inner) {
+            for (long entry : inner) {
                 if (entry == key) return true;
             }
             return false;
@@ -106,7 +106,7 @@ public class LongHashset extends LongHash {
     public long popFirst() {
         wl.lock();
         try {
-            for (long[][] outer: this.values) {
+            for (long[][] outer : this.values) {
                 if (outer == null) continue;
 
                 for (int i = 0; i < outer.length; i++) {
@@ -131,13 +131,13 @@ public class LongHashset extends LongHash {
         rl.lock();
         try {
             long[] ret = new long[this.count];
-            for (long[][] outer: this.values) {
+            for (long[][] outer : this.values) {
                 if (outer == null) continue;
 
-                for (long[] inner: outer) {
+                for (long[] inner : outer) {
                     if (inner == null) continue;
 
-                    for (long entry: inner) {
+                    for (long entry : inner) {
                         ret[index++] = entry;
                     }
                 }

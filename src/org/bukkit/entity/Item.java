@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack;
  * Represents an Item.
  *
  * @author Cogito
- *
  */
 public interface Item extends Entity {
 

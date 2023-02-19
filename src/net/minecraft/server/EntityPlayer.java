@@ -145,14 +145,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         PlayerDeathEvent event = new PlayerDeathEvent(bukkitEntity, loot);
         this.world.getServer().getPluginManager().callEvent(event);
 
-        if(event.getDeathMessage() != null && !event.getDeathMessage().trim().isEmpty()) {
+        if (event.getDeathMessage() != null && !event.getDeathMessage().trim().isEmpty()) {
             this.b.serverConfigurationManager.sendAll(new Packet3Chat(event.getDeathMessage()));
         }
 
         // CraftBukkit - we clean the player's inventory after the EntityDeathEvent is called so plugins can get the exact state of the inventory.
 
         //Poseidon - Only clear inventory if keep inventory is false
-        if(!event.getKeepInventory()) {
+        if (!event.getKeepInventory()) {
             for (int i = 0; i < this.inventory.items.length; ++i) {
                 this.inventory.items[i] = null;
             }

@@ -11,7 +11,8 @@ public class Packet28EntityVelocity extends Packet {
     public int c;
     public int d;
 
-    public Packet28EntityVelocity() {}
+    public Packet28EntityVelocity() {
+    }
 
     public Packet28EntityVelocity(Entity entity) {
         this(entity.id, entity.motX, entity.motY, entity.motZ);

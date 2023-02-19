@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class WorldGenFire extends WorldGenerator {
 
-    public WorldGenFire() {}
+    public WorldGenFire() {
+    }
 
     public boolean a(World world, Random random, int i, int j, int k) {
         for (int l = 0; l < 64; ++l) {

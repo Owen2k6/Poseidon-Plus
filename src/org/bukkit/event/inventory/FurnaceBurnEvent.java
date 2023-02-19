@@ -4,6 +4,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
+
 /**
  * Called when an ItemStack is successfully burned as fuel in a furnace.
  */

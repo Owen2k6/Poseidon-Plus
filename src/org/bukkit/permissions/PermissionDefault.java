@@ -54,7 +54,7 @@ public enum PermissionDefault {
     public String toString() {
         return names[0];
     }
-    
+
     static {
         for (PermissionDefault value : values()) {
             for (String name : value.names) {

@@ -95,7 +95,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         // CraftBukkit end
 
         //If Poseidon Config DEBUG is enabled, enable debug mode
-        if(options.has("debug-config")) {
+        if (options.has("debug-config")) {
             log.info("[Poseidon] Configuration debug mode has been enabled. This will cause the poseidon.yml to be reloaded every time the server starts.");
             PoseidonConfig.getInstance().resetConfig();
         }
@@ -502,7 +502,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 // CraftBukkit start - only send timeupdates to the people in that world
                 for (int i = 0; i < worldserver.players.size(); ++i) { // Project Poseidon: serverConfigurationManager -> worldserver.players
                     EntityPlayer entityPlayer = (EntityPlayer) worldserver.players.get(i);
-                    if(entityPlayer != null) {
+                    if (entityPlayer != null) {
                         entityPlayer.netServerHandler.sendPacket(new Packet4UpdateTime(entityPlayer.getPlayerTime())); // Add support for per player time
 
                     }

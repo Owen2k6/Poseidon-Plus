@@ -6,7 +6,8 @@ public class EntityFlying extends EntityLiving {
         super(world);
     }
 
-    protected void a(float f) {}
+    protected void a(float f) {
+    }
 
     public void a(float f, float f1) {
         if (this.ad()) {

@@ -1,7 +1,6 @@
 package org.bukkit.event.inventory;
 
-public enum InventoryTransactionType
-{
+public enum InventoryTransactionType {
     ITEM_ADDED,
     ITEM_REMOVED
 }

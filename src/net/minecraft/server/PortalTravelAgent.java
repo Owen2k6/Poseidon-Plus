@@ -12,7 +12,8 @@ public class PortalTravelAgent {
 
     private Random a = new Random();
 
-    public PortalTravelAgent() {}
+    public PortalTravelAgent() {
+    }
 
     public void a(World world, Entity entity) {
         if (!this.b(world, entity)) {

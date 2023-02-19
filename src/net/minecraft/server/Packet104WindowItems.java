@@ -10,7 +10,8 @@ public class Packet104WindowItems extends Packet {
     public int a;
     public ItemStack[] b;
 
-    public Packet104WindowItems() {}
+    public Packet104WindowItems() {
+    }
 
     public Packet104WindowItems(int i, List list) {
         this.a = i;

@@ -31,18 +31,18 @@ public class Stairs extends MaterialData implements Directional {
         byte data = getData();
 
         switch (data) {
-        case 0x0:
-        default:
-            return BlockFace.SOUTH;
+            case 0x0:
+            default:
+                return BlockFace.SOUTH;
 
-        case 0x1:
-            return BlockFace.NORTH;
+            case 0x1:
+                return BlockFace.NORTH;
 
-        case 0x2:
-            return BlockFace.WEST;
+            case 0x2:
+                return BlockFace.WEST;
 
-        case 0x3:
-            return BlockFace.EAST;
+            case 0x3:
+                return BlockFace.EAST;
         }
     }
 
@@ -60,22 +60,22 @@ public class Stairs extends MaterialData implements Directional {
         byte data;
 
         switch (face) {
-        case NORTH:
-        default:
-            data = 0x0;
-            break;
+            case NORTH:
+            default:
+                data = 0x0;
+                break;
 
-        case SOUTH:
-            data = 0x1;
-            break;
+            case SOUTH:
+                data = 0x1;
+                break;
 
-        case EAST:
-            data = 0x2;
-            break;
+            case EAST:
+                data = 0x2;
+                break;
 
-        case WEST:
-            data = 0x3;
-            break;
+            case WEST:
+                data = 0x3;
+                break;
         }
 
         setData(data);

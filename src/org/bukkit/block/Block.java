@@ -23,12 +23,14 @@ public interface Block {
     /**
      * @deprecated use {@link #getRelative(BlockFace face)}
      */
-    @Deprecated Block getFace(BlockFace face);
+    @Deprecated
+    Block getFace(BlockFace face);
 
     /**
      * @deprecated use {@link #getRelative(BlockFace face, int distance)}
      */
-    @Deprecated Block getFace(BlockFace face, int distance);
+    @Deprecated
+    Block getFace(BlockFace face, int distance);
 
     /**
      * Gets the block at the given offsets
@@ -62,7 +64,7 @@ public interface Block {
      * shower.setType(Material.WATER);
      * </pre>
      *
-     * @param face Face of this block to return
+     * @param face     Face of this block to return
      * @param distance Distance to get the block at
      * @return Block at the given face
      */
@@ -181,7 +183,7 @@ public interface Block {
     /**
      * Captures the current state of this block. You may then cast that state
      * into any accepted type, such as Furnace or Sign.
-     *
+     * <p>
      * The returned object will never be updated, and you are not guaranteed that
      * (for example) a sign is still a sign after you capture its state.
      *
@@ -241,7 +243,7 @@ public interface Block {
 
     /**
      * Checks if this block is empty.
-     *
+     * <p>
      * A block is considered empty when {@link #getType()} returns {@link Material#AIR}.
      *
      * @return true if this block is empty
@@ -250,7 +252,7 @@ public interface Block {
 
     /**
      * Checks if this block is liquid.
-     *
+     * <p>
      * A block is considered liquid when {@link #getType()} returns {@link Material#WATER}, {@link Material#STATIONARY_WATER}, {@link Material#LAVA} or {@link Material#STATIONARY_LAVA}.
      *
      * @return true if this block is liquid

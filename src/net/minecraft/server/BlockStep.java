@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockStep extends Block {
 
-    public static final String[] a = new String[] { "stone", "sand", "wood", "cobble"};
+    public static final String[] a = new String[]{"stone", "sand", "wood", "cobble"};
     private boolean b;
 
     public BlockStep(int i, boolean flag) {

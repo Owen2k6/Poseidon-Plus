@@ -6,7 +6,6 @@
 package org.bukkit.craftbukkit.util;
 
 /**
- *
  * @author Nathan
  */
 public abstract class LongHash {

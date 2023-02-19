@@ -127,12 +127,12 @@ public final class ItemStack {
     public void damage(int i, Entity entity) {
         if (this.d()) {
             if (entity instanceof EntityPlayer) {
-                PlayerItemDamageEvent event = new PlayerItemDamageEvent((Player)entity.getBukkitEntity(), new CraftItemStack(this), i);
+                PlayerItemDamageEvent event = new PlayerItemDamageEvent((Player) entity.getBukkitEntity(), new CraftItemStack(this), i);
                 event.getPlayer().getServer().getPluginManager().callEvent(event);
                 if (i != event.getDamage() || event.isCancelled())
-                    event.getPlayer().updateInventory(); 
+                    event.getPlayer().updateInventory();
                 if (event.isCancelled())
-                    return; 
+                    return;
                 i = event.getDamage();
             }
             this.damage += i;
@@ -175,7 +175,8 @@ public final class ItemStack {
         return Item.byId[this.id].a(block);
     }
 
-    public void a(EntityHuman entityhuman) {}
+    public void a(EntityHuman entityhuman) {
+    }
 
     public void a(EntityLiving entityliving) {
         Item.byId[this.id].a(this, entityliving);

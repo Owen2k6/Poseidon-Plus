@@ -7,7 +7,8 @@ public final class CommandPermissions {
     private static final String ROOT = "bukkit.command";
     private static final String PREFIX = ROOT + ".";
 
-    private CommandPermissions() {}
+    private CommandPermissions() {
+    }
 
     private static Permission registerWhitelist(Permission parent) {
         Permission whitelist = DefaultPermissions.registerPermission(PREFIX + "whitelist", "Allows the user to modify the server whitelist", PermissionDefault.OP, parent);

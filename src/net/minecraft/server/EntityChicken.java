@@ -48,7 +48,8 @@ public class EntityChicken extends EntityAnimal {
         }
     }
 
-    protected void a(float f) {}
+    protected void a(float f) {
+    }
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);

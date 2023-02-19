@@ -36,7 +36,8 @@ public abstract class JavaPlugin implements Plugin {
     private boolean naggable = true;
     private EbeanServer ebean = null;
 
-    public JavaPlugin() {}
+    public JavaPlugin() {
+    }
 
     /**
      * Returns the folder that the plugin data's files are located in. The
@@ -133,19 +134,19 @@ public abstract class JavaPlugin implements Plugin {
 
     /**
      * Initializes this plugin with the given variables.
-     *
+     * <p>
      * This method should never be called manually.
      *
-     * @param loader PluginLoader that is responsible for this plugin
-     * @param server Server instance that is running this plugin
+     * @param loader      PluginLoader that is responsible for this plugin
+     * @param server      Server instance that is running this plugin
      * @param description PluginDescriptionFile containing metadata on this plugin
-     * @param dataFolder Folder containing the plugin's data
-     * @param file File containing this plugin
+     * @param dataFolder  Folder containing the plugin's data
+     * @param file        File containing this plugin
      * @param classLoader ClassLoader which holds this plugin
      */
     protected final void initialize(PluginLoader loader, Server server,
-            PluginDescriptionFile description, File dataFolder, File file,
-            ClassLoader classLoader) {
+                                    PluginDescriptionFile description, File dataFolder, File file,
+                                    ClassLoader classLoader) {
         if (!initialized) {
             this.initialized = true;
             this.loader = loader;
@@ -232,7 +233,8 @@ public abstract class JavaPlugin implements Plugin {
         }
     }
 
-    public void onLoad() {} // Empty!
+    public void onLoad() {
+    } // Empty!
 
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         getServer().getLogger().severe("Plugin " + getDescription().getFullName() + " does not contain any generators that may be used in the default world!");

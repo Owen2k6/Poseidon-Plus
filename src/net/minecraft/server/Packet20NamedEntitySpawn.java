@@ -15,7 +15,8 @@ public class Packet20NamedEntitySpawn extends Packet {
     public byte g;
     public int h;
 
-    public Packet20NamedEntitySpawn() {}
+    public Packet20NamedEntitySpawn() {
+    }
 
     public Packet20NamedEntitySpawn(EntityHuman entityhuman) {
         this.a = entityhuman.id;

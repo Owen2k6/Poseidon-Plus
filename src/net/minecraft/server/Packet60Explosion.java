@@ -15,7 +15,8 @@ public class Packet60Explosion extends Packet {
     public float d;
     public Set e;
 
-    public Packet60Explosion() {}
+    public Packet60Explosion() {
+    }
 
     public Packet60Explosion(double d0, double d1, double d2, float f, Set set) {
         this.a = d0;

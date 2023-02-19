@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class WorldGenLightStone1 extends WorldGenerator {
 
-    public WorldGenLightStone1() {}
+    public WorldGenLightStone1() {
+    }
 
     public boolean a(World world, Random random, int i, int j, int k) {
         if (!world.isEmpty(i, j, k)) {

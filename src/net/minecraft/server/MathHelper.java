@@ -4,7 +4,8 @@ public class MathHelper {
 
     private static float[] a = new float[65536];
 
-    public MathHelper() {}
+    public MathHelper() {
+    }
 
     public static final float sin(float f) {
         return a[(int) (f * 10430.378F) & '\uffff'];

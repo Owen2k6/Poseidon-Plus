@@ -20,7 +20,7 @@ public class EntityMinecart extends Entity implements IInventory {
     public int e;
     public double f;
     public double g;
-    private static final int[][][] matrix = new int[][][] { { { 0, 0, -1}, { 0, 0, 1}}, { { -1, 0, 0}, { 1, 0, 0}}, { { -1, -1, 0}, { 1, 0, 0}}, { { -1, 0, 0}, { 1, -1, 0}}, { { 0, 0, -1}, { 0, -1, 1}}, { { 0, -1, -1}, { 0, 0, 1}}, { { 0, 0, 1}, { 1, 0, 0}}, { { 0, 0, 1}, { -1, 0, 0}}, { { 0, 0, -1}, { -1, 0, 0}}, { { 0, 0, -1}, { 1, 0, 0}}};
+    private static final int[][][] matrix = new int[][][]{{{0, 0, -1}, {0, 0, 1}}, {{-1, 0, 0}, {1, 0, 0}}, {{-1, -1, 0}, {1, 0, 0}}, {{-1, 0, 0}, {1, -1, 0}}, {{0, 0, -1}, {0, -1, 1}}, {{0, -1, -1}, {0, 0, 1}}, {{0, 0, 1}, {1, 0, 0}}, {{0, 0, 1}, {-1, 0, 0}}, {{0, 0, -1}, {-1, 0, 0}}, {{0, 0, -1}, {1, 0, 0}}};
     private int k;
     private double l;
     private double m;
@@ -59,7 +59,8 @@ public class EntityMinecart extends Entity implements IInventory {
         return false;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public AxisAlignedBB a_(Entity entity) {
         return entity.boundingBox;
@@ -837,7 +838,8 @@ public class EntityMinecart extends Entity implements IInventory {
         return 64;
     }
 
-    public void update() {}
+    public void update() {
+    }
 
     public boolean a(EntityHuman entityhuman) {
         if (this.type == 0) {

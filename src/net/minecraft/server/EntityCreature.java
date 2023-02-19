@@ -179,9 +179,11 @@ public class EntityCreature extends EntityLiving {
         }
     }
 
-    protected void a(Entity entity, float f) {}
+    protected void a(Entity entity, float f) {
+    }
 
-    protected void b(Entity entity, float f) {}
+    protected void b(Entity entity, float f) {
+    }
 
     protected float a(int i, int j, int k) {
         return 0.0F;

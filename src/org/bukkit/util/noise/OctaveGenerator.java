@@ -16,7 +16,7 @@ public abstract class OctaveGenerator {
 
     /**
      * Sets the scale used for all coordinates passed to this generator.
-     *
+     * <p>
      * This is the equivalent to setting each coordinate to the specified value.
      *
      * @param scale New value to scale each coordinate by
@@ -93,7 +93,7 @@ public abstract class OctaveGenerator {
     /**
      * Generates noise for the 1D coordinates using the specified number of octaves and parameters
      *
-     * @param x X-coordinate
+     * @param x         X-coordinate
      * @param frequency How much to alter the frequency by each octave
      * @param amplitude How much to alter the amplitude by each octave
      * @return Resulting noise
@@ -105,9 +105,9 @@ public abstract class OctaveGenerator {
     /**
      * Generates noise for the 1D coordinates using the specified number of octaves and parameters
      *
-     * @param x X-coordinate
-     * @param frequency How much to alter the frequency by each octave
-     * @param amplitude How much to alter the amplitude by each octave
+     * @param x          X-coordinate
+     * @param frequency  How much to alter the frequency by each octave
+     * @param amplitude  How much to alter the amplitude by each octave
      * @param normalized If true, normalize the value to [-1, 1]
      * @return Resulting noise
      */
@@ -118,8 +118,8 @@ public abstract class OctaveGenerator {
     /**
      * Generates noise for the 2D coordinates using the specified number of octaves and parameters
      *
-     * @param x X-coordinate
-     * @param y Y-coordinate
+     * @param x         X-coordinate
+     * @param y         Y-coordinate
      * @param frequency How much to alter the frequency by each octave
      * @param amplitude How much to alter the amplitude by each octave
      * @return Resulting noise
@@ -131,10 +131,10 @@ public abstract class OctaveGenerator {
     /**
      * Generates noise for the 2D coordinates using the specified number of octaves and parameters
      *
-     * @param x X-coordinate
-     * @param y Y-coordinate
-     * @param frequency How much to alter the frequency by each octave
-     * @param amplitude How much to alter the amplitude by each octave
+     * @param x          X-coordinate
+     * @param y          Y-coordinate
+     * @param frequency  How much to alter the frequency by each octave
+     * @param amplitude  How much to alter the amplitude by each octave
      * @param normalized If true, normalize the value to [-1, 1]
      * @return Resulting noise
      */
@@ -145,9 +145,9 @@ public abstract class OctaveGenerator {
     /**
      * Generates noise for the 3D coordinates using the specified number of octaves and parameters
      *
-     * @param x X-coordinate
-     * @param y Y-coordinate
-     * @param z Z-coordinate
+     * @param x         X-coordinate
+     * @param y         Y-coordinate
+     * @param z         Z-coordinate
      * @param frequency How much to alter the frequency by each octave
      * @param amplitude How much to alter the amplitude by each octave
      * @return Resulting noise
@@ -159,11 +159,11 @@ public abstract class OctaveGenerator {
     /**
      * Generates noise for the 3D coordinates using the specified number of octaves and parameters
      *
-     * @param x X-coordinate
-     * @param y Y-coordinate
-     * @param z Z-coordinate
-     * @param frequency How much to alter the frequency by each octave
-     * @param amplitude How much to alter the amplitude by each octave
+     * @param x          X-coordinate
+     * @param y          Y-coordinate
+     * @param z          Z-coordinate
+     * @param frequency  How much to alter the frequency by each octave
+     * @param amplitude  How much to alter the amplitude by each octave
      * @param normalized If true, normalize the value to [-1, 1]
      * @return Resulting noise
      */

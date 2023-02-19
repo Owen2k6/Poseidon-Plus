@@ -21,7 +21,7 @@ public class PluginsCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        
+
         sender.sendMessage(ChatColor.GRAY + "Plugins" + getPluginList());
         return true;
     }

@@ -64,19 +64,19 @@ public class PermissionAttachment {
 
     /**
      * Gets a copy of all set permissions and values contained within this attachment.
-     *
+     * <p>
      * This map may be modified but will not affect the attachment, as it is a copy.
      *
      * @return Copy of all permissions and values expressed by this attachment
      */
     public Map<String, Boolean> getPermissions() {
-        return (Map<String, Boolean>)permissions.clone();
+        return (Map<String, Boolean>) permissions.clone();
     }
 
     /**
      * Sets a permission to the given value, by its fully qualified name
      *
-     * @param name Name of the permission
+     * @param name  Name of the permission
      * @param value New value of the permission
      */
     public void setPermission(String name, boolean value) {
@@ -87,7 +87,7 @@ public class PermissionAttachment {
     /**
      * Sets a permission to the given value
      *
-     * @param perm Permission to set
+     * @param perm  Permission to set
      * @param value New value of the permission
      */
     public void setPermission(Permission perm, boolean value) {
@@ -97,7 +97,7 @@ public class PermissionAttachment {
 
     /**
      * Removes the specified permission from this attachment.
-     *
+     * <p>
      * If the permission does not exist in this attachment, nothing will happen.
      *
      * @param name Name of the permission to remove
@@ -109,7 +109,7 @@ public class PermissionAttachment {
 
     /**
      * Removes the specified permission from this attachment.
-     *
+     * <p>
      * If the permission does not exist in this attachment, nothing will happen.
      *
      * @param perm Permission to remove

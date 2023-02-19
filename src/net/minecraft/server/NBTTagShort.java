@@ -8,7 +8,8 @@ public class NBTTagShort extends NBTBase {
 
     public short a;
 
-    public NBTTagShort() {}
+    public NBTTagShort() {
+    }
 
     public NBTTagShort(short short1) {
         this.a = short1;

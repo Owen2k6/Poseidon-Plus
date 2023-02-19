@@ -8,7 +8,8 @@ public class PlayerList {
     private final float d = 0.75F;
     private transient volatile int e;
 
-    public PlayerList() {}
+    public PlayerList() {
+    }
 
     private static int e(long i) {
         return a((int) (i ^ i >>> 32));

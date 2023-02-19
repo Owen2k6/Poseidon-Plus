@@ -17,7 +17,7 @@ public class KickCommand extends VanillaCommand {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        if (args.length < 1)  {
+        if (args.length < 1) {
             sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
             return false;
         }

@@ -13,7 +13,8 @@ public class Packet34EntityTeleport extends Packet {
     public byte e;
     public byte f;
 
-    public Packet34EntityTeleport() {}
+    public Packet34EntityTeleport() {
+    }
 
     public Packet34EntityTeleport(Entity entity) {
         this.a = entity.id;

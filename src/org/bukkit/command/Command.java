@@ -40,9 +40,9 @@ public abstract class Command {
     /**
      * Executes the command, returning its success
      *
-     * @param sender Source object which is executing this command
+     * @param sender       Source object which is executing this command
      * @param commandLabel The alias of the command used
-     * @param args All arguments passed to the command, split via ' '
+     * @param args         All arguments passed to the command, split via ' '
      * @return true if the command was successful, otherwise false
      */
     public abstract boolean execute(CommandSender sender, String commandLabel, String[] args);
@@ -76,7 +76,7 @@ public abstract class Command {
 
     /**
      * Tests the given {@link CommandSender} to see if they can perform this command.
-     *
+     * <p>
      * If they do not have permission, they will be informed that they cannot do this.
      *
      * @param target User to test
@@ -237,7 +237,7 @@ public abstract class Command {
 
         for (Permissible user : users) {
             if (user instanceof CommandSender) {
-                CommandSender target = (CommandSender)user;
+                CommandSender target = (CommandSender) user;
 
                 if (target instanceof ConsoleCommandSender) {
                     target.sendMessage(result);

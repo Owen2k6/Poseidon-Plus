@@ -30,7 +30,8 @@ public class EntityEgg extends Entity {
         this.b(0.25F, 0.25F);
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public EntityEgg(World world, EntityLiving entityliving) {
         super(world);

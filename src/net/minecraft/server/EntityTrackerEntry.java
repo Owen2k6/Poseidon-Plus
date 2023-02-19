@@ -63,8 +63,8 @@ public class EntityTrackerEntry {
 
         ++this.t;
         if (++this.l % this.c == 0) {
-        	// encoded means multiplied by 32
-        	// this is required to send it to the client, as the relative position is sent as the float multiplied by 32
+            // encoded means multiplied by 32
+            // this is required to send it to the client, as the relative position is sent as the float multiplied by 32
             int newEncodedPosX = MathHelper.floor(this.tracker.locX * 32.0D);
             int newEncodedPosY = MathHelper.floor(this.tracker.locY * 32.0D);
             int newEncodedPosZ = MathHelper.floor(this.tracker.locZ * 32.0D);
@@ -79,14 +79,14 @@ public class EntityTrackerEntry {
             int movementUpdateTreshold = 1;
             int rotationUpdateTreshold = 1;
             boolean needsPositionUpdate = Math.abs(encodedDiffX) >= movementUpdateTreshold || Math.abs(encodedDiffY) >= movementUpdateTreshold || Math.abs(encodedDiffZ) >= movementUpdateTreshold
-            		|| tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
-            
+                    || tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
+
             boolean needsRotationUpdate = Math.abs(newEncodedRotationYaw - this.g) >= rotationUpdateTreshold || Math.abs(newEncodedRotationPitch - this.h) >= rotationUpdateTreshold;
 
             if (encodedDiffX >= -128 && encodedDiffX < 128 && encodedDiffY >= -128 && encodedDiffY < 128 && encodedDiffZ >= -128 && encodedDiffZ < 128 && this.t <= 400) {
-            	// entity has moved less than 4 blocks
+                // entity has moved less than 4 blocks
                 if (needsPositionUpdate && needsRotationUpdate) {
-                	packet = new Packet33RelEntityMoveLook(this.tracker.id, (byte) encodedDiffX, (byte) encodedDiffY, (byte) encodedDiffZ, (byte) newEncodedRotationYaw, (byte) newEncodedRotationPitch);
+                    packet = new Packet33RelEntityMoveLook(this.tracker.id, (byte) encodedDiffX, (byte) encodedDiffY, (byte) encodedDiffZ, (byte) newEncodedRotationYaw, (byte) newEncodedRotationPitch);
                 } else if (needsPositionUpdate) {
                     packet = new Packet31RelEntityMove(this.tracker.id, (byte) encodedDiffX, (byte) encodedDiffY, (byte) encodedDiffZ);
                 } else if (needsRotationUpdate) {
@@ -143,22 +143,21 @@ public class EntityTrackerEntry {
             // CraftBukkit start - create PlayerVelocity event
             boolean cancelled = false;
 
-            if(this.tracker instanceof EntityPlayer) {
+            if (this.tracker instanceof EntityPlayer) {
                 org.bukkit.entity.Player player = (org.bukkit.entity.Player) this.tracker.getBukkitEntity();
                 org.bukkit.util.Vector velocity = player.getVelocity();
 
                 org.bukkit.event.player.PlayerVelocityEvent event = new org.bukkit.event.player.PlayerVelocityEvent(player, velocity);
                 this.tracker.world.getServer().getPluginManager().callEvent(event);
 
-                if(event.isCancelled()) {
+                if (event.isCancelled()) {
                     cancelled = true;
-                }
-                else if(!velocity.equals(event.getVelocity())) {
+                } else if (!velocity.equals(event.getVelocity())) {
                     player.setVelocity(velocity);
                 }
             }
 
-            if(!cancelled) {
+            if (!cancelled) {
                 this.b((Packet) (new Packet28EntityVelocity(this.tracker)));
             }
             // CraftBukkit end

@@ -13,7 +13,8 @@ public class BlockPistonMoving extends BlockContainer {
         return null;
     }
 
-    public void c(World world, int i, int j, int k) {}
+    public void c(World world, int i, int j, int k) {
+    }
 
     public void remove(World world, int i, int j, int k) {
         TileEntity tileentity = world.getTileEntity(i, j, k);

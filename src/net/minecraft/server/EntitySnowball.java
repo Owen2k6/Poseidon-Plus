@@ -28,7 +28,8 @@ public class EntitySnowball extends Entity {
         this.b(0.25F, 0.25F);
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public EntitySnowball(World world, EntityLiving entityliving) {
         super(world);

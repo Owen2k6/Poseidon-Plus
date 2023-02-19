@@ -10,7 +10,8 @@ public class Packet106Transaction extends Packet {
     public short b;
     public boolean c;
 
-    public Packet106Transaction() {}
+    public Packet106Transaction() {
+    }
 
     public Packet106Transaction(int i, short short1, boolean flag) {
         this.a = i;

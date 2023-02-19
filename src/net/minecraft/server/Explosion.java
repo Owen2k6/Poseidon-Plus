@@ -104,7 +104,7 @@ public class Explosion {
          * optimizedExplosions: false
          */
         boolean optimizeExplosions = (boolean) PoseidonConfig.getInstance().getProperty("world-settings.optimized-explosions");
-        
+
         for (int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = (Entity) list.get(k2);
             double d7 = entity.f(this.posX, this.posY, this.posZ) / (double) this.size;
@@ -120,9 +120,9 @@ public class Explosion {
                 d2 /= d8;
                 double d9;
                 if (optimizeExplosions) {
-                	d9 = this.getBlockDensity(vec3d, entity); // Paper - Optimize explosions
+                    d9 = this.getBlockDensity(vec3d, entity); // Paper - Optimize explosions
                 } else {
-                	d9 = (double) this.world.a(vec3d, entity.boundingBox);
+                    d9 = (double) this.world.a(vec3d, entity.boundingBox);
                 }
                 double d10 = (1.0D - d7) * d9;
 
@@ -213,7 +213,7 @@ public class Explosion {
         //Credit to Notcz in Modification Station
         arraylist.clear();
         this.blocks.clear();
-        for(final org.bukkit.block.Block block2: event.blockList()) {
+        for (final org.bukkit.block.Block block2 : event.blockList()) {
             final ChunkPosition coords = new ChunkPosition(block2.getX(), block2.getY(), block2.getZ());
             arraylist.add(coords);
             this.blocks.add(coords);
@@ -259,7 +259,7 @@ public class Explosion {
             }
         }
     }
-    
+
     // Paper start - Optimize explosions
     private float getBlockDensity(Vec3D vec3d, Entity entity) {
         /*if (!this.world.paperConfig.optimizeExplosions) {

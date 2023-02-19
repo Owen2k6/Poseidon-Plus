@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public class Packet31RelEntityMove extends Packet30Entity {
 
-    public Packet31RelEntityMove() {}
+    public Packet31RelEntityMove() {
+    }
 
     public Packet31RelEntityMove(int i, byte b0, byte b1, byte b2) {
         super(i);

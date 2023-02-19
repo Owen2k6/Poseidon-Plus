@@ -11,7 +11,8 @@ public class Packet1Login extends Packet {
     public long c;
     public byte d;
 
-    public Packet1Login() {}
+    public Packet1Login() {
+    }
 
     public Packet1Login(String s, int i, long j, byte b0) {
         this.name = s;

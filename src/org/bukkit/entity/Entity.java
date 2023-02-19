@@ -145,24 +145,28 @@ public interface Entity {
 
     /**
      * Returns the distance this entity has fallen
+     *
      * @return
      */
     public float getFallDistance();
 
     /**
      * Sets the fall distance for this entity
+     *
      * @param distance
      */
     public void setFallDistance(float distance);
 
     /**
      * Record the last {@link EntityDamageEvent} inflicted on this entity
+     *
      * @param event a {@link EntityDamageEvent}
      */
     public void setLastDamageCause(EntityDamageEvent event);
 
     /**
      * Retrieve the last {@link EntityDamageEvent} inflicted on this entity. This event may have been cancelled.
+     *
      * @return the last known {@link EntityDamageEvent} or null if hitherto unharmed
      */
     public EntityDamageEvent getLastDamageCause();

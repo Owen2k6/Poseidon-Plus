@@ -12,7 +12,8 @@ public class Packet15Place extends Packet {
     public int face;
     public ItemStack itemstack;
 
-    public Packet15Place() {}
+    public Packet15Place() {
+    }
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();

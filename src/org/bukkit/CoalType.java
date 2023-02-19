@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Represents the two types of coal
+ *
  * @author sunkid
  */
 public enum CoalType {
@@ -30,10 +31,9 @@ public enum CoalType {
     /**
      * Gets the type of coal with the given data value
      *
-     * @param data
-     *            Data value to fetch
+     * @param data Data value to fetch
      * @return The {@link CoalType} representing the given value, or null if
-     *         it doesn't exist
+     * it doesn't exist
      */
     public static CoalType getByData(final byte data) {
         return types.get(data);

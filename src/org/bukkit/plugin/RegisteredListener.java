@@ -32,6 +32,7 @@ public class RegisteredListener {
 
     /**
      * Gets the listener for this registration
+     *
      * @return Registered Listener
      */
     public Listener getListener() {
@@ -40,6 +41,7 @@ public class RegisteredListener {
 
     /**
      * Gets the plugin for this registration
+     *
      * @return Registered Plugin
      */
     public Plugin getPlugin() {
@@ -48,6 +50,7 @@ public class RegisteredListener {
 
     /**
      * Gets the priority for this registration
+     *
      * @return Registered Priority
      */
     public Event.Priority getPriority() {
@@ -56,6 +59,7 @@ public class RegisteredListener {
 
     /**
      * Calls the event executor
+     *
      * @return Registered Priority
      */
     public void callEvent(Event event) {

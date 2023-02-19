@@ -15,7 +15,7 @@ public class BlockFence extends Block {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        if(!modernFencingBounding) {
+        if (!modernFencingBounding) {
             return AxisAlignedBB.b((double) i, (double) j, (double) k, (double) (i + 1), (double) ((float) j + 1.5F), (double) (k + 1));
         }
 

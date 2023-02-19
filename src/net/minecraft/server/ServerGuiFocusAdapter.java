@@ -11,5 +11,6 @@ class ServerGuiFocusAdapter extends FocusAdapter {
         this.a = servergui;
     }
 
-    public void focusGained(FocusEvent focusevent) {}
+    public void focusGained(FocusEvent focusevent) {
+    }
 }

@@ -27,7 +27,7 @@ public class WorldMapCollection {
 
                     if (file1 != null && file1.exists()) {
                         try {
-                            worldmapbase = (WorldMapBase) oclass.getConstructor(new Class[] { String.class}).newInstance(new Object[] { s});
+                            worldmapbase = (WorldMapBase) oclass.getConstructor(new Class[]{String.class}).newInstance(new Object[]{s});
                         } catch (Exception exception) {
                             throw new RuntimeException("Failed to instantiate " + oclass.toString(), exception);
                         }

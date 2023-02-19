@@ -41,7 +41,7 @@ public class Chunk {
 
         // CraftBukkit start
         org.bukkit.craftbukkit.CraftWorld cworld = this.world.getWorld();
-            this.bukkitChunk = new org.bukkit.craftbukkit.CraftChunk(this);
+        this.bukkitChunk = new org.bukkit.craftbukkit.CraftChunk(this);
     }
 
     public org.bukkit.Chunk bukkitChunk;
@@ -63,7 +63,8 @@ public class Chunk {
         return this.heightMap[j << 4 | i] & 255;
     }
 
-    public void a() {}
+    public void a() {
+    }
 
     public void initLighting() {
         int i = 127;
@@ -113,7 +114,8 @@ public class Chunk {
         this.o = true;
     }
 
-    public void loadNOP() {}
+    public void loadNOP() {
+    }
 
     private void c(int i, int j) {
         int k = this.b(i, j);

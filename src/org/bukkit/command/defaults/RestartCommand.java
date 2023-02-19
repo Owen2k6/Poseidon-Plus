@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 public class RestartCommand extends VanillaCommand {
 
     String shuttingDownMessage = "&bServer is restarting, please reconnect in a few minutes.";
+
     public RestartCommand() {
         super("restart");
         this.description = "*Restarts* the server";
@@ -30,7 +31,8 @@ public class RestartCommand extends VanillaCommand {
         ((CraftServer) Bukkit.getServer()).setShuttingdown(true);
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.saveData();
-            player.kickPlayer((ChatColor.translateAlternateColorCodes('&', shuttingDownMessage)));;
+            player.kickPlayer((ChatColor.translateAlternateColorCodes('&', shuttingDownMessage)));
+            ;
         }
         for (World world : Bukkit.getWorlds()) {
             world.save();

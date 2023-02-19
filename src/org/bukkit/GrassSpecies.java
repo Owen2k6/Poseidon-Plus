@@ -40,10 +40,9 @@ public enum GrassSpecies {
     /**
      * Gets the GrassSpecies with the given data value
      *
-     * @param data
-     *            Data value to fetch
+     * @param data Data value to fetch
      * @return The {@link GrassSpecies} representing the given value, or null if
-     *         it doesn't exist
+     * it doesn't exist
      */
     public static GrassSpecies getByData(final byte data) {
         return species.get(data);

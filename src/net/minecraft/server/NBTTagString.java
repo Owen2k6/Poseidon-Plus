@@ -8,7 +8,8 @@ public class NBTTagString extends NBTBase {
 
     public String a;
 
-    public NBTTagString() {}
+    public NBTTagString() {
+    }
 
     public NBTTagString(String s) {
         this.a = s;

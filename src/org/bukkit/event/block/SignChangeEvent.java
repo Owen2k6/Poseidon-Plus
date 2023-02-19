@@ -6,7 +6,7 @@ import org.bukkit.event.Cancellable;
 
 /**
  * Called when a sign is changed by a player.
- * <p />
+ * <p/>
  * If a Sign Change event is cancelled, the sign will not be changed.
  */
 public class SignChangeEvent extends BlockEvent implements Cancellable {
@@ -53,7 +53,7 @@ public class SignChangeEvent extends BlockEvent implements Cancellable {
      * Sets a single line for the sign involved in this event
      *
      * @param index index of the line to set
-     * @param line text to set
+     * @param line  text to set
      * @throws IndexOutOfBoundsException thrown when the provided index is > 4 and < 0
      */
     public void setLine(int index, String line) throws IndexOutOfBoundsException {

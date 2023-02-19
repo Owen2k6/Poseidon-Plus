@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Represents the different growth states of crops
+ *
  * @author sunkid
  */
 public enum CropState {
@@ -61,10 +62,9 @@ public enum CropState {
     /**
      * Gets the CropState with the given data value
      *
-     * @param data
-     *            Data value to fetch
+     * @param data Data value to fetch
      * @return The {@link CropState} representing the given value, or null if
-     *         it doesn't exist
+     * it doesn't exist
      */
     public static CropState getByData(final byte data) {
         return states.get(data);

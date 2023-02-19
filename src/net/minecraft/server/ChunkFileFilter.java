@@ -9,7 +9,8 @@ class ChunkFileFilter implements FileFilter {
 
     public static final Pattern a = Pattern.compile("[0-9a-z]|([0-9a-z][0-9a-z])");
 
-    private ChunkFileFilter() {}
+    private ChunkFileFilter() {
+    }
 
     public boolean accept(File file1) {
         if (file1.isDirectory()) {

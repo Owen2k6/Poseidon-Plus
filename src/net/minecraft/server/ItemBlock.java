@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+
 import org.bukkit.craftbukkit.block.CraftBlockState;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -72,15 +73,15 @@ public class ItemBlock extends Item {
             }
 
             /**
-            * @see net.minecraft.server.World#setTypeIdAndData(int i, int j, int k, int l, int i1)
-            *
-            * This replaces world.setTypeIdAndData(IIIII), we're doing this because we need to
-            * hook between the 'placement' and the informing to 'world' so we can
-            * sanely undo this.
-            *
-            * Whenever the call to 'world.setTypeIdAndData' changes we need to figure out again what to
-            * replace this with.
-            */
+             * @see net.minecraft.server.World#setTypeIdAndData(int i, int j, int k, int l, int i1)
+             *
+             * This replaces world.setTypeIdAndData(IIIII), we're doing this because we need to
+             * hook between the 'placement' and the informing to 'world' so we can
+             * sanely undo this.
+             *
+             * Whenever the call to 'world.setTypeIdAndData' changes we need to figure out again what to
+             * replace this with.
+             */
             if (world.setRawTypeIdAndData(i, j, k, this.id, this.filterData(itemstack.getData()))) { // <-- world.setTypeIdAndData does this to place the block
                 BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, eventUseBlockBelow ? blockStateBelow : replacedBlockState, clickedX, clickedY, clickedZ, block);
 

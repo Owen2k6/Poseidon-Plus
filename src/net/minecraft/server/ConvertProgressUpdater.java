@@ -11,7 +11,8 @@ public class ConvertProgressUpdater implements IProgressUpdate {
         this.b = System.currentTimeMillis();
     }
 
-    public void a(String s) {}
+    public void a(String s) {
+    }
 
     public void a(int i) {
         if (System.currentTimeMillis() - this.b >= 1000L) {
@@ -20,5 +21,6 @@ public class ConvertProgressUpdater implements IProgressUpdate {
         }
     }
 
-    public void b(String s) {}
+    public void b(String s) {
+    }
 }

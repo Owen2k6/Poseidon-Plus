@@ -17,7 +17,8 @@ public class Packet24MobSpawn extends Packet {
     private DataWatcher h;
     private List i;
 
-    public Packet24MobSpawn() {}
+    public Packet24MobSpawn() {
+    }
 
     public Packet24MobSpawn(EntityLiving entityliving) {
         this.a = entityliving.id;

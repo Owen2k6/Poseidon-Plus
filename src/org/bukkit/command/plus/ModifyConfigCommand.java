@@ -12,11 +12,9 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.Map;
 
-public class ModifyConfigCommand extends VanillaCommand
-{
+public class ModifyConfigCommand extends VanillaCommand {
 
-    public ModifyConfigCommand()
-    {
+    public ModifyConfigCommand() {
         super("modifyconfig");
         this.description = "Modify a configuration file";
         this.usageMessage = "/modifyconfig <file> <key> <value>";
@@ -24,8 +22,7 @@ public class ModifyConfigCommand extends VanillaCommand
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args)
-    {
+    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         if (!testPermission(sender))
             return false;
         if (args.length != 3) {
@@ -51,8 +48,7 @@ public class ModifyConfigCommand extends VanillaCommand
             return false;
         }
 
-        try
-        {
+        try {
             // Read YAML file into a Map
             Yaml yaml = new Yaml(new SafeConstructor());
             Map<String, Object> data = (Map<String, Object>) yaml.load(new FileInputStream(f));
@@ -83,8 +79,7 @@ public class ModifyConfigCommand extends VanillaCommand
     }
 
     @Override
-    public boolean matches(String input)
-    {
+    public boolean matches(String input) {
         return input.startsWith("modifyconfig ");
     }
 }

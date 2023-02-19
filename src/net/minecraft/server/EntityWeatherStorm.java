@@ -122,9 +122,12 @@ public class EntityWeatherStorm extends EntityWeather {
         }
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
-    protected void a(NBTTagCompound nbttagcompound) {}
+    protected void a(NBTTagCompound nbttagcompound) {
+    }
 
-    protected void b(NBTTagCompound nbttagcompound) {}
+    protected void b(NBTTagCompound nbttagcompound) {
+    }
 }
