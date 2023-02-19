@@ -13,7 +13,7 @@ Designed to help your server with full customisation of any server message. weth
    - Great for Authentication plugins as this runs at the highest priority in the event system. This prevents any other plugin messing with your authentication plugin.
    - Great for logging things. As this is ran above all other event listeners, you can listen to events even if theyre cancelled. so you can make chat loggers if you want to catch mute evaders!
  - Plus Commands
-   - /restart So you can stop the server with a message of restart instead of "shutting down". Configurable in poseidon.yml
+   - /restart So you can stop the server with a message of restart instead of "shutting down". Configurable in plus.yml
    - /modifyconfig Allowing you to make configuration changes ingame. 
    - /garbagecollect Will force a hard GC on the server to clean memory.
  - Command updates (Vanilla commands)
