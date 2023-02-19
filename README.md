@@ -7,14 +7,29 @@ Designed to help your server with full customisation of any server message. weth
    - Kick Messages (base server kick message only)
    - Whitelist Kick messages
    - Ban messages (base server ban message only)
-   - IP Ban messages (base server ip ban message only)
    - Server /stop message
    - Server /say format (instead of \[server\] you can make it anything you want and even use the &colour code system from essentials.)
  - Super Event System
    - Great for Authentication plugins as this runs at the highest priority in the event system. This prevents any other plugin messing with your authentication plugin.
    - Great for logging things. As this is ran above all other event listeners, you can listen to events even if theyre cancelled. so you can make chat loggers if you want to catch mute evaders!
+ - Plus Commands
+   - /restart So you can stop the server with a message of restart instead of "shutting down". Configurable in poseidon.yml
+   - /modifyconfig Allowing you to make configuration changes ingame. 
+   - /garbagecollect Will force a hard GC on the server to clean memory.
+ - Command updates (Vanilla commands)
+   - /reload Will warn you about the dangers of reloading everything. Then ask you to issue /reload confirm
+   - /save-all will always remind you that you can just do /save instead.
+   - /plugins has a bit of colour in its text. Nothing special, just for design.
+   - /fakeop Joke command to trick people pretending to be from Planet Minecraft
 
 Below is the Project-Poseidon Description. You may get basic poseidon support there but any Poseidon Plus issues should be reported to Owen#0505 or moderator_man#4356
+
+
+
+
+
+
+
 
 ---
 # Project-Poseidon
