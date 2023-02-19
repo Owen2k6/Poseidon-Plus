@@ -3,6 +3,8 @@ package org.bukkit.command;
 import org.bukkit.Server;
 import org.bukkit.command.defaults.*;
 import org.bukkit.command.plus.ModifyConfigCommand;
+import org.bukkit.command.defaults.ReloadCommand;
+import org.bukkit.command.plus.RestartCommand;
 
 import java.util.*;
 
