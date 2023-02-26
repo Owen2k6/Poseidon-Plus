@@ -305,7 +305,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             }
         }
         // Poseidon end
-        }
+
 
         if (this.E) {
             //if (this.b.propertyManager.getBoolean("allow-nether", true)) { // CraftBukkit
