@@ -12,8 +12,7 @@ public class DataWatcher {
     private final Map b = new HashMap();
     private boolean c;
 
-    public DataWatcher() {
-    }
+    public DataWatcher() {}
 
     public void a(int i, Object object) {
         Integer integer = (Integer) a.get(object.getClass());

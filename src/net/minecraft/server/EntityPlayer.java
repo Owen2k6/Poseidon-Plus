@@ -24,7 +24,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public List chunkCoordIntPairQueue = new LinkedList();
     public Set playerChunkCoordIntPairs = new HashSet();
     public final List removeQueue = new LinkedList(); // poseidon
-
     private int bL = -99999999;
     private int bM = 60;
     private ItemStack[] bN = new ItemStack[]{null, null, null, null, null};
@@ -147,14 +146,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         PlayerDeathEvent event = new PlayerDeathEvent(bukkitEntity, loot);
         this.world.getServer().getPluginManager().callEvent(event);
 
-        if (event.getDeathMessage() != null && !event.getDeathMessage().trim().isEmpty()) {
+        if(event.getDeathMessage() != null && !event.getDeathMessage().trim().isEmpty()) {
             this.b.serverConfigurationManager.sendAll(new Packet3Chat(event.getDeathMessage()));
         }
 
         // CraftBukkit - we clean the player's inventory after the EntityDeathEvent is called so plugins can get the exact state of the inventory.
 
         //Poseidon - Only clear inventory if keep inventory is false
-        if (!event.getKeepInventory()) {
+        if(!event.getKeepInventory()) {
             for (int i = 0; i < this.inventory.items.length; ++i) {
                 this.inventory.items[i] = null;
             }
@@ -202,12 +201,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void b(int i) {
         super.b(i, RegainReason.EATING);
     }
+
     public WorldServer getWorldServer() {
         return (WorldServer) this.world;
     }
 
-
     public void a(boolean flag) {
+        super.m_();
+
         // Poseidon start
         while (!this.removeQueue.isEmpty()) {
             int i = Math.min(this.removeQueue.size(), 127);
@@ -224,7 +225,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                 this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint[k]));
             }
         }
-        super.m_();
+        // poseidon end
 
         for (int i = 0; i < this.inventory.getSize(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
@@ -238,8 +239,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             }
         }
 
+        // Poseidon start
         if (flag && !this.chunkCoordIntPairQueue.isEmpty()) {
-            ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) this.chunkCoordIntPairQueue.get(0);
             if (PoseidonConfig.getInstance().getBoolean("settings.faster-chunk-sending.enabled", true)) {
                 ArrayList arraylist = new ArrayList();
                 Iterator iterator1 = this.chunkCoordIntPairQueue.iterator();
@@ -305,7 +306,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             }
         }
         // Poseidon end
-
 
         if (this.E) {
             //if (this.b.propertyManager.getBoolean("allow-nether", true)) { // CraftBukkit
