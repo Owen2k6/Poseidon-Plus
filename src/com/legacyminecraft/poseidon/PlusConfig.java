@@ -26,6 +26,7 @@ public class PlusConfig extends Configuration {
         generateConfigOption("messages.kick.full", "&cThe server is full.");
         generateConfigOption("messages.kick.alternateLocation", "&cYou logged in from another location!");
         generateConfigOption("messages.broadcast.prefix", "&d[Server]");
+        generateConfigOption("game.weather.lightning.can-start-fire", true);
     }
 
     private void generateConfigOption(String key, Object defaultValue) {
