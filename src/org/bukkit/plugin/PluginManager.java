@@ -90,7 +90,6 @@ public interface PluginManager {
     /**
      * Calls a player related event with the given details
      *
-     * @param type Type of player related event to call
      * @param event Event details
      */
     public void callEvent(Event event);
@@ -124,6 +123,15 @@ public interface PluginManager {
      * @param plugin Plugin to register
      */
     public void registerEvents(Listener listener, Plugin plugin);
+
+    /**
+     * Registers a super listener with all events with @EventHandler
+     *
+     * @see org.bukkit.event.EventHandler
+     * @param listener Listener to register
+     * @param plugin Plugin to register
+     */
+    public void registerSuperEvents(Listener listener, Plugin plugin);
 
     /**
      * Enables the specified plugin

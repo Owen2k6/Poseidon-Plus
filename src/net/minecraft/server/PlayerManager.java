@@ -170,7 +170,7 @@ public class PlayerManager {
             }
         }
     }
-    
+
     // Poseidon
     public boolean a(EntityPlayer entityplayer, int i, int j) {
         PlayerInstance playerchunk = this.a(i, j, false);

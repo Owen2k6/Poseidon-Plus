@@ -22,7 +22,7 @@ public class PluginsCommand extends Command {
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
         
-        sender.sendMessage("Plugins" + getPluginList());
+        sender.sendMessage(ChatColor.GRAY + "Plugins" + getPluginList());
         return true;
     }
 
@@ -41,7 +41,7 @@ public class PluginsCommand extends Command {
             pluginCount = pluginCount + 1;
 
             if (pluginList.length() > 0) {
-                pluginList.append(ChatColor.WHITE);
+                pluginList.append(ChatColor.GRAY);
                 pluginList.append(", ");
             }
 
@@ -51,6 +51,6 @@ public class PluginsCommand extends Command {
             pluginList.append(plugin.getDescription().getName());
         }
 
-        return " (" + enabled + "/" + pluginCount + "): " + pluginList.toString();
+        return ChatColor.GRAY + " (" + ChatColor.DARK_GRAY + enabled + ChatColor.GRAY + "/" + ChatColor.DARK_GRAY + pluginCount + ChatColor.GRAY + "): " + pluginList.toString();
     }
 }

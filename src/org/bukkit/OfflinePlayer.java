@@ -17,6 +17,8 @@ public interface OfflinePlayer extends ServerOperator {
      */
     public String getName();
 
+
+
     /**
      * Checks if this player is banned or not
      *
@@ -44,4 +46,5 @@ public interface OfflinePlayer extends ServerOperator {
      * @param value true if whitelisted
      */
     public void setWhitelisted(boolean value);
+
 }

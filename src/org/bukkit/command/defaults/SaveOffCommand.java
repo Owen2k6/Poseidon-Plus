@@ -1,6 +1,7 @@
 package org.bukkit.command.defaults;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,7 @@ public class SaveOffCommand extends VanillaCommand {
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
 
-        Command.broadcastCommandMessage(sender, "Disabling level saving..");
+        Command.broadcastCommandMessage(sender, ChatColor.RED + "The server will no longer save the world automatically.");
 
         for (World world : Bukkit.getWorlds()) {
             world.setAutoSave(false);
@@ -28,6 +29,6 @@ public class SaveOffCommand extends VanillaCommand {
 
     @Override
     public boolean matches(String input) {
-        return input.startsWith("save-off");
+        return input.equals("save-off");
     }
 }

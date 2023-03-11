@@ -7,21 +7,25 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class PoseidonConfig extends Configuration {
+public class PoseidonConfig extends Configuration
+{
     private static PoseidonConfig singleton;
     private final int configVersion = 3;
     private Integer[] treeBlacklistIDs;
 
-    public Integer[] getTreeBlacklistIDs() {
+    public Integer[] getTreeBlacklistIDs()
+    {
         return treeBlacklistIDs;
     }
 
-    private PoseidonConfig() {
+    private PoseidonConfig()
+    {
         super(new File("poseidon.yml"));
         this.reload();
     }
 
-    public void reload() {
+    public void reload()
+    {
         this.load();
         this.write();
         this.save();
@@ -52,8 +56,8 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.remove-join-leave-debug", true);
         generateConfigOption("settings.enable-tpc-nodelay", false);
         generateConfigOption("settings.use-get-for-uuids.enabled", false);
+        generateConfigOption("settings.whitelist-kick-message", "&cServer currently whitelisted. Please try again later.");
         generateConfigOption("settings.use-get-for-uuids.info", "This setting causes the server to use the GET method for Username to UUID conversion. This is useful incase the POST method goes offline.");
-
         generateConfigOption("settings.faster-chunk-sending.enabled", true);
         generateConfigOption("settings.faster-chunk-sending.info", "This setting enables a newer chunk sending method that is a lot faster than the old one, which will load chunks for players faster.");
 
@@ -79,7 +83,6 @@ public class PoseidonConfig extends Configuration {
         //Statistics
         generateConfigOption("settings.statistics.key", UUID.randomUUID().toString());
         generateConfigOption("settings.statistics.enabled", true);
-
         //World Settings
         generateConfigOption("world-settings.optimized-explosions", false);
         generateConfigOption("world-settings.send-explosion-velocity", true);
@@ -135,35 +138,44 @@ public class PoseidonConfig extends Configuration {
         if (Boolean.valueOf(String.valueOf(getConfigOption("world.settings.block-tree-growth.enabled", true)))) {
             if (String.valueOf(this.getConfigOption("world.settings.block-tree-growth.list", "")).trim().isEmpty()) {
                 //Empty Blacklist
-            } else {
+            } else
+            {
                 String[] rawBlacklist = String.valueOf(this.getConfigOption("world.settings.block-tree-growth.list", "")).trim().split(",");
                 int blackListCount = 0;
-                for (String stringID : rawBlacklist) {
-                    if (Pattern.compile("-?[0-9]+").matcher(stringID).matches()) {
+                for (String stringID : rawBlacklist)
+                {
+                    if (Pattern.compile("-?[0-9]+").matcher(stringID).matches())
+                    {
                         blackListCount = blackListCount + 1;
-                    } else {
+                    } else
+                    {
                         System.out.println("The ID " + stringID + " for leaf decay blocker has been detected as invalid, and won't be used.");
                     }
                 }
                 //Loop a second time to get correct array length. I know this is horrible code, but it works and only runs on server startup.
                 treeBlacklistIDs = new Integer[blackListCount];
                 int i = 0;
-                for (String stringID : rawBlacklist) {
-                    if (Pattern.compile("-?[0-9]+").matcher(stringID).matches()) {
+                for (String stringID : rawBlacklist)
+                {
+                    if (Pattern.compile("-?[0-9]+").matcher(stringID).matches())
+                    {
                         treeBlacklistIDs[i] = Integer.valueOf(stringID);
                         i = i + 1;
                     }
                 }
                 System.out.println("Leaf blocks can't replace the following block IDs: " + Arrays.toString(treeBlacklistIDs));
             }
-        } else {
+        } else
+        {
             treeBlacklistIDs = new Integer[0];
         }
     }
 
 
-    private void generateConfigOption(String key, Object defaultValue) {
-        if (this.getProperty(key) == null) {
+    private void generateConfigOption(String key, Object defaultValue)
+    {
+        if (this.getProperty(key) == null)
+        {
             this.setProperty(key, defaultValue);
         }
         final Object value = this.getProperty(key);
@@ -172,42 +184,51 @@ public class PoseidonConfig extends Configuration {
     }
 
     //Getters Start
-    public Object getConfigOption(String key) {
+    public Object getConfigOption(String key)
+    {
         return this.getProperty(key);
     }
 
-    public Object getConfigOption(String key, Object defaultValue) {
+    public Object getConfigOption(String key, Object defaultValue)
+    {
         Object value = getConfigOption(key);
-        if (value == null) {
+        if (value == null)
+        {
             value = defaultValue;
         }
         return value;
 
     }
 
-    public String getConfigString(String key) {
+    public String getConfigString(String key)
+    {
         return String.valueOf(getConfigOption(key));
     }
 
-    public Integer getConfigInteger(String key) {
+    public Integer getConfigInteger(String key)
+    {
         return Integer.valueOf(getConfigString(key));
     }
 
-    public Long getConfigLong(String key) {
+    public Long getConfigLong(String key)
+    {
         return Long.valueOf(getConfigString(key));
     }
 
-    public Double getConfigDouble(String key) {
+    public Double getConfigDouble(String key)
+    {
         return Double.valueOf(getConfigString(key));
     }
 
-    public Boolean getConfigBoolean(String key) {
+    public Boolean getConfigBoolean(String key)
+    {
         return Boolean.valueOf(getConfigString(key));
     }
 
     //Getters End
 
-    private void convertToNewConfig() {
+    private void convertToNewConfig()
+    {
         //Graceful UUIDS
         convertToNewAddress("settings.statistics.enabled", "settings.enable-statistics");
         convertToNewAddress("settings.allow-graceful-uuids", "allowGracefulUUID");
@@ -216,11 +237,14 @@ public class PoseidonConfig extends Configuration {
         convertToNewAddress("settings.enable-watchdog", "settings.watchdog.enable");
     }
 
-    private boolean convertToNewAddress(String newKey, String oldKey) {
-        if (this.getString(newKey) != null) {
+    private boolean convertToNewAddress(String newKey, String oldKey)
+    {
+        if (this.getString(newKey) != null)
+        {
             return false;
         }
-        if (this.getString(oldKey) == null) {
+        if (this.getString(oldKey) == null)
+        {
             return false;
         }
         System.out.println("Converting Config: " + oldKey + " to " + newKey);
@@ -232,8 +256,10 @@ public class PoseidonConfig extends Configuration {
     }
 
 
-    public synchronized static PoseidonConfig getInstance() {
-        if (PoseidonConfig.singleton == null) {
+    public synchronized static PoseidonConfig getInstance()
+    {
+        if (PoseidonConfig.singleton == null)
+        {
             PoseidonConfig.singleton = new PoseidonConfig();
         }
         return PoseidonConfig.singleton;

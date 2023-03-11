@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
@@ -45,13 +46,18 @@ public class EntityWeatherStorm extends EntityWeather {
 
             if (world.getTypeId(i, j, k) == 0 && Block.FIRE.canPlace(world, i, j, k)) {
                 // CraftBukkit start
-                BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(i, j, k), IgniteCause.LIGHTNING, null);
-                world.getServer().getPluginManager().callEvent(event);
+                if (PlusConfig.getInstance().getConfigBoolean("game.weather.lightning.can-start-fire"))
+                {
+                    BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(i, j, k), IgniteCause.LIGHTNING, null);
+                    world.getServer().getPluginManager().callEvent(event);
 
-                if (!event.isCancelled()) {
-                    world.setTypeId(i, j, k, Block.FIRE.id);
+                    if (!event.isCancelled()) {
+                        world.setTypeId(i, j, k, Block.FIRE.id);
+                    }
+                    // CraftBukkit end
                 }
-                // CraftBukkit end
+
+
             }
 
             for (i = 0; i < 4; ++i) {
@@ -61,6 +67,7 @@ public class EntityWeatherStorm extends EntityWeather {
 
                 if (world.getTypeId(j, k, l) == 0 && Block.FIRE.canPlace(world, j, k, l)) {
                     // CraftBukkit start
+                    if (PlusConfig.getInstance().getConfigBoolean("game.weather.lightning.can-start-fire")){
                     BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(j, k, l), IgniteCause.LIGHTNING, null);
                     world.getServer().getPluginManager().callEvent(event);
 
@@ -68,7 +75,7 @@ public class EntityWeatherStorm extends EntityWeather {
                         world.setTypeId(j, k, l, Block.FIRE.id);
                     }
                     // CraftBukkit end
-                }
+                }}
             }
         }
     }
@@ -96,6 +103,7 @@ public class EntityWeatherStorm extends EntityWeather {
 
                     if (this.world.getTypeId(i, j, k) == 0 && Block.FIRE.canPlace(this.world, i, j, k)) {
                         // CraftBukkit start
+                        if (PlusConfig.getInstance().getConfigBoolean("game.weather.lightning.can-start-fire")){
                         BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(i, j, k), IgniteCause.LIGHTNING, null);
                         this.world.getServer().getPluginManager().callEvent(event);
 
@@ -103,7 +111,7 @@ public class EntityWeatherStorm extends EntityWeather {
                             this.world.setTypeId(i, j, k, Block.FIRE.id);
                         }
                         // CraftBukkit end
-                    }
+                    }}
                 }
             }
         }
