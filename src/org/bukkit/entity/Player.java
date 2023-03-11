@@ -350,4 +350,5 @@ public interface Player extends HumanEntity, CommandSender, OfflinePlayer {
     public boolean canSee(Player player);
 
     public void sendPacket(final Player player, final Packet packet);
+
 }

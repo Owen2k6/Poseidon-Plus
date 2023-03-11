@@ -38,10 +38,7 @@ public class ServerConfigurationManager {
 
     // CraftBukkit start
     private CraftServer cserver;
-    private String banKickMessage = "You are banned from this server!";
-    private String alternateLocationKickMessage = "You logged in from another location";
-    private String fullKickMessage = "The server is full.";
-    private String whitelistKickMessage = "You are not white-listed on this server!";
+    private final String msgKickBanned, msgKickIPBanned, msgKickWhitelist, msgKickServerFull, msgPlayerJoin, msgPlayerLeave;
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
         minecraftserver.server = new CraftServer(minecraftserver, this);
@@ -52,6 +49,12 @@ public class ServerConfigurationManager {
         banKickMessage = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
         whitelistKickMessage = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
+        this.msgKickBanned = PoseidonConfig.getInstance().getConfigString("message.kick.banned");
+        this.msgKickIPBanned = PoseidonConfig.getInstance().getConfigString("message.kick.ip-banned");
+        this.msgKickWhitelist = PoseidonConfig.getInstance().getConfigString("message.kick.not-whitelisted");
+        this.msgKickServerFull = PoseidonConfig.getInstance().getConfigString("message.kick.full");
+        this.msgPlayerJoin = PoseidonConfig.getInstance().getConfigString("message.player.join");
+        this.msgPlayerLeave = PoseidonConfig.getInstance().getConfigString("message.player.leave");
 
         this.server = minecraftserver;
         this.j = minecraftserver.a("banned-players.txt");
@@ -123,7 +126,7 @@ public class ServerConfigurationManager {
         }
 
         // CraftBukkit start
-        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(this.cserver.getPlayer(entityplayer), "\u00A7e" + entityplayer.name + " joined the game.");
+        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(this.cserver.getPlayer(entityplayer), msgPlayerJoin.replace("%player%", entityplayer.name));
         this.cserver.getPluginManager().callEvent(playerJoinEvent);
 
         String joinMessage = playerJoinEvent.getJoinMessage();
@@ -148,7 +151,7 @@ public class ServerConfigurationManager {
         // CraftBukkit start
         // Quitting must be before we do final save of data, in case plugins need to modify it
         this.getPlayerManager(entityplayer.dimension).removePlayer(entityplayer);
-        PlayerQuitEvent playerQuitEvent = new PlayerQuitEvent(this.cserver.getPlayer(entityplayer), "\u00A7e" + entityplayer.name + " left the game.");
+        PlayerQuitEvent playerQuitEvent = new PlayerQuitEvent(this.cserver.getPlayer(entityplayer), this.msgPlayerLeave.replace("%player%", entityplayer.name));
         this.cserver.getPluginManager().callEvent(playerQuitEvent);
         // CraftBukkit end
 
@@ -190,18 +193,22 @@ public class ServerConfigurationManager {
         s1 = s1.substring(s1.indexOf("/") + 1);
         s1 = s1.substring(0, s1.indexOf(":"));
 
-        if (this.banByName.contains(s.trim().toLowerCase())) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.translateAlternateColorCodes('&', banKickMessage));
-            // return null // CraftBukkit
-        } else if (!this.isWhitelisted(s)) {
-            event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, ChatColor.translateAlternateColorCodes('&', whitelistKickMessage));
-        } else if (this.banByIP.contains(s1)) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, ChatColor.translateAlternateColorCodes('&', banKickMessage)); //TODO: use different message for this? i don't think it matters but it's possible
-        } else if (this.players.size() >= this.maxPlayers) {
-            event.disallow(PlayerLoginEvent.Result.KICK_FULL, ChatColor.translateAlternateColorCodes('&', fullKickMessage));
-        } else {
-            event.disallow(PlayerLoginEvent.Result.ALLOWED, s1);
-        }
+
+        PlayerLoginEvent.Result result =
+                this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED :
+                this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
+                !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST :
+                this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL :
+                PlayerLoginEvent.Result.ALLOWED;
+
+        String kickMessage =
+                result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned :
+                result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned :
+                result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist :
+                result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull :
+                s1;
+
+        event.disallow(result, kickMessage);
 
         this.cserver.getPluginManager().callEvent(event);
         if (event.getResult() != PlayerLoginEvent.Result.ALLOWED) {

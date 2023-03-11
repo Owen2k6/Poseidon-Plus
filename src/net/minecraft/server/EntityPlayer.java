@@ -208,6 +208,24 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(boolean flag) {
         super.m_();
+        
+        // Poseidon start
+        while (!this.removeQueue.isEmpty()) {
+            int i = Math.min(this.removeQueue.size(), 127);
+            int[] aint = new int[i];
+            Iterator iterator = this.removeQueue.iterator();
+            int j = 0;
+
+            while (iterator.hasNext() && j < i) {
+                aint[j++] = ((Integer) iterator.next()).intValue();
+                iterator.remove();
+            }
+
+            for (int k = 0; k < aint.length; k++) { // cant use array since not supported in b1.7.3
+            	this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint[k]));
+            }
+        }
+        // poseidon end
 
         // Poseidon start
         while (!this.removeQueue.isEmpty()) {

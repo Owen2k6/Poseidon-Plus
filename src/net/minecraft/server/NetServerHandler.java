@@ -729,7 +729,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
 
         // CraftBukkit start
-        if (packet instanceof Packet6SpawnPosition) {
+    	if (packet instanceof Packet6SpawnPosition) {
             Packet6SpawnPosition packet6 = (Packet6SpawnPosition) packet;
             this.player.compassTarget = new Location(this.getPlayer().getWorld(), packet6.x, packet6.y, packet6.z);
         } else if (packet instanceof Packet3Chat) {
