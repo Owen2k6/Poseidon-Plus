@@ -4,8 +4,7 @@ public class StatisticCollector {
 
     private static StatisticStorage a = StatisticStorage.a();
 
-    public StatisticCollector() {
-    }
+    public StatisticCollector() {}
 
     public static String a(String s) {
         return a.a(s);

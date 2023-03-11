@@ -1,4 +1,3 @@
 package net.minecraft.server;
 
-public interface IMonster extends IAnimal {
-}
+public interface IMonster extends IAnimal {}

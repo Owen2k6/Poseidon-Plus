@@ -9,8 +9,7 @@ public class Packet38EntityStatus extends Packet {
     public int a;
     public byte b;
 
-    public Packet38EntityStatus() {
-    }
+    public Packet38EntityStatus() {}
 
     public Packet38EntityStatus(int i, byte b0) {
         this.a = i;

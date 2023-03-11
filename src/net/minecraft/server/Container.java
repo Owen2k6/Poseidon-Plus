@@ -14,8 +14,7 @@ public abstract class Container {
     protected List listeners = new ArrayList();
     private Set b = new HashSet();
 
-    public Container() {
-    }
+    public Container() {}
 
     protected void a(Slot slot) {
         slot.a = this.e.size();

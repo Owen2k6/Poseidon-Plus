@@ -26,46 +26,47 @@ public class PluginClassLoader extends URLClassLoader {
     }
 
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
-        try {
+        try
+        {
             Thread.currentThread().setContextClassLoader(this);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
-        try {
+        try
+        {
             Class<?> result = super.loadClass(name, resolve);
             if (result != null) return result;
-        } catch (ClassNotFoundException ignored) {
-        }
+        } catch (ClassNotFoundException ignored) {}
 
-        try {
+        try
+        {
             Class<?> result = classLoader.loadClass(name);
             if (result != null) return result;
-        } catch (ClassNotFoundException ignored) {
-        }
+        } catch (ClassNotFoundException ignored) {}
 
-        try {
+        try
+        {
             Class<?> result = ClassLoader.getSystemClassLoader().loadClass(name);
             if (result != null) return result;
-        } catch (ClassNotFoundException ignored) {
-        }
+        } catch (ClassNotFoundException ignored) {}
 
-        try {
+        try
+        {
             Class<?> result = getClass().getClassLoader().loadClass(name);
             if (result != null) return result;
-        } catch (ClassNotFoundException ignored) {
-        }
+        } catch (ClassNotFoundException ignored) {}
 
-        try {
+        try
+        {
             Class<?> result = Bukkit.class.getClassLoader().loadClass(name);
             if (result != null) return result;
-        } catch (ClassNotFoundException ignored) {
-        }
+        } catch (ClassNotFoundException ignored) {}
 
-        if (libraryLoader != null) {
-            try {
+        if (libraryLoader != null)
+        {
+            try
+            {
                 return libraryLoader.loadClass(name);
-            } catch (ClassNotFoundException ignored) {
-            }
+            } catch (ClassNotFoundException ignored) {}
         }
 
         Class<?> result = loader.getClassByName(name);

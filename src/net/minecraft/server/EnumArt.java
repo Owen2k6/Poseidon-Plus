@@ -10,7 +10,7 @@ public enum EnumArt {
     public final int D;
     public final int E;
 
-    private static final EnumArt[] F = new EnumArt[]{KEBAB, AZTEC, ALBAN, AZTEC2, BOMB, PLANT, WASTELAND, POOL, COURBET, SEA, SUNSET, CREEBET, WANDERER, GRAHAM, MATCH, BUST, STAGE, VOID, SKULL_AND_ROSES, FIGHTERS, POINTER, PIGSCENE, BURNINGSKULL, SKELETON, DONKEYKONG};
+    private static final EnumArt[] F = new EnumArt[] { KEBAB, AZTEC, ALBAN, AZTEC2, BOMB, PLANT, WASTELAND, POOL, COURBET, SEA, SUNSET, CREEBET, WANDERER, GRAHAM, MATCH, BUST, STAGE, VOID, SKULL_AND_ROSES, FIGHTERS, POINTER, PIGSCENE, BURNINGSKULL, SKELETON, DONKEYKONG};
 
     private EnumArt(String s, int i, String s1, int j, int k, int l, int i1) {
         this.A = s1;

@@ -9,8 +9,7 @@ public class Packet22Collect extends Packet {
     public int a;
     public int b;
 
-    public Packet22Collect() {
-    }
+    public Packet22Collect() {}
 
     public Packet22Collect(int i, int j) {
         this.a = i;

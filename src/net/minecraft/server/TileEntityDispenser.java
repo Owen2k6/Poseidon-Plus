@@ -13,8 +13,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
     }
     // CraftBukkit end
 
-    public TileEntityDispenser() {
-    }
+    public TileEntityDispenser() {}
 
     public int getSize() {
         return 9;

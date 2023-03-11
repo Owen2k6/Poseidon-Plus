@@ -10,8 +10,7 @@ public class Packet40EntityMetadata extends Packet {
     public int a;
     private List b;
 
-    public Packet40EntityMetadata() {
-    }
+    public Packet40EntityMetadata() {}
 
     public Packet40EntityMetadata(int i, DataWatcher datawatcher) {
         this.a = i;

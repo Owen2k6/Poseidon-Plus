@@ -8,8 +8,7 @@ public class NBTTagByte extends NBTBase {
 
     public byte a;
 
-    public NBTTagByte() {
-    }
+    public NBTTagByte() {}
 
     public NBTTagByte(byte b0) {
         this.a = b0;

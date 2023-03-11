@@ -29,17 +29,16 @@ public interface Server {
      * @return server game version
      */
     public String getGameVersion();
-
     /**
      * Used for all administrative messages, such as an operator using a command.
-     * <p>
+     *
      * For use in {@link #broadcast(java.lang.String, java.lang.String)}
      */
     public static final String BROADCAST_CHANNEL_ADMINISTRATIVE = "bukkit.broadcast.admin";
 
     /**
      * Used for all announcement messages, such as informing users that a player has joined.
-     * <p>
+     *
      * For use in {@link #broadcast(java.lang.String, java.lang.String)}
      */
     public static final String BROADCAST_CHANNEL_USERS = "bukkit.broadcast.user";
@@ -67,7 +66,6 @@ public interface Server {
 
 
     public String getPoseidonReleaseType();
-
     /**
      * Gets the version string of this server enviroment.
      *
@@ -160,7 +158,7 @@ public interface Server {
 
     /**
      * Broadcast a message to all players.
-     * <p>
+     *
      * This is the same as calling {@link #broadcast(java.lang.String, java.lang.String)} to {@link #BROADCAST_CHANNEL_USERS}
      *
      * @param message the message
@@ -178,7 +176,7 @@ public interface Server {
 
     /**
      * Gets a player object by the given username
-     * <p>
+     *
      * This method may not return objects for offline players
      *
      * @param name Name to look up
@@ -200,7 +198,7 @@ public interface Server {
     /**
      * Attempts to match any players with the given name, and returns a list
      * of all possibly matches
-     * <p>
+     *
      * This list is not sorted in any particular order. If an exact match is found,
      * the returned list will only contain a single result.
      *
@@ -242,7 +240,7 @@ public interface Server {
      * If the world is already loaded, it will just return the equivalent of
      * getWorld(name)
      *
-     * @param name        Name of the world to load
+     * @param name Name of the world to load
      * @param environment Environment type of the world
      * @return Newly created or loaded World
      */
@@ -253,9 +251,9 @@ public interface Server {
      * If the world is already loaded, it will just return the equivalent of
      * getWorld(name)
      *
-     * @param name        Name of the world to load
+     * @param name Name of the world to load
      * @param environment Environment type of the world
-     * @param seed        Seed value to create the world with
+     * @param seed Seed value to create the world with
      * @return Newly created or loaded World
      */
     public World createWorld(String name, World.Environment environment, long seed);
@@ -265,9 +263,9 @@ public interface Server {
      * If the world is already loaded, it will just return the equivalent of
      * getWorld(name)
      *
-     * @param name        Name of the world to load
+     * @param name Name of the world to load
      * @param environment Environment type of the world
-     * @param generator   ChunkGenerator to use in the construction of the new world
+     * @param generator ChunkGenerator to use in the construction of the new world
      * @return Newly created or loaded World
      */
     public World createWorld(String name, World.Environment environment, ChunkGenerator generator);
@@ -277,15 +275,15 @@ public interface Server {
      * If the world is already loaded, it will just return the equivalent of
      * getWorld(name)
      *
-     * @param name        Name of the world to load
+     * @param name Name of the world to load
      * @param environment Environment type of the world
-     * @param seed        Seed value to create the world with
-     * @param generator   ChunkGenerator to use in the construction of the new world
+     * @param seed Seed value to create the world with
+     * @param generator ChunkGenerator to use in the construction of the new world
      * @return Newly created or loaded World
      */
     public World createWorld(String name, World.Environment environment, long seed, ChunkGenerator generator);
 
-    /**
+     /**
      * Unloads a world with the given name.
      *
      * @param name Name of the world to unload
@@ -298,7 +296,7 @@ public interface Server {
      * Unloads the given world.
      *
      * @param world The world to unload
-     * @param save  Whether to save the chunks before unloading.
+     * @param save Whether to save the chunks before unloading.
      * @return Whether the action was Successful
      */
     public boolean unloadWorld(World world, boolean save);
@@ -318,18 +316,18 @@ public interface Server {
      * @return World with the given Unique ID, or null if none exists.
      */
     public World getWorld(UUID uid);
-
+    
     /**
      * Gets the map from the given item ID.
-     *
+     * 
      * @param id ID of the map to get.
      * @return The MapView if it exists, or null otherwise.
      */
     public MapView getMap(short id);
-
+    
     /**
      * Create a new map with an automatically assigned ID.
-     *
+     * 
      * @param world The world the map will belong to.
      * @return The MapView just created.
      */
@@ -360,6 +358,13 @@ public interface Server {
      */
     public void savePlayers();
 
+    /**
+     * Dispatches a command on the server, and executes it if found.
+     *
+     * @param cmdLine command + arguments. Example: "test abc 123"
+     * @return targetFound returns false if no target is found.
+     * @throws CommandException Thrown when the executor for the given command fails with an unhandled exception
+     */
     public boolean dispatchCommand(CommandSender sender, String commandLine);
 
     /**
@@ -371,7 +376,6 @@ public interface Server {
 
     /**
      * Adds a recipe to the crafting manager.
-     *
      * @param recipe The recipe to add.
      * @return True to indicate that the recipe was added.
      */
@@ -420,7 +424,7 @@ public interface Server {
     /**
      * Broadcasts the specified message to every user with the given permission
      *
-     * @param message    Message to broadcast
+     * @param message Message to broadcast
      * @param permission Permission the users must have to receive the broadcast
      * @return Amount of users who received the message
      */
@@ -428,7 +432,7 @@ public interface Server {
 
     /**
      * Gets the player by the given name, regardless if they are offline or online.
-     * <p>
+     *
      * This will return an object even if the player does not exist. To this method, all players will exist.
      *
      * @param name Name of the player to retrieve

@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class WorldProviderSky extends WorldProvider {
 
-    public WorldProviderSky() {
-    }
+    public WorldProviderSky() {}
 
     public void a() {
         this.b = new WorldChunkManagerHell(BiomeBase.SKY, 0.5D, 0.0D);

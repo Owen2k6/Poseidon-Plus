@@ -4,8 +4,7 @@ public class TileEntityRecordPlayer extends TileEntity {
 
     public int a;
 
-    public TileEntityRecordPlayer() {
-    }
+    public TileEntityRecordPlayer() {}
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);

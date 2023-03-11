@@ -203,8 +203,7 @@ public class Item {
         return false;
     }
 
-    public void a(ItemStack itemstack, EntityLiving entityliving) {
-    }
+    public void a(ItemStack itemstack, EntityLiving entityliving) {}
 
     public Item g() {
         this.bi = true;
@@ -241,11 +240,9 @@ public class Item {
         return StatisticCollector.a(this.a() + ".name");
     }
 
-    public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {
-    }
+    public void a(ItemStack itemstack, World world, Entity entity, int i, boolean flag) {}
 
-    public void c(ItemStack itemstack, World world, EntityHuman entityhuman) {
-    }
+    public void c(ItemStack itemstack, World world, EntityHuman entityhuman) {}
 
     public boolean b() {
         return false;

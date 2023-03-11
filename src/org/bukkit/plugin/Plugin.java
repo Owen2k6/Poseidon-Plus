@@ -74,14 +74,12 @@ public interface Plugin extends CommandExecutor {
 
     /**
      * Simple boolean if we can still nag to the logs about things
-     *
      * @return boolean whether we can nag
      */
     public boolean isNaggable();
 
     /**
      * Set naggable state
-     *
      * @param canNag is this plugin still naggable?
      */
     public void setNaggable(boolean canNag);
@@ -97,7 +95,7 @@ public interface Plugin extends CommandExecutor {
      * Gets a {@link ChunkGenerator} for use in a default world, as specified in the server configuration
      *
      * @param worldName Name of the world that this will be applied to
-     * @param id        Unique ID, if any, that was specified to indicate which generator was requested
+     * @param id Unique ID, if any, that was specified to indicate which generator was requested
      * @return ChunkGenerator for use in the default world generation
      */
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id);

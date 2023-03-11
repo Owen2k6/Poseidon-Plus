@@ -10,19 +10,19 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Creates a map that uses soft reference.  This indicates to the garbage collector
  * that they can be removed if necessary
- * <p>
+ *
  * A minimum number of strong references can be set.  These most recent N objects added
  * to the map will not be removed by the garbage collector.
- * <p>
- * Objects will never be removed if they are referenced strongly from somewhere else
- * <p>
- * Note: While data corruption won't happen, the garbage collector is potentially async
- * This could lead to the return values from containsKey() and similar methods being
- * out of date by the time they are used.  The class could return null when the object
- * is retrieved by a .get() call directly after a .containsKey() call returned true
  *
- * @author raphfrk
+ * Objects will never be removed if they are referenced strongly from somewhere else
+
+ * Note: While data corruption won't happen, the garbage collector is potentially async
+ *       This could lead to the return values from containsKey() and similar methods being
+ *       out of date by the time they are used.  The class could return null when the object
+ *       is retrieved by a .get() call directly after a .containsKey() call returned true
+ *
  * @deprecated Use {@link MapMaker} to create a concurrent soft-reference map, this class is inefficient and will be removed
+ * @author raphfrk
  */
 
 @Deprecated

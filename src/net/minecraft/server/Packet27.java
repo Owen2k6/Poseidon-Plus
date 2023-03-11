@@ -13,8 +13,7 @@ public class Packet27 extends Packet {
     private float e;
     private float f;
 
-    public Packet27() {
-    }
+    public Packet27() {}
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readFloat();

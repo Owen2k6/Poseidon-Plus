@@ -9,7 +9,7 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 
 public class CraftMapRenderer extends MapRenderer {
-
+    
     private final CraftMapView mapView;
     private final WorldMap worldMap;
 
@@ -27,7 +27,7 @@ public class CraftMapRenderer extends MapRenderer {
                 canvas.setPixel(x, y, worldMap.f[y * 128 + x]);
             }
         }
-
+        
         // Cursors
         MapCursorCollection cursors = canvas.getCursors();
         while (cursors.size() > 0) {
@@ -35,8 +35,8 @@ public class CraftMapRenderer extends MapRenderer {
         }
         for (int i = 0; i < worldMap.i.size(); ++i) {
             WorldMapOrienter orienter = (WorldMapOrienter) worldMap.i.get(i);
-            cursors.addCursor(orienter.b, orienter.c, (byte) (orienter.d & 15), (byte) (orienter.a));
+            cursors.addCursor(orienter.b, orienter.c, (byte)(orienter.d & 15), (byte)(orienter.a));
         }
     }
-
+    
 }

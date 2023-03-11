@@ -53,8 +53,7 @@ public class EntityBoat extends Entity {
         return false;
     }
 
-    protected void b() {
-    }
+    protected void b() {}
 
     public AxisAlignedBB a_(Entity entity) {
         return entity.boundingBox;
@@ -386,11 +385,9 @@ public class EntityBoat extends Entity {
         }
     }
 
-    protected void b(NBTTagCompound nbttagcompound) {
-    }
+    protected void b(NBTTagCompound nbttagcompound) {}
 
-    protected void a(NBTTagCompound nbttagcompound) {
-    }
+    protected void a(NBTTagCompound nbttagcompound) {}
 
     public boolean a(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {

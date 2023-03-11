@@ -39,6 +39,7 @@ public interface Minecart extends Vehicle {
 
     /**
      * Returns whether this minecart will slow down faster without a passenger occupying it
+     *
      */
     public boolean isSlowWhenEmpty();
 
@@ -67,9 +68,8 @@ public interface Minecart extends Vehicle {
 
     /**
      * Gets the derailed velocity modifier. Used for minecarts that are on the ground, but not on rails.
-     * <p>
-     * A derailed minecart's velocity is multiplied by this factor each tick.
      *
+     * A derailed minecart's velocity is multiplied by this factor each tick.
      * @param visible speed
      */
     public Vector getDerailedVelocityMod();

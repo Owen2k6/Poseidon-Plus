@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 // CraftBukkit start
-
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.inventory.FurnaceSmeltEvent;
@@ -16,14 +15,12 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     // CraftBukkit start
     private int lastTick = (int) (System.currentTimeMillis() / 50);
-
     public ItemStack[] getContents() {
         return this.items;
     }
     // CraftBukkit end
 
-    public TileEntityFurnace() {
-    }
+    public TileEntityFurnace() {}
 
     public int getSize() {
         return this.items.length;

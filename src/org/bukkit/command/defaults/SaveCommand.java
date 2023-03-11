@@ -19,7 +19,7 @@ public class SaveCommand extends VanillaCommand {
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        if (currentAlias == "save-all") {
+        if(currentAlias == "save-all") {
             sender.sendMessage("Did you know, you can use /save instead of /save-all?");
         }
 

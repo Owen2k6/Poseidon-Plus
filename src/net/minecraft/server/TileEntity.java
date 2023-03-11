@@ -13,8 +13,7 @@ public class TileEntity {
     public int z;
     protected boolean h;
 
-    public TileEntity() {
-    }
+    public TileEntity() {}
 
     private static void a(Class oclass, String s) {
         if (b.containsKey(s)) {
@@ -44,8 +43,7 @@ public class TileEntity {
         }
     }
 
-    public void g_() {
-    }
+    public void g_() {}
 
     public static TileEntity c(NBTTagCompound nbttagcompound) {
         TileEntity tileentity = null;

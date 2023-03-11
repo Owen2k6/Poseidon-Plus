@@ -41,7 +41,6 @@ public final class PluginDescriptionFile {
 
     /**
      * Loads a PluginDescriptionFile from the specified reader
-     *
      * @param reader
      */
     @SuppressWarnings("unchecked")
@@ -53,7 +52,7 @@ public final class PluginDescriptionFile {
      * Creates a new PluginDescriptionFile with the given detailed
      *
      * @param pluginName Name of this plugin
-     * @param mainClass  Full location of the main class of this plugin
+     * @param mainClass Full location of the main class of this plugin
      */
     public PluginDescriptionFile(final String pluginName, final String pluginVersion, final String mainClass) {
         name = pluginName;
@@ -124,7 +123,7 @@ public final class PluginDescriptionFile {
 
     /**
      * Gets the description of this plugin
-     * <p>
+     *
      * return Description of this plugin
      */
     public String getDescription() {
@@ -241,7 +240,7 @@ public final class PluginDescriptionFile {
 
         if (map.containsKey("load")) {
             try {
-                order = PluginLoadOrder.valueOf(((String) map.get("load")).toUpperCase().replaceAll("\\W", ""));
+                order = PluginLoadOrder.valueOf(((String)map.get("load")).toUpperCase().replaceAll("\\W", ""));
             } catch (ClassCastException ex) {
                 throw new InvalidDescriptionException(ex, "load is of wrong type");
             } catch (IllegalArgumentException ex) {

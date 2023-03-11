@@ -55,8 +55,7 @@ public class EntityArrow extends Entity {
         this.a(this.motX, this.motY, this.motZ, 1.5F, 1.0F);
     }
 
-    protected void b() {
-    }
+    protected void b() {}
 
     public void a(double d0, double d1, double d2, float f, float f1) {
         float f2 = MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);

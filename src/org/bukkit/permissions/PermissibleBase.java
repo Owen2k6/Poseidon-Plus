@@ -19,12 +19,12 @@ public class PermissibleBase implements Permissible {
         this.opable = opable;
 
         if (opable instanceof Permissible) {
-            this.parent = (Permissible) opable;
+            this.parent = (Permissible)opable;
         }
 
         recalculatePermissions();
     }
-
+    
     public boolean isOp() {
         if (opable == null) {
             return false;

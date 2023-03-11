@@ -6,8 +6,7 @@ public class ChunkCoordinates implements Comparable {
     public int y;
     public int z;
 
-    public ChunkCoordinates() {
-    }
+    public ChunkCoordinates() {}
 
     public ChunkCoordinates(int i, int j, int k) {
         this.x = i;
@@ -36,7 +35,7 @@ public class ChunkCoordinates implements Comparable {
     }
 
     public int compareTo(Object o) {
-        ChunkCoordinates chunkcoordinates = (ChunkCoordinates) o;
+    	ChunkCoordinates chunkcoordinates = (ChunkCoordinates) o;
         return this.y == chunkcoordinates.y ? (this.z == chunkcoordinates.z ? this.x - chunkcoordinates.x : this.z - chunkcoordinates.z) : this.y - chunkcoordinates.y;
     }
 

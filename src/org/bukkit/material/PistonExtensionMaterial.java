@@ -25,7 +25,7 @@ public class PistonExtensionMaterial extends MaterialData implements Attachable 
     }
 
     public void setFacingDirection(BlockFace face) {
-        byte data = (byte) (getData() & 0x8);
+        byte data = (byte)(getData() & 0x8);
 
         switch (face) {
             case UP:
@@ -48,7 +48,7 @@ public class PistonExtensionMaterial extends MaterialData implements Attachable 
     }
 
     public BlockFace getFacing() {
-        byte dir = (byte) (getData() & 7);
+        byte dir = (byte)(getData() & 7);
 
         switch (dir) {
             case 0:

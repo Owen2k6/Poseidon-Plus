@@ -9,8 +9,7 @@ public class Packet200Statistic extends Packet {
     public int a;
     public int b;
 
-    public Packet200Statistic() {
-    }
+    public Packet200Statistic() {}
 
     public Packet200Statistic(int i, int j) {
         this.a = i;

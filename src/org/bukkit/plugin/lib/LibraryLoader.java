@@ -13,12 +13,15 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibraryLoader {
-    public ClassLoader createLoader(PluginDescriptionFile description) throws MalformedURLException {
+public class LibraryLoader
+{
+    public ClassLoader createLoader(PluginDescriptionFile description) throws MalformedURLException
+    {
         if (description.getDependencies().isEmpty()) return null;
 
         List<URL> urls = new ArrayList<>();
-        for (String dependency : description.getDependencies()) {
+        for (String dependency : description.getDependencies())
+        {
             MavenLibrary library = new MavenLibrary(dependency);
             library.download();
             urls.add(library.getFile().toURI().toURL());

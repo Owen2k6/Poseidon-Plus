@@ -11,8 +11,7 @@ public abstract class WorldProvider {
     public int dimension = 0;
     private float[] h = new float[4];
 
-    public WorldProvider() {
-    }
+    public WorldProvider() {}
 
     public final void a(World world) {
         this.a = world;

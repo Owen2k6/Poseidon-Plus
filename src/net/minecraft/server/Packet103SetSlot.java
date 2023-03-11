@@ -10,8 +10,7 @@ public class Packet103SetSlot extends Packet {
     public int b;
     public ItemStack c;
 
-    public Packet103SetSlot() {
-    }
+    public Packet103SetSlot() {}
 
     public Packet103SetSlot(int i, int j, ItemStack itemstack) {
         this.a = i;

@@ -5,7 +5,7 @@ import org.bukkit.event.Cancellable;
 
 /**
  * Called when leaves are decaying naturally.
- * <p/>
+ *<p />
  * If a Leaves Decay event is cancelled, the leaves will not decay.
  */
 public class LeavesDecayEvent extends BlockEvent implements Cancellable {

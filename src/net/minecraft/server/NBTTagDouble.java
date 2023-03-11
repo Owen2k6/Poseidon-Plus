@@ -8,8 +8,7 @@ public class NBTTagDouble extends NBTBase {
 
     public double a;
 
-    public NBTTagDouble() {
-    }
+    public NBTTagDouble() {}
 
     public NBTTagDouble(double d0) {
         this.a = d0;

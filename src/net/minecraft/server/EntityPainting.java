@@ -52,8 +52,7 @@ public class EntityPainting extends Entity {
         this.b(l);
     }
 
-    protected void b() {
-    }
+    protected void b() {}
 
     public void b(int i) {
         this.a = i;

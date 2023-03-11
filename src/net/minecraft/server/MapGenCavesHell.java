@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class MapGenCavesHell extends MapGenBase {
 
-    public MapGenCavesHell() {
-    }
+    public MapGenCavesHell() {}
 
     protected void a(int i, int j, byte[] abyte, double d0, double d1, double d2) {
         this.a(i, j, abyte, d0, d1, d2, 1.0F + this.b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);

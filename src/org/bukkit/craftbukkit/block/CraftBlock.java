@@ -132,8 +132,8 @@ public class CraftBlock implements Block {
 
         for (BlockFace face : values) {
             if ((this.getX() + face.getModX() == block.getX()) &&
-                    (this.getY() + face.getModY() == block.getY()) &&
-                    (this.getZ() + face.getModZ() == block.getZ())
+                (this.getY() + face.getModY() == block.getY()) &&
+                (this.getZ() + face.getModZ() == block.getZ())
             ) {
                 return face;
             }
@@ -155,25 +155,25 @@ public class CraftBlock implements Block {
      */
     public static BlockFace notchToBlockFace(int notch) {
         switch (notch) {
-            case 0:
-                return BlockFace.DOWN;
-            case 1:
-                return BlockFace.UP;
-            case 2:
-                return BlockFace.EAST;
-            case 3:
-                return BlockFace.WEST;
-            case 4:
-                return BlockFace.NORTH;
-            case 5:
-                return BlockFace.SOUTH;
-            default:
-                return BlockFace.SELF;
+        case 0:
+            return BlockFace.DOWN;
+        case 1:
+            return BlockFace.UP;
+        case 2:
+            return BlockFace.EAST;
+        case 3:
+            return BlockFace.WEST;
+        case 4:
+            return BlockFace.NORTH;
+        case 5:
+            return BlockFace.SOUTH;
+        default:
+            return BlockFace.SELF;
         }
     }
 
     public static int blockFaceToNotch(BlockFace face) {
-        switch (face) {
+        switch(face) {
             case DOWN:
                 return 0;
             case UP:
@@ -284,18 +284,12 @@ public class CraftBlock implements Block {
         int power = 0;
         BlockRedstoneWire wire = (BlockRedstoneWire) net.minecraft.server.Block.REDSTONE_WIRE;
         net.minecraft.server.World world = chunk.getHandle().world;
-        if ((face == BlockFace.DOWN || face == BlockFace.SELF) && world.isBlockFacePowered(x, y - 1, z, 0))
-            power = wire.getPower(world, x, y - 1, z, power);
-        if ((face == BlockFace.UP || face == BlockFace.SELF) && world.isBlockFacePowered(x, y + 1, z, 1))
-            power = wire.getPower(world, x, y + 1, z, power);
-        if ((face == BlockFace.EAST || face == BlockFace.SELF) && world.isBlockFacePowered(x, y, z - 1, 2))
-            power = wire.getPower(world, x, y, z - 1, power);
-        if ((face == BlockFace.WEST || face == BlockFace.SELF) && world.isBlockFacePowered(x, y, z + 1, 3))
-            power = wire.getPower(world, x, y, z + 1, power);
-        if ((face == BlockFace.NORTH || face == BlockFace.SELF) && world.isBlockFacePowered(x - 1, y, z, 4))
-            power = wire.getPower(world, x - 1, y, z, power);
-        if ((face == BlockFace.SOUTH || face == BlockFace.SELF) && world.isBlockFacePowered(x + 1, y, z, 5))
-            power = wire.getPower(world, x + 1, y, z, power);
+        if ((face == BlockFace.DOWN || face == BlockFace.SELF) && world.isBlockFacePowered(x, y - 1, z, 0)) power = wire.getPower(world, x, y - 1, z, power);
+        if ((face == BlockFace.UP || face == BlockFace.SELF) && world.isBlockFacePowered(x, y + 1, z, 1)) power = wire.getPower(world, x, y + 1, z, power);
+        if ((face == BlockFace.EAST || face == BlockFace.SELF) && world.isBlockFacePowered(x, y, z - 1, 2)) power = wire.getPower(world, x, y, z - 1, power);
+        if ((face == BlockFace.WEST || face == BlockFace.SELF) && world.isBlockFacePowered(x, y, z + 1, 3)) power = wire.getPower(world, x, y, z + 1, power);
+        if ((face == BlockFace.NORTH || face == BlockFace.SELF) && world.isBlockFacePowered(x - 1, y, z, 4)) power = wire.getPower(world, x - 1, y, z, power);
+        if ((face == BlockFace.SOUTH || face == BlockFace.SELF) && world.isBlockFacePowered(x + 1, y, z, 5)) power = wire.getPower(world, x + 1, y, z, power);
         return power > 0 ? power : (face == BlockFace.SELF ? isBlockIndirectlyPowered() : isBlockFaceIndirectlyPowered(face)) ? 15 : 0;
     }
 

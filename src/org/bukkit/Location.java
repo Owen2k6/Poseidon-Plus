@@ -18,9 +18,9 @@ public class Location implements Cloneable {
      * Constructs a new Location with the given coordinates
      *
      * @param world The world in which this location resides
-     * @param x     The x-coordinate of this new location
-     * @param y     The y-coordinate of this new location
-     * @param z     The z-coordinate of this new location
+     * @param x The x-coordinate of this new location
+     * @param y The y-coordinate of this new location
+     * @param z The z-coordinate of this new location
      */
     public Location(final World world, final double x, final double y, final double z) {
         this(world, x, y, z, 0, 0);
@@ -30,10 +30,10 @@ public class Location implements Cloneable {
      * Constructs a new Location with the given coordinates and direction
      *
      * @param world The world in which this location resides
-     * @param x     The x-coordinate of this new location
-     * @param y     The y-coordinate of this new location
-     * @param z     The z-coordinate of this new location
-     * @param yaw   The absolute rotation on the x-plane, in degrees
+     * @param x The x-coordinate of this new location
+     * @param y The y-coordinate of this new location
+     * @param z The z-coordinate of this new location
+     * @param yaw The absolute rotation on the x-plane, in degrees
      * @param pitch The absolute rotation on the y-plane, in degrees
      */
     public Location(final World world, final double x, final double y, final double z, final float yaw, final float pitch) {
@@ -216,10 +216,10 @@ public class Location implements Cloneable {
     /**
      * Adds the location by another.
      *
+     * @see Vector
      * @param vec
      * @return the same location
      * @throws IllegalArgumentException for differing worlds
-     * @see Vector
      */
     public Location add(Location vec) {
         if (vec == null || vec.getWorld() != getWorld()) {
@@ -235,11 +235,11 @@ public class Location implements Cloneable {
     /**
      * Adds the location by another. Not world-aware.
      *
+     * @see Vector
      * @param x
      * @param y
      * @param z
      * @return the same location
-     * @see Vector
      */
     public Location add(double x, double y, double z) {
         this.x += x;
@@ -251,10 +251,10 @@ public class Location implements Cloneable {
     /**
      * Subtracts the location by another.
      *
+     * @see Vector
      * @param vec
      * @return the same location
      * @throws IllegalArgumentException for differing worlds
-     * @see Vector
      */
     public Location subtract(Location vec) {
         if (vec == null || vec.getWorld() != getWorld()) {
@@ -271,11 +271,11 @@ public class Location implements Cloneable {
      * Subtracts the location by another. Not world-aware and
      * orientation independent.
      *
+     * @see Vector
      * @param x
      * @param y
      * @param z
      * @return the same location
-     * @see Vector
      */
     public Location subtract(double x, double y, double z) {
         this.x -= x;
@@ -292,8 +292,8 @@ public class Location implements Cloneable {
      * which will be caused if the length is too long. Not world-aware and
      * orientation independent.
      *
-     * @return the magnitude
      * @see Vector
+     * @return the magnitude
      */
     public double length() {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
@@ -303,8 +303,8 @@ public class Location implements Cloneable {
      * Gets the magnitude of the location squared. Not world-aware and
      * orientation independent.
      *
-     * @return the magnitude
      * @see Vector
+     * @return the magnitude
      */
     public double lengthSquared() {
         return Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2);
@@ -317,10 +317,10 @@ public class Location implements Cloneable {
      * will be returned if the inner result of the sqrt() function overflows,
      * which will be caused if the distance is too long.
      *
+     * @see Vector
      * @param o
      * @return the distance
      * @throws IllegalArgumentException for differing worlds
-     * @see Vector
      */
     public double distance(Location o) {
         if (o == null || o.getWorld() != getWorld()) {
@@ -333,10 +333,10 @@ public class Location implements Cloneable {
     /**
      * Get the squared distance between this location and another.
      *
+     * @see Vector
      * @param o
      * @return the distance
      * @throws IllegalArgumentException for differing worlds
-     * @see Vector
      */
     public double distanceSquared(Location o) {
         if (o == null || o.getWorld() != getWorld()) {
@@ -351,8 +351,8 @@ public class Location implements Cloneable {
      * Not world-aware.
      *
      * @param m
-     * @return the same location
      * @see Vector
+     * @return the same location
      */
     public Location multiply(double m) {
         x *= m;
@@ -364,8 +364,8 @@ public class Location implements Cloneable {
     /**
      * Zero this location's components. Not world-aware.
      *
-     * @return the same location
      * @see Vector
+     * @return the same location
      */
     public Location zero() {
         x = 0;

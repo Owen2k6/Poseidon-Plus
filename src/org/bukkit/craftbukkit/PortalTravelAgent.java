@@ -17,8 +17,7 @@ public class PortalTravelAgent implements TravelAgent {
     private int creationRadius = 14; // 16 -> 14
     private boolean canCreatePortal = true;
 
-    public PortalTravelAgent() {
-    }
+    public PortalTravelAgent() { }
 
     public Location findOrCreate(Location location) {
         WorldServer worldServer = ((CraftWorld) location.getWorld()).getHandle();
@@ -347,6 +346,8 @@ public class PortalTravelAgent implements TravelAgent {
 
         return true;
     }
+
+
 
 
     public TravelAgent setSearchRadius(int radius) {

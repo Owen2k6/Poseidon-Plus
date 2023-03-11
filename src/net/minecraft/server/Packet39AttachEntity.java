@@ -9,8 +9,7 @@ public class Packet39AttachEntity extends Packet {
     public int a;
     public int b;
 
-    public Packet39AttachEntity() {
-    }
+    public Packet39AttachEntity() {}
 
     public Packet39AttachEntity(Entity entity, Entity entity1) {
         this.a = entity.id;

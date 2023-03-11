@@ -11,8 +11,7 @@ final class ConsoleLogFormatter extends Formatter {
 
     private SimpleDateFormat a = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    ConsoleLogFormatter() {
-    }
+    ConsoleLogFormatter() {}
 
     public String format(LogRecord logrecord) {
         StringBuilder stringbuilder = new StringBuilder();

@@ -366,14 +366,11 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void a(IInventory iinventory) {
-    }
+    public void a(IInventory iinventory) {}
 
-    public void b(int i, int j, int k) {
-    }
+    public void b(int i, int j, int k) {}
 
-    public void receive(Entity entity, int i) {
-    }
+    public void receive(Entity entity, int i) {}
 
     public float t() {
         return 0.12F;
@@ -501,14 +498,11 @@ public abstract class EntityHuman extends EntityLiving {
         super.c(i);
     }
 
-    public void a(TileEntityFurnace tileentityfurnace) {
-    }
+    public void a(TileEntityFurnace tileentityfurnace) {}
 
-    public void a(TileEntityDispenser tileentitydispenser) {
-    }
+    public void a(TileEntityDispenser tileentitydispenser) {}
 
-    public void a(TileEntitySign tileentitysign) {
-    }
+    public void a(TileEntitySign tileentitysign) {}
 
     public void c(Entity entity) {
         if (!entity.a(this)) {
@@ -593,8 +587,7 @@ public abstract class EntityHuman extends EntityLiving {
         }
     }
 
-    public void a(ItemStack itemstack) {
-    }
+    public void a(ItemStack itemstack) {}
 
     public void die() {
         super.die();
@@ -650,20 +643,20 @@ public abstract class EntityHuman extends EntityLiving {
             float f1 = 0.5F;
 
             switch (i1) {
-                case 0:
-                    f1 = 0.9F;
-                    break;
+            case 0:
+                f1 = 0.9F;
+                break;
 
-                case 1:
-                    f = 0.1F;
-                    break;
+            case 1:
+                f = 0.1F;
+                break;
 
-                case 2:
-                    f1 = 0.1F;
-                    break;
+            case 2:
+                f1 = 0.1F;
+                break;
 
-                case 3:
-                    f = 0.9F;
+            case 3:
+                f = 0.9F;
             }
 
             this.e(i1);
@@ -687,20 +680,20 @@ public abstract class EntityHuman extends EntityLiving {
         this.B = 0.0F;
         this.C = 0.0F;
         switch (i) {
-            case 0:
-                this.C = -1.8F;
-                break;
+        case 0:
+            this.C = -1.8F;
+            break;
 
-            case 1:
-                this.B = 1.8F;
-                break;
+        case 1:
+            this.B = 1.8F;
+            break;
 
-            case 2:
-                this.C = 1.8F;
-                break;
+        case 2:
+            this.C = 1.8F;
+            break;
 
-            case 3:
-                this.B = -1.8F;
+        case 3:
+            this.B = -1.8F;
         }
     }
 
@@ -780,8 +773,7 @@ public abstract class EntityHuman extends EntityLiving {
         return this.sleeping && this.sleepTicks >= 100;
     }
 
-    public void a(String s) {
-    }
+    public void a(String s) {}
 
     public ChunkCoordinates getBed() {
         return this.b;
@@ -800,8 +792,7 @@ public abstract class EntityHuman extends EntityLiving {
         this.a(statistic, 1);
     }
 
-    public void a(Statistic statistic, int i) {
-    }
+    public void a(Statistic statistic, int i) {}
 
     protected void O() {
         super.O();

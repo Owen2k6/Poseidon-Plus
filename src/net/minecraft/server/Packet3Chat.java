@@ -8,8 +8,7 @@ public class Packet3Chat extends Packet {
 
     public String message;
 
-    public Packet3Chat() {
-    }
+    public Packet3Chat() {}
 
     public Packet3Chat(String s) {
         /* CraftBukkit start - handle this later

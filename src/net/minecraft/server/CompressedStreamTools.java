@@ -6,8 +6,7 @@ import java.util.zip.GZIPOutputStream;
 
 public class CompressedStreamTools {
 
-    public CompressedStreamTools() {
-    }
+    public CompressedStreamTools() {}
 
     public static NBTTagCompound a(InputStream inputstream) throws IOException {
         DataInputStream datainputstream = new DataInputStream(new GZIPInputStream(inputstream));

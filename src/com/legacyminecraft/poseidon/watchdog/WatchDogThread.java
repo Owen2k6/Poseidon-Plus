@@ -44,7 +44,7 @@ public class WatchDogThread extends Thread {
                     } else {
                         System.out.println("[Poseidon-Watchdog] A server tick hasn't occurred in " + ((int) ((System.currentTimeMillis() / 1000L) - lastTick)) + " seconds.");
                         //Server debug timeout
-                        if ((lastTick + debugTimeout) < (System.currentTimeMillis() / 1000L) && debugTimeoutEnabled && !printedDebug) {
+                        if((lastTick + debugTimeout) < (System.currentTimeMillis() / 1000L) && debugTimeoutEnabled && !printedDebug) {
                             System.out.println("[Poseidon-Watchdog] Server hang detected. Printing debug as debug timeout has been exceeded.");
                             System.out.println("--------------------[Stacktrace For Developers]--------------------");
                             Arrays.asList(serverThread.getStackTrace()).forEach(System.out::println);

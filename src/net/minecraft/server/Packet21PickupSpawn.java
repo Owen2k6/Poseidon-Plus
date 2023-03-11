@@ -17,8 +17,7 @@ public class Packet21PickupSpawn extends Packet {
     public int i;
     public int l;
 
-    public Packet21PickupSpawn() {
-    }
+    public Packet21PickupSpawn() {}
 
     public Packet21PickupSpawn(EntityItem entityitem) {
         this.a = entityitem.id;

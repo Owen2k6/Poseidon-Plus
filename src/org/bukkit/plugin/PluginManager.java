@@ -24,7 +24,7 @@ public interface PluginManager {
 
     /**
      * Checks if the given plugin is loaded and returns it when applicable
-     * <p>
+     *
      * Please note that the name of the plugin is case-sensitive
      *
      * @param name Name of the plugin to check
@@ -41,7 +41,7 @@ public interface PluginManager {
 
     /**
      * Checks if the given plugin is enabled or not
-     * <p>
+     *
      * Please note that the name of the plugin is case-sensitive.
      *
      * @param name Name of the plugin to check
@@ -59,12 +59,12 @@ public interface PluginManager {
 
     /**
      * Loads the plugin in the specified file
-     * <p>
+     *
      * File must be valid according to the current enabled Plugin interfaces
      *
      * @param file File containing the plugin to load
      * @return The Plugin loaded, or null if it was invalid
-     * @throws InvalidPluginException      Thrown when the specified file is not a valid plugin
+     * @throws InvalidPluginException Thrown when the specified file is not a valid plugin
      * @throws InvalidDescriptionException Thrown when the specified file contains an invalid description
      */
     public Plugin loadPlugin(File file) throws InvalidPluginException, InvalidDescriptionException, UnknownDependencyException;
@@ -97,45 +97,45 @@ public interface PluginManager {
     /**
      * Registers the given event to the specified listener
      *
-     * @param type     EventType to register
+     * @param type EventType to register
      * @param listener Listener to register
      * @param priority Priority of this event
-     * @param plugin   Plugin to register
+     * @param plugin Plugin to register
      */
     public void registerEvent(Event.Type type, Listener listener, Priority priority, Plugin plugin);
 
     /**
      * Registers the given event to the specified executor
      *
-     * @param type     EventType to register
+     * @param type EventType to register
      * @param listener Listener to register
      * @param executor EventExecutor to register
      * @param priority Priority of this event
-     * @param plugin   Plugin to register
+     * @param plugin Plugin to register
      */
     public void registerEvent(Event.Type type, Listener listener, EventExecutor executor, Priority priority, Plugin plugin);
 
     /**
      * Registers a listener with all events with @EventHandler
      *
-     * @param listener Listener to register
-     * @param plugin   Plugin to register
      * @see org.bukkit.event.EventHandler
+     * @param listener Listener to register
+     * @param plugin Plugin to register
      */
     public void registerEvents(Listener listener, Plugin plugin);
 
     /**
      * Registers a super listener with all events with @EventHandler
      *
-     * @param listener Listener to register
-     * @param plugin   Plugin to register
      * @see org.bukkit.event.EventHandler
+     * @param listener Listener to register
+     * @param plugin Plugin to register
      */
     public void registerSuperEvents(Listener listener, Plugin plugin);
 
     /**
      * Enables the specified plugin
-     * <p>
+     *
      * Attempting to enable a plugin that is already enabled will have no effect
      *
      * @param plugin Plugin to enable
@@ -144,7 +144,7 @@ public interface PluginManager {
 
     /**
      * Disables the specified plugin
-     * <p>
+     *
      * Attempting to disable a plugin that is not enabled will have no effect
      *
      * @param plugin Plugin to disable
@@ -161,7 +161,7 @@ public interface PluginManager {
 
     /**
      * Adds a {@link Permission} to this plugin manager.
-     * <p>
+     *
      * If a permission is already defined with the given name of the new permission,
      * an exception will be thrown.
      *
@@ -172,9 +172,9 @@ public interface PluginManager {
 
     /**
      * Removes a {@link Permission} registration from this plugin manager.
-     * <p>
+     *
      * If the specified permission does not exist in this plugin manager, nothing will happen.
-     * <p>
+     *
      * Removing a permission registration will <b>not</b> remove the permission from any {@link Permissible}s that have it.
      *
      * @param perm Permission to remove
@@ -183,9 +183,9 @@ public interface PluginManager {
 
     /**
      * Removes a {@link Permission} registration from this plugin manager.
-     * <p>
+     *
      * If the specified permission does not exist in this plugin manager, nothing will happen.
-     * <p>
+     *
      * Removing a permission registration will <b>not</b> remove the permission from any {@link Permissible}s that have it.
      *
      * @param name Permission to remove
@@ -201,7 +201,7 @@ public interface PluginManager {
 
     /**
      * Recalculates the defaults for the given {@link Permission}.
-     * <p>
+     *
      * This will have no effect if the specified permission is not registered here.
      *
      * @param perm Permission to recalculate
@@ -210,10 +210,10 @@ public interface PluginManager {
 
     /**
      * Subscribes the given Permissible for information about the requested Permission, by name.
-     * <p>
+     *
      * If the specified Permission changes in any form, the Permissible will be asked to recalculate.
      *
-     * @param permission  Permission to subscribe to
+     * @param permission Permission to subscribe to
      * @param permissible Permissible subscribing
      */
     public void subscribeToPermission(String permission, Permissible permissible);
@@ -221,7 +221,7 @@ public interface PluginManager {
     /**
      * Unsubscribes the given Permissible for information about the requested Permission, by name.
      *
-     * @param permission  Permission to unsubscribe from
+     * @param permission Permission to unsubscribe from
      * @param permissible Permissible subscribing
      */
     public void unsubscribeFromPermission(String permission, Permissible permissible);
@@ -236,10 +236,10 @@ public interface PluginManager {
 
     /**
      * Subscribes to the given Default permissions by operator status
-     * <p>
+     *
      * If the specified defaults change in any form, the Permissible will be asked to recalculate.
      *
-     * @param op          Default list to subscribe to
+     * @param op Default list to subscribe to
      * @param permissible Permissible subscribing
      */
     public void subscribeToDefaultPerms(boolean op, Permissible permissible);
@@ -247,7 +247,7 @@ public interface PluginManager {
     /**
      * Unsubscribes from the given Default permissions by operator status
      *
-     * @param op          Default list to unsubscribe from
+     * @param op Default list to unsubscribe from
      * @param permissible Permissible subscribing
      */
     public void unsubscribeFromDefaultPerms(boolean op, Permissible permissible);
@@ -262,7 +262,7 @@ public interface PluginManager {
 
     /**
      * Gets a set of all registered permissions.
-     * <p>
+     *
      * This set is a copy and will not be modified live.
      *
      * @return Set containing all current registered permissions

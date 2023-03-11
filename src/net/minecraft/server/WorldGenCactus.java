@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class WorldGenCactus extends WorldGenerator {
 
-    public WorldGenCactus() {
-    }
+    public WorldGenCactus() {}
 
     public boolean a(World world, Random random, int i, int j, int k) {
         for (int l = 0; l < 10; ++l) {

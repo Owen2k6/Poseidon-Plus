@@ -16,7 +16,6 @@ public class ShapedRecipe implements Recipe {
     /**
      * Create a shaped recipe to craft the specified ItemStack. The constructor merely determines the
      * result and type; to set the actual recipe, you'll need to call the appropriate methods.
-     *
      * @param result The item you want the recipe to create.
      * @see ShapedRecipe#shape(String...)
      * @see ShapedRecipe#setIngredient(char, Material)
@@ -30,7 +29,6 @@ public class ShapedRecipe implements Recipe {
     /**
      * Set the shape of this recipe to the specified rows. Each character represents a different
      * ingredient; exactly what each character represents is set separately.
-     *
      * @param shape The rows of the recipe (up to 3 rows).
      * @return The changed recipe, so you can chain calls.
      */
@@ -52,16 +50,14 @@ public class ShapedRecipe implements Recipe {
         for (char key : ingredientsTemp.keySet()) {
             try {
                 setIngredient(key, ingredientsTemp.get(key));
-            } catch (IllegalArgumentException e) {
-            }
+            } catch (IllegalArgumentException e) {}
         }
         return this;
     }
 
     /**
      * Sets the material that a character in the recipe shape refers to.
-     *
-     * @param key        The character that represents the ingredient in the shape.
+     * @param key The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
      * @return The changed recipe, so you can chain calls.
      */
@@ -75,8 +71,7 @@ public class ShapedRecipe implements Recipe {
 
     /**
      * Sets the material that a character in the recipe shape refers to.
-     *
-     * @param key        The character that represents the ingredient in the shape.
+     * @param key The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
      * @return The changed recipe, so you can chain calls.
      */
@@ -86,10 +81,9 @@ public class ShapedRecipe implements Recipe {
 
     /**
      * Sets the material that a character in the recipe shape refers to.
-     *
-     * @param key        The character that represents the ingredient in the shape.
+     * @param key The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
-     * @param raw        The raw material data as an integer.
+     * @param raw The raw material data as an integer.
      * @return The changed recipe, so you can chain calls.
      */
     public ShapedRecipe setIngredient(char key, Material ingredient, int raw) {
@@ -114,7 +108,6 @@ public class ShapedRecipe implements Recipe {
 
     /**
      * Get the ingredients map.
-     *
      * @return The mapping of character to ingredients.
      */
     public HashMap<Character, MaterialData> getIngredientMap() {
@@ -123,7 +116,6 @@ public class ShapedRecipe implements Recipe {
 
     /**
      * Get the shape.
-     *
      * @return The recipe's shape.
      */
     public String[] getShape() {
@@ -132,7 +124,6 @@ public class ShapedRecipe implements Recipe {
 
     /**
      * Get the result.
-     *
      * @return The result stack.
      */
     public ItemStack getResult() {

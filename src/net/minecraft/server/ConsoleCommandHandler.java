@@ -23,10 +23,10 @@ public class ConsoleCommandHandler {
     // Craftbukkit start
     private boolean hasPermission(ICommandListener listener, String perm) {
         if (listener instanceof ServerCommandListener) {
-            ServerCommandListener serv = (ServerCommandListener) listener;
+            ServerCommandListener serv = (ServerCommandListener)listener;
             return serv.getSender().hasPermission(perm);
         } else if (listener instanceof NetServerHandler) {
-            NetServerHandler net = (NetServerHandler) listener;
+            NetServerHandler net = (NetServerHandler)listener;
             return net.getPlayer().hasPermission(perm);
         } else if ((listener instanceof ServerGUI) || (listener instanceof MinecraftServer)) {
             return server.console.hasPermission(perm);

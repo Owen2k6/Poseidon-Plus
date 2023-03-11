@@ -10,8 +10,7 @@ public class Packet105CraftProgressBar extends Packet {
     public int b;
     public int c;
 
-    public Packet105CraftProgressBar() {
-    }
+    public Packet105CraftProgressBar() {}
 
     public Packet105CraftProgressBar(int i, int j, int k) {
         this.a = i;

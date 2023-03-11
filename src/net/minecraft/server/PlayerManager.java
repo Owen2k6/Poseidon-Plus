@@ -11,7 +11,7 @@ public class PlayerManager {
     private MinecraftServer server;
     private int e;
     private int f;
-    private final int[][] g = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    private final int[][] g = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
     public PlayerManager(MinecraftServer minecraftserver, int i, int j) {
         if (j > 15) {

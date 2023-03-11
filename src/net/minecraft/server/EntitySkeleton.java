@@ -57,9 +57,9 @@ public class EntitySkeleton extends EntityMonster {
                 ++entityarrow.locY;
                 double d2 = entity.locY + (double) entity.t() - 0.20000000298023224D - entityarrow.locY;
                 float f1 = MathHelper.a(d0 * d0 + d1 * d1) * 0.2F;
-
+                
                 if ((boolean) PoseidonConfig.getInstance().getConfigOption("world.settings.skeleton-shooting-sound-fix.enabled", true)) {
-                    this.world.e(1002, MathHelper.floor(this.locX), MathHelper.floor(this.locY - (double) this.height), MathHelper.floor(this.locZ), 0); // Poseidon - fix skeleton bow sounds (Strultz)
+                    this.world.e(1002, MathHelper.floor(this.locX), MathHelper.floor(this.locY - (double)this.height), MathHelper.floor(this.locZ), 0); // Poseidon - fix skeleton bow sounds (Strultz)
                 } else {
                     this.world.makeSound(this, "random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                 }
@@ -105,7 +105,7 @@ public class EntitySkeleton extends EntityMonster {
         EntityDeathEvent event = new EntityDeathEvent(entity, loot);
         this.world.getServer().getPluginManager().callEvent(event);
 
-        for (org.bukkit.inventory.ItemStack stack : event.getDrops()) {
+        for (org.bukkit.inventory.ItemStack stack: event.getDrops()) {
             bworld.dropItemNaturally(entity.getLocation(), stack);
         }
         // CraftBukkit end

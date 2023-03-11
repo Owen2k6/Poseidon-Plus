@@ -11,8 +11,7 @@ public class Packet100OpenWindow extends Packet {
     public String c;
     public int d;
 
-    public Packet100OpenWindow() {
-    }
+    public Packet100OpenWindow() {}
 
     public Packet100OpenWindow(int i, int j, String s, int k) {
         this.a = i;

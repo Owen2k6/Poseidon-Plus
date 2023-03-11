@@ -49,7 +49,7 @@ public class Permission {
         this.name = name;
         this.description = (description == null) ? "" : description;
         this.defaultValue = (defaultValue == null) ? defaultValue.FALSE : defaultValue;
-
+        
         if (children != null) {
             this.children.putAll(children);
         }
@@ -68,7 +68,7 @@ public class Permission {
 
     /**
      * Gets the children of this permission.
-     * <p>
+     *
      * If you change this map in any form, you must call {@link #recalculatePermissibles()} to recalculate all {@link Permissible}s
      *
      * @return Permission children
@@ -88,7 +88,7 @@ public class Permission {
 
     /**
      * Sets the default value of this permission.
-     * <p>
+     *
      * This will not be saved to disk, and is a temporary operation until the server reloads permissions.
      * Changing this default will cause all {@link Permissible}s that contain this permission to recalculate their permissions
      *
@@ -114,7 +114,7 @@ public class Permission {
 
     /**
      * Sets the description of this permission.
-     * <p>
+     *
      * This will not be saved to disk, and is a temporary operation until the server reloads permissions.
      *
      * @param value The new description to set
@@ -129,7 +129,7 @@ public class Permission {
 
     /**
      * Gets a set containing every {@link Permissible} that has this permission.
-     * <p>
+     *
      * This set cannot be modified.
      *
      * @return Set containing permissibles with this permission
@@ -140,7 +140,7 @@ public class Permission {
 
     /**
      * Recalculates all {@link Permissible}s that contain this permission.
-     * <p>
+     *
      * This should be called after modifying the children, and is automatically called after modifying the default value
      */
     public void recalculatePermissibles() {
@@ -155,7 +155,7 @@ public class Permission {
 
     /**
      * Loads a Permission from a map of data, usually used from retrieval from a yaml file.
-     * <p>
+     *
      * The data may contain the following keys:
      * default: Boolean true or false. If not specified, false.
      * children: Map<String, Boolean> of child permissions. If not specified, empty list.
@@ -199,7 +199,7 @@ public class Permission {
 
         if (data.containsKey("description")) {
             try {
-                desc = (String) data.get("description");
+                desc = (String)data.get("description");
             } catch (ClassCastException ex) {
                 throw new IllegalArgumentException("'description' key is of wrong type", ex);
             }
@@ -209,7 +209,7 @@ public class Permission {
     }
 
     private static Map<String, Boolean> extractChildren(Map<String, Object> data) {
-        Map<String, Boolean> input = (Map<String, Boolean>) data.get("children");
+        Map<String, Boolean> input = (Map<String, Boolean>)data.get("children");
         Set<Entry<String, Boolean>> entries = input.entrySet();
 
         for (Map.Entry<String, Boolean> entry : entries) {

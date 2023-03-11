@@ -365,8 +365,7 @@ public enum Material {
 
         try {
             result = getMaterial(Integer.parseInt(name));
-        } catch (NumberFormatException ex) {
-        }
+        } catch (NumberFormatException ex) {}
 
         if (result == null) {
             String filtered = name.toUpperCase();

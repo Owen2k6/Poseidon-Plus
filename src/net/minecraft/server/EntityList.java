@@ -8,8 +8,7 @@ public class EntityList {
     private final float d = 0.75F;
     private transient volatile int e;
 
-    public EntityList() {
-    }
+    public EntityList() {}
 
     private static int g(int i) {
         i ^= i >>> 20 ^ i >>> 12;

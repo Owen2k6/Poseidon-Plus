@@ -28,8 +28,8 @@ import java.util.concurrent.ConcurrentMap;
 public class CraftWorld implements World {
     private final WorldServer world;
     private Environment environment;
-    private final CraftServer server = (CraftServer) Bukkit.getServer();
-    //    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
+    private final CraftServer server = (CraftServer)Bukkit.getServer();
+//    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
     private final ChunkGenerator generator;
     private final List<BlockPopulator> populators = new ArrayList<BlockPopulator>();
 
@@ -278,9 +278,9 @@ public class CraftWorld implements World {
 
     public org.bukkit.entity.Item dropItem(Location loc, ItemStack item) {
         net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(
-                item.getTypeId(),
-                item.getAmount(),
-                item.getDurability()
+            item.getTypeId(),
+            item.getAmount(),
+            item.getDurability()
         );
         EntityItem entity = new EntityItem(world, loc.getX(), loc.getY(), loc.getZ(), stack);
         entity.pickupDelay = 10;
@@ -397,7 +397,7 @@ public class CraftWorld implements World {
         world.setTime(time);
 
         // Forces the client to update to the new time immediately
-        for (Player p : getPlayers()) {
+        for (Player p: getPlayers()) {
             CraftPlayer cp = (CraftPlayer) p;
             cp.getHandle().netServerHandler.sendPacket(new Packet4UpdateTime(cp.getHandle().getPlayerTime()));
         }
@@ -497,7 +497,7 @@ public class CraftWorld implements World {
     }
 
     public double getTemperature(int x, int z) {
-        return getHandle().getWorldChunkManager().a((double[]) null, x, z, 1, 1)[0];
+        return getHandle().getWorldChunkManager().a((double[])null, x, z, 1, 1)[0];
     }
 
     public double getHumidity(int x, int z) {
@@ -507,7 +507,7 @@ public class CraftWorld implements World {
     public List<Entity> getEntities() {
         List<Entity> list = new ArrayList<Entity>();
 
-        for (Object o : world.entityList) {
+        for (Object o: world.entityList) {
             if (o instanceof net.minecraft.server.Entity) {
                 net.minecraft.server.Entity mcEnt = (net.minecraft.server.Entity) o;
                 Entity bukkitEntity = mcEnt.getBukkitEntity();
@@ -525,7 +525,7 @@ public class CraftWorld implements World {
     public List<LivingEntity> getLivingEntities() {
         List<LivingEntity> list = new ArrayList<LivingEntity>();
 
-        for (Object o : world.entityList) {
+        for (Object o: world.entityList) {
             if (o instanceof net.minecraft.server.Entity) {
                 net.minecraft.server.Entity mcEnt = (net.minecraft.server.Entity) o;
                 Entity bukkitEntity = mcEnt.getBukkitEntity();

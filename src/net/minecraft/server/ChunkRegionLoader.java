@@ -60,12 +60,9 @@ public class ChunkRegionLoader implements IChunkLoader {
         }
     }
 
-    public void b(World world, Chunk chunk) {
-    }
+    public void b(World world, Chunk chunk) {}
 
-    public void a() {
-    }
+    public void a() {}
 
-    public void b() {
-    }
+    public void b() {}
 }

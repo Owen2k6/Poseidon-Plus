@@ -6,8 +6,7 @@ import java.util.Random;
 
 public class WorldGenTrees extends WorldGenerator {
 
-    public WorldGenTrees() {
-    }
+    public WorldGenTrees() {}
 
     public boolean a(World world, Random random, int i, int j, int k) {
         // CraftBukkit start

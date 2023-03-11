@@ -5,8 +5,7 @@ public class TileEntityNote extends TileEntity {
     public byte note = 0;
     public boolean b = false;
 
-    public TileEntityNote() {
-    }
+    public TileEntityNote() {}
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);

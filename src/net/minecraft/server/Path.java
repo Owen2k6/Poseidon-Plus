@@ -5,8 +5,7 @@ public class Path {
     private PathPoint[] a = new PathPoint[1024];
     private int b = 0;
 
-    public Path() {
-    }
+    public Path() {}
 
     public PathPoint a(PathPoint pathpoint) {
         if (pathpoint.d >= 0) {

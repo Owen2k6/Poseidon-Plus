@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
  * An object that can be colored.
  *
  * @author Cogito
+ *
  */
 public interface Colorable {
 

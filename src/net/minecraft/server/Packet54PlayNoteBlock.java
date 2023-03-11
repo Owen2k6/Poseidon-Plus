@@ -12,8 +12,7 @@ public class Packet54PlayNoteBlock extends Packet {
     public int d;
     public int e;
 
-    public Packet54PlayNoteBlock() {
-    }
+    public Packet54PlayNoteBlock() {}
 
     public Packet54PlayNoteBlock(int i, int j, int k, int l, int i1) {
         this.a = i;

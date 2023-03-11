@@ -8,8 +8,7 @@ public class Packet255KickDisconnect extends Packet {
 
     public String a;
 
-    public Packet255KickDisconnect() {
-    }
+    public Packet255KickDisconnect() {}
 
     public Packet255KickDisconnect(String s) {
         this.a = s;

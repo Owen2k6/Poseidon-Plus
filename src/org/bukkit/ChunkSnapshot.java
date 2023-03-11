@@ -1,7 +1,6 @@
 package org.bukkit;
 
 import org.bukkit.block.Biome;
-
 /**
  * Represents a static, thread-safe snapshot of chunk of blocks
  * Purpose is to allow clean, efficient copy of a chunk data to be made, and then handed off for processing in another thread (e.g. map rendering)
@@ -107,7 +106,6 @@ public interface ChunkSnapshot {
 
     /**
      * Get world full time when chunk snapshot was captured
-     *
      * @return time in ticks
      */
     long getCaptureFullTime();

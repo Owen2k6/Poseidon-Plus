@@ -6,11 +6,10 @@ import java.io.IOException;
 
 public class Packet70Bed extends Packet {
 
-    public static final String[] a = new String[]{"tile.bed.notValid", null, null};
+    public static final String[] a = new String[] { "tile.bed.notValid", null, null};
     public int b;
 
-    public Packet70Bed() {
-    }
+    public Packet70Bed() {}
 
     public Packet70Bed(int i) {
         this.b = i;

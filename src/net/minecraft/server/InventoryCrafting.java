@@ -74,8 +74,7 @@ public class InventoryCrafting implements IInventory {
         return 64;
     }
 
-    public void update() {
-    }
+    public void update() {}
 
     public boolean a_(EntityHuman entityhuman) {
         return true;

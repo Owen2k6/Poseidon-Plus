@@ -52,7 +52,7 @@ public interface LivingEntity extends Entity {
      * List iterates from player's position to target inclusive
      *
      * @param HashSet<Byte> HashSet containing all transparent block IDs. If set to null only air is considered transparent.
-     * @param int           This is the maximum distance to scan. This may be further limited by the server, but never to less than 100 blocks.
+     * @param int This is the maximum distance to scan. This may be further limited by the server, but never to less than 100 blocks.
      * @return List containing all blocks along the player's line of sight
      */
     public List<Block> getLineOfSight(HashSet<Byte> transparent, int maxDistance);
@@ -61,7 +61,7 @@ public interface LivingEntity extends Entity {
      * Gets the block that the player has targeted
      *
      * @param HashSet<Byte> HashSet containing all transparent block IDs. If set to null only air is considered transparent.
-     * @param int           This is the maximum distance to scan. This may be further limited by the server, but never to less than 100 blocks.
+     * @param int This is the maximum distance to scan. This may be further limited by the server, but never to less than 100 blocks.
      * @return Block that the player has targeted
      */
     public Block getTargetBlock(HashSet<Byte> transparent, int maxDistance);
@@ -71,7 +71,7 @@ public interface LivingEntity extends Entity {
      * The target block will be the last block in the list.
      *
      * @param HashSet<Byte> HashSet containing all transparent block IDs. If set to null only air is considered transparent.
-     * @param int           This is the maximum distance to scan. This may be further limited by the server, but never to less than 100 blocks
+     * @param int This is the maximum distance to scan. This may be further limited by the server, but never to less than 100 blocks
      * @return List containing the last 2 blocks along the player's line of sight
      */
     public List<Block> getLastTwoTargetBlocks(HashSet<Byte> transparent, int maxDistance);

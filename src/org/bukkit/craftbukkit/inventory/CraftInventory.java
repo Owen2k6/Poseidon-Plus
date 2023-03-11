@@ -65,7 +65,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
     }
 
     public boolean contains(int materialId) {
-        for (ItemStack item : getContents()) {
+        for (ItemStack item: getContents()) {
             if (item != null && item.getTypeId() == materialId) {
                 return true;
             }
@@ -81,7 +81,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
         if (item == null) {
             return false;
         }
-        for (ItemStack i : getContents()) {
+        for (ItemStack i: getContents()) {
             if (item.equals(i)) {
                 return true;
             }
@@ -91,7 +91,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
     public boolean contains(int materialId, int amount) {
         int amt = 0;
-        for (ItemStack item : getContents()) {
+        for (ItemStack item: getContents()) {
             if (item != null && item.getTypeId() == materialId) {
                 amt += item.getAmount();
             }
@@ -108,7 +108,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
             return false;
         }
         int amt = 0;
-        for (ItemStack i : getContents()) {
+        for (ItemStack i: getContents()) {
             if (item.equals(i)) {
                 amt += item.getAmount();
             }
@@ -224,13 +224,13 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
-
+            
             // Poseidon
             InventoryTransactionEvent event = new InventoryTransactionEvent(InventoryTransactionType.ITEM_ADDED, this, item);
             Bukkit.getServer().getPluginManager().callEvent(event);
             if (event.isCancelled())
                 continue;
-
+            
             while (true) {
                 // Do we already have a stack of it?
                 int firstPartial = firstPartial(item);
@@ -285,13 +285,13 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
-
+            
             // Poseidon
             InventoryTransactionEvent event = new InventoryTransactionEvent(InventoryTransactionType.ITEM_REMOVED, this, item);
             Bukkit.getServer().getPluginManager().callEvent(event);
             if (event.isCancelled())
                 continue;
-
+            
             int toDelete = item.getAmount();
 
             while (true) {

@@ -10,8 +10,7 @@ public class Packet7UseEntity extends Packet {
     public int target;
     public int c;
 
-    public Packet7UseEntity() {
-    }
+    public Packet7UseEntity() {}
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();

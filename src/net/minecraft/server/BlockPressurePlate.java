@@ -43,8 +43,7 @@ public class BlockPressurePlate extends Block {
         return world.e(i, j - 1, k);
     }
 
-    public void c(World world, int i, int j, int k) {
-    }
+    public void c(World world, int i, int j, int k) {}
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         boolean flag = false;
@@ -103,7 +102,7 @@ public class BlockPressurePlate extends Block {
 
         if (flag != flag1) {
             if (flag1) {
-                for (Object object : list) {
+                for (Object object: list) {
                     if (object != null) {
                         org.bukkit.event.Cancellable cancellable;
 

@@ -8,8 +8,7 @@ public class Packet16BlockItemSwitch extends Packet {
 
     public int itemInHandIndex;
 
-    public Packet16BlockItemSwitch() {
-    }
+    public Packet16BlockItemSwitch() {}
 
     public void a(DataInputStream datainputstream) throws IOException {
         this.itemInHandIndex = datainputstream.readShort();

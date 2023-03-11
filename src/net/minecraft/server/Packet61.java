@@ -12,8 +12,7 @@ public class Packet61 extends Packet {
     public int d;
     public int e;
 
-    public Packet61() {
-    }
+    public Packet61() {}
 
     public Packet61(int i, int j, int k, int l, int i1) {
         this.a = i;

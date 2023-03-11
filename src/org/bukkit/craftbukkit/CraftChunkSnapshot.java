@@ -4,7 +4,6 @@ import net.minecraft.server.BiomeBase;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.block.Biome;
 import org.bukkit.craftbukkit.block.CraftBlock;
-
 /**
  * Represents a static, thread-safe snapshot of chunk of blocks
  * Purpose is to allow clean, efficient copy of a chunk data to be made, and then handed off for processing in another thread (e.g. map rendering)
@@ -165,7 +164,6 @@ public class CraftChunkSnapshot implements ChunkSnapshot {
 
     /**
      * Get world full time when chunk snapshot was captured
-     *
      * @return time in ticks
      */
     public long getCaptureFullTime() {

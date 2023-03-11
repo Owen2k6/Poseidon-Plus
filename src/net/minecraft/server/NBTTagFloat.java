@@ -8,8 +8,7 @@ public class NBTTagFloat extends NBTBase {
 
     public float a;
 
-    public NBTTagFloat() {
-    }
+    public NBTTagFloat() {}
 
     public NBTTagFloat(float f) {
         this.a = f;

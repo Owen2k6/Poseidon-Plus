@@ -5,7 +5,6 @@ import java.util.Map;
 
 /**
  * Represents the different species of trees regardless of size.
- *
  * @author sunkid
  */
 public enum TreeSpecies {
@@ -42,9 +41,10 @@ public enum TreeSpecies {
     /**
      * Gets the TreeSpecies with the given data value
      *
-     * @param data Data value to fetch
+     * @param data
+     *            Data value to fetch
      * @return The {@link TreeSpecies} representing the given value, or null if
-     * it doesn't exist
+     *         it doesn't exist
      */
     public static TreeSpecies getByData(final byte data) {
         return species.get(data);

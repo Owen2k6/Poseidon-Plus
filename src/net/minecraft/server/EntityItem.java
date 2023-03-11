@@ -40,8 +40,7 @@ public class EntityItem extends Entity {
         this.height = this.width / 2.0F;
     }
 
-    protected void b() {
-    }
+    protected void b() {}
 
     public void m_() {
         super.m_();
@@ -86,7 +85,7 @@ public class EntityItem extends Entity {
         ++this.b;
         if (this.b >= 6000) {
             //Project Poseidon Start
-            if (CraftEventFactory.callItemDespawnEvent(this).isCancelled()) {
+            if(CraftEventFactory.callItemDespawnEvent(this).isCancelled()) {
                 this.b = 0;
                 return;
             }

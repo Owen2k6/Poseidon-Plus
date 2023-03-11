@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class WorldGenBigTree extends WorldGenerator {
 
-    static final byte[] a = new byte[]{(byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
+    static final byte[] a = new byte[] { (byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
     Random b = new Random();
     BlockChangeDelegate c; // CraftBukkit
-    int[] d = new int[]{0, 0, 0};
+    int[] d = new int[] { 0, 0, 0};
     int e = 0;
     int f;
     double g = 0.618D;
@@ -22,8 +22,7 @@ public class WorldGenBigTree extends WorldGenerator {
     int n = 4;
     int[][] o;
 
-    public WorldGenBigTree() {
-    }
+    public WorldGenBigTree() {}
 
     void a() {
         this.f = (int) ((double) this.e * this.g);
@@ -62,11 +61,11 @@ public class WorldGenBigTree extends WorldGenerator {
                     double d2 = (double) this.b.nextFloat() * 2.0D * 3.14159D;
                     int k1 = MathHelper.floor(d1 * Math.sin(d2) + (double) this.d[0] + d0);
                     int l1 = MathHelper.floor(d1 * Math.cos(d2) + (double) this.d[2] + d0);
-                    int[] aint1 = new int[]{k1, j, l1};
-                    int[] aint2 = new int[]{k1, j + this.n, l1};
+                    int[] aint1 = new int[] { k1, j, l1};
+                    int[] aint2 = new int[] { k1, j + this.n, l1};
 
                     if (this.a(aint1, aint2) == -1) {
-                        int[] aint3 = new int[]{this.d[0], this.d[1], this.d[2]};
+                        int[] aint3 = new int[] { this.d[0], this.d[1], this.d[2]};
                         double d3 = Math.sqrt(Math.pow((double) Math.abs(this.d[0] - aint1[0]), 2.0D) + Math.pow((double) Math.abs(this.d[2] - aint1[2]), 2.0D));
                         double d4 = d3 * this.i;
 
@@ -99,8 +98,8 @@ public class WorldGenBigTree extends WorldGenerator {
         int i1 = (int) ((double) f + 0.618D);
         byte b1 = a[b0];
         byte b2 = a[b0 + 3];
-        int[] aint = new int[]{i, j, k};
-        int[] aint1 = new int[]{0, 0, 0};
+        int[] aint = new int[] { i, j, k};
+        int[] aint1 = new int[] { 0, 0, 0};
         int j1 = -i1;
         int k1 = -i1;
 
@@ -164,7 +163,7 @@ public class WorldGenBigTree extends WorldGenerator {
     }
 
     void a(int[] aint, int[] aint1, int i) {
-        int[] aint2 = new int[]{0, 0, 0};
+        int[] aint2 = new int[] { 0, 0, 0};
         byte b0 = 0;
 
         byte b1;
@@ -189,7 +188,7 @@ public class WorldGenBigTree extends WorldGenerator {
 
             double d0 = (double) aint2[b2] / (double) aint2[b1];
             double d1 = (double) aint2[b3] / (double) aint2[b1];
-            int[] aint3 = new int[]{0, 0, 0};
+            int[] aint3 = new int[] { 0, 0, 0};
             int j = 0;
 
             for (int k = aint2[b1] + b4; j != k; j += b4) {
@@ -222,8 +221,8 @@ public class WorldGenBigTree extends WorldGenerator {
         int j = this.d[1];
         int k = this.d[1] + this.f;
         int l = this.d[2];
-        int[] aint = new int[]{i, j, l};
-        int[] aint1 = new int[]{i, k, l};
+        int[] aint = new int[] { i, j, l};
+        int[] aint1 = new int[] { i, k, l};
 
         this.a(aint, aint1, 17);
         if (this.l == 2) {
@@ -243,9 +242,9 @@ public class WorldGenBigTree extends WorldGenerator {
         int i = 0;
         int j = this.o.length;
 
-        for (int[] aint = new int[]{this.d[0], this.d[1], this.d[2]}; i < j; ++i) {
+        for (int[] aint = new int[] { this.d[0], this.d[1], this.d[2]}; i < j; ++i) {
             int[] aint1 = this.o[i];
-            int[] aint2 = new int[]{aint1[0], aint1[1], aint1[2]};
+            int[] aint2 = new int[] { aint1[0], aint1[1], aint1[2]};
 
             aint[1] = aint1[3];
             int k = aint[1] - this.d[1];
@@ -257,7 +256,7 @@ public class WorldGenBigTree extends WorldGenerator {
     }
 
     int a(int[] aint, int[] aint1) {
-        int[] aint2 = new int[]{0, 0, 0};
+        int[] aint2 = new int[] { 0, 0, 0};
         byte b0 = 0;
 
         byte b1;
@@ -284,7 +283,7 @@ public class WorldGenBigTree extends WorldGenerator {
 
             double d0 = (double) aint2[b2] / (double) aint2[b1];
             double d1 = (double) aint2[b3] / (double) aint2[b1];
-            int[] aint3 = new int[]{0, 0, 0};
+            int[] aint3 = new int[] { 0, 0, 0};
             int i = 0;
 
             int j;
@@ -305,8 +304,8 @@ public class WorldGenBigTree extends WorldGenerator {
     }
 
     boolean e() {
-        int[] aint = new int[]{this.d[0], this.d[1], this.d[2]};
-        int[] aint1 = new int[]{this.d[0], this.d[1] + this.e - 1, this.d[2]};
+        int[] aint = new int[] { this.d[0], this.d[1], this.d[2]};
+        int[] aint1 = new int[] { this.d[0], this.d[1] + this.e - 1, this.d[2]};
         int i = this.c.getTypeId(this.d[0], this.d[1] - 1, this.d[2]);
 
         if (i != 2 && i != 3) {

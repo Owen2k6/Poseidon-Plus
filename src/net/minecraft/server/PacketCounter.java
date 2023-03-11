@@ -5,8 +5,7 @@ class PacketCounter {
     private int a;
     private long b;
 
-    private PacketCounter() {
-    }
+    private PacketCounter() {}
 
     public void a(int i) {
         ++this.a;

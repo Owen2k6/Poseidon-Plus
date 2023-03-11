@@ -84,7 +84,7 @@ public class CraftChunk implements Chunk {
 
         Entity[] entities = new Entity[count];
         for (int i = 0; i < 8; i++) {
-            for (Object obj : chunk.entitySlices[i].toArray()) {
+            for (Object obj: chunk.entitySlices[i].toArray()) {
                 if (!(obj instanceof net.minecraft.server.Entity)) {
                     continue;
                 }

@@ -14,8 +14,7 @@ public class RegionFileCache {
 
     private static final Map a = new HashMap();
 
-    private RegionFileCache() {
-    }
+    private RegionFileCache() {}
 
     public static synchronized RegionFile a(File file1, int i, int j) {
         File file2 = new File(file1, "region");

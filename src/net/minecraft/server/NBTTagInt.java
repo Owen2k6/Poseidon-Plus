@@ -8,8 +8,7 @@ public class NBTTagInt extends NBTBase {
 
     public int a;
 
-    public NBTTagInt() {
-    }
+    public NBTTagInt() {}
 
     public NBTTagInt(int i) {
         this.a = i;

@@ -114,7 +114,6 @@ public class CraftEventFactory {
         }
         return callPlayerInteractEvent(who, action, 0, 255, 0, 0, itemstack);
     }
-
     public static PlayerInteractEvent callPlayerInteractEvent(EntityHuman who, Action action, int clickedX, int clickedY, int clickedZ, int clickedFace, ItemStack itemstack) {
         Player player = (who == null) ? null : (Player) who.getBukkitEntity();
         CraftItemStack itemInHand = new CraftItemStack(itemstack);
@@ -216,7 +215,7 @@ public class CraftEventFactory {
             type = CreatureType.SQUID;
         } else if (entityliving instanceof EntityZombie) {
             type = CreatureType.ZOMBIE;
-            // Supertype of many, last!
+        // Supertype of many, last!
         } else if (entityliving instanceof EntityMonster) {
             type = CreatureType.MONSTER;
         }

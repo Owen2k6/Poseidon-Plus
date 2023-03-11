@@ -40,8 +40,7 @@ public class CraftFuture<T> implements Runnable, Future<T> {
     public T get() throws InterruptedException, ExecutionException {
         try {
             return get(0L, TimeUnit.MILLISECONDS);
-        } catch (TimeoutException te) {
-        }
+        } catch (TimeoutException te) {}
         return null;
     }
 

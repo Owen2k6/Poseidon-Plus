@@ -16,8 +16,7 @@ public class Packet10Flying extends Packet {
     public boolean h;
     public boolean hasLook;
 
-    public Packet10Flying() {
-    }
+    public Packet10Flying() {}
 
     public void a(NetHandler nethandler) {
         nethandler.a(this);

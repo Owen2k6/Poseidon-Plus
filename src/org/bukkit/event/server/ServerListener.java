@@ -12,30 +12,26 @@ public class ServerListener implements Listener {
      *
      * @param event Relevant event details
      */
-    public void onPluginEnable(PluginEnableEvent event) {
-    }
+    public void onPluginEnable(PluginEnableEvent event) {}
 
     /**
      * Called when a plugin is disabled
      *
      * @param event Relevant event details
      */
-    public void onPluginDisable(PluginDisableEvent event) {
-    }
+    public void onPluginDisable(PluginDisableEvent event) {}
 
     /**
      * Called when a server command is used
      *
      * @param event Relevant event details
      */
-    public void onServerCommand(ServerCommandEvent event) {
-    }
-
+    public void onServerCommand(ServerCommandEvent event) {}
+    
     /**
      * Called when a map item is initialized (created or loaded into memory)
-     *
+     * 
      * @param event Relevant event details
      */
-    public void onMapInitialize(MapInitializeEvent event) {
-    }
+    public void onMapInitialize(MapInitializeEvent event) {}
 }

@@ -8,8 +8,7 @@ public class Packet101CloseWindow extends Packet {
 
     public int a;
 
-    public Packet101CloseWindow() {
-    }
+    public Packet101CloseWindow() {}
 
     public Packet101CloseWindow(int i) {
         this.a = i;

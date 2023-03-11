@@ -12,8 +12,7 @@ public class Packet17 extends Packet {
     public int d;
     public int e;
 
-    public Packet17() {
-    }
+    public Packet17() {}
 
     public Packet17(Entity entity, int i, int j, int k, int l) {
         this.e = i;

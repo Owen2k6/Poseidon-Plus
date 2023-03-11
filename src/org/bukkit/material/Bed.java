@@ -17,7 +17,6 @@ public class Bed extends MaterialData implements Directional {
 
     /**
      * Instantiate a bed facing in a particular direction.
-     *
      * @param direction the direction the bed's head is facing
      */
     public Bed(BlockFace direction) {
@@ -52,7 +51,6 @@ public class Bed extends MaterialData implements Directional {
 
     /**
      * Configure this to be either the head or the foot of the bed
-     *
      * @param isHeadOfBed
      */
     public void setHeadOfBed(boolean isHeadOfBed) {
@@ -67,21 +65,21 @@ public class Bed extends MaterialData implements Directional {
         byte data;
 
         switch (face) {
-            case WEST:
-                data = 0x0;
-                break;
+        case WEST:
+            data = 0x0;
+            break;
 
-            case NORTH:
-                data = 0x1;
-                break;
+        case NORTH:
+            data = 0x1;
+            break;
 
-            case EAST:
-                data = 0x2;
-                break;
+        case EAST:
+            data = 0x2;
+            break;
 
-            case SOUTH:
-            default:
-                data = 0x3;
+        case SOUTH:
+        default:
+            data = 0x3;
         }
 
         if (isHeadOfBed()) {
@@ -100,18 +98,18 @@ public class Bed extends MaterialData implements Directional {
         byte data = (byte) (getData() & 0x7);
 
         switch (data) {
-            case 0x0:
-                return BlockFace.WEST;
+        case 0x0:
+            return BlockFace.WEST;
 
-            case 0x1:
-                return BlockFace.NORTH;
+        case 0x1:
+            return BlockFace.NORTH;
 
-            case 0x2:
-                return BlockFace.EAST;
+        case 0x2:
+            return BlockFace.EAST;
 
-            case 0x3:
-            default:
-                return BlockFace.SOUTH;
+        case 0x3:
+        default:
+            return BlockFace.SOUTH;
         }
     }
 

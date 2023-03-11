@@ -12,7 +12,7 @@ public class ServerCommandListener implements ICommandListener {
     public ServerCommandListener(CommandSender commandSender) {
         this.commandSender = commandSender;
         String[] parts = commandSender.getClass().getName().split("\\.");
-        this.prefix = parts[parts.length - 1];
+        this.prefix = parts[parts.length-1];
     }
 
     public void sendMessage(String msg) {
@@ -28,8 +28,7 @@ public class ServerCommandListener implements ICommandListener {
             Method getName = commandSender.getClass().getMethod("getName");
 
             return (String) getName.invoke(commandSender);
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
 
         return this.prefix;
     }

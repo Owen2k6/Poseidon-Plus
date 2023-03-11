@@ -112,40 +112,40 @@ public class DataWatcher {
 
         dataoutputstream.writeByte(i);
         switch (watchableobject.c()) {
-            case 0:
-                dataoutputstream.writeByte(((Byte) watchableobject.b()).byteValue());
-                break;
+        case 0:
+            dataoutputstream.writeByte(((Byte) watchableobject.b()).byteValue());
+            break;
 
-            case 1:
-                dataoutputstream.writeShort(((Short) watchableobject.b()).shortValue());
-                break;
+        case 1:
+            dataoutputstream.writeShort(((Short) watchableobject.b()).shortValue());
+            break;
 
-            case 2:
-                dataoutputstream.writeInt(((Integer) watchableobject.b()).intValue());
-                break;
+        case 2:
+            dataoutputstream.writeInt(((Integer) watchableobject.b()).intValue());
+            break;
 
-            case 3:
-                dataoutputstream.writeFloat(((Float) watchableobject.b()).floatValue());
-                break;
+        case 3:
+            dataoutputstream.writeFloat(((Float) watchableobject.b()).floatValue());
+            break;
 
-            case 4:
-                Packet.a((String) watchableobject.b(), dataoutputstream);
-                break;
+        case 4:
+            Packet.a((String) watchableobject.b(), dataoutputstream);
+            break;
 
-            case 5:
-                ItemStack itemstack = (ItemStack) watchableobject.b();
+        case 5:
+            ItemStack itemstack = (ItemStack) watchableobject.b();
 
-                dataoutputstream.writeShort(itemstack.getItem().id);
-                dataoutputstream.writeByte(itemstack.count);
-                dataoutputstream.writeShort(itemstack.getData());
-                break;
+            dataoutputstream.writeShort(itemstack.getItem().id);
+            dataoutputstream.writeByte(itemstack.count);
+            dataoutputstream.writeShort(itemstack.getData());
+            break;
 
-            case 6:
-                ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watchableobject.b();
+        case 6:
+            ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watchableobject.b();
 
-                dataoutputstream.writeInt(chunkcoordinates.x);
-                dataoutputstream.writeInt(chunkcoordinates.y);
-                dataoutputstream.writeInt(chunkcoordinates.z);
+            dataoutputstream.writeInt(chunkcoordinates.x);
+            dataoutputstream.writeInt(chunkcoordinates.y);
+            dataoutputstream.writeInt(chunkcoordinates.z);
         }
     }
 
@@ -162,40 +162,40 @@ public class DataWatcher {
             WatchableObject watchableobject = null;
 
             switch (i) {
-                case 0:
-                    watchableobject = new WatchableObject(i, j, Byte.valueOf(datainputstream.readByte()));
-                    break;
+            case 0:
+                watchableobject = new WatchableObject(i, j, Byte.valueOf(datainputstream.readByte()));
+                break;
 
-                case 1:
-                    watchableobject = new WatchableObject(i, j, Short.valueOf(datainputstream.readShort()));
-                    break;
+            case 1:
+                watchableobject = new WatchableObject(i, j, Short.valueOf(datainputstream.readShort()));
+                break;
 
-                case 2:
-                    watchableobject = new WatchableObject(i, j, Integer.valueOf(datainputstream.readInt()));
-                    break;
+            case 2:
+                watchableobject = new WatchableObject(i, j, Integer.valueOf(datainputstream.readInt()));
+                break;
 
-                case 3:
-                    watchableobject = new WatchableObject(i, j, Float.valueOf(datainputstream.readFloat()));
-                    break;
+            case 3:
+                watchableobject = new WatchableObject(i, j, Float.valueOf(datainputstream.readFloat()));
+                break;
 
-                case 4:
-                    watchableobject = new WatchableObject(i, j, Packet.a(datainputstream, 64));
-                    break;
+            case 4:
+                watchableobject = new WatchableObject(i, j, Packet.a(datainputstream, 64));
+                break;
 
-                case 5:
-                    short short1 = datainputstream.readShort();
-                    byte b1 = datainputstream.readByte();
-                    short short2 = datainputstream.readShort();
+            case 5:
+                short short1 = datainputstream.readShort();
+                byte b1 = datainputstream.readByte();
+                short short2 = datainputstream.readShort();
 
-                    watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
-                    break;
+                watchableobject = new WatchableObject(i, j, new ItemStack(short1, b1, short2));
+                break;
 
-                case 6:
-                    int k = datainputstream.readInt();
-                    int l = datainputstream.readInt();
-                    int i1 = datainputstream.readInt();
+            case 6:
+                int k = datainputstream.readInt();
+                int l = datainputstream.readInt();
+                int i1 = datainputstream.readInt();
 
-                    watchableobject = new WatchableObject(i, j, new ChunkCoordinates(k, l, i1));
+                watchableobject = new WatchableObject(i, j, new ChunkCoordinates(k, l, i1));
             }
 
             arraylist.add(watchableobject);

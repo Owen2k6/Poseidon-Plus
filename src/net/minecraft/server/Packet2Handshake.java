@@ -8,8 +8,7 @@ public class Packet2Handshake extends Packet {
 
     public String a;
 
-    public Packet2Handshake() {
-    }
+    public Packet2Handshake() {}
 
     public Packet2Handshake(String s) {
         this.a = s;

@@ -24,14 +24,11 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public void a() {
-    }
+    public void a() {}
 
-    public void initLighting() {
-    }
+    public void initLighting() {}
 
-    public void loadNOP() {
-    }
+    public void loadNOP() {}
 
     public int getTypeId(int i, int j, int k) {
         return 0;
@@ -49,28 +46,23 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public void b(int i, int j, int k, int l) {
-    }
+    public void b(int i, int j, int k, int l) {}
 
     public int a(EnumSkyBlock enumskyblock, int i, int j, int k) {
         return 0;
     }
 
-    public void a(EnumSkyBlock enumskyblock, int i, int j, int k, int l) {
-    }
+    public void a(EnumSkyBlock enumskyblock, int i, int j, int k, int l) {}
 
     public int c(int i, int j, int k, int l) {
         return 0;
     }
 
-    public void a(Entity entity) {
-    }
+    public void a(Entity entity) {}
 
-    public void b(Entity entity) {
-    }
+    public void b(Entity entity) {}
 
-    public void a(Entity entity, int i) {
-    }
+    public void a(Entity entity, int i) {}
 
     public boolean c(int i, int j, int k) {
         return false;
@@ -80,29 +72,21 @@ public class EmptyChunk extends Chunk {
         return null;
     }
 
-    public void a(TileEntity tileentity) {
-    }
+    public void a(TileEntity tileentity) {}
 
-    public void placeTileEntity(int i, int j, int k, TileEntity tileentity) {
-    }
+    public void placeTileEntity(int i, int j, int k, TileEntity tileentity) {}
 
-    public void e(int i, int j, int k) {
-    }
+    public void e(int i, int j, int k) {}
 
-    public void addEntities() {
-    }
+    public void addEntities() {}
 
-    public void removeEntities() {
-    }
+    public void removeEntities() {}
 
-    public void f() {
-    }
+    public void f() {}
 
-    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {
-    }
+    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {}
 
-    public void a(Class oclass, AxisAlignedBB axisalignedbb, List list) {
-    }
+    public void a(Class oclass, AxisAlignedBB axisalignedbb, List list) {}
 
     public boolean a(boolean flag) {
         return false;

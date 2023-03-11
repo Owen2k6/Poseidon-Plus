@@ -16,8 +16,7 @@ public class Packet23VehicleSpawn extends Packet {
     public int h;
     public int i;
 
-    public Packet23VehicleSpawn() {
-    }
+    public Packet23VehicleSpawn() {}
 
     public Packet23VehicleSpawn(Entity entity, int i) {
         this(entity, i, 0);

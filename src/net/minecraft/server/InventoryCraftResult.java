@@ -10,8 +10,7 @@ public class InventoryCraftResult implements IInventory {
     }
     // CraftBukkit end
 
-    public InventoryCraftResult() {
-    }
+    public InventoryCraftResult() {}
 
     public int getSize() {
         return 1;
@@ -44,8 +43,7 @@ public class InventoryCraftResult implements IInventory {
         return 64;
     }
 
-    public void update() {
-    }
+    public void update() {}
 
     public boolean a_(EntityHuman entityhuman) {
         return true;

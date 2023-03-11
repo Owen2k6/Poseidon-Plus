@@ -63,46 +63,46 @@ public class BlockPistonExtension extends Block {
         int l = world.getData(i, j, k);
 
         switch (b(l)) {
-            case 0:
-                this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                this.a(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                break;
+        case 0:
+            this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            this.a(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            break;
 
-            case 1:
-                this.a(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                this.a(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                break;
+        case 1:
+            this.a(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            this.a(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            break;
 
-            case 2:
-                this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                this.a(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                break;
+        case 2:
+            this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            this.a(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            break;
 
-            case 3:
-                this.a(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                this.a(0.25F, 0.375F, 0.0F, 0.75F, 0.625F, 0.75F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                break;
+        case 3:
+            this.a(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            this.a(0.25F, 0.375F, 0.0F, 0.75F, 0.625F, 0.75F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            break;
 
-            case 4:
-                this.a(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                this.a(0.375F, 0.25F, 0.25F, 0.625F, 0.75F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                break;
+        case 4:
+            this.a(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            this.a(0.375F, 0.25F, 0.25F, 0.625F, 0.75F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            break;
 
-            case 5:
-                this.a(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
-                this.a(0.0F, 0.375F, 0.25F, 0.75F, 0.625F, 0.75F);
-                super.a(world, i, j, k, axisalignedbb, arraylist);
+        case 5:
+            this.a(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
+            this.a(0.0F, 0.375F, 0.25F, 0.75F, 0.625F, 0.75F);
+            super.a(world, i, j, k, axisalignedbb, arraylist);
         }
 
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -112,28 +112,28 @@ public class BlockPistonExtension extends Block {
         int l = iblockaccess.getData(i, j, k);
 
         switch (b(l)) {
-            case 0:
-                this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
-                break;
+        case 0:
+            this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
+            break;
 
-            case 1:
-                this.a(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
-                break;
+        case 1:
+            this.a(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+            break;
 
-            case 2:
-                this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
-                break;
+        case 2:
+            this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+            break;
 
-            case 3:
-                this.a(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
-                break;
+        case 3:
+            this.a(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+            break;
 
-            case 4:
-                this.a(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
-                break;
+        case 4:
+            this.a(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+            break;
 
-            case 5:
-                this.a(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        case 5:
+            this.a(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 

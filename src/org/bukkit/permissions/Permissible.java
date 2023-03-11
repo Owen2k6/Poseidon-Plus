@@ -27,7 +27,7 @@ public interface Permissible extends ServerOperator {
 
     /**
      * Gets the value of the specified permission, if set.
-     * <p>
+     *
      * If a permission override is not set on this object, the default value of the permission will be returned.
      *
      * @param name Name of the permission
@@ -37,7 +37,7 @@ public interface Permissible extends ServerOperator {
 
     /**
      * Gets the value of the specified permission, if set.
-     * <p>
+     *
      * If a permission override is not set on this object, the default value of the permission will be returned
      *
      * @param perm Permission to get
@@ -49,8 +49,8 @@ public interface Permissible extends ServerOperator {
      * Adds a new {@link PermissionAttachment} with a single permission by name and value
      *
      * @param plugin Plugin responsible for this attachment, may not be null or disabled
-     * @param name   Name of the permission to attach
-     * @param value  Value of the permission
+     * @param name Name of the permission to attach
+     * @param value Value of the permission
      * @return The PermissionAttachment that was just created
      */
     public PermissionAttachment addAttachment(Plugin plugin, String name, boolean value);
@@ -67,9 +67,9 @@ public interface Permissible extends ServerOperator {
      * Temporarily adds a new {@link PermissionAttachment} with a single permission by name and value
      *
      * @param plugin Plugin responsible for this attachment, may not be null or disabled
-     * @param name   Name of the permission to attach
-     * @param value  Value of the permission
-     * @param ticks  Amount of ticks to automatically remove this attachment after
+     * @param name Name of the permission to attach
+     * @param value Value of the permission
+     * @param ticks Amount of ticks to automatically remove this attachment after
      * @return The PermissionAttachment that was just created
      */
     public PermissionAttachment addAttachment(Plugin plugin, String name, boolean value, int ticks);
@@ -78,7 +78,7 @@ public interface Permissible extends ServerOperator {
      * Temporarily adds a new empty {@link PermissionAttachment} to this object
      *
      * @param plugin Plugin responsible for this attachment, may not be null or disabled
-     * @param ticks  Amount of ticks to automatically remove this attachment after
+     * @param ticks Amount of ticks to automatically remove this attachment after
      * @return The PermissionAttachment that was just created
      */
     public PermissionAttachment addAttachment(Plugin plugin, int ticks);
@@ -93,7 +93,7 @@ public interface Permissible extends ServerOperator {
 
     /**
      * Recalculates the permissions for this object, if the attachments have changed values.
-     * <p>
+     *
      * This should very rarely need to be called from a plugin.
      */
     public void recalculatePermissions();

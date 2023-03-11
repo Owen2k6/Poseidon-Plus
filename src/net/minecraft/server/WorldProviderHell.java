@@ -2,8 +2,7 @@ package net.minecraft.server;
 
 public class WorldProviderHell extends WorldProvider {
 
-    public WorldProviderHell() {
-    }
+    public WorldProviderHell() {}
 
     public void a() {
         this.b = new WorldChunkManagerHell(BiomeBase.HELL, 1.0D, 0.0D);

@@ -13,8 +13,7 @@ public class Packet102WindowClick extends Packet {
     public ItemStack e;
     public boolean f;
 
-    public Packet102WindowClick() {
-    }
+    public Packet102WindowClick() {}
 
     public void a(NetHandler nethandler) {
         nethandler.a(this);

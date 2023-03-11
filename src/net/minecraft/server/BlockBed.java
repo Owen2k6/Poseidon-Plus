@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class BlockBed extends Block {
 
-    public static final int[][] a = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+    public static final int[][] a = new int[][] { { 0, 1}, { -1, 0}, { 0, -1}, { 1, 0}};
 
     public BlockBed(int i) {
         super(i, 134, Material.CLOTH);

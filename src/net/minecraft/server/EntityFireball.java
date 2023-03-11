@@ -37,8 +37,7 @@ public class EntityFireball extends Entity {
         this.b(1.0F, 1.0F);
     }
 
-    protected void b() {
-    }
+    protected void b() {}
 
     public EntityFireball(World world, EntityLiving entityliving, double d0, double d1, double d2) {
         super(world);

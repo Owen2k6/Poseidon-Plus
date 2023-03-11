@@ -13,8 +13,7 @@ public class Packet25EntityPainting extends Packet {
     public int e;
     public String f;
 
-    public Packet25EntityPainting() {
-    }
+    public Packet25EntityPainting() {}
 
     public Packet25EntityPainting(EntityPainting entitypainting) {
         this.a = entitypainting.id;

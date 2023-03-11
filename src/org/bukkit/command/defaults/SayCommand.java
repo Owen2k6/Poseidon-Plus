@@ -8,7 +8,6 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class SayCommand extends VanillaCommand {
     private String prefix = "&d[Server]";
-
     public SayCommand() {
         super("say");
         this.description = "Broadcasts the given message as the console";

@@ -28,8 +28,7 @@ public class EntityFallingSand extends Entity {
         return false;
     }
 
-    protected void b() {
-    }
+    protected void b() {}
 
     public boolean l_() {
         return !this.dead;

@@ -8,8 +8,7 @@ public class Packet29DestroyEntity extends Packet {
 
     public int a;
 
-    public Packet29DestroyEntity() {
-    }
+    public Packet29DestroyEntity() {}
 
     public Packet29DestroyEntity(int i) {
         this.a = i;
