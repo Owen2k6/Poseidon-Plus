@@ -1,7 +1,9 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -42,6 +44,10 @@ public class ServerConfigurationManager {
         minecraftserver.server = new CraftServer(minecraftserver, this);
         minecraftserver.console = new ColouredConsoleSender(minecraftserver.server);
         this.cserver = minecraftserver.server;
+        alternateLocationKickMessage = PlusConfig.getInstance().getString("messages.kick.alternateLocation", "&cYou logged in from another location!");
+        fullKickMessage = PlusConfig.getInstance().getString("messages.kick.full", "&cThe server is full.");
+        banKickMessage = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
+        whitelistKickMessage = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
         this.msgKickBanned = PoseidonConfig.getInstance().getConfigString("message.kick.banned");
         this.msgKickIPBanned = PoseidonConfig.getInstance().getConfigString("message.kick.ip-banned");
@@ -187,6 +193,7 @@ public class ServerConfigurationManager {
         s1 = s1.substring(s1.indexOf("/") + 1);
         s1 = s1.substring(0, s1.indexOf(":"));
 
+
         PlayerLoginEvent.Result result =
                 this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED :
                 this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
@@ -213,7 +220,7 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (entityplayer.name.equalsIgnoreCase(s)) {
-                entityplayer.netServerHandler.disconnect("You logged in from another location");
+                entityplayer.netServerHandler.disconnect(ChatColor.translateAlternateColorCodes('&', alternateLocationKickMessage));
             }
         }
 

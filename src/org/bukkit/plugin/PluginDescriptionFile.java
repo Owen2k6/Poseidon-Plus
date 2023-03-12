@@ -27,6 +27,7 @@ public final class PluginDescriptionFile {
     private Object commands = null;
     private String description = null;
     private ArrayList<String> authors = new ArrayList<String>();
+    private ArrayList<String> dependencies = null;
     private String website = null;
     private boolean database = false;
     private boolean visible = true;
@@ -131,6 +132,10 @@ public final class PluginDescriptionFile {
 
     public ArrayList<String> getAuthors() {
         return authors;
+    }
+
+    public ArrayList<String> getDependencies() {
+        return dependencies;
     }
 
     public String getWebsite() {
@@ -263,6 +268,14 @@ public final class PluginDescriptionFile {
             }
         }
 
+        if (map.containsKey("dependencies")) {
+            try {
+                dependencies = (ArrayList<String>) map.get("dependencies");
+            } catch (ClassCastException ex) {
+                throw new InvalidDescriptionException(ex, "dependencies is of wrong type");
+            }
+        }
+
         if (map.containsKey("permissions")) {
             try {
                 Map<String, Map<String, Object>> perms = (Map<String, Map<String, Object>>) map.get("permissions");
@@ -312,6 +325,10 @@ public final class PluginDescriptionFile {
             map.put("author", authors.get(0));
         } else if (authors.size() > 1) {
             map.put("authors", authors);
+        }
+
+        if (dependencies != null) {
+            map.put("dependencies", dependencies);
         }
 
         return map;

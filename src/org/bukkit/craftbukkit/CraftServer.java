@@ -52,11 +52,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class CraftServer implements Server {
-    private final String serverName = "Project Poseidon Craftbukkit";
+    private final String serverName = "Poseidon Plus Craftbukkit";
     //Poseidon Versions
     private final String serverEnvironment = "POSEIDON";
-    private final String serverVersion = "1.1.8";
-    private final String releaseType = "DEVELOPMENT";
+    private final String serverVersion = "1.1";
+    private final String releaseType = "RELEASE";
     private final String protocolVersion = "1.7.3";
     private final String GameVersion = "b1.7.3";
     private final ServicesManager servicesManager = new SimpleServicesManager();

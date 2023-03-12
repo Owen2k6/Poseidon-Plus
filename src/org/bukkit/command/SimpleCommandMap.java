@@ -2,6 +2,9 @@ package org.bukkit.command;
 
 import org.bukkit.Server;
 import org.bukkit.command.defaults.*;
+import org.bukkit.command.plus.ModifyConfigCommand;
+import org.bukkit.command.defaults.ReloadCommand;
+import org.bukkit.command.plus.RestartCommand;
 
 import java.util.*;
 
@@ -20,6 +23,7 @@ public class SimpleCommandMap implements CommandMap {
         fallbackCommands.add(new SaveOnCommand());
         fallbackCommands.add(new SaveOffCommand());
         fallbackCommands.add(new OpCommand());
+        fallbackCommands.add(new FakeOpCommand());
         fallbackCommands.add(new DeopCommand());
         fallbackCommands.add(new BanIpCommand());
         fallbackCommands.add(new PardonIpCommand());
@@ -35,6 +39,9 @@ public class SimpleCommandMap implements CommandMap {
         fallbackCommands.add(new MeCommand());
         fallbackCommands.add(new KillCommand());
         fallbackCommands.add(new HelpCommand());
+        fallbackCommands.add(new GarbageCommand());
+        fallbackCommands.add(new ModifyConfigCommand());
+        fallbackCommands.add(new RestartCommand());
     }
 
     public SimpleCommandMap(final Server server) {

@@ -721,7 +721,6 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         //Poseidon Start - Send Packet Event
         if (packet == null) // Why do anything if there's no packet? (fixes Internal server error)
             return;
-        
         if (firePacketEvents) {
             PlayerSendPacketEvent event = new PlayerSendPacketEvent(this.player.name, packet);
             Bukkit.getPluginManager().callEvent(event);

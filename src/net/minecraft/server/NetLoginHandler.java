@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import com.projectposeidon.ConnectionType;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
@@ -30,10 +31,10 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
-    
     private final String msgKickShutdown;
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
+        this.shuttingDownMessage = PlusConfig.getInstance().getString("messages.kick.shutdown", "&cServer is shutting down. Please rejoin later.");
         this.server = minecraftserver;
         this.networkManager = new NetworkManager(socket, s, this);
         this.networkManager.f = 0;
@@ -144,7 +145,7 @@ public class NetLoginHandler extends NetHandler {
             //Project Poseidon - End (Release2Beta
 
             if (((CraftServer) Bukkit.getServer()).isShuttingdown()) {
-                this.disconnect(this.msgKickShutdown);
+                this.disconnect(ChatColor.translateAlternateColorCodes('&', this.msgKickShutdown));
                 return;
             }
 

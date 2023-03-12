@@ -235,3 +235,28 @@ hs_err_pid*
 
 # Don't need dependecy reduced pom
 dependency-reduced-pom.xml
+plus.yml
+banned-ips.txt
+banned-players.txt
+bukkit.yml
+ops.txt
+permissions.yml
+poseidon.yml
+server.log.lck
+server.properties
+uuidcache.json
+white-list.txt
+world/level.dat
+world/level.dat_old
+world/players/d311182e-d1c3-4076-a8de-1908e8333c8d.dat
+world/region/r.-1.-1.mcr
+world/region/r.-1.0.mcr
+world/region/r.0.-1.mcr
+world/region/r.0.0.mcr
+world/session.lock
+world/uid.dat
+world_nether/DIM-1/region/r.-1.-1.mcr
+world_nether/DIM-1/region/r.-1.0.mcr
+world_nether/DIM-1/region/r.0.-1.mcr
+/world/
+/world_nether/

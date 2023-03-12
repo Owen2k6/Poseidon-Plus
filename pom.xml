@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bukkit</groupId>
-    <artifactId>project-poseidon</artifactId>
+    <artifactId>poseidon-plus</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.8</version>
-    <name>Project-Poseidon</name>
+    <version>1.1</version>
+    <name>PoseidonPlus</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <api.version>unknown</api.version>
@@ -143,11 +143,11 @@
                     <archive>
                         <manifestEntries>
                             <Main-Class>org.bukkit.craftbukkit.Main</Main-Class>
-                            <Implementation-Title>Project-Posiden</Implementation-Title>
-                            <Implementation-Vendor>RhysB</Implementation-Vendor>
-                            <Specification-Title>Bukkit</Specification-Title>
-                            <Specification-Version>${api.version}</Specification-Version>
-                            <Specification-Vendor>Bukkit Team</Specification-Vendor>
+                            <Implementation-Title>PoseidonPlus</Implementation-Title>
+                            <Implementation-Vendor>Owen2k6 and moderator_man</Implementation-Vendor>
+                            <Specification-Title>Project-Poseidon</Specification-Title>
+                            <Specification-Version>1.1.7</Specification-Version>
+                            <Specification-Vendor>RhysB</Specification-Vendor>
                             <Sealed>true</Sealed>
                         </manifestEntries>
                         <manifestSections>
