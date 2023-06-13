@@ -143,7 +143,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void kickPlayer(String message) {
-        getHandle().netServerHandler.disconnect(message == null ? "" : message);
+        if (!getHandle().netServerHandler.disconnected) getHandle().netServerHandler.disconnect(message == null ? "" : message);
     }
 
     public void setCompassTarget(Location loc) {
