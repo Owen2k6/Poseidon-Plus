@@ -135,6 +135,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void disconnect(String s) {
+        if (this.disconnected) return;
         // CraftBukkit start
         String leaveMessage = this.msgPlayerLeave.replace("%player%", this.player.name);
 
@@ -253,7 +254,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (Double.isNaN(packet10flying.x) || Double.isNaN(packet10flying.y) || Double.isNaN(packet10flying.z) || Double.isNaN(packet10flying.stance)) {
             player.teleport(player.getWorld().getSpawnLocation());
             System.err.println(player.getName() + " was caught trying to crash the server with an invalid position.");
-            player.kickPlayer("Nope!");
+            if (this.disconnected) player.kickPlayer("Nope!");
             return;
         }
 
