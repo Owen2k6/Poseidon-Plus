@@ -34,12 +34,10 @@ public class NetLoginHandler extends NetHandler {
     private final String msgKickShutdown;
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
-        this.shuttingDownMessage = PlusConfig.getInstance().getString("messages.kick.shutdown", "&cServer is shutting down. Please rejoin later.");
+        this.msgKickShutdown = PlusConfig.getInstance().getString("messages.kick.shutdown", "&cServer is shutting down. Please rejoin later.");
         this.server = minecraftserver;
         this.networkManager = new NetworkManager(socket, s, this);
         this.networkManager.f = 0;
-        
-        this.msgKickShutdown = PoseidonConfig.getInstance().getConfigString("message.kick.shutdown");
     }
 
     // CraftBukkit start

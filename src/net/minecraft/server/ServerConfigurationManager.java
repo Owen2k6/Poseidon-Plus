@@ -38,21 +38,18 @@ public class ServerConfigurationManager {
 
     // CraftBukkit start
     private CraftServer cserver;
-    private final String msgKickBanned, msgKickIPBanned, msgKickWhitelist, msgKickServerFull, msgPlayerJoin, msgPlayerLeave;
+    private final String msgKickBanned, msgKickIPBanned, msgKickWhitelist, msgKickServerFull, msgPlayerJoin, msgPlayerLeave, alternateLocationKickMessage;
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
         minecraftserver.server = new CraftServer(minecraftserver, this);
         minecraftserver.console = new ColouredConsoleSender(minecraftserver.server);
         this.cserver = minecraftserver.server;
         alternateLocationKickMessage = PlusConfig.getInstance().getString("messages.kick.alternateLocation", "&cYou logged in from another location!");
-        fullKickMessage = PlusConfig.getInstance().getString("messages.kick.full", "&cThe server is full.");
-        banKickMessage = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
-        whitelistKickMessage = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
+        msgKickServerFull = PlusConfig.getInstance().getString("messages.kick.full", "&cThe server is full.");
+        msgKickBanned = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
+        msgKickWhitelist = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
-        this.msgKickBanned = PoseidonConfig.getInstance().getConfigString("message.kick.banned");
         this.msgKickIPBanned = PoseidonConfig.getInstance().getConfigString("message.kick.ip-banned");
-        this.msgKickWhitelist = PoseidonConfig.getInstance().getConfigString("message.kick.not-whitelisted");
-        this.msgKickServerFull = PoseidonConfig.getInstance().getConfigString("message.kick.full");
         this.msgPlayerJoin = PoseidonConfig.getInstance().getConfigString("message.player.join");
         this.msgPlayerLeave = PoseidonConfig.getInstance().getConfigString("message.player.leave");
 
