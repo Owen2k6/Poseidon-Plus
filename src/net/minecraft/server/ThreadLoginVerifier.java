@@ -5,6 +5,7 @@ import com.legacyminecraft.poseidon.util.SessionAPI;
 import org.bukkit.craftbukkit.CraftServer;
 
 import java.net.InetSocketAddress;
+import java.util.Objects;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -18,7 +19,7 @@ public class ThreadLoginVerifier extends Thread {
     final LoginProcessHandler loginProcessHandler;  //Project Poseidon
 
     // CraftBukkit start
-    CraftServer server;
+    final CraftServer server;
 
     public ThreadLoginVerifier(LoginProcessHandler loginProcessHandler, NetLoginHandler netloginhandler, Packet1Login packet1login, CraftServer server) {
         this.server = server;
@@ -37,7 +38,7 @@ public class ThreadLoginVerifier extends Thread {
         try {
             SessionAPI.hasJoined(loginPacket.name, netLoginHandler.getServerID(), getIP(), (int responseCode, String username, String uuid, String ip) ->
             {
-                boolean checkIP = ip == "127.0.0.1" || ip == "localhost";
+                boolean checkIP = Objects.equals(ip, "127.0.0.1") || Objects.equals(ip, "localhost");
                 
                 // make sure the request didn't fail (-1), and the response wasn't empty (204)
                 if (responseCode != -1 && responseCode != 204)
@@ -47,7 +48,7 @@ public class ThreadLoginVerifier extends Thread {
                     {
                         if (checkIP)
                         {
-                            if (ip == getIP())
+                            if (ip.equals(getIP()))
                             {
                                 loginProcessHandler.userMojangSessionVerified();
                             }
@@ -65,7 +66,7 @@ public class ThreadLoginVerifier extends Thread {
         } catch (Exception exception) {
             //this.netLoginHandler.disconnect("Failed to verify username! [internal error " + exception + "]");
             this.loginProcessHandler.cancelLoginProcess("Failed to verify username! [internal error " + exception + "]");
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
     }
 }

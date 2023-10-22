@@ -8,9 +8,9 @@ import java.util.List;
 public class CraftingManager {
 
     private static final CraftingManager a = new CraftingManager();
-    private List b = new ArrayList();
+    private final List<CraftingRecipe> b = new ArrayList<>();
 
-    public static final CraftingManager getInstance() {
+    public static CraftingManager getInstance() {
         return a;
     }
 
@@ -172,7 +172,7 @@ public class CraftingManager {
         return null;
     }
 
-    public List b() {
+    public List<CraftingRecipe> b() {
         return this.b;
     }
 }

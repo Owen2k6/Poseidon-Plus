@@ -4,11 +4,11 @@ import java.util.*;
 
 public class StatisticList {
 
-    protected static Map a = new HashMap();
-    public static List b = new ArrayList();
-    public static List c = new ArrayList();
-    public static List d = new ArrayList();
-    public static List e = new ArrayList();
+    protected static final Map<Integer, Statistic> a = new HashMap<>();
+    public static final List<Statistic> b = new ArrayList<>();
+    public static final List<CounterStatistic> c = new ArrayList<>();
+    public static final List<Statistic> d = new ArrayList<>();
+    public static final List<Statistic> e = new ArrayList<>();
     public static Statistic f = (new CounterStatistic(1000, StatisticCollector.a("stat.startGame"))).e().d();
     public static Statistic g = (new CounterStatistic(1001, StatisticCollector.a("stat.createWorld"))).e().d();
     public static Statistic h = (new CounterStatistic(1002, StatisticCollector.a("stat.loadWorld"))).e().d();
@@ -59,33 +59,27 @@ public class StatisticList {
 
     public static void d() {
         if (G && H) {
-            HashSet hashset = new HashSet();
-            Iterator iterator = CraftingManager.getInstance().b().iterator();
+            HashSet<Integer> hashset = new HashSet<>();
 
-            while (iterator.hasNext()) {
-                CraftingRecipe craftingrecipe = (CraftingRecipe) iterator.next();
-
-                hashset.add(Integer.valueOf(craftingrecipe.b().id));
+            for (CraftingRecipe craftingrecipe : CraftingManager.getInstance().b())
+            {
+                hashset.add(craftingrecipe.b().id);
             }
 
-            iterator = FurnaceRecipes.getInstance().b().values().iterator();
-
-            while (iterator.hasNext()) {
-                ItemStack itemstack = (ItemStack) iterator.next();
-
-                hashset.add(Integer.valueOf(itemstack.id));
+            for (ItemStack itemstack : FurnaceRecipes.getInstance().b().values())
+            {
+                hashset.add(itemstack.id);
             }
 
             D = new Statistic[32000];
-            iterator = hashset.iterator();
 
-            while (iterator.hasNext()) {
-                Integer integer = (Integer) iterator.next();
+            for (Integer integer : hashset)
+            {
+                if (Item.byId[integer] != null)
+                {
+                    String s = StatisticCollector.a("stat.craftItem", Item.byId[integer].j());
 
-                if (Item.byId[integer.intValue()] != null) {
-                    String s = StatisticCollector.a("stat.craftItem", new Object[] { Item.byId[integer.intValue()].j()});
-
-                    D[integer.intValue()] = (new CraftingStatistic(16842752 + integer.intValue(), s, integer.intValue())).d();
+                    D[integer] = (new CraftingStatistic(16842752 + integer, s, integer)).d();
                 }
             }
 
@@ -98,10 +92,10 @@ public class StatisticList {
 
         for (int j = 0; j < 256; ++j) {
             if (Block.byId[j] != null && Block.byId[j].m()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Block.byId[j].k()});
+                String s1 = StatisticCollector.a(s, Block.byId[j].k());
 
                 astatistic[j] = (new CraftingStatistic(i + j, s1, j)).d();
-                e.add((CraftingStatistic) astatistic[j]);
+                e.add(astatistic[j]);
             }
         }
 
@@ -116,11 +110,11 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null) {
-                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].j()});
+                String s1 = StatisticCollector.a(s, Item.byId[l].j());
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
                 if (l >= Block.byId.length) {
-                    d.add((CraftingStatistic) astatistic[l]);
+                    d.add(astatistic[l]);
                 }
             }
         }
@@ -136,7 +130,7 @@ public class StatisticList {
 
         for (int l = j; l < k; ++l) {
             if (Item.byId[l] != null && Item.byId[l].f()) {
-                String s1 = StatisticCollector.a(s, new Object[] { Item.byId[l].j()});
+                String s1 = StatisticCollector.a(s, Item.byId[l].j());
 
                 astatistic[l] = (new CraftingStatistic(i + l, s1, l)).d();
             }

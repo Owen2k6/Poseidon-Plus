@@ -5,15 +5,15 @@ import java.util.Properties;
 
 public class StatisticStorage {
 
-    private static StatisticStorage a = new StatisticStorage();
-    private Properties b = new Properties();
+    private static final StatisticStorage a = new StatisticStorage();
+    private final Properties b = new Properties();
 
     private StatisticStorage() {
         try {
             this.b.load(StatisticStorage.class.getResourceAsStream("/lang/en_US.lang"));
             this.b.load(StatisticStorage.class.getResourceAsStream("/lang/stats_US.lang"));
         } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+            ioexception.printStackTrace(System.err);
         }
     }
 
