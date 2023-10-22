@@ -22,12 +22,12 @@ public class DataWatcher {
             throw new IllegalArgumentException("Unknown data type: " + object.getClass());
         } else if (i > 31) {
             throw new IllegalArgumentException("Data value id is too big with " + i + "! (Max is " + 31 + ")");
-        } else if (this.b.containsKey(Integer.valueOf(i))) {
+        } else if (this.b.containsKey(i)) {
             throw new IllegalArgumentException("Duplicate id value for " + i + "!");
         } else {
             WatchableObject watchableobject = new WatchableObject(integer.intValue(), i, object);
 
-            this.b.put(Integer.valueOf(i), watchableobject);
+            this.b.put(i, watchableobject);
             this.d = false;
         }
     }
@@ -60,10 +60,9 @@ public class DataWatcher {
 
     public static void a(List list, DataOutputStream dataoutputstream) throws IOException {
         if (list != null) {
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                WatchableObject watchableobject = (WatchableObject) iterator.next();
+            for (Object o : list) {
+                WatchableObject watchableobject = (WatchableObject) o;
 
                 a(dataoutputstream, watchableobject);
             }
@@ -76,10 +75,9 @@ public class DataWatcher {
         ArrayList arraylist = null;
 
         if (this.c) {
-            Iterator iterator = this.b.values().iterator();
 
-            while (iterator.hasNext()) {
-                WatchableObject watchableobject = (WatchableObject) iterator.next();
+            for (Object o : this.b.values()) {
+                WatchableObject watchableobject = (WatchableObject) o;
 
                 if (watchableobject.d()) {
                     watchableobject.a(false);
@@ -97,10 +95,9 @@ public class DataWatcher {
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
-        Iterator iterator = this.b.values().iterator();
 
-        while (iterator.hasNext()) {
-            WatchableObject watchableobject = (WatchableObject) iterator.next();
+        for (Object o : this.b.values()) {
+            WatchableObject watchableobject = (WatchableObject) o;
 
             a(dataoutputstream, watchableobject);
         }
@@ -114,19 +111,19 @@ public class DataWatcher {
         dataoutputstream.writeByte(i);
         switch (watchableobject.c()) {
         case 0:
-            dataoutputstream.writeByte(((Byte) watchableobject.b()).byteValue());
+            dataoutputstream.writeByte((Byte) watchableobject.b());
             break;
 
         case 1:
-            dataoutputstream.writeShort(((Short) watchableobject.b()).shortValue());
+            dataoutputstream.writeShort((Short) watchableobject.b());
             break;
 
         case 2:
-            dataoutputstream.writeInt(((Integer) watchableobject.b()).intValue());
+            dataoutputstream.writeInt((Integer) watchableobject.b());
             break;
 
         case 3:
-            dataoutputstream.writeFloat(((Float) watchableobject.b()).floatValue());
+            dataoutputstream.writeFloat((Float) watchableobject.b());
             break;
 
         case 4:
@@ -164,19 +161,19 @@ public class DataWatcher {
 
             switch (i) {
             case 0:
-                watchableobject = new WatchableObject(i, j, Byte.valueOf(datainputstream.readByte()));
+                watchableobject = new WatchableObject(i, j, datainputstream.readByte());
                 break;
 
             case 1:
-                watchableobject = new WatchableObject(i, j, Short.valueOf(datainputstream.readShort()));
+                watchableobject = new WatchableObject(i, j, datainputstream.readShort());
                 break;
 
             case 2:
-                watchableobject = new WatchableObject(i, j, Integer.valueOf(datainputstream.readInt()));
+                watchableobject = new WatchableObject(i, j, datainputstream.readInt());
                 break;
 
             case 3:
-                watchableobject = new WatchableObject(i, j, Float.valueOf(datainputstream.readFloat()));
+                watchableobject = new WatchableObject(i, j, datainputstream.readFloat());
                 break;
 
             case 4:
@@ -207,13 +204,13 @@ public class DataWatcher {
 
 
     static {
-        a.put(Byte.class, Integer.valueOf(0));
-        a.put(Short.class, Integer.valueOf(1));
-        a.put(Integer.class, Integer.valueOf(2));
-        a.put(Float.class, Integer.valueOf(3));
-        a.put(String.class, Integer.valueOf(4));
-        a.put(ItemStack.class, Integer.valueOf(5));
-        a.put(ChunkCoordinates.class, Integer.valueOf(6));
+        a.put(Byte.class, 0);
+        a.put(Short.class, 1);
+        a.put(Integer.class, 2);
+        a.put(Float.class, 3);
+        a.put(String.class, 4);
+        a.put(ItemStack.class, 5);
+        a.put(ChunkCoordinates.class, 6);
     }
 
     public boolean getD() {
