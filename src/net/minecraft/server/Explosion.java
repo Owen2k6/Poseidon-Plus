@@ -105,9 +105,9 @@ public class Explosion {
          */
         boolean optimizeExplosions = (boolean) PoseidonConfig.getInstance().getProperty("world-settings.optimized-explosions");
         boolean sendMotion = (boolean) PoseidonConfig.getInstance().getProperty("world-settings.send-explosion-velocity");
-        
-        for (int k2 = 0; k2 < list.size(); ++k2) {
-            Entity entity = (Entity) list.get(k2);
+
+        for (Object o : list) {
+            Entity entity = (Entity) o;
             double d7 = entity.f(this.posX, this.posY, this.posZ) / (double) this.size;
 
             if (d7 <= 1.0D) {
@@ -281,7 +281,7 @@ public class Explosion {
         return blockDensity;
     }
 
-    static class CacheKey {
+    public static class CacheKey {
         private final World world;
         private final double posX, posY, posZ;
         private final double minX, minY, minZ;
