@@ -19,24 +19,24 @@ import java.util.logging.Logger;
 
 public class ServerConfigurationManager {
 
-    public static Logger a = Logger.getLogger("Minecraft");
-    public List players = new ArrayList();
-    public MinecraftServer server; // CraftBukkit - private -> public
+    public static final Logger a = Logger.getLogger("Minecraft");
+    public final List<EntityPlayer> players = new ArrayList<>();
+    public final MinecraftServer server; // CraftBukkit - private -> public
     // private PlayerManager[] d = new PlayerManager[2]; // CraftBukkit - removed
     public int maxPlayers; // CraftBukkit - private -> public
-    public Set banByName = new HashSet(); // CraftBukkit - private -> public
-    public Set banByIP = new HashSet(); // CraftBukkit - private -> public
-    private Set h = new HashSet();
-    private Set i = new HashSet();
-    private File j;
-    private File k;
-    private File l;
-    private File m;
+    public final Set<String> banByName = new HashSet<>(); // CraftBukkit - private -> public
+    public final Set<String> banByIP = new HashSet<>(); // CraftBukkit - private -> public
+    private final Set<String> h = new HashSet<>();
+    private final Set<String> i = new HashSet<>();
+    private final File j;
+    private final File k;
+    private final File l;
+    private final File m;
     public PlayerFileData playerFileData; // CraftBukkit - private - >public
     public boolean o; // Craftbukkit - private -> public
 
     // CraftBukkit start
-    private CraftServer cserver;
+    private final CraftServer cserver;
     private final String msgKickBanned, msgKickIPBanned, msgKickWhitelist, msgKickServerFull, msgPlayerJoin, msgPlayerLeave, alternateLocationKickMessage;
 
     public ServerConfigurationManager(MinecraftServer minecraftserver) {
@@ -93,7 +93,7 @@ public class ServerConfigurationManager {
 
     public int a() {
         // CraftBukkit start
-        if (this.server.worlds.size() == 0) {
+        if (this.server.worlds.isEmpty()) {
             return this.server.propertyManager.getInt("view-distance", 10) * 16 - 16;
         }
         return this.server.worlds.get(0).manager.getFurthestViewableBlock();
@@ -116,7 +116,7 @@ public class ServerConfigurationManager {
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
         if((boolean) PoseidonConfig.getInstance().getConfigOption("world-settings.teleport-to-highest-safe-block")) {
-            while (worldserver.getEntities(entityplayer, entityplayer.boundingBox).size() != 0) {
+            while (!worldserver.getEntities(entityplayer, entityplayer.boundingBox).isEmpty()) {
                 entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
             }
         }
@@ -181,7 +181,7 @@ public class ServerConfigurationManager {
         // in the event, check with plugins to see if it's ok, and THEN kick
         // depending on the outcome. Also change any reference to this.e.c to entity.world
         EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)));
-        Player player = (entity == null) ? null : (Player) entity.getBukkitEntity();
+        Player player = (Player) entity.getBukkitEntity();
         PlayerLoginEvent event = new PlayerLoginEvent(player, netloginhandler); //Project Poseidon - pass player IP through
 
         String s1 = netloginhandler.networkManager.getSocketAddress().toString();
@@ -211,12 +211,10 @@ public class ServerConfigurationManager {
             return null;
         }
 
-        for (int i = 0; i < this.players.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
-
-            if (entityplayer.name.equalsIgnoreCase(s)) {
-                entityplayer.netServerHandler.disconnect("You logged in from another location");
-            }
+        for (EntityPlayer entityPlayer : this.players)
+        {
+            if (entityPlayer.name.equalsIgnoreCase(s))
+                entityPlayer.netServerHandler.disconnect(alternateLocationKickMessage);
         }
 
         return entity;
@@ -238,8 +236,7 @@ public class ServerConfigurationManager {
         ChunkCoordinates chunkcoordinates = entityplayer.getBed();
 
         // CraftBukkit start
-        EntityPlayer entityplayer1 = entityplayer;
-        org.bukkit.World fromWorld = entityplayer1.getBukkitEntity().getWorld();
+        org.bukkit.World fromWorld = entityplayer.getBukkitEntity().getWorld();
 
         if (location == null) {
             boolean isBedSpawn = false;
@@ -250,7 +247,7 @@ public class ServerConfigurationManager {
                     isBedSpawn = true;
                     location = new Location(cworld, chunkcoordinates1.x + 0.5, chunkcoordinates1.y, chunkcoordinates1.z + 0.5);
                 } else {
-                    entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
+                    entityplayer.netServerHandler.sendPacket(new Packet70Bed(0));
                 }
             }
 
@@ -272,37 +269,37 @@ public class ServerConfigurationManager {
             location.setWorld(this.server.getWorldServer(i).getWorld());
         }
         WorldServer worldserver = ((CraftWorld) location.getWorld()).getHandle();
-        entityplayer1.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+        entityplayer.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
         // CraftBukkit end
 
-        worldserver.chunkProviderServer.getChunkAt((int) entityplayer1.locX >> 4, (int) entityplayer1.locZ >> 4);
+        worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        while (worldserver.getEntities(entityplayer1, entityplayer1.boundingBox).size() != 0) {
-            entityplayer1.setPosition(entityplayer1.locX, entityplayer1.locY + 1.0D, entityplayer1.locZ);
+        while (!worldserver.getEntities(entityplayer, entityplayer.boundingBox).isEmpty()) {
+            entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
         }
 
         // CraftBukkit start
         byte actualDimension = (byte) (worldserver.getWorld().getEnvironment().getId());
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn((byte) (actualDimension >= 0 ? -1 : 0)));
-        entityplayer1.netServerHandler.sendPacket(new Packet9Respawn(actualDimension));
-        entityplayer1.spawnIn(worldserver);
-        entityplayer1.dead = false;
-        entityplayer1.netServerHandler.teleport(new Location(worldserver.getWorld(), entityplayer1.locX, entityplayer1.locY, entityplayer1.locZ, entityplayer1.yaw, entityplayer1.pitch));
+        entityplayer.netServerHandler.sendPacket(new Packet9Respawn((byte) (actualDimension >= 0 ? -1 : 0)));
+        entityplayer.netServerHandler.sendPacket(new Packet9Respawn(actualDimension));
+        entityplayer.spawnIn(worldserver);
+        entityplayer.dead = false;
+        entityplayer.netServerHandler.teleport(new Location(worldserver.getWorld(), entityplayer.locX, entityplayer.locY, entityplayer.locZ, entityplayer.yaw, entityplayer.pitch));
         // CraftBukkit end
-        this.a(entityplayer1, worldserver);
-        this.getPlayerManager(entityplayer1.dimension).addPlayer(entityplayer1);
-        worldserver.addEntity(entityplayer1);
-        this.players.add(entityplayer1);
+        this.a(entityplayer, worldserver);
+        this.getPlayerManager(entityplayer.dimension).addPlayer(entityplayer);
+        worldserver.addEntity(entityplayer);
+        this.players.add(entityplayer);
         //PlayerTracker.getInstance().addPlayer(entityplayer1.name); //Project POSEIDON
-        this.updateClient(entityplayer1); // CraftBukkit
-        entityplayer1.x();
+        this.updateClient(entityplayer); // CraftBukkit
+        entityplayer.x();
         // CraftBukkit start - don't fire on respawn
         if (fromWorld != location.getWorld()) {
-            org.bukkit.event.player.PlayerChangedWorldEvent event = new org.bukkit.event.player.PlayerChangedWorldEvent((Player) entityplayer1.getBukkitEntity(), fromWorld);
+            org.bukkit.event.player.PlayerChangedWorldEvent event = new org.bukkit.event.player.PlayerChangedWorldEvent((Player) entityplayer.getBukkitEntity(), fromWorld);
             Bukkit.getServer().getPluginManager().callEvent(event);
         }
         // CraftBukkit end
-        return entityplayer1;
+        return entityplayer;
     }
 
     public void f(EntityPlayer entityplayer) {
@@ -352,35 +349,32 @@ public class ServerConfigurationManager {
     }
 
     public void sendAll(Packet packet) {
-        for (int i = 0; i < this.players.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
-
-            entityplayer.netServerHandler.sendPacket(packet);
+        for (EntityPlayer player : this.players)
+        {
+            player.netServerHandler.sendPacket(packet);
         }
     }
 
     public void a(Packet packet, int i) {
-        for (int j = 0; j < this.players.size(); ++j) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
-
-            if (entityplayer.dimension == i) {
-                entityplayer.netServerHandler.sendPacket(packet);
-            }
+        for (EntityPlayer player : this.players)
+        {
+            if (player.dimension == i)
+                player.netServerHandler.sendPacket(packet);
         }
     }
 
     public String c() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
 
         for (int i = 0; i < this.players.size(); ++i) {
             if (i > 0) {
-                s = s + ", ";
+                s.append(", ");
             }
 
-            s = s + ((EntityPlayer) this.players.get(i)).name;
+            s.append(this.players.get(i).name);
         }
 
-        return s;
+        return s.toString();
     }
 
     public void a(String s) {
@@ -397,7 +391,7 @@ public class ServerConfigurationManager {
         try {
             this.banByName.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.j));
-            String s = "";
+            String s;
 
             while ((s = bufferedreader.readLine()) != null) {
                 this.banByName.add(s.trim().toLowerCase());
@@ -412,11 +406,9 @@ public class ServerConfigurationManager {
     private void h() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
-            Iterator iterator = this.banByName.iterator();
 
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
-
+            for (String s : this.banByName)
+            {
                 printwriter.println(s);
             }
 
@@ -440,7 +432,7 @@ public class ServerConfigurationManager {
         try {
             this.banByIP.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.k));
-            String s = "";
+            String s;
 
             while ((s = bufferedreader.readLine()) != null) {
                 this.banByIP.add(s.trim().toLowerCase());
@@ -455,11 +447,9 @@ public class ServerConfigurationManager {
     private void j() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
-            Iterator iterator = this.banByIP.iterator();
 
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
-
+            for (String s : this.banByIP)
+            {
                 printwriter.println(s);
             }
 
@@ -497,7 +487,7 @@ public class ServerConfigurationManager {
         try {
             this.h.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.l));
-            String s = "";
+            String s;
 
             while ((s = bufferedreader.readLine()) != null) {
                 this.h.add(s.trim().toLowerCase());
@@ -513,11 +503,9 @@ public class ServerConfigurationManager {
     private void l() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.l, false));
-            Iterator iterator = this.h.iterator();
 
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
-
+            for (String s : this.h)
+            {
                 printwriter.println(s);
             }
 
@@ -532,7 +520,7 @@ public class ServerConfigurationManager {
         try {
             this.i.clear();
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.m));
-            String s = "";
+            String s;
 
             while ((s = bufferedreader.readLine()) != null) {
                 this.i.add(s.trim().toLowerCase());
@@ -547,11 +535,9 @@ public class ServerConfigurationManager {
     private void n() {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.m, false));
-            Iterator iterator = this.i.iterator();
 
-            while (iterator.hasNext()) {
-                String s = (String) iterator.next();
-
+            for (String s : this.i)
+            {
                 printwriter.println(s);
             }
 
@@ -571,12 +557,10 @@ public class ServerConfigurationManager {
     }
 
     public EntityPlayer i(String s) {
-        for (int i = 0; i < this.players.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
-
-            if (entityplayer.name.equalsIgnoreCase(s)) {
-                return entityplayer;
-            }
+        for (EntityPlayer player : this.players)
+        {
+            if (player.name.equalsIgnoreCase(s))
+                return player;
         }
 
         return null;
@@ -591,21 +575,20 @@ public class ServerConfigurationManager {
     }
 
     public void sendPacketNearby(double d0, double d1, double d2, double d3, int i, Packet packet) {
-        this.sendPacketNearby((EntityHuman) null, d0, d1, d2, d3, i, packet);
+        this.sendPacketNearby(null, d0, d1, d2, d3, i, packet);
     }
 
     public void sendPacketNearby(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
-        for (int j = 0; j < this.players.size(); ++j) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
+        for (EntityPlayer player : this.players)
+        {
+            if (player != entityhuman && player.dimension == i)
+            {
+                double d4 = d0 - player.locX;
+                double d5 = d1 - player.locY;
+                double d6 = d2 - player.locZ;
 
-            if (entityplayer != entityhuman && entityplayer.dimension == i) {
-                double d4 = d0 - entityplayer.locX;
-                double d5 = d1 - entityplayer.locY;
-                double d6 = d2 - entityplayer.locZ;
-
-                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
-                    entityplayer.netServerHandler.sendPacket(packet);
-                }
+                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3)
+                    player.netServerHandler.sendPacket(packet);
             }
         }
     }
@@ -613,12 +596,10 @@ public class ServerConfigurationManager {
     public void j(String s) {
         Packet3Chat packet3chat = new Packet3Chat(s);
 
-        for (int i = 0; i < this.players.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
-
-            if (this.isOp(entityplayer.name)) {
-                entityplayer.netServerHandler.sendPacket(packet3chat);
-            }
+        for (EntityPlayer player : this.players)
+        {
+            if (this.isOp(player.name))
+                player.netServerHandler.sendPacket(packet3chat);
         }
     }
 
@@ -634,8 +615,9 @@ public class ServerConfigurationManager {
     }
 
     public void savePlayers() {
-        for (int i = 0; i < this.players.size(); ++i) {
-            this.playerFileData.a((EntityHuman) this.players.get(i));
+        for (EntityPlayer player : this.players)
+        {
+            this.playerFileData.a(player);
         }
     }
 
@@ -652,7 +634,7 @@ public class ServerConfigurationManager {
         this.n();
     }
 
-    public Set e() {
+    public Set<String> e() {
         return this.i;
     }
 
