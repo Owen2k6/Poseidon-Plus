@@ -16,19 +16,16 @@ public class EmptyChunk extends Chunk {
         this.p = true;
     }
 
-    public boolean a(int i, int j) {
-        return i == this.x && j == this.z;
+    public boolean a(int i, int j)
+    {
+        return super.a(i, j);
     }
 
     public int b(int i, int j) {
         return 0;
     }
 
-    public void a() {}
-
     public void initLighting() {}
-
-    public void loadNOP() {}
 
     public int getTypeId(int i, int j, int k) {
         return 0;
@@ -84,9 +81,9 @@ public class EmptyChunk extends Chunk {
 
     public void f() {}
 
-    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {}
+    public void a(Entity entity, AxisAlignedBB axisalignedbb, List<Entity> list) {}
 
-    public void a(Class oclass, AxisAlignedBB axisalignedbb, List list) {}
+    public void a(Class<? extends Entity> oclass, AxisAlignedBB axisalignedbb, List<Entity> list) {}
 
     public boolean a(boolean flag) {
         return false;
@@ -104,7 +101,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Random a(long i) {
-        return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
+        return new Random(this.world.getSeed() + ((long) this.x * this.x * 4987142) + (this.x * 5947611L) + (long) this.z * this.z * 4392871L + (this.z * 389711L) ^ i);
     }
 
     public boolean isEmpty() {
