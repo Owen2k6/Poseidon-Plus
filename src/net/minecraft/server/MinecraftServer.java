@@ -127,13 +127,13 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.allowFlight = this.propertyManager.getBoolean("allow-flight", false);
         InetAddress inetaddress = null;
 
-        if (s.length() > 0) {
+        if (!s.isEmpty()) {
             inetaddress = InetAddress.getByName(s);
         }
 
         int i = this.propertyManager.getInt("server-port", 25565);
 
-        log.info("Starting Minecraft server on " + (s.length() == 0 ? "*" : s) + ":" + i);
+        log.info("Starting Minecraft server on " + (s.isEmpty() ? "*" : s) + ":" + i);
 
         try {
             this.networkListenThread = new NetworkListenThread(this, inetaddress, i);
@@ -158,7 +158,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         String s2 = this.propertyManager.getString("level-seed", "");
         long k = (new Random()).nextLong();
 
-        if (s2.length() > 0) {
+        if (!s2.isEmpty()) {
             try {
                 k = Long.parseLong(s2);
             } catch (NumberFormatException numberformatexception) {
@@ -343,9 +343,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         log.info("Saving chunks");
 
         // CraftBukkit start
-        for (int i = 0; i < this.worlds.size(); ++i) {
-            WorldServer worldserver = this.worlds.get(i);
-
+        for (WorldServer worldserver : this.worlds) {
             worldserver.save(true, (IProgressUpdate) null);
             worldserver.saveLevel();
 
@@ -408,7 +406,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                     long l = k - i;
 
                     if (l > 2000L) {
-                        log.warning("Can\'t keep up! Did the system time change, or is the server overloaded?");
+                        log.warning("Can't keep up! Did the system time change, or is the server overloaded?");
                         l = 2000L;
                     }
 
@@ -469,14 +467,13 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     private void h() {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = trackerList.keySet().iterator();
 
-        while (iterator.hasNext()) {
-            String s = (String) iterator.next();
-            int i = ((Integer) trackerList.get(s)).intValue();
+        for (Object o : trackerList.keySet()) {
+            String s = (String) o;
+            int i = (Integer) trackerList.get(s);
 
             if (i > 0) {
-                trackerList.put(s, Integer.valueOf(i - 1));
+                trackerList.put(s, i - 1);
             } else {
                 arraylist.add(s);
             }
@@ -545,7 +542,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     }
 
     public void b() {
-        while (this.s.size() > 0) {
+        while (!this.s.isEmpty()) {
             ServerCommand servercommand = (ServerCommand) this.s.remove(0);
 
             // CraftBukkit start - ServerCommand for preprocessing

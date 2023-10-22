@@ -18,8 +18,8 @@ public class ItemTool extends Item {
     }
 
     public float a(ItemStack itemstack, Block block) {
-        for (int i = 0; i < this.bk.length; ++i) {
-            if (this.bk[i] == block) {
+        for (Block value : this.bk) {
+            if (value == block) {
                 return this.bl;
             }
         }

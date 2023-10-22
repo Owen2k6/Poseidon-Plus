@@ -9,6 +9,6 @@ public class ItemSpade extends ItemTool {
     }
 
     public boolean a(Block block) {
-        return block == Block.SNOW ? true : block == Block.SNOW_BLOCK;
+        return block == Block.SNOW || block == Block.SNOW_BLOCK;
     }
 }

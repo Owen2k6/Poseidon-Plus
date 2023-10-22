@@ -20,7 +20,7 @@ public class ItemDoor extends Item {
         if (l != 1) {
             return false;
         } else {
-            int clickedX = i, clickedY = j, clickedZ = k; // CraftBukkit
+            int clickedY = j;  // CraftBukkit
 
             ++j;
             Block block;
@@ -79,7 +79,7 @@ public class ItemDoor extends Item {
                 // CraftBukkit start - bed
                 world.suppressPhysics = false;
                 world.applyPhysics(i, j, k, Block.REDSTONE_WIRE.id);
-                BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, blockState, clickedX, clickedY, clickedZ, block);
+                BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, blockState, i, clickedY, k, block);
 
                 if (event.isCancelled() || !event.canBuild()) {
                     event.getBlockPlaced().setTypeIdAndData(blockState.getTypeId(), blockState.getRawData(), false);

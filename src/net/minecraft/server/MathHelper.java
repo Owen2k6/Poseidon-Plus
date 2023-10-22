@@ -6,19 +6,19 @@ public class MathHelper {
 
     public MathHelper() {}
 
-    public static final float sin(float f) {
+    public static float sin(float f) {
         return a[(int) (f * 10430.378F) & '\uffff'];
     }
 
-    public static final float cos(float f) {
+    public static float cos(float f) {
         return a[(int) (f * 10430.378F + 16384.0F) & '\uffff'];
     }
 
-    public static final float c(float f) {
+    public static float c(float f) {
         return (float) Math.sqrt((double) f);
     }
 
-    public static final float a(double d0) {
+    public static float a(double d0) {
         return (float) Math.sqrt(d0);
     }
 
@@ -47,7 +47,7 @@ public class MathHelper {
             d1 = -d1;
         }
 
-        return d0 > d1 ? d0 : d1;
+        return Math.max(d0, d1);
     }
 
     static {

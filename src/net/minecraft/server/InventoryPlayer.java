@@ -54,12 +54,12 @@ public class InventoryPlayer implements IInventory {
     // CraftBukkit start - watch method above! :D
     public int canHold(ItemStack itemstack) {
         int remains = itemstack.count;
-        for (int i = 0; i < this.items.length; ++i) {
-            if (this.items[i] == null) return itemstack.count;
+        for (ItemStack item : this.items) {
+            if (item == null) return itemstack.count;
 
             // Taken from firstPartial(ItemStack)
-            if (this.items[i] != null && this.items[i].id == itemstack.id && this.items[i].isStackable() && this.items[i].count < this.items[i].getMaxStackSize() && this.items[i].count < this.getMaxStackSize() && (!this.items[i].usesData() || this.items[i].getData() == itemstack.getData())) {
-                remains -= (this.items[i].getMaxStackSize() < this.getMaxStackSize() ? this.items[i].getMaxStackSize() : this.getMaxStackSize()) - this.items[i].count;
+            if (item.id == itemstack.id && item.isStackable() && item.count < item.getMaxStackSize() && item.count < this.getMaxStackSize() && (!item.usesData() || item.getData() == itemstack.getData())) {
+                remains -= (Math.min(item.getMaxStackSize(), this.getMaxStackSize())) - item.count;
             }
             if (remains <= 0) return itemstack.count;
         }
@@ -93,11 +93,7 @@ public class InventoryPlayer implements IInventory {
                 this.items[k] = new ItemStack(i, 0, itemstack.getData());
             }
 
-            int l = j;
-
-            if (j > this.items[k].getMaxStackSize() - this.items[k].count) {
-                l = this.items[k].getMaxStackSize() - this.items[k].count;
-            }
+            int l = Math.min(j, this.items[k].getMaxStackSize() - this.items[k].count);
 
             if (l > this.getMaxStackSize() - this.items[k].count) {
                 l = this.getMaxStackSize() - this.items[k].count;
@@ -243,7 +239,7 @@ public class InventoryPlayer implements IInventory {
             ItemStack itemstack = new ItemStack(nbttagcompound);
 
             if (itemstack.getItem() != null) {
-                if (j >= 0 && j < this.items.length) {
+                if (j < this.items.length) {
                     this.items[j] = itemstack;
                 }
 
@@ -289,7 +285,7 @@ public class InventoryPlayer implements IInventory {
         } else {
             ItemStack itemstack = this.getItem(this.itemInHandIndex);
 
-            return itemstack != null ? itemstack.b(block) : false;
+            return itemstack != null && itemstack.b(block);
         }
     }
 
@@ -298,15 +294,15 @@ public class InventoryPlayer implements IInventory {
         int j = 0;
         int k = 0;
 
-        for (int l = 0; l < this.armor.length; ++l) {
-            if (this.armor[l] != null && this.armor[l].getItem() instanceof ItemArmor) {
-                int i1 = this.armor[l].i();
-                int j1 = this.armor[l].g();
+        for (ItemStack itemStack : this.armor) {
+            if (itemStack != null && itemStack.getItem() instanceof ItemArmor) {
+                int i1 = itemStack.i();
+                int j1 = itemStack.g();
                 int k1 = i1 - j1;
 
                 j += k1;
                 k += i1;
-                int l1 = ((ItemArmor) this.armor[l].getItem()).bl;
+                int l1 = ((ItemArmor) itemStack.getItem()).bl;
 
                 i += l1;
             }
@@ -363,7 +359,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.d.dead ? false : entityhuman.g(this.d) <= 64.0D;
+        return !this.d.dead && entityhuman.g(this.d) <= 64.0D;
     }
 
     public boolean c(ItemStack itemstack) {

@@ -82,7 +82,7 @@ class MinecartTrackLogic {
     }
 
     private boolean a(int i, int j, int k) {
-        return BlockMinecartTrack.g(this.b, i, j, k) ? true : (BlockMinecartTrack.g(this.b, i, j + 1, k) ? true : BlockMinecartTrack.g(this.b, i, j - 1, k));
+        return BlockMinecartTrack.g(this.b, i, j, k) || (BlockMinecartTrack.g(this.b, i, j + 1, k) || BlockMinecartTrack.g(this.b, i, j - 1, k));
     }
 
     private MinecartTrackLogic a(ChunkPosition chunkposition) {
@@ -90,8 +90,8 @@ class MinecartTrackLogic {
     }
 
     private boolean b(MinecartTrackLogic minecarttracklogic) {
-        for (int i = 0; i < this.g.size(); ++i) {
-            ChunkPosition chunkposition = (ChunkPosition) this.g.get(i);
+        for (Object o : this.g) {
+            ChunkPosition chunkposition = (ChunkPosition) o;
 
             if (chunkposition.x == minecarttracklogic.c && chunkposition.z == minecarttracklogic.e) {
                 return true;
@@ -102,8 +102,8 @@ class MinecartTrackLogic {
     }
 
     private boolean b(int i, int j, int k) {
-        for (int l = 0; l < this.g.size(); ++l) {
-            ChunkPosition chunkposition = (ChunkPosition) this.g.get(l);
+        for (Object o : this.g) {
+            ChunkPosition chunkposition = (ChunkPosition) o;
 
             if (chunkposition.x == i && chunkposition.z == k) {
                 return true;
@@ -145,7 +145,7 @@ class MinecartTrackLogic {
         } else {
             ChunkPosition chunkposition = (ChunkPosition) this.g.get(0);
 
-            return minecarttracklogic.d == this.d && chunkposition.y == this.d ? true : true;
+            return true;
         }
     }
 
@@ -340,8 +340,8 @@ class MinecartTrackLogic {
         if (flag1 || this.b.getData(this.c, this.d, this.e) != i) {
             this.b.setData(this.c, this.d, this.e, i);
 
-            for (int j = 0; j < this.g.size(); ++j) {
-                MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) this.g.get(j));
+            for (Object o : this.g) {
+                MinecartTrackLogic minecarttracklogic = this.a((ChunkPosition) o);
 
                 if (minecarttracklogic != null) {
                     minecarttracklogic.a();

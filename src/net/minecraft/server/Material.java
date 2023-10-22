@@ -86,7 +86,7 @@ public class Material {
     }
 
     public boolean h() {
-        return this.F ? false : this.isSolid();
+        return !this.F && this.isSolid();
     }
 
     public boolean i() {

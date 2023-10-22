@@ -193,19 +193,17 @@ public class ItemInWorldManager {
         return flag;
     }
 
-    public boolean useItem(EntityHuman entityhuman, World world, ItemStack itemstack) {
+    public void useItem(EntityHuman entityhuman, World world, ItemStack itemstack) {
         int i = itemstack.count;
         ItemStack itemstack1 = itemstack.a(world, entityhuman);
 
-        if (itemstack1 == itemstack && (itemstack1 == null || itemstack1.count == i)) {
-            return false;
+        if (itemstack1 == itemstack && itemstack1.count == i) {
         } else {
             entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = itemstack1;
             if (itemstack1.count == 0) {
                 entityhuman.inventory.items[entityhuman.inventory.itemInHandIndex] = null;
             }
 
-            return true;
         }
     }
 

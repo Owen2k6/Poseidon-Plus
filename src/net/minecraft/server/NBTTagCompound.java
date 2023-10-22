@@ -15,10 +15,9 @@ public class NBTTagCompound extends NBTBase {
     public NBTTagCompound() {}
 
     void a(DataOutput dataoutput) throws IOException {
-        Iterator iterator = this.a.values().iterator();
 
-        while (iterator.hasNext()) {
-            NBTBase nbtbase = (NBTBase) iterator.next();
+        for (Object o : this.a.values()) {
+            NBTBase nbtbase = (NBTBase) o;
 
             NBTBase.a(nbtbase, dataoutput);
         }

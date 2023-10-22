@@ -54,16 +54,6 @@ public class ItemReed extends Item {
 
                 // CraftBukkit start - This executes the placement of the block
                 CraftBlockState replacedBlockState = CraftBlockState.getBlockState(world, i, j, k); // CraftBukkit
-                /**
-                 * @see net.minecraft.server.World#setTypeId(int i, int j, int k, int l)
-                 *
-                 * This replaces world.setTypeId(IIII), we're doing this because we need to
-                 * hook between the 'placement' and the informing to 'world' so we can
-                 * sanely undo this.
-                 *
-                 * Whenever the call to 'world.setTypeId' changes we need to figure out again what to
-                 * replace this with.
-                 */
                 if (world.setRawTypeId(i, j, k, this.id)) { // <-- world.e does this to place the block
                     BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, replacedBlockState, clickedX, clickedY, clickedZ, block);
 

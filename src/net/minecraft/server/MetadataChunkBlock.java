@@ -40,22 +40,18 @@ public class MetadataChunkBlock {
                     int j2 = l1 >> 4;
                     boolean flag2 = false;
 
-                    if (flag && i2 == i1 && j2 == j1) {
-                        flag2 = flag1;
-                    } else {
-                        flag2 = world.areChunksLoaded(k1, 0, l1, 1);
-                        if (flag2) {
-                            Chunk chunk = world.getChunkAt(k1 >> 4, l1 >> 4);
+                    flag2 = world.areChunksLoaded(k1, 0, l1, 1);
+                    if (flag2) {
+                        Chunk chunk = world.getChunkAt(k1 >> 4, l1 >> 4);
 
-                            if (chunk.isEmpty()) {
-                                flag2 = false;
-                            }
+                        if (chunk.isEmpty()) {
+                            flag2 = false;
                         }
-
-                        flag1 = flag2;
-                        i1 = i2;
-                        j1 = j2;
                     }
+
+                    flag1 = flag2;
+                    i1 = i2;
+                    j1 = j2;
 
                     if (flag2) {
                         if (this.c < 0) {
@@ -99,10 +95,7 @@ public class MetadataChunkBlock {
                                 int i5 = world.a(this.a, k1, k2, l1 - 1);
                                 int j5 = world.a(this.a, k1, k2, l1 + 1);
 
-                                i4 = l3;
-                                if (j4 > l3) {
-                                    i4 = j4;
-                                }
+                                i4 = Math.max(j4, l3);
 
                                 if (k4 > i4) {
                                     i4 = k4;

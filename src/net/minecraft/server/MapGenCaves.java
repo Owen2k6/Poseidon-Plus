@@ -110,7 +110,7 @@ public class MapGenCaves extends MapGenBase {
                         for (int k3 = k2; !flag2 && k3 < l2; ++k3) {
                             for (int l3 = j2 + 1; !flag2 && l3 >= i2 - 1; --l3) {
                                 i3 = (j3 * 16 + k3) * 128 + l3;
-                                if (l3 >= 0 && l3 < 128) {
+                                if (l3 < 128) {
                                     if (abyte[i3] == Block.WATER.id || abyte[i3] == Block.STATIONARY_WATER.id) {
                                         flag2 = true;
                                     }

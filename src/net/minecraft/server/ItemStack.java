@@ -186,11 +186,11 @@ public final class ItemStack {
     }
 
     public static boolean equals(ItemStack itemstack, ItemStack itemstack1) {
-        return itemstack == null && itemstack1 == null ? true : (itemstack != null && itemstack1 != null ? itemstack.d(itemstack1) : false);
+        return itemstack == null && itemstack1 == null || (itemstack != null && itemstack1 != null && itemstack.d(itemstack1));
     }
 
     private boolean d(ItemStack itemstack) {
-        return this.count != itemstack.count ? false : (this.id != itemstack.id ? false : this.damage == itemstack.damage);
+        return this.count == itemstack.count && (this.id == itemstack.id && this.damage == itemstack.damage);
     }
 
     public boolean doMaterialsMatch(ItemStack itemstack) {
