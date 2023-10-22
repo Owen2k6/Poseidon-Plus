@@ -215,4 +215,8 @@ public class DataWatcher {
         a.put(ItemStack.class, Integer.valueOf(5));
         a.put(ChunkCoordinates.class, Integer.valueOf(6));
     }
+
+    public boolean getD() {
+        return d;
+    }
 }
