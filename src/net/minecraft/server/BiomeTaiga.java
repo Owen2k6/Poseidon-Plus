@@ -9,6 +9,6 @@ public class BiomeTaiga extends BiomeBase {
     }
 
     public WorldGenerator a(Random random) {
-        return (WorldGenerator) (random.nextInt(3) == 0 ? new WorldGenTaiga1() : new WorldGenTaiga2());
+        return random.nextInt(3) == 0 ? new WorldGenTaiga1() : new WorldGenTaiga2();
     }
 }

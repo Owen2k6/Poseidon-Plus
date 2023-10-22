@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class BiomeMeta {
 
-    public Class a;
+    public Class<? extends Entity> a;
     public int b;
 
-    public BiomeMeta(Class oclass, int i) {
+    public BiomeMeta(Class<? extends Entity> oclass, int i) {
         this.a = oclass;
         this.b = i;
     }
