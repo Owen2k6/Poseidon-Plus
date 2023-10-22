@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
 import java.util.*;
@@ -17,16 +16,16 @@ import java.util.*;
 public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public NetServerHandler netServerHandler;
-    public MinecraftServer b;
+    public final MinecraftServer b;
     public ItemInWorldManager itemInWorldManager;
     public double d;
     public double e;
-    public List chunkCoordIntPairQueue = new LinkedList();
-    public Set playerChunkCoordIntPairs = new HashSet();
-    public final List removeQueue = new LinkedList(); // poseidon
+    public final List<ChunkCoordIntPair> chunkCoordIntPairQueue = new LinkedList<>();
+    public Set<ChunkCoordIntPair> playerChunkCoordIntPairs = new HashSet<>();
+    public final List<Integer> removeQueue = new LinkedList<>(); // poseidon
     private int bL = -99999999;
     private int bM = 60;
-    private ItemStack[] bN = new ItemStack[]{null, null, null, null, null};
+    private final ItemStack[] bN = new ItemStack[]{null, null, null, null, null};
     private int bO = 0;
     public boolean h;
 
@@ -40,14 +39,14 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         int k = chunkcoordinates.y;
 
         if (!world.worldProvider.e) {
-            k = world.f(i, j); //Project Poseidon: This finds a solid block, this needs to be left outside of the setting
+            k = world.f(i, j); //Project Poseidon: This finds a solid block, this needs to be left outside the setting
             if ((boolean) PoseidonConfig.getInstance().getProperty("world-settings.randomize-spawn")) { //Project Poseidon: Moved randomizing X and Y axis into a config option
                 i += this.random.nextInt(20) - 10;
                 j += this.random.nextInt(20) - 10;
             }
         }
 
-        this.setPositionRotation((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
+        this.setPositionRotation((double) i + 0.5D, k, (double) j + 0.5D, 0.0F, 0.0F);
         this.b = minecraftserver;
         this.bs = 0.0F;
         this.name = s;
@@ -59,7 +58,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public String displayName;
-    public UUID playerUUID; //Project Poseidon
+    public final UUID playerUUID; //Project Poseidon
     public org.bukkit.Location compassTarget;
     // CraftBukkit end
 
@@ -69,7 +68,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (world == null) {
             this.dead = false;
             ChunkCoordinates position = null;
-            if (this.spawnWorld != null && !this.spawnWorld.equals("")) {
+            if (this.spawnWorld != null && !this.spawnWorld.isEmpty()) {
                 CraftWorld cworld = (CraftWorld) Bukkit.getServer().getWorld(this.spawnWorld);
                 if (cworld != null && this.getBed() != null) {
                     world = cworld.getHandle();
@@ -126,7 +125,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void die(Entity entity) {
         // CraftBukkit start
-        java.util.List<org.bukkit.inventory.ItemStack> loot = new java.util.ArrayList<org.bukkit.inventory.ItemStack>();
+        java.util.List<org.bukkit.inventory.ItemStack> loot = new java.util.ArrayList<>();
 
         for (int i = 0; i < this.inventory.items.length; ++i) {
             if (this.inventory.items[i] != null) {
@@ -154,13 +153,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
         //Poseidon - Only clear inventory if keep inventory is false
         if(!event.getKeepInventory()) {
-            for (int i = 0; i < this.inventory.items.length; ++i) {
-                this.inventory.items[i] = null;
-            }
-
-            for (int i = 0; i < this.inventory.armor.length; ++i) {
-                this.inventory.armor[i] = null;
-            }
+            Arrays.fill(this.inventory.items, null);
+            Arrays.fill(this.inventory.armor, null);
         }
 
         for (org.bukkit.inventory.ItemStack stack : event.getDrops()) {
@@ -213,17 +207,16 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         while (!this.removeQueue.isEmpty()) {
             int i = Math.min(this.removeQueue.size(), 127);
             int[] aint = new int[i];
-            Iterator iterator = this.removeQueue.iterator();
+            Iterator<Integer> iterator = this.removeQueue.iterator();
             int j = 0;
 
             while (iterator.hasNext() && j < i) {
-                aint[j++] = ((Integer) iterator.next()).intValue();
+                aint[j++] = iterator.next();
                 iterator.remove();
             }
 
-            for (int k = 0; k < aint.length; k++) { // cant use array since not supported in b1.7.3
-                this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint[k]));
-            }
+            for (int value : aint) // cant use array since not supported in b1.7.3
+                this.netServerHandler.sendPacket(new Packet29DestroyEntity(value));
         }
         // poseidon end
 
@@ -231,17 +224,16 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         while (!this.removeQueue.isEmpty()) {
             int i = Math.min(this.removeQueue.size(), 127);
             int[] aint = new int[i];
-            Iterator iterator = this.removeQueue.iterator();
+            Iterator<Integer> iterator = this.removeQueue.iterator();
             int j = 0;
 
             while (iterator.hasNext() && j < i) {
-                aint[j++] = ((Integer) iterator.next()).intValue();
+                aint[j++] = iterator.next();
                 iterator.remove();
             }
 
-            for (int k = 0; k < aint.length; k++) { // cant use array since not supported in b1.7.3
-                this.netServerHandler.sendPacket(new Packet29DestroyEntity(aint[k]));
-            }
+            for (int value : aint) // cant use array since not supported in b1.7.3
+                this.netServerHandler.sendPacket(new Packet29DestroyEntity(value));
         }
         // poseidon end
 
@@ -260,51 +252,49 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         // Poseidon start
         if (flag && !this.chunkCoordIntPairQueue.isEmpty()) {
             if (PoseidonConfig.getInstance().getBoolean("settings.faster-packets.enabled", true)) {
-                ArrayList arraylist = new ArrayList();
-                Iterator iterator1 = this.chunkCoordIntPairQueue.iterator();
-                ArrayList arraylist1 = new ArrayList();
+                ArrayList<Chunk> chunks = new ArrayList<>();
+                Iterator<ChunkCoordIntPair> iterator1 = this.chunkCoordIntPairQueue.iterator();
+                ArrayList<TileEntity> tileEntities = new ArrayList<>();
     
-                while (iterator1.hasNext() && arraylist.size() < 5) {
-                    ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator1.next();
+                while (iterator1.hasNext() && chunks.size() < 5) {
+                    ChunkCoordIntPair chunkcoordintpair = iterator1.next();
     
                     iterator1.remove();
                     if (chunkcoordintpair != null && this.world.isLoaded(chunkcoordintpair.x << 4, 0, chunkcoordintpair.z << 4)) {
                         // CraftBukkit start - Get tile entities directly from the chunk instead of the world
                         Chunk chunk = this.world.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z);
-                        arraylist.add(chunk);
-                        arraylist1.addAll(chunk.tileEntities.values());
+                        chunks.add(chunk);
+                        tileEntities.addAll(chunk.tileEntities.values());
                         // CraftBukkit end
                     }
                 }
     
-                if (!arraylist.isEmpty()) {
-                    Iterator iterator2 = arraylist.iterator();
+                if (!chunks.isEmpty()) {
+                    Iterator<Chunk> chunkIterator = chunks.iterator();
     
-                    while (iterator2.hasNext()) {
-                        Chunk chunk = (Chunk) iterator2.next();
+                    while (chunkIterator.hasNext()) {
+                        Chunk chunk = chunkIterator.next();
                         
                         this.netServerHandler.sendPacket(new Packet51MapChunk(chunk.x * 16, 0, chunk.z * 16, 16, 128, 16, this.getWorldServer()));
                         this.getWorldServer().tracker.a(this, chunk);
                     }
-                    
-                    iterator2 = arraylist1.iterator();
-    
-                    while (iterator2.hasNext()) {
-                        TileEntity tileentity = (TileEntity) iterator2.next();
+
+                    Iterator<TileEntity> tileEntityIterator = tileEntities.iterator();
+
+                    while (chunkIterator.hasNext()) {
+                        TileEntity tileentity = tileEntityIterator.next();
                         this.a(tileentity);
                     }
                 }
             } else {
-                ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) this.chunkCoordIntPairQueue.get(0);
+                ChunkCoordIntPair chunkcoordintpair = this.chunkCoordIntPairQueue.get(0);
 
                 
                 if (chunkcoordintpair != null) {
-                    boolean flag1 = false;
-    
-                    if (this.netServerHandler.b() + ChunkCompressionThread.getPlayerQueueSize(this) < 4) { // CraftBukkit - Add check against Chunk Packets in the ChunkCompressionThread.
-                        flag1 = true;
-                    }
-    
+                    boolean flag1 = this.netServerHandler.b() + ChunkCompressionThread.getPlayerQueueSize(this) < 4;
+
+                    // CraftBukkit - Add check against Chunk Packets in the ChunkCompressionThread.
+
                     if (flag1) {
                         WorldServer worldserver = this.b.getWorldServer(this.dimension);
     
@@ -314,11 +304,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
                         Chunk chunk = this.world.getChunkAt(chunkcoordintpair.x, chunkcoordintpair.z);
                         this.getWorldServer().tracker.a(this, chunk);
                         
-                        List list = worldserver.getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 128, chunkcoordintpair.z * 16 + 16);
-    
-                        for (int j = 0; j < list.size(); ++j) {
-                            this.a((TileEntity) list.get(j));
-                        }
+                        List<TileEntity> list = worldserver.getTileEntities(chunkcoordintpair.x * 16, 0, chunkcoordintpair.z * 16, chunkcoordintpair.x * 16 + 16, 128, chunkcoordintpair.z * 16 + 16);
+
+                        for (TileEntity object : list) this.a(object);
                     }
                 }
             }
@@ -508,7 +496,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.a(container, container.b());
     }
 
-    public void a(Container container, List list) {
+    public void a(Container container, List<ItemStack> list) {
         this.netServerHandler.sendPacket(new Packet104WindowItems(container.windowId, list));
         this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.j()));
     }

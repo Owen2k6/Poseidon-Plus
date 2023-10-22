@@ -15,8 +15,8 @@ public class Chunk {
     public int i;
     public final int x;
     public final int z;
-    public Map tileEntities;
-    public List[] entitySlices;
+    public Map<ChunkPosition, TileEntity> tileEntities;
+    public List<Entity>[] entitySlices;
     public boolean done;
     public boolean o;
     public boolean p;
@@ -24,8 +24,8 @@ public class Chunk {
     public long r;
 
     public Chunk(World world, int i, int j) {
-        this.tileEntities = new HashMap();
-        this.entitySlices = new List[8];
+        this.tileEntities = new HashMap<>();
+        this.entitySlices = (ArrayList<Entity>[]) new ArrayList[8];
         this.done = false;
         this.o = false;
         this.q = false;
@@ -36,7 +36,7 @@ public class Chunk {
         this.heightMap = new byte[256];
 
         for (int k = 0; k < this.entitySlices.length; ++k) {
-            this.entitySlices[k] = new ArrayList();
+            this.entitySlices[k] = new ArrayList<>();
         }
 
         // CraftBukkit start
@@ -479,9 +479,9 @@ public class Chunk {
 
         for (int i = 0; i < this.entitySlices.length; ++i) {
             // CraftBukkit start
-            java.util.Iterator<Object> iter = this.entitySlices[i].iterator();
+            java.util.Iterator<Entity> iter = this.entitySlices[i].iterator();
             while (iter.hasNext()) {
-                Entity entity = (Entity) iter.next();
+                Entity entity = iter.next();
                 int cx = org.bukkit.Location.locToBlock(entity.locX) >> 4;
                 int cz = org.bukkit.Location.locToBlock(entity.locZ) >> 4;
 
