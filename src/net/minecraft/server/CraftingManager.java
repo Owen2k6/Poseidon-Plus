@@ -90,7 +90,7 @@ public class CraftingManager {
         int k = 0;
 
         if (aobject[i] instanceof String[]) {
-            String[] astring = (String[]) ((String[]) aobject[i++]);
+            String[] astring = (String[]) aobject[i++];
 
             for (String s1 : astring) {
                 ++k;
@@ -107,9 +107,9 @@ public class CraftingManager {
             }
         }
 
-        HashMap hashmap;
+        HashMap<Character, ItemStack> hashmap;
 
-        for (hashmap = new HashMap(); i < aobject.length; i += 2) {
+        for (hashmap = new HashMap<>(); i < aobject.length; i += 2) {
             Character character = (Character) aobject[i];
             ItemStack itemstack1 = null;
 
@@ -140,7 +140,7 @@ public class CraftingManager {
     }
 
     public void registerShapelessRecipe(ItemStack itemstack, Object... aobject) { // CraftBukkit - default -> public
-        ArrayList arraylist = new ArrayList();
+        ArrayList<Object> arraylist = new ArrayList<>();
         int i = aobject.length;
 
         for (Object object : aobject) {
@@ -161,9 +161,7 @@ public class CraftingManager {
     }
 
     public ItemStack craft(InventoryCrafting inventorycrafting) {
-        for (Object o : this.b) {
-            CraftingRecipe craftingrecipe = (CraftingRecipe) o;
-
+        for (CraftingRecipe craftingrecipe : this.b) {
             if (craftingrecipe.a(inventorycrafting)) {
                 return craftingrecipe.b(inventorycrafting);
             }

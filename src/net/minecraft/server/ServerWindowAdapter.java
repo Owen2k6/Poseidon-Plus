@@ -18,7 +18,7 @@ final class ServerWindowAdapter extends WindowAdapter {
             try {
                 Thread.sleep(100L);
             } catch (InterruptedException interruptedexception) {
-                interruptedexception.printStackTrace();
+                interruptedexception.printStackTrace(System.err);
             }
         }
 

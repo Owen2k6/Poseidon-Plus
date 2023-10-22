@@ -18,7 +18,7 @@ class ServerGuiCommandListener implements ActionListener {
     public void actionPerformed(ActionEvent actionevent) {
         String s = this.a.getText().trim();
 
-        if (s.length() > 0) {
+        if (!s.isEmpty()) {
             ServerGUI.a(this.b).issueCommand(s, this.b);
         }
 

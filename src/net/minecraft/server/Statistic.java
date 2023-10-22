@@ -10,10 +10,9 @@ public class Statistic {
     public final String f;
     public boolean g;
     public String h;
-    private final Counter a;
-    private static NumberFormat b = NumberFormat.getIntegerInstance(Locale.US);
-    public static Counter i = new UnknownCounter();
-    private static DecimalFormat c = new DecimalFormat("########0.00");
+    private static final NumberFormat b = NumberFormat.getIntegerInstance(Locale.US);
+    public static final Counter i = new UnknownCounter();
+    private static final DecimalFormat c = new DecimalFormat("########0.00");
     public static Counter j = new TimeCounter();
     public static Counter k = new DistancesCounter();
 
@@ -21,7 +20,6 @@ public class Statistic {
         this.g = false;
         this.e = i;
         this.f = s;
-        this.a = counter;
     }
 
     public Statistic(int i, String s) {
@@ -34,11 +32,11 @@ public class Statistic {
     }
 
     public Statistic d() {
-        if (StatisticList.a.containsKey(Integer.valueOf(this.e))) {
-            throw new RuntimeException("Duplicate stat id: \"" + ((Statistic) StatisticList.a.get(Integer.valueOf(this.e))).f + "\" and \"" + this.f + "\" at id " + this.e);
+        if (StatisticList.a.containsKey(this.e)) {
+            throw new RuntimeException("Duplicate stat id: \"" + StatisticList.a.get(this.e).f + "\" and \"" + this.f + "\" at id " + this.e);
         } else {
             StatisticList.b.add(this);
-            StatisticList.a.put(Integer.valueOf(this.e), this);
+            StatisticList.a.put(this.e, this);
             this.h = AchievementMap.a(this.e);
             return this;
         }

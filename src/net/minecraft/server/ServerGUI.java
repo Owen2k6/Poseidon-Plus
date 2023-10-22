@@ -9,13 +9,13 @@ import java.util.logging.Logger;
 public class ServerGUI extends JComponent implements ICommandListener {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    private MinecraftServer b;
+    private final MinecraftServer b;
 
     public static void a(MinecraftServer minecraftserver) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception exception) {
-            ;
+            exception.printStackTrace(System.err);
         }
 
         ServerGUI servergui = new ServerGUI(minecraftserver);
@@ -23,7 +23,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
 
         jframe.add(servergui);
         jframe.pack();
-        jframe.setLocationRelativeTo((Component) null);
+        jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
         jframe.addWindowListener(new ServerWindowAdapter(minecraftserver));
     }
@@ -37,7 +37,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
             this.add(this.c(), "Center");
             this.add(this.a(), "West");
         } catch (Exception exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
     }
 
@@ -52,7 +52,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
 
     private JComponent b() {
         PlayerListBox playerlistbox = new PlayerListBox(this.b);
-        JScrollPane jscrollpane = new JScrollPane(playerlistbox, 22, 30);
+        JScrollPane jscrollpane = new JScrollPane(playerlistbox, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         jscrollpane.setBorder(new TitledBorder(new EtchedBorder(), "Players"));
         return jscrollpane;
@@ -63,7 +63,7 @@ public class ServerGUI extends JComponent implements ICommandListener {
         JTextArea jtextarea = new JTextArea();
 
         a.addHandler(new GuiLogOutputHandler(jtextarea));
-        JScrollPane jscrollpane = new JScrollPane(jtextarea, 22, 30);
+        JScrollPane jscrollpane = new JScrollPane(jtextarea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         jtextarea.setEditable(false);
         JTextField jtextfield = new JTextField();
