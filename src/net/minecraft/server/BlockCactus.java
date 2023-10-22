@@ -56,7 +56,7 @@ public class BlockCactus extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !super.canPlace(world, i, j, k) ? false : this.f(world, i, j, k);
+        return super.canPlace(world, i, j, k) && this.f(world, i, j, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
@@ -86,7 +86,7 @@ public class BlockCactus extends Block {
         // CraftBukkit start - ENTITY_DAMAGEBY_BLOCK event
         if (entity instanceof EntityLiving) {
             org.bukkit.block.Block damager = world.getWorld().getBlockAt(i, j, k);
-            org.bukkit.entity.Entity damagee = (entity == null) ? null : entity.getBukkitEntity();
+            org.bukkit.entity.Entity damagee = entity.getBukkitEntity();
 
             EntityDamageByBlockEvent event = new EntityDamageByBlockEvent(damager, damagee, EntityDamageEvent.DamageCause.CONTACT, 1);
             world.getServer().getPluginManager().callEvent(event);

@@ -67,7 +67,7 @@ public class BlockCake extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !super.canPlace(world, i, j, k) ? false : this.f(world, i, j, k);
+        return super.canPlace(world, i, j, k) && this.f(world, i, j, k);
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {

@@ -52,10 +52,9 @@ public class BlockBed extends Block {
             } else {
                 if (e(l)) {
                     EntityHuman entityhuman1 = null;
-                    Iterator iterator = world.players.iterator();
 
-                    while (iterator.hasNext()) {
-                        EntityHuman entityhuman2 = (EntityHuman) iterator.next();
+                    for (Object object : world.players) {
+                        EntityHuman entityhuman2 = (EntityHuman) object;
 
                         if (entityhuman2.isSleeping()) {
                             ChunkCoordinates chunkcoordinates = entityhuman2.A;
@@ -78,14 +77,13 @@ public class BlockBed extends Block {
 
                 if (enumbederror == EnumBedError.OK) {
                     a(world, i, j, k, true);
-                    return true;
                 } else {
                     if (enumbederror == EnumBedError.NOT_POSSIBLE_NOW) {
                         entityhuman.a("tile.bed.noSleep");
                     }
 
-                    return true;
                 }
+                return true;
             }
         }
     }

@@ -118,13 +118,9 @@ public class AxisAlignedBB {
                     }
                 }
 
-                return d0;
-            } else {
-                return d0;
             }
-        } else {
-            return d0;
         }
+        return d0;
     }
 
     public double b(AxisAlignedBB axisalignedbb, double d0) {
@@ -184,7 +180,7 @@ public class AxisAlignedBB {
     }
 
     public boolean a(AxisAlignedBB axisalignedbb) {
-        return axisalignedbb.d > this.a && axisalignedbb.a < this.d ? (axisalignedbb.e > this.b && axisalignedbb.b < this.e ? axisalignedbb.f > this.c && axisalignedbb.c < this.f : false) : false;
+        return axisalignedbb.d > this.a && axisalignedbb.a < this.d && (axisalignedbb.e > this.b && axisalignedbb.b < this.e && axisalignedbb.f > this.c && axisalignedbb.c < this.f);
     }
 
     public AxisAlignedBB d(double d0, double d1, double d2) {
@@ -198,7 +194,7 @@ public class AxisAlignedBB {
     }
 
     public boolean a(Vec3D vec3d) {
-        return vec3d.a > this.a && vec3d.a < this.d ? (vec3d.b > this.b && vec3d.b < this.e ? vec3d.c > this.c && vec3d.c < this.f : false) : false;
+        return vec3d.a > this.a && vec3d.a < this.d && (vec3d.b > this.b && vec3d.b < this.e && vec3d.c > this.c && vec3d.c < this.f);
     }
 
     public AxisAlignedBB shrink(double d0, double d1, double d2) {
@@ -250,7 +246,11 @@ public class AxisAlignedBB {
 
         Vec3D vec3d8 = null;
 
-        if (vec3d2 != null && (vec3d8 == null || vec3d.b(vec3d2) < vec3d.b(vec3d8))) {
+        if (vec3d2 != null) {
+            if (vec3d8 != null) {
+                vec3d.b(vec3d2);
+                vec3d.b(vec3d8);
+            }
             vec3d8 = vec3d2;
         }
 
@@ -308,15 +308,15 @@ public class AxisAlignedBB {
     }
 
     private boolean b(Vec3D vec3d) {
-        return vec3d == null ? false : vec3d.b >= this.b && vec3d.b <= this.e && vec3d.c >= this.c && vec3d.c <= this.f;
+        return vec3d != null && vec3d.b >= this.b && vec3d.b <= this.e && vec3d.c >= this.c && vec3d.c <= this.f;
     }
 
     private boolean c(Vec3D vec3d) {
-        return vec3d == null ? false : vec3d.a >= this.a && vec3d.a <= this.d && vec3d.c >= this.c && vec3d.c <= this.f;
+        return vec3d != null && vec3d.a >= this.a && vec3d.a <= this.d && vec3d.c >= this.c && vec3d.c <= this.f;
     }
 
     private boolean d(Vec3D vec3d) {
-        return vec3d == null ? false : vec3d.a >= this.a && vec3d.a <= this.d && vec3d.b >= this.b && vec3d.b <= this.e;
+        return vec3d != null && vec3d.a >= this.a && vec3d.a <= this.d && vec3d.b >= this.b && vec3d.b <= this.e;
     }
 
     public void b(AxisAlignedBB axisalignedbb) {
