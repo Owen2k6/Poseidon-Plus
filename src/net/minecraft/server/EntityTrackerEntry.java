@@ -43,7 +43,7 @@ public class EntityTrackerEntry {
     }
 
     public boolean equals(Object object) {
-        return object instanceof EntityTrackerEntry ? ((EntityTrackerEntry) object).tracker.id == this.tracker.id : false;
+        return object instanceof EntityTrackerEntry && ((EntityTrackerEntry) object).tracker.id == this.tracker.id;
     }
 
     public int hashCode() {
@@ -74,7 +74,7 @@ public class EntityTrackerEntry {
             int encodedDiffX = newEncodedPosX - this.d;
             int encodedDiffY = newEncodedPosY - this.e;
             int encodedDiffZ = newEncodedPosZ - this.f;
-            Object packet = null;
+            Packet packet = null;
             // mob movement fix, credit to Oldmana#7086 from the Modification Station discord server
             // https://discordapp.com/channels/397834523028488203/397839387465089054/684637208199823377
             int movementUpdateTreshold = 1;
@@ -139,7 +139,7 @@ public class EntityTrackerEntry {
             }
 
             if (packet != null) {
-                this.a((Packet) packet);
+                this.a(packet);
             }
 
             DataWatcher datawatcher = this.tracker.aa();
@@ -191,10 +191,9 @@ public class EntityTrackerEntry {
     }
 
     public void a(Packet packet) {
-        Iterator iterator = this.trackedPlayers.iterator();
 
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+        for (Object trackedPlayer : this.trackedPlayers) {
+            EntityPlayer entityplayer = (EntityPlayer) trackedPlayer;
 
             entityplayer.netServerHandler.sendPacket(packet);
         }
@@ -210,19 +209,18 @@ public class EntityTrackerEntry {
     public void a() {
         // Poseidon start
         //this.a((Packet) (new Packet29DestroyEntity(this.tracker.id)));
-        Iterator iterator = this.trackedPlayers.iterator();
 
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+        for (Object trackedPlayer : this.trackedPlayers) {
+            EntityPlayer entityplayer = (EntityPlayer) trackedPlayer;
 
-            entityplayer.removeQueue.add(Integer.valueOf(this.tracker.id));
+            entityplayer.removeQueue.add(this.tracker.id);
         }
         // Poseidon end
     }
 
     public void a(EntityPlayer entityplayer) {
         if (this.trackedPlayers.contains(entityplayer)) {
-            entityplayer.removeQueue.add(Integer.valueOf(this.tracker.id)); // Poseidon
+            entityplayer.removeQueue.add(this.tracker.id); // Poseidon
             this.trackedPlayers.remove(entityplayer);
         }
     }
@@ -289,7 +287,7 @@ public class EntityTrackerEntry {
                 }
             } else if (this.trackedPlayers.contains(entityplayer)) {
                 this.trackedPlayers.remove(entityplayer);
-                entityplayer.removeQueue.add(Integer.valueOf(this.tracker.id)); // Poseidon
+                entityplayer.removeQueue.add(this.tracker.id); // Poseidon
                 //entityplayer.netServerHandler.sendPacket(new Packet29DestroyEntity(this.tracker.id));
             }
         }
@@ -300,8 +298,8 @@ public class EntityTrackerEntry {
     }
 
     public void scanPlayers(List list) {
-        for (int i = 0; i < list.size(); ++i) {
-            this.b((EntityPlayer) list.get(i));
+        for (Object object : list) {
+            this.b((EntityPlayer) object);
         }
     }
 
@@ -315,13 +313,12 @@ public class EntityTrackerEntry {
         
         if (this.tracker instanceof EntityItem) {
             EntityItem entityitem = (EntityItem) this.tracker;
-            Packet21PickupSpawn packet21pickupspawn = new Packet21PickupSpawn(entityitem);
 
             // There's no reason to set the item's position to the compressed position
             //entityitem.locX = (double) packet21pickupspawn.b / 32.0D;
             //entityitem.locY = (double) packet21pickupspawn.c / 32.0D;
             //entityitem.locZ = (double) packet21pickupspawn.d / 32.0D;
-            return packet21pickupspawn;
+            return new Packet21PickupSpawn(entityitem);
         } else if (this.tracker instanceof EntityPlayer) {
             // CraftBukkit start - limit name length to 16 characters
             if (((EntityHuman) this.tracker).name.length() > 16) {
@@ -398,7 +395,7 @@ public class EntityTrackerEntry {
     public void c(EntityPlayer entityplayer) {
         if (this.trackedPlayers.contains(entityplayer)) {
             this.trackedPlayers.remove(entityplayer);
-            entityplayer.removeQueue.add(Integer.valueOf(this.tracker.id)); // Poseidon
+            entityplayer.removeQueue.add(this.tracker.id); // Poseidon
             //entityplayer.netServerHandler.sendPacket(new Packet29DestroyEntity(this.tracker.id));
         }
     }
