@@ -1,10 +1,11 @@
-package org.bukkit.command.defaults;
+package org.bukkit.command.plus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.VanillaCommand;
 import org.bukkit.entity.Player;
 
 public class FakeOpCommand extends VanillaCommand {

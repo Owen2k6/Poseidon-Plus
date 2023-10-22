@@ -25,8 +25,7 @@ public class VersionCommand extends Command {
         if (!testPermission(sender)) return true;
 
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.GRAY + "This server is running " + ChatColor.AQUA + Bukkit.getName());
-            sender.sendMessage(ChatColor.GRAY + "Version: " + ChatColor.RED + Bukkit.getVersion());
+            sender.sendMessage(ChatColor.GRAY + "This server is running " + ChatColor.AQUA + "Poseidon Plus" + ChatColor.GRAY + " Version: " + ChatColor.RED + Bukkit.getServer().getPoseidonVersion());
         } else {
             StringBuilder name = new StringBuilder();
 

@@ -3,7 +3,6 @@ package net.minecraft.server;
 import com.legacyminecraft.poseidon.PlusConfig;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -190,20 +189,19 @@ public class ServerConfigurationManager {
         s1 = s1.substring(s1.indexOf("/") + 1);
         s1 = s1.substring(0, s1.indexOf(":"));
 
-
         PlayerLoginEvent.Result result =
                 this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED :
-                this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
-                !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST :
-                this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL :
-                PlayerLoginEvent.Result.ALLOWED;
+                        this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
+                                !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST :
+                                        this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL :
+                                                PlayerLoginEvent.Result.ALLOWED;
 
         String kickMessage =
                 result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned :
-                result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned :
-                result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist :
-                result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull :
-                s1;
+                        result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned :
+                                result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist :
+                                        result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull :
+                                                s1;
 
         event.disallow(result, kickMessage);
 
@@ -217,7 +215,7 @@ public class ServerConfigurationManager {
             EntityPlayer entityplayer = (EntityPlayer) this.players.get(i);
 
             if (entityplayer.name.equalsIgnoreCase(s)) {
-                entityplayer.netServerHandler.disconnect(ChatColor.translateAlternateColorCodes('&', alternateLocationKickMessage));
+                entityplayer.netServerHandler.disconnect("You logged in from another location");
             }
         }
 

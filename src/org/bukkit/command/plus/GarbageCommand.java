@@ -1,10 +1,11 @@
-package org.bukkit.command.defaults;
+package org.bukkit.command.plus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.VanillaCommand;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;

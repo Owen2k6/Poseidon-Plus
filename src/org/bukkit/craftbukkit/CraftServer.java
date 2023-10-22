@@ -6,9 +6,7 @@ import com.avaje.ebean.config.dbplatform.SQLitePlatform;
 import com.avaje.ebeaninternal.server.lib.sql.TransactionIsolation;
 import jline.ConsoleReader;
 import net.minecraft.server.*;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
+import org.bukkit.*;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
@@ -55,7 +53,7 @@ public final class CraftServer implements Server {
     private final String serverName = "Poseidon Plus Craftbukkit";
     //Poseidon Versions
     private final String serverEnvironment = "POSEIDON";
-    private final String serverVersion = "1.1";
+    private final String serverVersion = "1.2";
     private final String releaseType = "RELEASE";
     private final String protocolVersion = "1.7.3";
     private final String GameVersion = "b1.7.3";
@@ -359,7 +357,7 @@ public final class CraftServer implements Server {
             return true;
         }
 
-        sender.sendMessage("Unknown command. Type \"help\" for help.");
+        sender.sendMessage(ChatColor.RED + "=> Unknown Command. Type /help for a list of commands.");
 
         return false;
     }

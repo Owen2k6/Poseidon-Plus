@@ -31,6 +31,7 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
+
     private final String msgKickShutdown;
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
@@ -116,7 +117,7 @@ public class NetLoginHandler extends NetHandler {
                 this.disconnect((String) PoseidonConfig.getInstance().getConfigOption("settings.bungeecord.bungee-mode.kick-message"));
                 return;
             }
-            
+
             if (connectionType.equals(ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.RELEASE2BETA_ONLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_ONLINE_MODE_IP_FORWARDING)) {
                 //Proxy has IP Forwarding enabled
                 if ((Boolean) PoseidonConfig.getInstance().getConfigOption("settings.release2beta.enable-ip-pass-through")) {
@@ -143,7 +144,7 @@ public class NetLoginHandler extends NetHandler {
             //Project Poseidon - End (Release2Beta
 
             if (((CraftServer) Bukkit.getServer()).isShuttingdown()) {
-                this.disconnect(ChatColor.translateAlternateColorCodes('&', this.msgKickShutdown));
+                this.disconnect(this.msgKickShutdown);
                 return;
             }
 

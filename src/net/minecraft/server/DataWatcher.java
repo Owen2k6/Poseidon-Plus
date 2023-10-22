@@ -204,10 +204,7 @@ public class DataWatcher {
 
         return arraylist;
     }
-    
-    public boolean getD() {
-        return this.d;
-    }
+
 
     static {
         a.put(Byte.class, Integer.valueOf(0));
