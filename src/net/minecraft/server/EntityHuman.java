@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -72,7 +73,7 @@ public abstract class EntityHuman extends EntityLiving {
 
     protected void b() {
         super.b();
-        this.datawatcher.a(16, Byte.valueOf((byte) 0));
+        this.datawatcher.a(16, (byte) 0);
     }
 
     public void m_() {
@@ -207,8 +208,8 @@ public abstract class EntityHuman extends EntityLiving {
             List list = this.world.b((Entity) this, this.boundingBox.b(1.0D, 0.0D, 1.0D));
 
             if (list != null) {
-                for (int i = 0; i < list.size(); ++i) {
-                    Entity entity = (Entity) list.get(i);
+                for (Object object : list) {
+                    Entity entity = (Entity) object;
 
                     if (!entity.dead) {
                         this.i(entity);
@@ -343,7 +344,7 @@ public abstract class EntityHuman extends EntityLiving {
 
         // CraftBukkit start
         this.spawnWorld = nbttagcompound.getString("SpawnWorld");
-        if (this.spawnWorld == "") {
+        if (Objects.equals(this.spawnWorld, "")) {
             this.spawnWorld = this.world.getServer().getWorlds().get(0).getName();
         }
         // CraftBukkit end
@@ -407,7 +408,7 @@ public abstract class EntityHuman extends EntityLiving {
             if (i == 0) {
                 return false;
             } else {
-                Object object = entity;
+                Entity object = entity;
 
                 if (entity instanceof EntityArrow && ((EntityArrow) entity).shooter != null) {
                     object = ((EntityArrow) entity).shooter;
@@ -419,7 +420,7 @@ public abstract class EntityHuman extends EntityLiving {
 
                     // We handle projectiles in their individual classes!
                     if (!(entity.getBukkitEntity() instanceof Projectile)) {
-                        org.bukkit.entity.Entity damager = ((Entity) object).getBukkitEntity();
+                        org.bukkit.entity.Entity damager = object.getBukkitEntity();
                         org.bukkit.entity.Entity damagee = this.getBukkitEntity();
 
                         EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, damagee, EntityDamageEvent.DamageCause.ENTITY_ATTACK, i);
@@ -458,15 +459,14 @@ public abstract class EntityHuman extends EntityLiving {
 
             if (!(entityliving instanceof EntityHuman) || this.j_()) {
                 List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
-                Iterator iterator = list.iterator();
 
-                while (iterator.hasNext()) {
-                    Entity entity = (Entity) iterator.next();
+                for (Object object : list) {
+                    Entity entity = (Entity) object;
                     EntityWolf entitywolf1 = (EntityWolf) entity;
 
                     if (entitywolf1.isTamed() && entitywolf1.F() == null && this.name.equals(entitywolf1.getOwnerName()) && (!flag || !entitywolf1.isSitting())) {
                         // CraftBukkit start
-                        org.bukkit.entity.Entity bukkitTarget = entity == null ? null : entityliving.getBukkitEntity();
+                        org.bukkit.entity.Entity bukkitTarget = entityliving.getBukkitEntity();
 
                         EntityTargetEvent event;
                         if (flag) {
@@ -548,7 +548,7 @@ public abstract class EntityHuman extends EntityLiving {
             // CraftBukkit start - Don't call the event when the entity is human since it will be called with damageEntity
             if (entity instanceof EntityLiving && !(entity instanceof EntityHuman)) {
                 org.bukkit.entity.Entity damager = this.getBukkitEntity();
-                org.bukkit.entity.Entity damagee = (entity == null) ? null : entity.getBukkitEntity();
+                org.bukkit.entity.Entity damagee = entity.getBukkitEntity();
 
                 EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, damagee, EntityDamageEvent.DamageCause.ENTITY_ATTACK, i);
                 this.world.getServer().getPluginManager().callEvent(event);
@@ -788,9 +788,8 @@ public abstract class EntityHuman extends EntityLiving {
         if (world.getTypeId(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z) != Block.BED.id) {
             return null;
         } else {
-            ChunkCoordinates chunkcoordinates1 = BlockBed.f(world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
 
-            return chunkcoordinates1;
+            return BlockBed.f(world, chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z, 0);
         }
     }
 

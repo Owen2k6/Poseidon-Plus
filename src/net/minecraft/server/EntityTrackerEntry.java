@@ -386,7 +386,7 @@ public class EntityTrackerEntry {
                 if (this.tracker instanceof EntityPainting) {
                     return new Packet25EntityPainting((EntityPainting) this.tracker);
                 } else {
-                    throw new IllegalArgumentException("Don\'t know how to add " + this.tracker.getClass() + "!");
+                    throw new IllegalArgumentException("Don't know how to add " + this.tracker.getClass() + "!");
                 }
             }
         }

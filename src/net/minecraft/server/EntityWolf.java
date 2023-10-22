@@ -33,9 +33,9 @@ public class EntityWolf extends EntityAnimal {
 
     protected void b() {
         super.b();
-        this.datawatcher.a(16, Byte.valueOf((byte) 0));
+        this.datawatcher.a(16, (byte) 0);
         this.datawatcher.a(17, "");
-        this.datawatcher.a(18, new Integer(this.health));
+        this.datawatcher.a(18, this.health);
     }
 
     protected boolean n() {
@@ -59,7 +59,7 @@ public class EntityWolf extends EntityAnimal {
         this.setSitting(nbttagcompound.m("Sitting"));
         String s = nbttagcompound.getString("Owner");
 
-        if (s.length() > 0) {
+        if (!s.isEmpty()) {
             this.setOwnerName(s);
             this.setTamed(true);
         }
@@ -126,7 +126,7 @@ public class EntityWolf extends EntityAnimal {
         }
 
         if (!this.world.isStatic) {
-            this.datawatcher.watch(18, Integer.valueOf(this.health));
+            this.datawatcher.watch(18, this.health);
         }
     }
 
@@ -249,7 +249,7 @@ public class EntityWolf extends EntityAnimal {
             if (!this.isTamed() && !this.isAngry()) {
                 if (entity instanceof EntityHuman) {
                     // CraftBukkit start
-                    org.bukkit.entity.Entity bukkitTarget = entity == null ? null : entity.getBukkitEntity();
+                    org.bukkit.entity.Entity bukkitTarget = entity.getBukkitEntity();
 
                     EntityTargetEvent event = new EntityTargetEvent(this.getBukkitEntity(), bukkitTarget, EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY);
                     this.world.getServer().getPluginManager().callEvent(event);
@@ -271,15 +271,14 @@ public class EntityWolf extends EntityAnimal {
 
                 if (entity instanceof EntityLiving) {
                     List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
-                    Iterator iterator = list.iterator();
 
-                    while (iterator.hasNext()) {
-                        Entity entity1 = (Entity) iterator.next();
+                    for (Object o : list) {
+                        Entity entity1 = (Entity) o;
                         EntityWolf entitywolf = (EntityWolf) entity1;
 
                         if (!entitywolf.isTamed() && entitywolf.target == null) {
                             // CraftBukkit start
-                            org.bukkit.entity.Entity bukkitTarget = entity == null ? null : entity.getBukkitEntity();
+                            org.bukkit.entity.Entity bukkitTarget = entity.getBukkitEntity();
 
                             EntityTargetEvent event = new EntityTargetEvent(this.getBukkitEntity(), bukkitTarget, EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY);
                             this.world.getServer().getPluginManager().callEvent(event);
@@ -334,7 +333,7 @@ public class EntityWolf extends EntityAnimal {
             }
             // CraftBukkit start
             org.bukkit.entity.Entity damager = this.getBukkitEntity();
-            org.bukkit.entity.Entity damagee = entity == null ? null : entity.getBukkitEntity();
+            org.bukkit.entity.Entity damagee = entity.getBukkitEntity();
 
             EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, damagee, EntityDamageEvent.DamageCause.ENTITY_ATTACK, b0);
             this.world.getServer().getPluginManager().callEvent(event);
@@ -442,9 +441,9 @@ public class EntityWolf extends EntityAnimal {
         byte b0 = this.datawatcher.a(16);
 
         if (flag) {
-            this.datawatcher.watch(16, Byte.valueOf((byte) (b0 | 1)));
+            this.datawatcher.watch(16, (byte) (b0 | 1));
         } else {
-            this.datawatcher.watch(16, Byte.valueOf((byte) (b0 & -2)));
+            this.datawatcher.watch(16, (byte) (b0 & -2));
         }
     }
 
@@ -456,9 +455,9 @@ public class EntityWolf extends EntityAnimal {
         byte b0 = this.datawatcher.a(16);
 
         if (flag) {
-            this.datawatcher.watch(16, Byte.valueOf((byte) (b0 | 2)));
+            this.datawatcher.watch(16, (byte) (b0 | 2));
         } else {
-            this.datawatcher.watch(16, Byte.valueOf((byte) (b0 & -3)));
+            this.datawatcher.watch(16, (byte) (b0 & -3));
         }
     }
 
@@ -470,9 +469,9 @@ public class EntityWolf extends EntityAnimal {
         byte b0 = this.datawatcher.a(16);
 
         if (flag) {
-            this.datawatcher.watch(16, Byte.valueOf((byte) (b0 | 4)));
+            this.datawatcher.watch(16, (byte) (b0 | 4));
         } else {
-            this.datawatcher.watch(16, Byte.valueOf((byte) (b0 & -5)));
+            this.datawatcher.watch(16, (byte) (b0 & -5));
         }
     }
 }

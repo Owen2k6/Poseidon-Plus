@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Arrays;
+
 public class EntityList {
 
     private transient EntityListEntry[] a = new EntityListEntry[16];
@@ -138,9 +140,7 @@ public class EntityList {
         ++this.e;
         EntityListEntry[] aentitylistentry = this.a;
 
-        for (int i = 0; i < aentitylistentry.length; ++i) {
-            aentitylistentry[i] = null;
-        }
+        Arrays.fill(aentitylistentry, null);
 
         this.b = 0;
     }

@@ -75,7 +75,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
             // to damage another EntityMonster, and we want to catch those events.
             // This does not fire events for slime attacks, av they're not lastDamage EntityMonster.
             if (entity instanceof EntityLiving && !(entity instanceof EntityHuman)) {
-                org.bukkit.entity.Entity damagee = (entity == null) ? null : entity.getBukkitEntity();
+                org.bukkit.entity.Entity damagee = entity.getBukkitEntity();
 
                 EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(this.getBukkitEntity(), damagee, EntityDamageEvent.DamageCause.ENTITY_ATTACK, this.damage);
                 this.world.getServer().getPluginManager().callEvent(event);

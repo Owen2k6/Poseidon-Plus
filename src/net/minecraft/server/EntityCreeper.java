@@ -19,8 +19,8 @@ public class EntityCreeper extends EntityMonster {
 
     protected void b() {
         super.b();
-        this.datawatcher.a(16, Byte.valueOf((byte) -1));
-        this.datawatcher.a(17, Byte.valueOf((byte) 0));
+        this.datawatcher.a(16, (byte) -1);
+        this.datawatcher.a(17, (byte) 0);
     }
 
     public void b(NBTTagCompound nbttagcompound) {
@@ -32,7 +32,7 @@ public class EntityCreeper extends EntityMonster {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
-        this.datawatcher.watch(17, Byte.valueOf((byte) (nbttagcompound.m("powered") ? 1 : 0)));
+        this.datawatcher.watch(17, (byte) (nbttagcompound.m("powered") ? 1 : 0));
     }
 
     protected void b(Entity entity, float f) {
@@ -142,7 +142,7 @@ public class EntityCreeper extends EntityMonster {
     }
 
     private void e(int i) {
-        this.datawatcher.watch(16, Byte.valueOf((byte) i));
+        this.datawatcher.watch(16, (byte) i);
     }
 
     public void a(EntityWeatherStorm entityweatherstorm) {
@@ -161,9 +161,9 @@ public class EntityCreeper extends EntityMonster {
 
     public void setPowered(boolean powered) {
         if (!powered) {
-            this.datawatcher.watch(17, Byte.valueOf((byte) 0));
+            this.datawatcher.watch(17, (byte) 0);
         } else
         // CraftBukkit end
-        this.datawatcher.watch(17, Byte.valueOf((byte) 1));
+          this.datawatcher.watch(17, (byte) 1);
     }
 }

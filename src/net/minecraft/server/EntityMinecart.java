@@ -563,9 +563,9 @@ public class EntityMinecart extends Entity implements IInventory {
 
             List list = this.world.b((Entity) this, this.boundingBox.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
-            if (list != null && list.size() > 0) {
-                for (int l1 = 0; l1 < list.size(); ++l1) {
-                    Entity entity = (Entity) list.get(l1);
+            if (list != null && !list.isEmpty()) {
+                for (Object object : list) {
+                    Entity entity = (Entity) object;
 
                     if (entity != this.passenger && entity.d_() && entity instanceof EntityMinecart) {
                         entity.collide(this);
@@ -633,9 +633,8 @@ public class EntityMinecart extends Entity implements IInventory {
             } else {
                 double d13 = d0 - d4;
                 double d14 = d2 - d6;
-                double d15 = (d13 * d10 + d14 * d12) * 2.0D;
 
-                d3 = d15;
+                d3 = (d13 * d10 + d14 * d12) * 2.0D;
             }
 
             d0 = d4 + d10 * d3;
@@ -693,7 +692,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.a(i);
                 int j = nbttagcompound1.c("Slot") & 255;
 
-                if (j >= 0 && j < this.items.length) {
+                if (j < this.items.length) {
                     this.items[j] = new ItemStack(nbttagcompound1);
                 }
             }
@@ -882,6 +881,6 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public boolean a_(EntityHuman entityhuman) {
-        return this.dead ? false : entityhuman.g(this) <= 64.0D;
+        return !this.dead && entityhuman.g(this) <= 64.0D;
     }
 }

@@ -45,7 +45,7 @@ public class EntityPainting extends Entity {
             }
         }
 
-        if (arraylist.size() > 0) {
+        if (!arraylist.isEmpty()) {
             this.e = (EnumArt) arraylist.get(this.random.nextInt(arraylist.size()));
         }
 
@@ -138,7 +138,7 @@ public class EntityPainting extends Entity {
     }
 
     public boolean h() {
-        if (this.world.getEntities(this, this.boundingBox).size() > 0) {
+        if (!this.world.getEntities(this, this.boundingBox).isEmpty()) {
             return false;
         } else {
             int i = this.e.B / 16;
@@ -235,9 +235,7 @@ public class EntityPainting extends Entity {
         EnumArt[] aenumart = EnumArt.values();
         int i = aenumart.length;
 
-        for (int j = 0; j < i; ++j) {
-            EnumArt enumart = aenumart[j];
-
+        for (EnumArt enumart : aenumart) {
             if (enumart.A.equals(s)) {
                 this.e = enumart;
             }

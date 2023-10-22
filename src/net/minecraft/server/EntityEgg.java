@@ -126,8 +126,8 @@ public class EntityEgg extends Entity {
             List list = this.world.b((Entity) this, this.boundingBox.a(this.motX, this.motY, this.motZ).b(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
 
-            for (int j = 0; j < list.size(); ++j) {
-                Entity entity1 = (Entity) list.get(j);
+            for (Object o : list) {
+                Entity entity1 = (Entity) o;
 
                 if (entity1.l_() && (entity1 != this.thrower || this.i >= 5)) {
                     float f = 0.3F;
@@ -189,7 +189,7 @@ public class EntityEgg extends Entity {
             CreatureType hatchingType = CreatureType.CHICKEN;
 
             if (this.thrower instanceof EntityPlayer) {
-                org.bukkit.entity.Player player = (this.thrower == null) ? null : (org.bukkit.entity.Player) this.thrower.getBukkitEntity();
+                org.bukkit.entity.Player player = (org.bukkit.entity.Player) this.thrower.getBukkitEntity();
 
                 PlayerEggThrowEvent event = new PlayerEggThrowEvent(player, (org.bukkit.entity.Egg) this.getBukkitEntity(), hatching, (byte) numHatching, hatchingType);
                 this.world.getServer().getPluginManager().callEvent(event);

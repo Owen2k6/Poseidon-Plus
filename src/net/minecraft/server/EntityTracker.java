@@ -24,10 +24,9 @@ public class EntityTracker {
         if (entity instanceof EntityPlayer) {
             this.a(entity, 512, 2);
             EntityPlayer entityplayer = (EntityPlayer) entity;
-            Iterator iterator = this.a.iterator();
 
-            while (iterator.hasNext()) {
-                EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) iterator.next();
+            for (Object o : this.a) {
+                EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) o;
 
                 if (entitytrackerentry.tracker != entityplayer) {
                     entitytrackerentry.b(entityplayer);
