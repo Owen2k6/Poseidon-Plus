@@ -45,13 +45,16 @@ public class Packet104WindowItems extends Packet {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b.length);
 
-        for (int i = 0; i < this.b.length; ++i) {
-            if (this.b[i] == null) {
+        for (ItemStack itemStack : this.b)
+        {
+            if (itemStack == null)
+            {
                 dataoutputstream.writeShort(-1);
-            } else {
-                dataoutputstream.writeShort((short) this.b[i].id);
-                dataoutputstream.writeByte((byte) this.b[i].count);
-                dataoutputstream.writeShort((short) this.b[i].getData());
+            } else
+            {
+                dataoutputstream.writeShort((short) itemStack.id);
+                dataoutputstream.writeByte((byte) itemStack.count);
+                dataoutputstream.writeShort((short) itemStack.getData());
             }
         }
     }

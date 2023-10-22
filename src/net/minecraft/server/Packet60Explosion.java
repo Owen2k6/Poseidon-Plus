@@ -17,12 +17,12 @@ public class Packet60Explosion extends Packet {
 
     public Packet60Explosion() {}
 
-    public Packet60Explosion(double d0, double d1, double d2, float f, Set set) {
+    public Packet60Explosion(double d0, double d1, double d2, float f, Set<ChunkPosition> set) {
         this.a = d0;
         this.b = d1;
         this.c = d2;
         this.d = f;
-        this.e = new HashSet(set);
+        this.e = new HashSet<>(set);
     }
 
     public void a(DataInputStream datainputstream) throws IOException {
@@ -32,7 +32,7 @@ public class Packet60Explosion extends Packet {
         this.d = datainputstream.readFloat();
         int i = datainputstream.readInt();
 
-        this.e = new HashSet();
+        this.e = new HashSet<>();
         int j = (int) this.a;
         int k = (int) this.b;
         int l = (int) this.c;
@@ -55,10 +55,10 @@ public class Packet60Explosion extends Packet {
         int i = (int) this.a;
         int j = (int) this.b;
         int k = (int) this.c;
-        Iterator iterator = this.e.iterator();
 
-        while (iterator.hasNext()) {
-            ChunkPosition chunkposition = (ChunkPosition) iterator.next();
+        for (Object o : this.e)
+        {
+            ChunkPosition chunkposition = (ChunkPosition) o;
             int l = chunkposition.x - i;
             int i1 = chunkposition.y - j;
             int j1 = chunkposition.z - k;

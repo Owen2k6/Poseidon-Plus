@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Objects;
+
 public class Path {
 
     private PathPoint[] a = new PathPoint[1024];
@@ -113,7 +115,7 @@ public class Path {
                 }
 
                 this.a[i] = pathpoint2;
-                pathpoint2.d = i;
+                Objects.requireNonNull(pathpoint2).d = i;
                 i = k;
             }
         }

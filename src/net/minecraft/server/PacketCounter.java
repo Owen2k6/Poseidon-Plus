@@ -9,7 +9,7 @@ class PacketCounter {
 
     public void a(int i) {
         ++this.a;
-        this.b += (long) i;
+        this.b += i;
     }
 
     PacketCounter(EmptyClass1 emptyclass1) {

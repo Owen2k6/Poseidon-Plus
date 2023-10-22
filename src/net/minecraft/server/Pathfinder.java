@@ -2,10 +2,10 @@ package net.minecraft.server;
 
 public class Pathfinder {
 
-    private IBlockAccess a;
-    private Path b = new Path();
-    private EntityList c = new EntityList();
-    private PathPoint[] d = new PathPoint[32];
+    private final IBlockAccess a;
+    private final Path b = new Path();
+    private final EntityList c = new EntityList();
+    private final PathPoint[] d = new PathPoint[32];
 
     public Pathfinder(IBlockAccess iblockaccess) {
         this.a = iblockaccess;
@@ -16,7 +16,7 @@ public class Pathfinder {
     }
 
     public PathEntity a(Entity entity, int i, int j, int k, float f) {
-        return this.a(entity, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), f);
+        return this.a(entity, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, f);
     }
 
     private PathEntity a(Entity entity, double d0, double d1, double d2, float f) {
@@ -25,9 +25,8 @@ public class Pathfinder {
         PathPoint pathpoint = this.a(MathHelper.floor(entity.boundingBox.a), MathHelper.floor(entity.boundingBox.b), MathHelper.floor(entity.boundingBox.c));
         PathPoint pathpoint1 = this.a(MathHelper.floor(d0 - (double) (entity.length / 2.0F)), MathHelper.floor(d1), MathHelper.floor(d2 - (double) (entity.length / 2.0F)));
         PathPoint pathpoint2 = new PathPoint(MathHelper.d(entity.length + 1.0F), MathHelper.d(entity.width + 1.0F), MathHelper.d(entity.length + 1.0F));
-        PathEntity pathentity = this.a(entity, pathpoint, pathpoint1, pathpoint2, f);
 
-        return pathentity;
+        return this.a(entity, pathpoint, pathpoint1, pathpoint2, f);
     }
 
     private PathEntity a(Entity entity, PathPoint pathpoint, PathPoint pathpoint1, PathPoint pathpoint2, float f) {
@@ -145,7 +144,7 @@ public class Pathfinder {
         return pathpoint1;
     }
 
-    private final PathPoint a(int i, int j, int k) {
+    private PathPoint a(int i, int j, int k) {
         int l = PathPoint.a(i, j, k);
         PathPoint pathpoint = (PathPoint) this.c.a(l);
 
