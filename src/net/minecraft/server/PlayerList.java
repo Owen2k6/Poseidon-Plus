@@ -5,7 +5,6 @@ public class PlayerList {
     private transient PlayerListEntry[] a = new PlayerListEntry[16];
     private transient int b;
     private int c = 12;
-    private final float d = 0.75F;
     private transient volatile int e;
 
     public PlayerList() {}
@@ -60,7 +59,8 @@ public class PlayerList {
 
             this.a(aplayerlistentry1);
             this.a = aplayerlistentry1;
-            this.c = (int) ((float) i * this.d);
+            float d = 0.75F;
+            this.c = (int) ((float) i * d);
         }
     }
 

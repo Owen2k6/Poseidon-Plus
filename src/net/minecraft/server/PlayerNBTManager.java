@@ -4,10 +4,12 @@ import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.projectposeidon.johnymuffin.UUIDManager;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class PlayerNBTManager implements PlayerFileData, IDataManager {
 
     private static final Logger a = Logger.getLogger("Minecraft");
@@ -33,15 +35,13 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
     private void f() {
         try {
             File file1 = new File(this.b, "session.lock");
-            DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
 
-            try {
+            try (DataOutputStream dataoutputstream = new DataOutputStream(Files.newOutputStream(file1.toPath())))
+            {
                 dataoutputstream.writeLong(this.e);
-            } finally {
-                dataoutputstream.close();
             }
         } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+            ioexception.printStackTrace(System.err);
             throw new RuntimeException("Failed to check session lock, aborting");
         }
     }
@@ -53,14 +53,13 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
     public void b() {
         try {
             File file1 = new File(this.b, "session.lock");
-            DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
 
-            try {
-                if (datainputstream.readLong() != this.e) {
+            try (DataInputStream datainputstream = new DataInputStream(Files.newInputStream(file1.toPath())))
+            {
+                if (datainputstream.readLong() != this.e)
+                {
                     throw new MinecraftException("The save is being accessed from another location, aborting");
                 }
-            } finally {
-                datainputstream.close();
             }
         } catch (IOException ioexception) {
             throw new MinecraftException("Failed to check session lock, aborting");
@@ -85,29 +84,29 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
 
         if (file1.exists()) {
             try {
-                nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
+                nbttagcompound = CompressedStreamTools.a(Files.newInputStream(file1.toPath()));
                 nbttagcompound1 = nbttagcompound.k("Data");
                 return new WorldData(nbttagcompound1);
             } catch (Exception exception) {
-                exception.printStackTrace();
+                exception.printStackTrace(System.err);
             }
         }
 
         file1 = new File(this.b, "level.dat_old");
         if (file1.exists()) {
             try {
-                nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
+                nbttagcompound = CompressedStreamTools.a(Files.newInputStream(file1.toPath()));
                 nbttagcompound1 = nbttagcompound.k("Data");
                 return new WorldData(nbttagcompound1);
             } catch (Exception exception1) {
-                exception1.printStackTrace();
+                exception1.printStackTrace(System.err);
             }
         }
 
         return null;
     }
 
-    public void a(WorldData worlddata, List list) {
+    public void a(WorldData worlddata, List<EntityHuman> list) {
         NBTTagCompound nbttagcompound = worlddata.a(list);
         NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
@@ -118,22 +117,22 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
             File file2 = new File(this.b, "level.dat_old");
             File file3 = new File(this.b, "level.dat");
 
-            CompressedStreamTools.a(nbttagcompound1, (OutputStream) (new FileOutputStream(file1)));
+            CompressedStreamTools.a(nbttagcompound1, Files.newOutputStream(file1.toPath()));
             if (file2.exists()) {
-                file2.delete();
+                if (!file2.delete()) file2.deleteOnExit();
             }
 
             file3.renameTo(file2);
             if (file3.exists()) {
-                file3.delete();
+                if (!file3.delete()) file3.deleteOnExit();
             }
 
             file1.renameTo(file3);
             if (file1.exists()) {
-                file1.delete();
+                if (!file1.delete()) file1.deleteOnExit();
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
     }
 
@@ -148,7 +147,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
             File file2 = new File(this.b, "level.dat_old");
             File file3 = new File(this.b, "level.dat");
 
-            CompressedStreamTools.a(nbttagcompound1, (OutputStream) (new FileOutputStream(file1)));
+            CompressedStreamTools.a(nbttagcompound1, Files.newOutputStream(file1.toPath()));
             if (file2.exists()) {
                 file2.delete();
             }
@@ -163,7 +162,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
                 file1.delete();
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
     }
 
@@ -177,7 +176,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
                 //File file2 = new File(this.c, entityhuman.name + ".dat");
                 //UUIDPlayerStorage.getInstance().getUUIDGraceful(entityhuman.name)
                 File file2 = new File(this.c, UUIDManager.getInstance().getUUIDGraceful(entityhuman.name) + ".dat");
-                CompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file1)));
+                CompressedStreamTools.a(nbttagcompound, Files.newOutputStream(file1.toPath()));
                 if (file2.exists()) {
                     file2.delete();
                 }
@@ -194,7 +193,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
                 File file1 = new File(this.c, "_tmp_.dat");
                 File file2 = new File(this.c, entityhuman.name + ".dat");
 
-                CompressedStreamTools.a(nbttagcompound, (OutputStream) (new FileOutputStream(file1)));
+                CompressedStreamTools.a(nbttagcompound, Files.newOutputStream(file1.toPath()));
                 if (file2.exists()) {
                     file2.delete();
                 }
@@ -216,19 +215,14 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
 
     //Credit https://www.journaldev.com/861/java-copy-file
     private static void copyFileUsingStream(File source, File dest) throws IOException {
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
+        try (InputStream is = Files.newInputStream(source.toPath()); OutputStream os = Files.newOutputStream(dest.toPath()))
+        {
             byte[] buffer = new byte[1024];
             int length;
-            while ((length = is.read(buffer)) > 0) {
+            while ((length = is.read(buffer)) > 0)
+            {
                 os.write(buffer, 0, length);
             }
-        } finally {
-            is.close();
-            os.close();
         }
     }
 
@@ -249,7 +243,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
 
 
                 if (file1.exists()) {
-                    return CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
+                    return CompressedStreamTools.a(Files.newInputStream(file1.toPath()));
                 }
             } catch (Exception exception) {
                 a.warning("Failed to load player data for " + s);
@@ -261,7 +255,7 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
                 File file1 = new File(this.c, s + ".dat");
 
                 if (file1.exists()) {
-                    return CompressedStreamTools.a((InputStream) (new FileInputStream(file1)));
+                    return CompressedStreamTools.a(Files.newInputStream(file1.toPath()));
                 }
             } catch (Exception exception) {
                 a.warning("Failed to load player data for " + s);
@@ -289,13 +283,13 @@ public class PlayerNBTManager implements PlayerFileData, IDataManager {
         try {
             File file1 = new File(this.b, "uid.dat");
             if (!file1.exists()) {
-                DataOutputStream dos = new DataOutputStream(new FileOutputStream(file1));
+                DataOutputStream dos = new DataOutputStream(Files.newOutputStream(file1.toPath()));
                 uuid = UUID.randomUUID();
                 dos.writeLong(uuid.getMostSignificantBits());
                 dos.writeLong(uuid.getLeastSignificantBits());
                 dos.close();
             } else {
-                DataInputStream dis = new DataInputStream(new FileInputStream(file1));
+                DataInputStream dis = new DataInputStream(Files.newInputStream(file1.toPath()));
                 uuid = new UUID(dis.readLong(), dis.readLong());
                 dis.close();
             }

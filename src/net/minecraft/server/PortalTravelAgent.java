@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class PortalTravelAgent {
 
-    private Random a = new Random();
+    private final Random a = new Random();
 
     public PortalTravelAgent() {}
 

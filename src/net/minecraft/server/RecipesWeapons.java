@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class RecipesWeapons {
 
-    private String[][] a = new String[][] { { "X", "X", "#"}};
-    private Object[][] b;
+    private final String[][] a = new String[][] { { "X", "X", "#"}};
+    private final Object[][] b;
 
     public RecipesWeapons() {
         this.b = new Object[][] { { Block.WOOD, Block.COBBLESTONE, Item.IRON_INGOT, Item.DIAMOND, Item.GOLD_INGOT}, { Item.WOOD_SWORD, Item.STONE_SWORD, Item.IRON_SWORD, Item.DIAMOND_SWORD, Item.GOLD_SWORD}};
@@ -16,11 +16,11 @@ public class RecipesWeapons {
             for (int j = 0; j < this.b.length - 1; ++j) {
                 Item item = (Item) this.b[j + 1][i];
 
-                craftingmanager.registerShapedRecipe(new ItemStack(item), new Object[] { this.a[j], Character.valueOf('#'), Item.STICK, Character.valueOf('X'), object});
+                craftingmanager.registerShapedRecipe(new ItemStack(item), this.a[j], '#', Item.STICK, 'X', object);
             }
         }
 
-        craftingmanager.registerShapedRecipe(new ItemStack(Item.BOW, 1), new Object[] { " #X", "# X", " #X", Character.valueOf('X'), Item.STRING, Character.valueOf('#'), Item.STICK});
-        craftingmanager.registerShapedRecipe(new ItemStack(Item.ARROW, 4), new Object[] { "X", "#", "Y", Character.valueOf('Y'), Item.FEATHER, Character.valueOf('X'), Item.FLINT, Character.valueOf('#'), Item.STICK});
+        craftingmanager.registerShapedRecipe(new ItemStack(Item.BOW, 1), " #X", "# X", " #X", 'X', Item.STRING, '#', Item.STICK);
+        craftingmanager.registerShapedRecipe(new ItemStack(Item.ARROW, 4), "X", "#", "Y", 'Y', Item.FEATHER, 'X', Item.FLINT, '#', Item.STICK);
     }
 }

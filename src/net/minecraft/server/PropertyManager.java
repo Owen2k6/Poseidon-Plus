@@ -1,8 +1,7 @@
 package net.minecraft.server;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,13 +10,13 @@ public class PropertyManager {
 
     public static Logger a = Logger.getLogger("Minecraft");
     public Properties properties = new Properties(); // CraftBukkit - priv to pub
-    private File c;
+    private final File c;
 
     public PropertyManager(File file1) {
         this.c = file1;
         if (file1.exists()) {
             try {
-                this.properties.load(new FileInputStream(file1));
+                this.properties.load(Files.newInputStream(file1.toPath()));
             } catch (Exception exception) {
                 a.log(Level.WARNING, "Failed to load " + file1, exception);
                 this.a();
@@ -53,7 +52,7 @@ public class PropertyManager {
 
     public void savePropertiesFile() {
         try {
-            this.properties.store(new FileOutputStream(this.c), "Minecraft server properties");
+            this.properties.store(Files.newOutputStream(this.c.toPath()), "Minecraft server properties");
         } catch (Exception exception) {
             a.log(Level.WARNING, "Failed to save " + this.c, exception);
             this.a();

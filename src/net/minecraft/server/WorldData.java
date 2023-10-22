@@ -70,13 +70,13 @@ public class WorldData {
         return nbttagcompound;
     }
 
-    public NBTTagCompound a(List list) {
+    public NBTTagCompound a(List<EntityHuman> list) {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         EntityHuman entityhuman = null;
         NBTTagCompound nbttagcompound1 = null;
 
-        if (list.size() > 0) {
-            entityhuman = (EntityHuman) list.get(0);
+        if (!list.isEmpty()) {
+            entityhuman = list.get(0);
         }
 
         if (entityhuman != null) {

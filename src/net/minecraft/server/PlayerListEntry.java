@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.Objects;
+
 class PlayerListEntry {
 
     final long a;
@@ -23,24 +25,22 @@ class PlayerListEntry {
     }
 
     public final boolean equals(Object object) {
-        if (!(object instanceof PlayerListEntry)) {
-            return false;
-        } else {
+        if (object instanceof PlayerListEntry)
+        {
             PlayerListEntry playerlistentry = (PlayerListEntry) object;
-            Long olong = Long.valueOf(this.a());
-            Long olong1 = Long.valueOf(playerlistentry.a());
+            Long olong = this.a();
+            Long olong1 = playerlistentry.a();
 
-            if (olong == olong1 || olong != null && olong.equals(olong1)) {
+            if (Objects.equals(olong, olong1))
+            {
                 Object object1 = this.b();
                 Object object2 = playerlistentry.b();
 
-                if (object1 == object2 || object1 != null && object1.equals(object2)) {
-                    return true;
-                }
+                return Objects.equals(object1, object2);
             }
 
-            return false;
         }
+        return false;
     }
 
     public final int hashCode() {

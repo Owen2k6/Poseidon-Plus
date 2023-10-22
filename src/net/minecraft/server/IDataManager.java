@@ -12,7 +12,7 @@ public interface IDataManager {
 
     IChunkLoader a(WorldProvider worldprovider);
 
-    void a(WorldData worlddata, List list);
+    void a(WorldData worlddata, List<EntityHuman> list);
 
     void a(WorldData worlddata);
 

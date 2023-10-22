@@ -1,16 +1,17 @@
 package net.minecraft.server;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class PlayerManager {
 
-    public List managedPlayers = new ArrayList();
-    private PlayerList b = new PlayerList();
-    private List c = new ArrayList();
-    private MinecraftServer server;
-    private int e;
-    private int f;
+    public List<EntityPlayer> managedPlayers = new ArrayList<>();
+    private final PlayerList b = new PlayerList();
+    private final List<PlayerInstance> c = new ArrayList<>();
+    private final MinecraftServer server;
+    private final int e;
+    private final int f;
     private final int[][] g = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
     public PlayerManager(MinecraftServer minecraftserver, int i, int j) {
@@ -30,8 +31,9 @@ public class PlayerManager {
     }
 
     public void flush() {
-        for (int i = 0; i < this.c.size(); ++i) {
-            ((PlayerInstance) this.c.get(i)).a();
+        for (PlayerInstance playerInstance : this.c)
+        {
+            playerInstance.a();
         }
 
         this.c.clear();
@@ -118,7 +120,7 @@ public class PlayerManager {
         int i1 = i - k;
         int j1 = j - l;
 
-        return i1 >= -this.f && i1 <= this.f ? j1 >= -this.f && j1 <= this.f : false;
+        return i1 >= -this.f && i1 <= this.f && j1 >= -this.f && j1 <= this.f;
     }
 
     public void movePlayer(EntityPlayer entityplayer) {
@@ -160,11 +162,7 @@ public class PlayerManager {
                     final int z = j;
                     List<ChunkCoordIntPair> chunksToSend = entityplayer.chunkCoordIntPairQueue;
 
-                    java.util.Collections.sort(chunksToSend, new java.util.Comparator<ChunkCoordIntPair>() {
-                        public int compare(ChunkCoordIntPair a, ChunkCoordIntPair b) {
-                            return Math.max(Math.abs(a.x - x), Math.abs(a.z - z)) - Math.max(Math.abs(b.x - x), Math.abs(b.z - z));
-                        }
-                    });
+                    chunksToSend.sort(Comparator.comparingInt(a -> Math.max(Math.abs(a.x - x), Math.abs(a.z - z))));
                 }
                 // CraftBukkit end
             }
@@ -175,7 +173,7 @@ public class PlayerManager {
     public boolean a(EntityPlayer entityplayer, int i, int j) {
         PlayerInstance playerchunk = this.a(i, j, false);
 
-        return playerchunk == null ? false : PlayerInstance.b(playerchunk).contains(entityplayer) && !entityplayer.chunkCoordIntPairQueue.contains(PlayerInstance.a(playerchunk));
+        return playerchunk != null && PlayerInstance.b(playerchunk).contains(entityplayer) && !entityplayer.chunkCoordIntPairQueue.contains(PlayerInstance.a(playerchunk));
     }
 
     public int getFurthestViewableBlock() {
@@ -186,7 +184,7 @@ public class PlayerManager {
         return playermanager.b;
     }
 
-    static List b(PlayerManager playermanager) {
+    static List<PlayerInstance> b(PlayerManager playermanager) {
         return playermanager.c;
     }
 }

@@ -5,11 +5,11 @@ import java.util.List;
 
 class PlayerInstance {
 
-    private List b;
-    private int chunkX;
-    private int chunkZ;
-    private ChunkCoordIntPair location;
-    private short[] dirtyBlocks;
+    private final List<EntityPlayer> b;
+    private final int chunkX;
+    private final int chunkZ;
+    private final ChunkCoordIntPair location;
+    private final short[] dirtyBlocks;
     private int dirtyCount;
     private int h;
     private int i;
@@ -49,7 +49,7 @@ class PlayerInstance {
     public void b(EntityPlayer entityplayer) {
         if (this.b.contains(entityplayer)) {
             this.b.remove(entityplayer);
-            if (this.b.size() == 0) {
+            if (this.b.isEmpty()) {
                 long i = (long) this.chunkX + 2147483647L | (long) this.chunkZ + 2147483647L << 32;
 
                 PlayerManager.a(this.playerManager).b(i);
@@ -114,12 +114,10 @@ class PlayerInstance {
     }
 
     public void sendAll(Packet packet) {
-        for (int i = 0; i < this.b.size(); ++i) {
-            EntityPlayer entityplayer = (EntityPlayer) this.b.get(i);
-
-            if (entityplayer.playerChunkCoordIntPairs.contains(this.location)) {
+        for (EntityPlayer entityplayer : this.b)
+        {
+            if (entityplayer.playerChunkCoordIntPairs.contains(this.location))
                 entityplayer.netServerHandler.sendPacket(packet);
-            }
         }
     }
 
@@ -153,10 +151,11 @@ class PlayerInstance {
                     int j1 = this.m - this.l + 1;
 
                     this.sendAll(new Packet51MapChunk(i, j, k, l, i1, j1, worldserver));
-                    List list = worldserver.getTileEntities(i, j, k, i + l, j + i1, k + j1);
+                    List<TileEntity> list = worldserver.getTileEntities(i, j, k, i + l, j + i1, k + j1);
 
-                    for (int k1 = 0; k1 < list.size(); ++k1) {
-                        this.sendTileEntity((TileEntity) list.get(k1));
+                    for (TileEntity o : list)
+                    {
+                        this.sendTileEntity(o);
                     }
                 } else {
                     this.sendAll(new Packet52MultiBlockChange(this.chunkX, this.chunkZ, this.dirtyBlocks, this.dirtyCount, worldserver));
@@ -195,7 +194,7 @@ class PlayerInstance {
         return playerchunk.location;
     }
 
-    static List b(PlayerInstance playerchunk) {
+    static List<EntityPlayer> b(PlayerInstance playerchunk) {
         return playerchunk.b;
     }
 }
