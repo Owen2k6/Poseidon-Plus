@@ -18,13 +18,13 @@ public class WorldMap extends WorldMapBase {
     public byte e;
     public byte[] f = new byte[16384];
     public int g;
-    public List h = new ArrayList();
-    private Map j = new HashMap();
-    public List i = new ArrayList();
+    public final List<WorldMapHumanTracker> h = new ArrayList<>();
+    private final Map<EntityHuman, WorldMapHumanTracker> j = new HashMap<>();
+    public final List<WorldMapOrienter> i = new ArrayList<>();
 
     // CraftBukkit start
     public final CraftMapView mapView;
-    private CraftServer server;
+    private final CraftServer server;
     private UUID uniqueId = null;
     // CraftBukkit end
 
@@ -173,7 +173,7 @@ public class WorldMap extends WorldMapBase {
     }
 
     public byte[] a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        WorldMapHumanTracker worldmaphumantracker = (WorldMapHumanTracker) this.j.get(entityhuman);
+        WorldMapHumanTracker worldmaphumantracker = this.j.get(entityhuman);
 
         if (worldmaphumantracker == null) {
             return null;
@@ -187,16 +187,12 @@ public class WorldMap extends WorldMapBase {
     public void a(int i, int j, int k) {
         super.a();
 
-        for (int l = 0; l < this.h.size(); ++l) {
-            WorldMapHumanTracker worldmaphumantracker = (WorldMapHumanTracker) this.h.get(l);
-
-            if (worldmaphumantracker.b[i] < 0 || worldmaphumantracker.b[i] > j) {
-                worldmaphumantracker.b[i] = j;
-            }
-
-            if (worldmaphumantracker.c[i] < 0 || worldmaphumantracker.c[i] < k) {
-                worldmaphumantracker.c[i] = k;
-            }
+        for (WorldMapHumanTracker worldMapHumanTracker : this.h)
+        {
+            if (worldMapHumanTracker.b[i] < 0 || worldMapHumanTracker.b[i] > j)
+                worldMapHumanTracker.b[i] = j;
+            if (worldMapHumanTracker.c[i] < 0 || worldMapHumanTracker.c[i] < k)
+                worldMapHumanTracker.c[i] = k;
         }
     }
 }
