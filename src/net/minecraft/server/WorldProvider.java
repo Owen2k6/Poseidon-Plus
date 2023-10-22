@@ -9,7 +9,7 @@ public abstract class WorldProvider {
     public boolean e = false;
     public float[] f = new float[16];
     public int dimension = 0;
-    private float[] h = new float[4];
+    private final float[] h = new float[4];
 
     public WorldProvider() {}
 
@@ -67,6 +67,6 @@ public abstract class WorldProvider {
     }
 
     public static WorldProvider byDimension(int i) {
-        return (WorldProvider) (i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderSky() : null)));
+        return i == -1 ? new WorldProviderHell() : (i == 0 ? new WorldProviderNormal() : (i == 1 ? new WorldProviderSky() : null));
     }
 }

@@ -20,6 +20,6 @@ public class WorldProviderSky extends WorldProvider {
     public boolean canSpawn(int i, int j) {
         int k = this.a.a(i, j);
 
-        return k == 0 ? false : Block.byId[k].material.isSolid();
+        return k != 0 && Block.byId[k].material.isSolid();
     }
 }

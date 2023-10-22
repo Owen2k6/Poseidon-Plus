@@ -29,7 +29,7 @@ public class WorldProviderHell extends WorldProvider {
     public boolean canSpawn(int i, int j) {
         int k = this.a.a(i, j);
 
-        return k == Block.BEDROCK.id ? false : (k == 0 ? false : Block.o[k]);
+        return k != Block.BEDROCK.id && (k != 0 && Block.o[k]);
     }
 
     public float a(long i, float f) {

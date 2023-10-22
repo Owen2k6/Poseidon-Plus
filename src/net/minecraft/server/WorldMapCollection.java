@@ -1,21 +1,22 @@
 package net.minecraft.server;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 
 public class WorldMapCollection {
 
-    private IDataManager a;
-    private Map b = new HashMap();
-    private List c = new ArrayList();
-    private Map d = new HashMap();
+    private final IDataManager a;
+    private final Map<String, WorldMapBase> b = new HashMap<>();
+    private final List<WorldMapBase> c = new ArrayList<>();
+    private final Map<String, Short> d = new HashMap<>();
 
     public WorldMapCollection(IDataManager idatamanager) {
         this.a = idatamanager;
         this.b();
     }
 
-    public WorldMapBase a(Class oclass, String s) {
+    public WorldMapBase a(Class<? extends WorldMapBase> oclass, String s) {
         WorldMapBase worldmapbase = (WorldMapBase) this.b.get(s);
 
         if (worldmapbase != null) {
@@ -27,19 +28,19 @@ public class WorldMapCollection {
 
                     if (file1 != null && file1.exists()) {
                         try {
-                            worldmapbase = (WorldMapBase) oclass.getConstructor(new Class[] { String.class}).newInstance(new Object[] { s});
+                            worldmapbase = oclass.getConstructor(String.class).newInstance(s);
                         } catch (Exception exception) {
                             throw new RuntimeException("Failed to instantiate " + oclass.toString(), exception);
                         }
 
                         FileInputStream fileinputstream = new FileInputStream(file1);
-                        NBTTagCompound nbttagcompound = CompressedStreamTools.a((InputStream) fileinputstream);
+                        NBTTagCompound nbttagcompound = CompressedStreamTools.a(fileinputstream);
 
                         fileinputstream.close();
                         worldmapbase.a(nbttagcompound.k("data"));
                     }
                 } catch (Exception exception1) {
-                    exception1.printStackTrace();
+                    exception1.printStackTrace(System.err);
                 }
             }
 
@@ -94,7 +95,7 @@ public class WorldMapCollection {
                     fileoutputstream.close();
                 }
             } catch (Exception exception) {
-                exception.printStackTrace();
+                exception.printStackTrace(System.err);
             }
         }
     }
@@ -123,52 +124,50 @@ public class WorldMapCollection {
                         String s = nbttagshort.b();
                         short short1 = nbttagshort.a;
 
-                        this.d.put(s, Short.valueOf(short1));
+                        this.d.put(s, short1);
                     }
                 }
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
     }
 
     public int a(String s) {
-        Short oshort = (Short) this.d.get(s);
+        Short oshort = this.d.get(s);
 
         if (oshort == null) {
-            oshort = Short.valueOf((short) 0);
+            oshort = (short) 0;
         } else {
-            oshort = Short.valueOf((short) (oshort.shortValue() + 1));
+            oshort = (short) (oshort + 1);
         }
 
         this.d.put(s, oshort);
         if (this.a == null) {
-            return oshort.shortValue();
+            return oshort;
         } else {
             try {
                 File file1 = this.a.b("idcounts");
 
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    Iterator iterator = this.d.keySet().iterator();
 
-                    while (iterator.hasNext()) {
-                        String s1 = (String) iterator.next();
-                        short short1 = ((Short) this.d.get(s1)).shortValue();
-
+                    for (String s1 : this.d.keySet())
+                    {
+                        short short1 = this.d.get(s1);
                         nbttagcompound.a(s1, short1);
                     }
 
-                    DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
+                    DataOutputStream dataoutputstream = new DataOutputStream(Files.newOutputStream(file1.toPath()));
 
                     CompressedStreamTools.a(nbttagcompound, (DataOutput) dataoutputstream);
                     dataoutputstream.close();
                 }
             } catch (Exception exception) {
-                exception.printStackTrace();
+                exception.printStackTrace(System.err);
             }
 
-            return oshort.shortValue();
+            return oshort;
         }
     }
 }
