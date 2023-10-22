@@ -58,7 +58,7 @@ public class BlockSand extends Block {
         } else {
             Material material = Block.byId[l].material;
 
-            return material == Material.WATER ? true : material == Material.LAVA;
+            return material == Material.WATER || material == Material.LAVA;
         }
     }
 }

@@ -19,7 +19,7 @@ public class BlockSoil extends Block {
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
-        return AxisAlignedBB.b((double) (i + 0), (double) (j + 0), (double) (k + 0), (double) (i + 1), (double) (j + 1), (double) (k + 1));
+        return AxisAlignedBB.b((double) (i), (double) (j), (double) (k), (double) (i + 1), (double) (j + 1), (double) (k + 1));
     }
 
     public boolean a() {

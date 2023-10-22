@@ -186,7 +186,7 @@ public class BlockFire extends Block {
     }
 
     private boolean g(World world, int i, int j, int k) {
-        return this.b(world, i + 1, j, k) ? true : (this.b(world, i - 1, j, k) ? true : (this.b(world, i, j - 1, k) ? true : (this.b(world, i, j + 1, k) ? true : (this.b(world, i, j, k - 1) ? true : this.b(world, i, j, k + 1)))));
+        return this.b(world, i + 1, j, k) || (this.b(world, i - 1, j, k) || (this.b(world, i, j - 1, k) || (this.b(world, i, j + 1, k) || (this.b(world, i, j, k - 1) || this.b(world, i, j, k + 1)))));
     }
 
     private int h(World world, int i, int j, int k) {
@@ -217,7 +217,7 @@ public class BlockFire extends Block {
     public int f(World world, int i, int j, int k, int l) {
         int i1 = this.a[world.getTypeId(i, j, k)];
 
-        return i1 > l ? i1 : l;
+        return Math.max(i1, l);
     }
 
     public boolean canPlace(World world, int i, int j, int k) {

@@ -71,6 +71,6 @@ public class ChunkCache implements IBlockAccess {
     public boolean e(int i, int j, int k) {
         Block block = Block.byId[this.getTypeId(i, j, k)];
 
-        return block == null ? false : block.material.isSolid() && block.b();
+        return block != null && block.material.isSolid() && block.b();
     }
 }

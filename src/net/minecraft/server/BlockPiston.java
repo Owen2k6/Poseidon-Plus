@@ -104,7 +104,7 @@ public class BlockPiston extends Block {
     }
 
     private boolean f(World world, int i, int j, int k, int l) {
-        return l != 0 && world.isBlockFaceIndirectlyPowered(i, j - 1, k, 0) ? true : (l != 1 && world.isBlockFaceIndirectlyPowered(i, j + 1, k, 1) ? true : (l != 2 && world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) ? true : (l != 3 && world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) ? true : (l != 5 && world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5) ? true : (l != 4 && world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) ? true : (world.isBlockFaceIndirectlyPowered(i, j, k, 0) ? true : (world.isBlockFaceIndirectlyPowered(i, j + 2, k, 1) ? true : (world.isBlockFaceIndirectlyPowered(i, j + 1, k - 1, 2) ? true : (world.isBlockFaceIndirectlyPowered(i, j + 1, k + 1, 3) ? true : (world.isBlockFaceIndirectlyPowered(i - 1, j + 1, k, 4) ? true : world.isBlockFaceIndirectlyPowered(i + 1, j + 1, k, 5)))))))))));
+        return l != 0 && world.isBlockFaceIndirectlyPowered(i, j - 1, k, 0) || (l != 1 && world.isBlockFaceIndirectlyPowered(i, j + 1, k, 1) || (l != 2 && world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) || (l != 3 && world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) || (l != 5 && world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5) || (l != 4 && world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) || (world.isBlockFaceIndirectlyPowered(i, j, k, 0) || (world.isBlockFaceIndirectlyPowered(i, j + 2, k, 1) || (world.isBlockFaceIndirectlyPowered(i, j + 1, k - 1, 2) || (world.isBlockFaceIndirectlyPowered(i, j + 1, k + 1, 3) || (world.isBlockFaceIndirectlyPowered(i - 1, j + 1, k, 4) || world.isBlockFaceIndirectlyPowered(i + 1, j + 1, k, 5)))))))))));
     }
 
     public void a(World world, int i, int j, int k, int l, int i1) {
@@ -117,7 +117,7 @@ public class BlockPiston extends Block {
         } else if (l == 1) {
             TileEntity tileentity = world.getTileEntity(i + PistonBlockTextures.b[i1], j + PistonBlockTextures.c[i1], k + PistonBlockTextures.d[i1]);
 
-            if (tileentity != null && tileentity instanceof TileEntityPiston) {
+            if (tileentity instanceof TileEntityPiston) {
                 ((TileEntityPiston) tileentity).k();
             }
 
@@ -134,7 +134,7 @@ public class BlockPiston extends Block {
                 if (i2 == Block.PISTON_MOVING.id) {
                     TileEntity tileentity1 = world.getTileEntity(j1, k1, l1);
 
-                    if (tileentity1 != null && tileentity1 instanceof TileEntityPiston) {
+                    if (tileentity1 instanceof TileEntityPiston) {
                         TileEntityPiston tileentitypiston = (TileEntityPiston) tileentity1;
 
                         if (tileentitypiston.d() == i1 && tileentitypiston.c()) {
@@ -237,7 +237,7 @@ public class BlockPiston extends Block {
 
         int l = MathHelper.floor((double) (entityhuman.yaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-        return l == 0 ? 2 : (l == 1 ? 5 : (l == 2 ? 3 : (l == 3 ? 4 : 0)));
+        return l == 0 ? 2 : l == 1 ? 5 : l == 2 ? 3 : 4;
     }
 
     private static boolean a(int i, World world, int j, int k, int l, boolean flag) {

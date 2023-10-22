@@ -45,7 +45,7 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
-        return (world.getData(i, j, k) & 8) == 0 ? false : l == 1;
+        return (world.getData(i, j, k) & 8) != 0 && l == 1;
     }
 
     private void f(World world, int i, int j, int k, int l) {
@@ -54,7 +54,7 @@ public class BlockMinecartDetector extends BlockMinecartTrack {
         float f = 0.125F;
         List list = world.a(EntityMinecart.class, AxisAlignedBB.b((double) ((float) i + f), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) j + 0.25D, (double) ((float) (k + 1) - f)));
 
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             flag1 = true;
         }
 

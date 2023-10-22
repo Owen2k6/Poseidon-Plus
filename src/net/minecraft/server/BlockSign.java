@@ -81,11 +81,7 @@ public class BlockSign extends BlockContainer {
             }
         } else {
             int i1 = world.getData(i, j, k);
-
-            flag = true;
-            if (i1 == 2 && world.getMaterial(i, j, k + 1).isBuildable()) {
-                flag = false;
-            }
+            flag = i1 != 2 || !world.getMaterial(i, j, k + 1).isBuildable();
 
             if (i1 == 3 && world.getMaterial(i, j, k - 1).isBuildable()) {
                 flag = false;

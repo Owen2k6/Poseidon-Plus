@@ -92,6 +92,7 @@ public class BlockPressurePlate extends Block {
             list = world.a(EntityHuman.class, AxisAlignedBB.b((double) ((float) i + f), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) j + 0.25D, (double) ((float) (k + 1) - f)));
         }
 
+        assert list != null;
         if (list.size() > 0) {
             flag1 = true;
         }
@@ -176,7 +177,7 @@ public class BlockPressurePlate extends Block {
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
-        return world.getData(i, j, k) == 0 ? false : l == 1;
+        return world.getData(i, j, k) != 0 && l == 1;
     }
 
     public boolean isPowerSource() {

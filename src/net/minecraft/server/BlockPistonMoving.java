@@ -18,7 +18,7 @@ public class BlockPistonMoving extends BlockContainer {
     public void remove(World world, int i, int j, int k) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
 
-        if (tileentity != null && tileentity instanceof TileEntityPiston) {
+        if (tileentity instanceof TileEntityPiston) {
             ((TileEntityPiston) tileentity).k();
         } else {
             super.remove(world, i, j, k);
@@ -141,6 +141,6 @@ public class BlockPistonMoving extends BlockContainer {
     private TileEntityPiston b(IBlockAccess iblockaccess, int i, int j, int k) {
         TileEntity tileentity = iblockaccess.getTileEntity(i, j, k);
 
-        return tileentity != null && tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
+        return tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
     }
 }

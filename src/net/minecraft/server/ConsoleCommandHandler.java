@@ -4,6 +4,7 @@ import org.bukkit.craftbukkit.command.ServerCommandListener;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -176,9 +177,9 @@ public class ConsoleCommandHandler {
                                         entityplayer = serverconfigurationmanager.i(astring[1]);
                                         entityplayer2 = serverconfigurationmanager.i(astring[2]);
                                         if (entityplayer == null) {
-                                            icommandlistener.sendMessage("Can\'t find user " + astring[1] + ". No tp.");
+                                            icommandlistener.sendMessage("Can't find user " + astring[1] + ". No tp.");
                                         } else if (entityplayer2 == null) {
-                                            icommandlistener.sendMessage("Can\'t find user " + astring[2] + ". No tp.");
+                                            icommandlistener.sendMessage("Can't find user " + astring[2] + ". No tp.");
                                         } else if (entityplayer.dimension != entityplayer2.dimension) {
                                             icommandlistener.sendMessage("User " + astring[1] + " and " + astring[2] + " are in different dimensions. No tp.");
                                         } else {
@@ -222,13 +223,13 @@ public class ConsoleCommandHandler {
 
                                                     entityplayer2.b(new ItemStack(k, l, 0));
                                                 } else {
-                                                    icommandlistener.sendMessage("There\'s no item with id " + k);
+                                                    icommandlistener.sendMessage("There's no item with id " + k);
                                                 }
                                             } catch (NumberFormatException numberformatexception) {
-                                                icommandlistener.sendMessage("There\'s no item with id " + astring[2]);
+                                                icommandlistener.sendMessage("There's no item with id " + astring[2]);
                                             }
                                         } else {
-                                            icommandlistener.sendMessage("Can\'t find user " + s3);
+                                            icommandlistener.sendMessage("Can't find user " + s3);
                                         }
                                     } else if (s.toLowerCase().startsWith("time ")) {
                                         astring = s.split(" ");
@@ -279,7 +280,7 @@ public class ConsoleCommandHandler {
                                             s = "\u00A77" + s1 + " whispers " + s;
                                             a.info(s);
                                             if (!serverconfigurationmanager.a(astring[1], (Packet) (new Packet3Chat(s)))) {
-                                                icommandlistener.sendMessage("There\'s no player by that name online.");
+                                                icommandlistener.sendMessage("There's no player by that name online.");
                                             }
                                         }
                                     } else if (s.toLowerCase().startsWith("whitelist ")) {
@@ -309,44 +310,49 @@ public class ConsoleCommandHandler {
         if (astring.length >= 2) {
             String s2 = astring[1].toLowerCase();
 
-            if ("on".equals(s2)) {
-                if (!checkPermission(listener, "whitelist.enable")) return; // Craftbukkit
-                this.print(s, "Turned on white-listing");
-                this.server.propertyManager.b("white-list", true);
-            } else if ("off".equals(s2)) {
-                if (!checkPermission(listener, "whitelist.disable")) return; // Craftbukkit
-                this.print(s, "Turned off white-listing");
-                this.server.propertyManager.b("white-list", false);
-            } else if ("list".equals(s2)) {
-                if (!checkPermission(listener, "whitelist.list")) return; // Craftbukkit
-                Set set = this.server.serverConfigurationManager.e();
-                String s3 = "";
+            switch (s2) {
+                case "on":
+                    if (!checkPermission(listener, "whitelist.enable")) return; // Craftbukkit
+                    this.print(s, "Turned on white-listing");
+                    this.server.propertyManager.b("white-list", true);
+                    break;
+                case "off":
+                    if (!checkPermission(listener, "whitelist.disable")) return; // Craftbukkit
+                    this.print(s, "Turned off white-listing");
+                    this.server.propertyManager.b("white-list", false);
+                    break;
+                case "list":
+                    if (!checkPermission(listener, "whitelist.list")) return; // Craftbukkit
+                    Set set = this.server.serverConfigurationManager.e();
+                    String s3 = "";
 
-                String s4;
+                    String s4;
 
-                for (Iterator iterator = set.iterator(); iterator.hasNext(); s3 = s3 + s4 + " ") {
-                    s4 = (String) iterator.next();
-                }
+                    for (Iterator iterator = set.iterator(); iterator.hasNext(); s3 = s3 + s4 + " ") {
+                        s4 = (String) iterator.next();
+                    }
 
-                icommandlistener.sendMessage("White-listed players: " + s3);
-            } else {
-                String s5;
+                    icommandlistener.sendMessage("White-listed players: " + s3);
+                    break;
+                default:
+                    String s5;
 
-                if ("add".equals(s2) && astring.length == 3) {
-                    if (!checkPermission(listener, "whitelist.add")) return; // Craftbukkit
-                    s5 = astring[2].toLowerCase();
-                    this.server.serverConfigurationManager.k(s5);
-                    this.print(s, "Added " + s5 + " to white-list");
-                } else if ("remove".equals(s2) && astring.length == 3) {
-                    if (!checkPermission(listener, "whitelist.remove")) return; // Craftbukkit
-                    s5 = astring[2].toLowerCase();
-                    this.server.serverConfigurationManager.l(s5);
-                    this.print(s, "Removed " + s5 + " from white-list");
-                } else if ("reload".equals(s2)) {
-                    if (!checkPermission(listener, "whitelist.reload")) return; // Craftbukkit
-                    this.server.serverConfigurationManager.f();
-                    this.print(s, "Reloaded white-list from file");
-                }
+                    if ("add".equals(s2) && astring.length == 3) {
+                        if (!checkPermission(listener, "whitelist.add")) return; // Craftbukkit
+                        s5 = astring[2].toLowerCase();
+                        this.server.serverConfigurationManager.k(s5);
+                        this.print(s, "Added " + s5 + " to white-list");
+                    } else if ("remove".equals(s2) && astring.length == 3) {
+                        if (!checkPermission(listener, "whitelist.remove")) return; // Craftbukkit
+                        s5 = astring[2].toLowerCase();
+                        this.server.serverConfigurationManager.l(s5);
+                        this.print(s, "Removed " + s5 + " from white-list");
+                    } else if ("reload".equals(s2)) {
+                        if (!checkPermission(listener, "whitelist.reload")) return; // Craftbukkit
+                        this.server.serverConfigurationManager.f();
+                        this.print(s, "Reloaded white-list from file");
+                    }
+                    break;
             }
         }
     }
@@ -398,9 +404,9 @@ public class ConsoleCommandHandler {
                 sender = ((CraftPlayer) commandSender).getHandle();
             }
         }
-        java.util.List<EntityPlayer> players = this.server.serverConfigurationManager.players;
-        for (int i = 0; i < players.size(); ++i) {
-            EntityPlayer entityPlayer = (EntityPlayer) players.get(i);
+        List players = this.server.serverConfigurationManager.players;
+        for (Object player : players) {
+            EntityPlayer entityPlayer = (EntityPlayer) player;
             if (sender != entityPlayer && this.server.serverConfigurationManager.isOp(entityPlayer.name)) {
                 entityPlayer.netServerHandler.sendPacket(packet3chat);
             }

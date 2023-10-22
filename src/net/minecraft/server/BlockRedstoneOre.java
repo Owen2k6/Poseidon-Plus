@@ -69,7 +69,7 @@ public class BlockRedstoneOre extends Block {
             }
 
             if (l == 1 && !world.p(i, j - 1, k)) {
-                d2 = (double) (j + 0) - d0;
+                d2 = (double) (j) - d0;
             }
 
             if (l == 2 && !world.p(i, j, k + 1)) {
@@ -77,7 +77,7 @@ public class BlockRedstoneOre extends Block {
             }
 
             if (l == 3 && !world.p(i, j, k - 1)) {
-                d3 = (double) (k + 0) - d0;
+                d3 = (double) (k) - d0;
             }
 
             if (l == 4 && !world.p(i + 1, j, k)) {
@@ -85,7 +85,7 @@ public class BlockRedstoneOre extends Block {
             }
 
             if (l == 5 && !world.p(i - 1, j, k)) {
-                d1 = (double) (i + 0) - d0;
+                d1 = (double) (i) - d0;
             }
 
             if (d1 < (double) i || d1 > (double) (i + 1) || d2 < 0.0D || d2 > (double) (j + 1) || d3 < (double) k || d3 > (double) (k + 1)) {

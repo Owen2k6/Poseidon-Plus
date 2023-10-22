@@ -19,11 +19,11 @@ public class BlockDiode extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !world.e(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
+        return world.e(i, j - 1, k) && super.canPlace(world, i, j, k);
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return !world.e(i, j - 1, k) ? false : super.f(world, i, j, k);
+        return world.e(i, j - 1, k) && super.f(world, i, j, k);
     }
 
     public void a(World world, int i, int j, int k, Random random) {
@@ -60,7 +60,7 @@ public class BlockDiode extends Block {
         } else {
             int i1 = iblockaccess.getData(i, j, k) & 3;
 
-            return i1 == 0 && l == 3 ? true : (i1 == 1 && l == 4 ? true : (i1 == 2 && l == 2 ? true : i1 == 3 && l == 5));
+            return i1 == 0 && l == 3 || (i1 == 1 && l == 4 || (i1 == 2 && l == 2 || i1 == 3 && l == 5));
         }
     }
 
