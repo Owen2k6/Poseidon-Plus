@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Vec3D {
 
-    private static List d = new ArrayList();
+    private static final List<Vec3D> d = new ArrayList<>();
     private static int e = 0;
     public double a;
     public double b;
@@ -24,7 +24,7 @@ public class Vec3D {
             d.add(a(0.0D, 0.0D, 0.0D));
         }
 
-        return ((Vec3D) d.get(e++)).e(d0, d1, d2);
+        return d.get(e++).e(d0, d1, d2);
     }
 
     private Vec3D(double d0, double d1, double d2) {
@@ -53,7 +53,7 @@ public class Vec3D {
     }
 
     public Vec3D b() {
-        double d0 = (double) MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
+        double d0 = MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
 
         return d0 < 1.0E-4D ? create(0.0D, 0.0D, 0.0D) : create(this.a / d0, this.b / d0, this.c / d0);
     }
@@ -67,7 +67,7 @@ public class Vec3D {
         double d1 = vec3d.b - this.b;
         double d2 = vec3d.c - this.c;
 
-        return (double) MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
+        return MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
     public double b(Vec3D vec3d) {
@@ -87,7 +87,7 @@ public class Vec3D {
     }
 
     public double c() {
-        return (double) MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
+        return MathHelper.a(this.a * this.a + this.b * this.b + this.c * this.c);
     }
 
     public Vec3D a(Vec3D vec3d, double d0) {

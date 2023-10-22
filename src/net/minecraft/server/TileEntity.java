@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class TileEntity {
 
-    private static Map a = new HashMap();
-    private static Map b = new HashMap();
+    private static final Map<String, Class<? extends TileEntity>> a = new HashMap<>();
+    private static final Map<Class<? extends TileEntity>, String> b = new HashMap<>();
     public World world;
     public int x;
     public int y;
@@ -15,8 +15,8 @@ public class TileEntity {
 
     public TileEntity() {}
 
-    private static void a(Class oclass, String s) {
-        if (b.containsKey(s)) {
+    private static void a(Class<? extends TileEntity> oclass, String s) {
+        if (a.containsKey(s)) {
             throw new IllegalArgumentException("Duplicate id: " + s);
         } else {
             a.put(s, oclass);
@@ -49,13 +49,13 @@ public class TileEntity {
         TileEntity tileentity = null;
 
         try {
-            Class oclass = (Class) a.get(nbttagcompound.getString("id"));
+            Class<? extends TileEntity> oclass = a.get(nbttagcompound.getString("id"));
 
             if (oclass != null) {
-                tileentity = (TileEntity) oclass.newInstance();
+                tileentity = oclass.getConstructor().newInstance();
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
 
         if (tileentity != null) {
