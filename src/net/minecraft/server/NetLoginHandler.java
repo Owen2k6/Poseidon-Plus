@@ -99,7 +99,7 @@ public class NetLoginHandler extends NetHandler {
             }
         } else {
             //Project Poseidon - Start (Release2Beta)
-            if (packet1login.d == (byte) -999 || packet1login.d == (byte) 25) {
+            if (packet1login.d == (byte) -999) {
                 connectionType = ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING;
             } else if (packet1login.d == (byte) 26) {
                 connectionType = ConnectionType.RELEASE2BETA_ONLINE_MODE_IP_FORWARDING;

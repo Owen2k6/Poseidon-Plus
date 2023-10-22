@@ -200,7 +200,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         Location to = player.getLocation().clone(); // Start off the To location as the Players current location.
 
         // If the packet contains movement information then we update the To location with the correct XYZ.
-        if (packet10flying.h && !(packet10flying.h && packet10flying.y == -999.0D && packet10flying.stance == -999.0D)) {
+        if (packet10flying.h && !(packet10flying.y == -999.0D && packet10flying.stance == -999.0D)) {
             to.setX(packet10flying.x);
             to.setY(packet10flying.y);
             to.setZ(packet10flying.z);
@@ -378,7 +378,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             float f4 = 0.0625F;
-            boolean flag = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
+            boolean flag = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).isEmpty();
 
             this.player.move(d4, d6, d7);
             d4 = d1 - this.player.locX;
@@ -399,7 +399,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             this.player.setLocation(d1, d2, d3, f2, f3);
-            boolean flag2 = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
+            boolean flag2 = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).isEmpty();
 
             if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
                 this.a(this.x, this.y, this.z, f2, f3);
@@ -505,11 +505,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             this.player.F();
         } else {
             boolean flag = worldserver.weirdIsOpCache = worldserver.dimension != 0 || this.minecraftServer.serverConfigurationManager.isOp(this.player.name); // CraftBukkit
-            boolean flag1 = false;
-
-            if (packet14blockdig.e == 0) {
-                flag1 = true;
-            }
+            boolean flag1 = packet14blockdig.e == 0;
 
             if (packet14blockdig.e == 2) {
                 flag1 = true;
@@ -1080,7 +1076,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.player.z();
                 this.player.h = false;
             } else {
-                this.n.put(Integer.valueOf(this.player.activeContainer.windowId), Short.valueOf(packet102windowclick.d));
+                this.n.put(this.player.activeContainer.windowId, Short.valueOf(packet102windowclick.d));
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false));
                 this.player.activeContainer.a(this.player, false);
                 ArrayList arraylist = new ArrayList();

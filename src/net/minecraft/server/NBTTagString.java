@@ -30,6 +30,6 @@ public class NBTTagString extends NBTBase {
     }
 
     public String toString() {
-        return "" + this.a;
+        return this.a;
     }
 }

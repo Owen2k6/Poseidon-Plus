@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class NoiseGeneratorOctaves2 extends NoiseGenerator {
@@ -24,9 +25,7 @@ public class NoiseGeneratorOctaves2 extends NoiseGenerator {
         d2 /= 1.5D;
         d3 /= 1.5D;
         if (adouble != null && adouble.length >= i * j) {
-            for (int k = 0; k < adouble.length; ++k) {
-                adouble[k] = 0.0D;
-            }
+            Arrays.fill(adouble, 0.0D);
         } else {
             adouble = new double[i * j];
         }

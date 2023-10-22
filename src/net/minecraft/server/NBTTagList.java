@@ -14,7 +14,7 @@ public class NBTTagList extends NBTBase {
     public NBTTagList() {}
 
     void a(DataOutput dataoutput) throws IOException {
-        if (this.a.size() > 0) {
+        if (!this.a.isEmpty()) {
             this.b = ((NBTBase) this.a.get(0)).a();
         } else {
             this.b = 1;
@@ -23,8 +23,8 @@ public class NBTTagList extends NBTBase {
         dataoutput.writeByte(this.b);
         dataoutput.writeInt(this.a.size());
 
-        for (int i = 0; i < this.a.size(); ++i) {
-            ((NBTBase) this.a.get(i)).a(dataoutput);
+        for (Object o : this.a) {
+            ((NBTBase) o).a(dataoutput);
         }
     }
 

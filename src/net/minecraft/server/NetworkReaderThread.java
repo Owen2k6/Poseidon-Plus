@@ -40,7 +40,7 @@ class NetworkReaderThread extends Thread {
 
                 try {
                     sleep(this.fast ? 2L : 100L);
-                } catch (InterruptedException interruptedexception) {
+                } catch (InterruptedException ignored) {
                     ;
                 }
             } finally {

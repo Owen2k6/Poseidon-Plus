@@ -146,9 +146,9 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                     l1 = k1 & 255;
                     d9 -= (double) k1;
                     d10 = d9 * d9 * d9 * (d9 * (d9 * 6.0D - 15.0D) + 10.0D);
-                    l = this.d[i3] + 0;
+                    l = this.d[i3];
                     int j3 = this.d[l] + l1;
-                    int k3 = this.d[i3 + 1] + 0;
+                    int k3 = this.d[i3 + 1];
 
                     i1 = this.d[k3] + l1;
                     d11 = this.b(d8, this.a(this.d[j3], d7, d9), this.a(this.d[i1], d7 - 1.0D, 0.0D, d9));

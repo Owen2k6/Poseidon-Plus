@@ -216,21 +216,21 @@ public class NetworkManager {
             try {
                 this.input.close();
                 this.input = null;
-            } catch (Throwable throwable) {
+            } catch (Throwable ignored) {
                 ;
             }
 
             try {
                 this.output.close();
                 this.output = null;
-            } catch (Throwable throwable1) {
+            } catch (Throwable ignored) {
                 ;
             }
 
             try {
                 this.socket.close();
                 this.socket = null;
-            } catch (Throwable throwable2) {
+            } catch (Throwable ignored) {
                 ;
             }
         }

@@ -14,7 +14,7 @@ class NetworkMasterThread extends Thread {
             if (NetworkManager.g(this.a).isAlive()) {
                 try {
                     NetworkManager.g(this.a).stop();
-                } catch (Throwable throwable) {
+                } catch (Throwable ignored) {
                     ;
                 }
             }
@@ -22,7 +22,7 @@ class NetworkMasterThread extends Thread {
             if (NetworkManager.h(this.a).isAlive()) {
                 try {
                     NetworkManager.h(this.a).stop();
-                } catch (Throwable throwable1) {
+                } catch (Throwable ignored) {
                     ;
                 }
             }
