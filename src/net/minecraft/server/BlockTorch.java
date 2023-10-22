@@ -26,7 +26,7 @@ public class BlockTorch extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.e(i - 1, j, k) ? true : (world.e(i + 1, j, k) ? true : (world.e(i, j, k - 1) ? true : (world.e(i, j, k + 1) ? true : this.g(world, i, j - 1, k))));
+        return world.e(i - 1, j, k) || (world.e(i + 1, j, k) || (world.e(i, j, k - 1) || (world.e(i, j, k + 1) || this.g(world, i, j - 1, k))));
     }
 
     public void postPlace(World world, int i, int j, int k, int l) {
@@ -81,11 +81,7 @@ public class BlockTorch extends Block {
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (this.h(world, i, j, k)) {
             int i1 = world.getData(i, j, k);
-            boolean flag = false;
-
-            if (!world.e(i - 1, j, k) && i1 == 1) {
-                flag = true;
-            }
+            boolean flag = !world.e(i - 1, j, k) && i1 == 1;
 
             if (!world.e(i + 1, j, k) && i1 == 2) {
                 flag = true;

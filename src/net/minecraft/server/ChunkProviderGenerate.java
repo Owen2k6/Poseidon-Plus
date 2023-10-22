@@ -54,13 +54,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
             for (int j1 = 0; j1 < b0; ++j1) {
                 for (int k1 = 0; k1 < 16; ++k1) {
                     double d0 = 0.125D;
-                    double d1 = this.q[((i1 + 0) * l + j1 + 0) * b2 + k1 + 0];
-                    double d2 = this.q[((i1 + 0) * l + j1 + 1) * b2 + k1 + 0];
-                    double d3 = this.q[((i1 + 1) * l + j1 + 0) * b2 + k1 + 0];
-                    double d4 = this.q[((i1 + 1) * l + j1 + 1) * b2 + k1 + 0];
-                    double d5 = (this.q[((i1 + 0) * l + j1 + 0) * b2 + k1 + 1] - d1) * d0;
-                    double d6 = (this.q[((i1 + 0) * l + j1 + 1) * b2 + k1 + 1] - d2) * d0;
-                    double d7 = (this.q[((i1 + 1) * l + j1 + 0) * b2 + k1 + 1] - d3) * d0;
+                    double d1 = this.q[((i1) * l + j1) * b2 + k1];
+                    double d2 = this.q[((i1) * l + j1 + 1) * b2 + k1];
+                    double d3 = this.q[((i1 + 1) * l + j1) * b2 + k1];
+                    double d4 = this.q[((i1 + 1) * l + j1 + 1) * b2 + k1];
+                    double d5 = (this.q[((i1) * l + j1) * b2 + k1 + 1] - d1) * d0;
+                    double d6 = (this.q[((i1) * l + j1 + 1) * b2 + k1 + 1] - d2) * d0;
+                    double d7 = (this.q[((i1 + 1) * l + j1) * b2 + k1 + 1] - d3) * d0;
                     double d8 = (this.q[((i1 + 1) * l + j1 + 1) * b2 + k1 + 1] - d4) * d0;
 
                     for (int l1 = 0; l1 < 8; ++l1) {
@@ -71,7 +71,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
                         double d13 = (d4 - d2) * d9;
 
                         for (int i2 = 0; i2 < 4; ++i2) {
-                            int j2 = i2 + i1 * 4 << 11 | 0 + j1 * 4 << 7 | k1 * 8 + l1;
+                            int j2 = i2 + i1 * 4 << 11 | j1 * 4 << 7 | k1 * 8 + l1;
                             short short1 = 128;
                             double d14 = 0.25D;
                             double d15 = d10;
@@ -133,7 +133,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 for (int k1 = 127; k1 >= 0; --k1) {
                     int l1 = (l * 16 + k) * 128 + k1;
 
-                    if (k1 <= 0 + this.j.nextInt(5)) {
+                    if (k1 <= this.j.nextInt(5)) {
                         abyte[l1] = (byte) Block.BEDROCK.id;
                     } else {
                         byte b3 = abyte[l1];

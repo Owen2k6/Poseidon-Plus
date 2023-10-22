@@ -138,8 +138,8 @@ public class EntityArrow extends Entity {
 
             float f1;
 
-            for (int k = 0; k < list.size(); ++k) {
-                Entity entity1 = (Entity) list.get(k);
+            for (Object o : list) {
+                Entity entity1 = (Entity) o;
 
                 if (entity1.l_() && (entity1 != this.shooter || this.k >= 5)) {
                     f1 = 0.3F;

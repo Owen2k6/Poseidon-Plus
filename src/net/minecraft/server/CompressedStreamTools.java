@@ -23,12 +23,9 @@ public class CompressedStreamTools {
     }
 
     public static void a(NBTTagCompound nbttagcompound, OutputStream outputstream) throws IOException {
-        DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(outputstream));
 
-        try {
+        try (DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(outputstream))) {
             a(nbttagcompound, (DataOutput) dataoutputstream);
-        } finally {
-            dataoutputstream.close();
         }
     }
 

@@ -22,8 +22,8 @@ public class BlockRedstoneTorch extends BlockTorch {
 
         int l = 0;
 
-        for (int i1 = 0; i1 < b.size(); ++i1) {
-            RedstoneUpdateInfo redstoneupdateinfo = (RedstoneUpdateInfo) b.get(i1);
+        for (Object object : b) {
+            RedstoneUpdateInfo redstoneupdateinfo = (RedstoneUpdateInfo) object;
 
             if (redstoneupdateinfo.a == i && redstoneupdateinfo.b == j && redstoneupdateinfo.c == k) {
                 ++l;
@@ -78,20 +78,20 @@ public class BlockRedstoneTorch extends BlockTorch {
         } else {
             int i1 = iblockaccess.getData(i, j, k);
 
-            return i1 == 5 && l == 1 ? false : (i1 == 3 && l == 3 ? false : (i1 == 4 && l == 2 ? false : (i1 == 1 && l == 5 ? false : i1 != 2 || l != 4)));
+            return (i1 != 5 || l != 1) && ((i1 != 3 || l != 3) && ((i1 != 4 || l != 2) && ((i1 != 1 || l != 5) && (i1 != 2 || l != 4))));
         }
     }
 
     private boolean g(World world, int i, int j, int k) {
         int l = world.getData(i, j, k);
 
-        return l == 5 && world.isBlockFaceIndirectlyPowered(i, j - 1, k, 0) ? true : (l == 3 && world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) ? true : (l == 4 && world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) ? true : (l == 1 && world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) ? true : l == 2 && world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5))));
+        return l == 5 && world.isBlockFaceIndirectlyPowered(i, j - 1, k, 0) || (l == 3 && world.isBlockFaceIndirectlyPowered(i, j, k - 1, 2) || (l == 4 && world.isBlockFaceIndirectlyPowered(i, j, k + 1, 3) || (l == 1 && world.isBlockFaceIndirectlyPowered(i - 1, j, k, 4) ? true : l == 2 && world.isBlockFaceIndirectlyPowered(i + 1, j, k, 5))));
     }
 
     public void a(World world, int i, int j, int k, Random random) {
         boolean flag = this.g(world, i, j, k);
 
-        while (b.size() > 0 && world.getTime() - ((RedstoneUpdateInfo) b.get(0)).d > 100L) {
+        while (!b.isEmpty() && world.getTime() - ((RedstoneUpdateInfo) b.get(0)).d > 100L) {
             b.remove(0);
         }
 
@@ -149,7 +149,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public boolean d(World world, int i, int j, int k, int l) {
-        return l == 0 ? this.a(world, i, j, k, l) : false;
+        return l == 0 && this.a(world, i, j, k, l);
     }
 
     public int a(int i, Random random) {

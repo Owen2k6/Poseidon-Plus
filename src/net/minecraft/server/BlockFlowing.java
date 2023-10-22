@@ -75,7 +75,7 @@ public class BlockFlowing extends BlockFluids {
                 }
             }
 
-            if (this.material == Material.LAVA && l < 8 && i1 < 8 && i1 > l && random.nextInt(4) != 0) {
+            if (this.material == Material.LAVA && i1 < 8 && i1 > l && random.nextInt(4) != 0) {
                 i1 = l;
                 flag = false;
             }
@@ -290,7 +290,7 @@ public class BlockFlowing extends BlockFluids {
     private boolean l(World world, int i, int j, int k) {
         Material material = world.getMaterial(i, j, k);
 
-        return material == this.material ? false : (material == Material.LAVA ? false : !this.k(world, i, j, k));
+        return material != this.material && (material != Material.LAVA && !this.k(world, i, j, k));
     }
 
     public void c(World world, int i, int j, int k) {

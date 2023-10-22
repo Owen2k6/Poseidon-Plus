@@ -18,9 +18,7 @@ public abstract class BlockFluids extends Block {
             i = 0;
         }
 
-        float f = (float) (i + 1) / 9.0F;
-
-        return f;
+        return (float) (i + 1) / 9.0F;
     }
 
     public int a(int i) {
@@ -60,7 +58,7 @@ public abstract class BlockFluids extends Block {
     public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         Material material = iblockaccess.getMaterial(i, j, k);
 
-        return material == this.material ? false : (material == Material.ICE ? false : (l == 1 ? true : super.b(iblockaccess, i, j, k, l)));
+        return material != this.material && (material != Material.ICE && (l == 1 || super.b(iblockaccess, i, j, k, l)));
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
@@ -107,21 +105,17 @@ public abstract class BlockFluids extends Block {
                     l1 = this.b(iblockaccess, j1, j - 1, k1);
                     if (l1 >= 0) {
                         i2 = l1 - (l - 8);
-                        vec3d = vec3d.add((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
+                        vec3d = vec3d.add((double) ((j1 - i) * i2), (double) (0), (double) ((k1 - k) * i2));
                     }
                 }
-            } else if (l1 >= 0) {
+            } else {
                 i2 = l1 - l;
-                vec3d = vec3d.add((double) ((j1 - i) * i2), (double) ((j - j) * i2), (double) ((k1 - k) * i2));
+                vec3d = vec3d.add((double) ((j1 - i) * i2), (double) (0), (double) ((k1 - k) * i2));
             }
         }
 
         if (iblockaccess.getData(i, j, k) >= 8) {
-            boolean flag = false;
-
-            if (flag || this.b(iblockaccess, i, j, k - 1, 2)) {
-                flag = true;
-            }
+            boolean flag = this.b(iblockaccess, i, j, k - 1, 2);
 
             if (flag || this.b(iblockaccess, i, j, k + 1, 3)) {
                 flag = true;
@@ -187,11 +181,7 @@ public abstract class BlockFluids extends Block {
     private void i(World world, int i, int j, int k) {
         if (world.getTypeId(i, j, k) == this.id) {
             if (this.material == Material.LAVA) {
-                boolean flag = false;
-
-                if (flag || world.getMaterial(i, j, k - 1) == Material.WATER) {
-                    flag = true;
-                }
+                boolean flag = world.getMaterial(i, j, k - 1) == Material.WATER;
 
                 if (flag || world.getMaterial(i, j, k + 1) == Material.WATER) {
                     flag = true;

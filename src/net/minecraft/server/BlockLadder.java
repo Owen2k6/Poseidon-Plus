@@ -40,7 +40,7 @@ public class BlockLadder extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.e(i - 1, j, k) ? true : (world.e(i + 1, j, k) ? true : (world.e(i, j, k - 1) ? true : world.e(i, j, k + 1)));
+        return world.e(i - 1, j, k) || (world.e(i + 1, j, k) || (world.e(i, j, k - 1) || world.e(i, j, k + 1)));
     }
 
     public void postPlace(World world, int i, int j, int k, int l) {
@@ -67,11 +67,7 @@ public class BlockLadder extends Block {
 
     public void doPhysics(World world, int i, int j, int k, int l) {
         int i1 = world.getData(i, j, k);
-        boolean flag = false;
-
-        if (i1 == 2 && world.e(i, j, k + 1)) {
-            flag = true;
-        }
+        boolean flag = i1 == 2 && world.e(i, j, k + 1);
 
         if (i1 == 3 && world.e(i, j, k - 1)) {
             flag = true;

@@ -36,19 +36,18 @@ public class ContainerFurnace extends Container {
     public void a() {
         super.a();
 
-        for (int i = 0; i < this.listeners.size(); ++i) {
-            ICrafting icrafting = (ICrafting) this.listeners.get(i);
+        for (ICrafting listener : this.listeners) {
 
             if (this.b != this.a.cookTime) {
-                icrafting.a(this, 0, this.a.cookTime);
+                ((ICrafting) listener).a(this, 0, this.a.cookTime);
             }
 
             if (this.c != this.a.burnTime) {
-                icrafting.a(this, 1, this.a.burnTime);
+                ((ICrafting) listener).a(this, 1, this.a.burnTime);
             }
 
             if (this.h != this.a.ticksForCurrentFuel) {
-                icrafting.a(this, 2, this.a.ticksForCurrentFuel);
+                ((ICrafting) listener).a(this, 2, this.a.ticksForCurrentFuel);
             }
         }
 

@@ -11,7 +11,7 @@ public class BlockFence extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.getTypeId(i, j - 1, k) == this.id ? true : (!world.getMaterial(i, j - 1, k).isBuildable() ? false : super.canPlace(world, i, j, k));
+        return world.getTypeId(i, j - 1, k) == this.id || (world.getMaterial(i, j - 1, k).isBuildable() && super.canPlace(world, i, j, k));
     }
 
     public AxisAlignedBB e(World world, int i, int j, int k) {
@@ -53,7 +53,7 @@ public class BlockFence extends Block {
         if (l != this.id) {
             Block block = Block.byId[l];
 
-            return block != null && block.material.h() && block.b() ? block.material != Material.PUMPKIN : false;
+            return block != null && block.material.h() && block.b() && block.material != Material.PUMPKIN;
         } else {
             return true;
         }

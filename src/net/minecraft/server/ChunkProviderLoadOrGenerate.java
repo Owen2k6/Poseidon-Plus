@@ -39,7 +39,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 }
             }
 
-            this.e.put(Integer.valueOf(k), chunk);
+            this.e.put(k, chunk);
             this.f.add(chunk);
             if (chunk != null) {
                 chunk.loadNOP();
@@ -67,7 +67,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     }
 
     public Chunk getOrCreateChunk(int i, int j) {
-        Chunk chunk = (Chunk) this.e.get(Integer.valueOf(ChunkCoordIntPair.a(i, j)));
+        Chunk chunk = (Chunk) this.e.get(ChunkCoordIntPair.a(i, j));
 
         return chunk == null ? this.getChunkAt(i, j) : chunk;
     }
@@ -127,8 +127,8 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
         int i = 0;
 
-        for (int j = 0; j < this.f.size(); ++j) {
-            Chunk chunk = (Chunk) this.f.get(j);
+        for (Object o : this.f) {
+            Chunk chunk = (Chunk) o;
 
             if (flag && !chunk.p) {
                 this.a(chunk);

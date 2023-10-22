@@ -82,9 +82,6 @@ public class Chunk {
                 }*/
 
                 this.heightMap[k << 4 | j] = (byte) l;
-                if (l < i) {
-                    i = l;
-                }
 
                 if (!this.world.worldProvider.e) {
                     int j1 = 15;
@@ -172,16 +169,10 @@ public class Chunk {
 
             k1 = this.x * 16 + i;
             l1 = this.z * 16 + k;
-            if (i1 < l) {
-                for (i2 = i1; i2 < l; ++i2) {
-                    this.f.a(i, i2, k, 15);
-                }
-            } else {
-                this.world.a(EnumSkyBlock.SKY, k1, l, l1, k1, i1, l1);
+            this.world.a(EnumSkyBlock.SKY, k1, l, l1, k1, i1, l1);
 
-                for (i2 = l; i2 < i1; ++i2) {
-                    this.f.a(i, i2, k, 0);
-                }
+            for (i2 = l; i2 < i1; ++i2) {
+                this.f.a(i, i2, k, 0);
             }
 
             i2 = 15;

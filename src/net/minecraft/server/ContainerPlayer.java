@@ -47,7 +47,7 @@ public class ContainerPlayer extends Container {
         // CraftBukkit start
         ItemStack craftResult = CraftingManager.getInstance().craft(this.craftInventory);
         this.resultInventory.setItem(0, craftResult);
-        if (super.listeners.size() < 1) {
+        if (super.listeners.isEmpty()) {
             return;
         }
 

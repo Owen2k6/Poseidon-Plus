@@ -137,10 +137,6 @@ public class BlockTrapdoor extends Block {
     public void postPlace(World world, int i, int j, int k, int l) {
         byte b0 = 0;
 
-        if (l == 2) {
-            b0 = 0;
-        }
-
         if (l == 3) {
             b0 = 1;
         }

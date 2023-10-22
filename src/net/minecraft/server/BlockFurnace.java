@@ -31,10 +31,6 @@ public class BlockFurnace extends BlockContainer {
             int k1 = world.getTypeId(i + 1, j, k);
             byte b0 = 3;
 
-            if (Block.o[l] && !Block.o[i1]) {
-                b0 = 3;
-            }
-
             if (Block.o[i1] && !Block.o[l]) {
                 b0 = 2;
             }

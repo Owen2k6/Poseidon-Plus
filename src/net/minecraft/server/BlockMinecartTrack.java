@@ -6,13 +6,13 @@ public class BlockMinecartTrack extends Block {
 
     private final boolean a;
 
-    public static final boolean g(World world, int i, int j, int k) {
+    public static boolean g(World world, int i, int j, int k) {
         int l = world.getTypeId(i, j, k);
 
         return l == Block.RAILS.id || l == Block.GOLDEN_RAIL.id || l == Block.DETECTOR_RAIL.id;
     }
 
-    public static final boolean c(int i) {
+    public static boolean c(int i) {
         return i == Block.RAILS.id || i == Block.GOLDEN_RAIL.id || i == Block.DETECTOR_RAIL.id;
     }
 
@@ -88,11 +88,7 @@ public class BlockMinecartTrack extends Block {
                 j1 = i1 & 7;
             }
 
-            boolean flag = false;
-
-            if (!world.e(i, j - 1, k)) {
-                flag = true;
-            }
+            boolean flag = !world.e(i, j - 1, k);
 
             if (j1 == 2 && !world.e(i + 1, j, k)) {
                 flag = true;
@@ -217,7 +213,7 @@ public class BlockMinecartTrack extends Block {
                 j1 = 0;
             }
 
-            return this.a(world, i, j, k, flag, i1, j1) ? true : flag1 && this.a(world, i, j - 1, k, flag, i1, j1);
+            return this.a(world, i, j, k, flag, i1, j1) || flag1 && this.a(world, i, j - 1, k, flag, i1, j1);
         }
     }
 

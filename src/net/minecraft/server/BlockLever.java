@@ -21,11 +21,11 @@ public class BlockLever extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k, int l) {
-        return l == 1 && world.e(i, j - 1, k) ? true : (l == 2 && world.e(i, j, k + 1) ? true : (l == 3 && world.e(i, j, k - 1) ? true : (l == 4 && world.e(i + 1, j, k) ? true : l == 5 && world.e(i - 1, j, k))));
+        return l == 1 && world.e(i, j - 1, k) || (l == 2 && world.e(i, j, k + 1) || (l == 3 && world.e(i, j, k - 1) || (l == 4 && world.e(i + 1, j, k) || l == 5 && world.e(i - 1, j, k))));
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.e(i - 1, j, k) ? true : (world.e(i + 1, j, k) ? true : (world.e(i, j, k - 1) ? true : (world.e(i, j, k + 1) ? true : world.e(i, j - 1, k))));
+        return world.e(i - 1, j, k) || (world.e(i + 1, j, k) || (world.e(i, j, k - 1) || (world.e(i, j, k + 1) || world.e(i, j - 1, k))));
     }
 
     public void postPlace(World world, int i, int j, int k, int l) {
@@ -65,11 +65,7 @@ public class BlockLever extends Block {
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (this.g(world, i, j, k)) {
             int i1 = world.getData(i, j, k) & 7;
-            boolean flag = false;
-
-            if (!world.e(i - 1, j, k) && i1 == 1) {
-                flag = true;
-            }
+            boolean flag = !world.e(i - 1, j, k) && i1 == 1;
 
             if (!world.e(i + 1, j, k) && i1 == 2) {
                 flag = true;
@@ -206,7 +202,7 @@ public class BlockLever extends Block {
         } else {
             int j1 = i1 & 7;
 
-            return j1 == 6 && l == 1 ? true : (j1 == 5 && l == 1 ? true : (j1 == 4 && l == 2 ? true : (j1 == 3 && l == 3 ? true : (j1 == 2 && l == 4 ? true : j1 == 1 && l == 5))));
+            return j1 == 6 && l == 1 || (j1 == 5 && l == 1 || (j1 == 4 && l == 2 || (j1 == 3 && l == 3 || (j1 == 2 && l == 4 || j1 == 1 && l == 5))));
         }
     }
 
