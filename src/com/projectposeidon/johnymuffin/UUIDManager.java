@@ -103,8 +103,8 @@ public class UUIDManager {
     }
 
     public UUID getUUIDFromUsername(String username) {
-        for (int i = 0; i < UUIDJsonArray.size(); i++) {
-            JSONObject tmp = (JSONObject) UUIDJsonArray.get(i);
+        for (Object o : UUIDJsonArray) {
+            JSONObject tmp = (JSONObject) o;
             if (tmp.get("name").equals(username)) {
                 return UUID.fromString((String) tmp.get("uuid"));
             }
@@ -124,8 +124,8 @@ public class UUIDManager {
     }
 
     public UUID getUUIDFromUsername(String username, boolean online, Long afterUnix) {
-        for (int i = 0; i < UUIDJsonArray.size(); i++) {
-            JSONObject tmp = (JSONObject) UUIDJsonArray.get(i);
+        for (Object o : UUIDJsonArray) {
+            JSONObject tmp = (JSONObject) o;
             Long expire = Long.valueOf(String.valueOf(tmp.get("expiresOn")));
             if (tmp.get("name").equals(username) && tmp.get("onlineUUID").equals(online) && expire > afterUnix) {
                 return UUID.fromString((String) tmp.get("uuid"));
@@ -138,8 +138,8 @@ public class UUIDManager {
         // Get most recent username from UUID
         String username = null;
         long expiry = -1;
-        for (int i = 0; i < UUIDJsonArray.size(); i++) {
-            JSONObject playerEntry = (JSONObject) UUIDJsonArray.get(i);
+        for (Object o : UUIDJsonArray) {
+            JSONObject playerEntry = (JSONObject) o;
             UUID entryUUID = UUID.fromString(String.valueOf(playerEntry.get("uuid")));
             long expiresOn = Long.valueOf(String.valueOf(playerEntry.get("expiresOn")));
             if (entryUUID.equals(uuid) && expiresOn >= expiry) {

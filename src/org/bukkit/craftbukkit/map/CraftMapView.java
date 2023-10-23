@@ -15,7 +15,7 @@ public final class CraftMapView implements MapView {
     private final Map<CraftPlayer, RenderData> renderCache = new HashMap<CraftPlayer, RenderData>();
     private final List<MapRenderer> renderers = new ArrayList<MapRenderer>();
     private final Map<MapRenderer, Map<CraftPlayer, CraftMapCanvas>> canvases = new HashMap<MapRenderer, Map<CraftPlayer, CraftMapCanvas>>();
-    protected final WorldMap worldMap;
+    final WorldMap worldMap;
     
     public CraftMapView(WorldMap worldMap) {
         this.worldMap = worldMap;
@@ -37,7 +37,7 @@ public final class CraftMapView implements MapView {
     }
 
     public boolean isVirtual() {
-        return renderers.size() > 0 && !(renderers.get(0) instanceof CraftMapRenderer);
+        return !renderers.isEmpty() && !(renderers.get(0) instanceof CraftMapRenderer);
     }
 
     public Scale getScale() {

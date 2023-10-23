@@ -33,7 +33,7 @@ public class Release2Beta {
             // 2. 168 * 256^2
             // 3. 1 * 256^1
             // 4. 2 * 256^0
-            result += ip * Math.pow(256, power);
+            result += (long) (ip * Math.pow(256, power));
 
         }
 

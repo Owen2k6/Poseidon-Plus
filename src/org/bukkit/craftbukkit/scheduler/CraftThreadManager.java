@@ -20,9 +20,7 @@ public class CraftThreadManager {
 
     void interruptTask(int taskId) {
         synchronized (workers) {
-            Iterator<CraftWorker> itr = workers.iterator();
-            while (itr.hasNext()) {
-                CraftWorker craftWorker = itr.next();
+            for (CraftWorker craftWorker : workers) {
                 if (craftWorker.getTaskId() == taskId) {
                     craftWorker.interrupt();
                 }
@@ -32,9 +30,7 @@ public class CraftThreadManager {
 
     void interruptTasks(Plugin owner) {
         synchronized (workers) {
-            Iterator<CraftWorker> itr = workers.iterator();
-            while (itr.hasNext()) {
-                CraftWorker craftWorker = itr.next();
+            for (CraftWorker craftWorker : workers) {
                 if (craftWorker.getOwner().equals(owner)) {
                     craftWorker.interrupt();
                 }
@@ -44,9 +40,7 @@ public class CraftThreadManager {
 
     void interruptAllTasks() {
         synchronized (workers) {
-            Iterator<CraftWorker> itr = workers.iterator();
-            while (itr.hasNext()) {
-                CraftWorker craftWorker = itr.next();
+            for (CraftWorker craftWorker : workers) {
                 craftWorker.interrupt();
             }
         }
@@ -54,9 +48,7 @@ public class CraftThreadManager {
 
     boolean isAlive(int taskId) {
         synchronized (workers) {
-            Iterator<CraftWorker> itr = workers.iterator();
-            while (itr.hasNext()) {
-                CraftWorker craftWorker = itr.next();
+            for (CraftWorker craftWorker : workers) {
                 if (craftWorker.getTaskId() == taskId) {
                     return craftWorker.isAlive();
                 }

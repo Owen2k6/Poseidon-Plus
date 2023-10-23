@@ -9,6 +9,7 @@ import org.bukkit.command.defaults.VanillaCommand;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class GarbageCommand extends VanillaCommand {
     public GarbageCommand() {
@@ -16,7 +17,7 @@ public class GarbageCommand extends VanillaCommand {
         this.description = "Runs the java garbage collector on maximum cleanup";
         this.usageMessage = "/garbagecollect";
         this.setPermission("bukkit.command.gcl");
-        this.setAliases(Arrays.asList("gcl"));
+        this.setAliases(Collections.singletonList("gcl"));
     }
 
     @Override

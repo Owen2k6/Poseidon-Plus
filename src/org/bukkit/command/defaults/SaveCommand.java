@@ -6,6 +6,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
 
 public class SaveCommand extends VanillaCommand {
     public SaveCommand() {
@@ -13,13 +15,13 @@ public class SaveCommand extends VanillaCommand {
         this.description = "Saves the server to disk";
         this.usageMessage = "/save-all";
         this.setPermission("bukkit.command.save.perform");
-        this.setAliases(Arrays.asList("save-all"));
+        this.setAliases(Collections.singletonList("save-all"));
     }
 
     @Override
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
-        if(currentAlias == "save-all") {
+        if(Objects.equals(currentAlias, "save-all")) {
             sender.sendMessage("Did you know, you can use /save instead of /save-all?");
         }
 

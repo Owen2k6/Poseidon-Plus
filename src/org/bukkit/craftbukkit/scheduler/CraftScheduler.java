@@ -87,7 +87,7 @@ public class CraftScheduler implements BukkitScheduler, Runnable {
             synchronized (schedulerQueue) {
                 try {
                     schedulerQueue.wait(sleepTime);
-                } catch (InterruptedException ie) {}
+                } catch (InterruptedException ignored) {}
             }
         }
     }
@@ -336,9 +336,7 @@ public class CraftScheduler implements BukkitScheduler, Runnable {
 
     public boolean isQueued(int taskId) {
         synchronized (schedulerQueue) {
-            Iterator<CraftTask> itr = schedulerQueue.keySet().iterator();
-            while (itr.hasNext()) {
-                CraftTask current = itr.next();
+            for (CraftTask current : schedulerQueue.keySet()) {
                 if (current.getIdNumber() == taskId) {
                     return true;
                 }
@@ -350,10 +348,9 @@ public class CraftScheduler implements BukkitScheduler, Runnable {
     public List<BukkitWorker> getActiveWorkers() {
         synchronized (craftThreadManager.workers) {
             List<BukkitWorker> workerList = new ArrayList<BukkitWorker>(craftThreadManager.workers.size());
-            Iterator<CraftWorker> itr = craftThreadManager.workers.iterator();
 
-            while (itr.hasNext()) {
-                workerList.add((BukkitWorker) itr.next());
+            for (CraftWorker craftWorker : craftThreadManager.workers) {
+                workerList.add((BukkitWorker) craftWorker);
             }
             return workerList;
         }

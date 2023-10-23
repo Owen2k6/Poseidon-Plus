@@ -21,7 +21,7 @@ public class ShortConsoleLogFormatter extends Formatter {
             try {
                 Object object = options.valueOf("date-format");
 
-                if ((object != null) && (object instanceof SimpleDateFormat)) {
+                if ((object instanceof SimpleDateFormat)) {
                     date = (SimpleDateFormat) object;
                 }
             } catch (OptionException ex) {

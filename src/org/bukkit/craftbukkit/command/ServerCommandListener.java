@@ -28,7 +28,7 @@ public class ServerCommandListener implements ICommandListener {
             Method getName = commandSender.getClass().getMethod("getName");
 
             return (String) getName.invoke(commandSender);
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
 
         return this.prefix;
     }

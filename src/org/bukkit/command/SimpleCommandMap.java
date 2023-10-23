@@ -82,12 +82,7 @@ public class SimpleCommandMap implements CommandMap {
     public boolean register(String label, String fallbackPrefix, Command command) {
         boolean registeredPassedLabel = register(label, fallbackPrefix, command, false);
 
-        Iterator iterator = command.getAliases().iterator();
-        while (iterator.hasNext()) {
-            if (!register((String) iterator.next(), fallbackPrefix, command, true)) {
-                iterator.remove();
-            }
-        }
+        command.getAliases().removeIf(o -> !register((String) o, fallbackPrefix, command, true));
 
         // Register to us so further updates of the commands label and aliases are postponed until its reregistered
         command.register(this);
@@ -200,13 +195,13 @@ public class SimpleCommandMap implements CommandMap {
 
             // We register these as commands so they have absolute priority.
 
-            if (targets.size() > 0) {
+            if (!targets.isEmpty()) {
                 knownCommands.put(alias.toLowerCase(), new MultipleCommandAlias(alias.toLowerCase(), targets.toArray(new Command[0])));
             } else {
                 knownCommands.remove(alias.toLowerCase());
             }
 
-            if (bad.length() > 0) {
+            if (!bad.isEmpty()) {
                 bad = bad.substring(0, bad.length() - 2);
                 server.getLogger().warning("The following command(s) could not be aliased under '" + alias + "' because they do not exist: " + bad);
             }

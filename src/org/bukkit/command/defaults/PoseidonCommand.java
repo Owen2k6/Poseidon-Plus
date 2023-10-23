@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 public class PoseidonCommand extends Command {
@@ -16,7 +17,7 @@ public class PoseidonCommand extends Command {
         super(name);
         this.description = "Show data regarding the servers version of Project Poseidon";
         this.usageMessage = "/poseidon";
-        this.setAliases(Arrays.asList("projectposeidon"));
+        this.setAliases(Collections.singletonList("projectposeidon"));
     }
 
     @Override

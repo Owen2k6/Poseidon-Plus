@@ -250,7 +250,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         PlayerTeleportEvent event = new PlayerTeleportEvent((Player) this, from, to);
         server.getPluginManager().callEvent(event);
         // Return False to inform the Plugin that the Teleport was unsuccessful/cancelled.
-        if (event.isCancelled() == true) {
+        if (event.isCancelled()) {
             return false;
         }
         // Update the From Location

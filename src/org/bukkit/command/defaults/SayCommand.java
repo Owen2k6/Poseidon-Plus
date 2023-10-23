@@ -25,11 +25,11 @@ public class SayCommand extends VanillaCommand {
                 return false;
             }
 
-            String message = "";
+            StringBuilder message = new StringBuilder();
 
             for (int i = 0; i < args.length; i++) {
-                if (i > 0) message += " ";
-                message += args[i];
+                if (i > 0) message.append(" ");
+                message.append(args[i]);
             }
 
             if (!(sender instanceof ConsoleCommandSender)) {

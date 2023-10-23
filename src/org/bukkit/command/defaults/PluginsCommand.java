@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class PluginsCommand extends Command {
@@ -15,7 +16,7 @@ public class PluginsCommand extends Command {
         this.description = "Gets a list of plugins running on the server";
         this.usageMessage = "/plugins";
         this.setPermission("bukkit.command.plugins");
-        this.setAliases(Arrays.asList("pl"));
+        this.setAliases(Collections.singletonList("pl"));
     }
 
     @Override

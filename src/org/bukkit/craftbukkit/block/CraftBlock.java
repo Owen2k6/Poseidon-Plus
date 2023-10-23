@@ -219,7 +219,7 @@ public class CraftBlock implements Block {
         return biomeBaseToBiome(chunk.getHandle().world.getWorldChunkManager().getBiome(x, z));
     }
 
-    public static final Biome biomeBaseToBiome(BiomeBase base) {
+    public static Biome biomeBaseToBiome(BiomeBase base) {
         if (base == BiomeBase.RAINFOREST) {
             return Biome.RAINFOREST;
         } else if (base == BiomeBase.SWAMPLAND) {

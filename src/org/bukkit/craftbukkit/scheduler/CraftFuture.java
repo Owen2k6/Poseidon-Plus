@@ -85,11 +85,7 @@ public class CraftFuture<T> implements Runnable, Future<T> {
             if (taskId != -1) {
                 craftScheduler.cancelTask(taskId);
             }
-            if (!running && !done) {
-                return true;
-            } else {
-                return false;
-            }
+            return !running && !done;
         }
     }
 

@@ -89,7 +89,7 @@ public class CraftMapCanvas implements MapCanvas {
                         i = j;
                         continue;
                     }
-                    catch (NumberFormatException ex) {}
+                    catch (NumberFormatException ignored) {}
                 }
             }
             

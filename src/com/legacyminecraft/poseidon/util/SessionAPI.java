@@ -7,6 +7,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * A wrapper class for the Minecraft session API
@@ -22,7 +23,7 @@ public class SessionAPI
     public static boolean hasJoined(String username, String serverId)
     {
         HTTPResponse response = httpGetRequest(SESSION_BASE + String.format("checkserver.jsp?user=%s&serverId=%s", username, serverId));
-        if (response.getResponse() != "YES")
+        if (!Objects.equals(response.getResponse(), "YES"))
             return false;
         return true;
     }
@@ -34,10 +35,10 @@ public class SessionAPI
             boolean checkIP = ip == "127.0.0.1" || ip == "localhost";
             StringBuilder sb = new StringBuilder();
             sb.append("https://sessionserver.mojang.com/session/minecraft/hasJoined");
-            sb.append("?username=" + username);
-            sb.append("&serverId=" + serverId);
+            sb.append("?username=").append(username);
+            sb.append("&serverId=").append(serverId);
             if (checkIP)
-                sb.append("&ip=" + ip);
+                sb.append("&ip=").append(ip);
             String requestUrl = sb.toString();
             
             HTTPResponse response = httpGetRequest(requestUrl);
@@ -62,7 +63,7 @@ public class SessionAPI
             con.setRequestProperty("User-Agent", "Project-Poseidon/0");
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((inputLine = in.readLine()) != null)
                 response.append(inputLine);
             in.close();

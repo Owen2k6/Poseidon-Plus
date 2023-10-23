@@ -16,7 +16,7 @@ public class ListCommand extends VanillaCommand {
     public boolean execute(CommandSender sender, String currentAlias, String[] args) {
         if (!testPermission(sender)) return true;
 
-        String players = "";
+        StringBuilder players = new StringBuilder();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             // If a player is hidden from the sender don't show them in the list
@@ -24,10 +24,10 @@ public class ListCommand extends VanillaCommand {
                 continue;
 
             if (players.length() > 0) {
-                players += ", ";
+                players.append(", ");
             }
 
-            players += player.getDisplayName();
+            players.append(player.getDisplayName());
         }
 
         sender.sendMessage("Connected players: " + players);

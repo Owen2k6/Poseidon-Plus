@@ -26,7 +26,7 @@ public class WatchDogThread extends Thread {
 
     public void run() {
         boolean running = true;
-        while (true && !this.isInterrupted() && running) {
+        while (!this.isInterrupted() && running) {
             try {
                 if (tickOccurred.get()) {
                     lastTick = System.currentTimeMillis() / 1000L;

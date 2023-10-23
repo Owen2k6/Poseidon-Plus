@@ -190,10 +190,7 @@ public abstract class CraftEntity implements org.bukkit.entity.Entity {
         if (this.server != other.server && (this.server == null || !this.server.equals(other.server))) {
             return false;
         }
-        if (this.entity != other.entity && (this.entity == null || !this.entity.equals(other.entity))) {
-            return false;
-        }
-        return true;
+        return this.entity == other.entity || (this.entity != null && this.entity.equals(other.entity));
     }
 
     @Override

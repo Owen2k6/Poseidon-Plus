@@ -45,11 +45,7 @@ public class ColouredConsoleSender extends ConsoleCommandSender {
             String result = message;
 
             for (ChatColor color : colors) {
-                if (replacements.containsKey(color)) {
-                    result = result.replaceAll(color.toString(), replacements.get(color));
-                } else {
-                    result = result.replaceAll(color.toString(), "");
-                }
+                result = result.replaceAll(color.toString(), replacements.getOrDefault(color, ""));
             }
             System.out.println(result + ANSICodes.attrib(0));
         } else {

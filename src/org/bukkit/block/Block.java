@@ -181,7 +181,7 @@ public interface Block {
     /**
      * Captures the current state of this block. You may then cast that state
      * into any accepted type, such as Furnace or Sign.
-     *
+     * <p>
      * The returned object will never be updated, and you are not guaranteed that
      * (for example) a sign is still a sign after you capture its state.
      *
@@ -199,28 +199,24 @@ public interface Block {
     /**
      * Returns true if the block is being powered by Redstone.
      *
-     * @return
      */
     boolean isBlockPowered();
 
     /**
      * Returns true if the block is being indirectly powered by Redstone.
      *
-     * @return
      */
     boolean isBlockIndirectlyPowered();
 
     /**
      * Returns true if the block face is being powered by Redstone.
      *
-     * @return
      */
     boolean isBlockFacePowered(BlockFace face);
 
     /**
      * Returns true if the block face is being indirectly powered by Redstone.
      *
-     * @return
      */
     boolean isBlockFaceIndirectlyPowered(BlockFace face);
 
@@ -228,7 +224,6 @@ public interface Block {
      * Returns the redstone power being provided to this block face
      *
      * @param face the face of the block to query or BlockFace.SELF for the block itself
-     * @return
      */
     int getBlockPower(BlockFace face);
 

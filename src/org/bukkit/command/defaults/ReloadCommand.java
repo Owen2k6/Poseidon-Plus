@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ReloadCommand extends Command {
     public ReloadCommand(String name) {
@@ -13,7 +14,7 @@ public class ReloadCommand extends Command {
         this.description = "Reloads the server configuration and plugins";
         this.usageMessage = "/reload";
         this.setPermission("bukkit.command.reload");
-        this.setAliases(Arrays.asList("rl"));
+        this.setAliases(Collections.singletonList("rl"));
     }
 
     @Override
