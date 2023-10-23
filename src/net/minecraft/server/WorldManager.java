@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class WorldManager implements IWorldAccess {
 
-    private final MinecraftServer server;
-    public final WorldServer world; // CraftBukkit - private -> public
+    private MinecraftServer server;
+    public WorldServer world; // CraftBukkit - private -> public
 
     public WorldManager(MinecraftServer minecraftserver, WorldServer worldserver) {
         this.server = minecraftserver;
@@ -37,6 +37,6 @@ public class WorldManager implements IWorldAccess {
     }
 
     public void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1) {
-        this.server.serverConfigurationManager.sendPacketNearby(entityhuman, j, k, l, 64.0D, this.world.dimension, new Packet61(i, j, k, l, i1)); // CraftBukkit
+        this.server.serverConfigurationManager.sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.dimension, new Packet61(i, j, k, l, i1)); // CraftBukkit
     }
 }

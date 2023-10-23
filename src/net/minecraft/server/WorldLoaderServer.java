@@ -1,11 +1,9 @@
 package net.minecraft.server;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
 public class WorldLoaderServer extends WorldLoader {
@@ -26,10 +24,10 @@ public class WorldLoaderServer extends WorldLoader {
 
     public boolean convert(String s, IProgressUpdate iprogressupdate) {
         iprogressupdate.a(0);
-        ArrayList<ChunkFile> arraylist = new ArrayList<>();
-        ArrayList<File> arraylist1 = new ArrayList<>();
-        ArrayList<ChunkFile> arraylist2 = new ArrayList<>();
-        ArrayList<File> arraylist3 = new ArrayList<>();
+        ArrayList arraylist = new ArrayList();
+        ArrayList arraylist1 = new ArrayList();
+        ArrayList arraylist2 = new ArrayList();
+        ArrayList arraylist3 = new ArrayList();
         File file1 = new File(this.a, s);
         File file2 = new File(file1, "DIM-1");
 
@@ -58,27 +56,28 @@ public class WorldLoaderServer extends WorldLoader {
         return true;
     }
 
-    private void a(File file1, ArrayList<ChunkFile> arraylist, ArrayList<File> arraylist1) {
-        ChunkFileFilter chunkfilefilter = new ChunkFileFilter(null);
-        ChunkFilenameFilter chunkfilenamefilter = new ChunkFilenameFilter(null);
+    private void a(File file1, ArrayList arraylist, ArrayList arraylist1) {
+        ChunkFileFilter chunkfilefilter = new ChunkFileFilter((EmptyClass2) null);
+        ChunkFilenameFilter chunkfilenamefilter = new ChunkFilenameFilter((EmptyClass2) null);
         File[] afile = file1.listFiles(chunkfilefilter);
-        int i = Objects.requireNonNull(afile).length;
+        File[] afile1 = afile;
+        int i = afile.length;
 
-        for (File file2 : afile)
-        {
+        for (int j = 0; j < i; ++j) {
+            File file2 = afile1[j];
+
             arraylist1.add(file2);
             File[] afile2 = file2.listFiles(chunkfilefilter);
-            int k = Objects.requireNonNull(afile2).length;
+            File[] afile3 = afile2;
+            int k = afile2.length;
 
-            for (int l = 0; l < k; ++l)
-            {
-                File file3 = afile2[l];
+            for (int l = 0; l < k; ++l) {
+                File file3 = afile3[l];
                 File[] afile4 = file3.listFiles(chunkfilenamefilter);
                 File[] afile5 = afile4;
                 int i1 = afile4.length;
 
-                for (int j1 = 0; j1 < i1; ++j1)
-                {
+                for (int j1 = 0; j1 < i1; ++j1) {
                     File file4 = afile5[j1];
 
                     arraylist.add(new ChunkFile(file4));
@@ -87,20 +86,20 @@ public class WorldLoaderServer extends WorldLoader {
         }
     }
 
-    private void a(File file1, ArrayList<ChunkFile> arraylist, int i, int j, IProgressUpdate iprogressupdate) {
+    private void a(File file1, ArrayList arraylist, int i, int j, IProgressUpdate iprogressupdate) {
         Collections.sort(arraylist);
         byte[] abyte = new byte[4096];
-        Iterator<ChunkFile> iterator = arraylist.iterator();
+        Iterator iterator = arraylist.iterator();
 
         while (iterator.hasNext()) {
-            ChunkFile chunkfile = iterator.next();
+            ChunkFile chunkfile = (ChunkFile) iterator.next();
             int k = chunkfile.b();
             int l = chunkfile.c();
             RegionFile regionfile = RegionFileCache.a(file1, k, l);
 
             if (!regionfile.c(k & 31, l & 31)) {
                 try {
-                    DataInputStream datainputstream = new DataInputStream(new GZIPInputStream(Files.newInputStream(chunkfile.a().toPath())));
+                    DataInputStream datainputstream = new DataInputStream(new GZIPInputStream(new FileInputStream(chunkfile.a())));
                     DataOutputStream dataoutputstream = regionfile.b(k & 31, l & 31);
                     boolean flag = false;
 
@@ -113,7 +112,7 @@ public class WorldLoaderServer extends WorldLoader {
                     dataoutputstream.close();
                     datainputstream.close();
                 } catch (IOException ioexception) {
-                    ioexception.printStackTrace(System.err);
+                    ioexception.printStackTrace();
                 }
             }
 
@@ -126,14 +125,15 @@ public class WorldLoaderServer extends WorldLoader {
         RegionFileCache.a();
     }
 
-    private void a(ArrayList<File> arraylist, int i, int j, IProgressUpdate iprogressupdate) {
+    private void a(ArrayList arraylist, int i, int j, IProgressUpdate iprogressupdate) {
+        Iterator iterator = arraylist.iterator();
 
-        for (File file1 : arraylist)
-        {
+        while (iterator.hasNext()) {
+            File file1 = (File) iterator.next();
             File[] afile = file1.listFiles();
 
-            a(Objects.requireNonNull(afile));
-            if (!file1.delete()) file1.deleteOnExit();
+            a(afile);
+            file1.delete();
             ++i;
             int k = (int) Math.round(100.0D * (double) i / (double) j);
 

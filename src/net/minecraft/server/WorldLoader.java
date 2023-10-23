@@ -3,8 +3,6 @@ package net.minecraft.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.util.Objects;
 
 public class WorldLoader implements Convertable {
 
@@ -30,22 +28,22 @@ public class WorldLoader implements Convertable {
 
             if (file2.exists()) {
                 try {
-                    nbttagcompound = CompressedStreamTools.a(Files.newInputStream(file2.toPath()));
+                    nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
                     nbttagcompound1 = nbttagcompound.k("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception) {
-                    exception.printStackTrace(System.err);
+                    exception.printStackTrace();
                 }
             }
 
             file2 = new File(file1, "level.dat_old");
             if (file2.exists()) {
                 try {
-                    nbttagcompound = CompressedStreamTools.a(Files.newInputStream(file2.toPath()));
+                    nbttagcompound = CompressedStreamTools.a((InputStream) (new FileInputStream(file2)));
                     nbttagcompound1 = nbttagcompound.k("Data");
                     return new WorldData(nbttagcompound1);
                 } catch (Exception exception1) {
-                    exception1.printStackTrace(System.err);
+                    exception1.printStackTrace();
                 }
             }
 
@@ -54,11 +52,12 @@ public class WorldLoader implements Convertable {
     }
 
     protected static void a(File[] afile) {
-        for (File file : afile)
-        {
-            if (file.isDirectory())
-                a(Objects.requireNonNull(file.listFiles()));
-            if (!file.delete()) file.deleteOnExit();
+        for (int i = 0; i < afile.length; ++i) {
+            if (afile[i].isDirectory()) {
+                a(afile[i].listFiles());
+            }
+
+            afile[i].delete();
         }
     }
 
