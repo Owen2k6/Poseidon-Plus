@@ -11,7 +11,7 @@ public abstract class Container {
     public List e = new ArrayList();
     public int windowId = 0;
     private short a = 0;
-    protected List listeners = new ArrayList();
+    protected List<ICrafting> listeners = new ArrayList();
     private Set b = new HashSet();
 
     public Container() {}
