@@ -9,7 +9,7 @@ public final class CommandPermissions {
 
     private CommandPermissions() {}
 
-    private static Permission registerWhitelist(Permission parent) {
+    private static void registerWhitelist(Permission parent) {
         Permission whitelist = DefaultPermissions.registerPermission(PREFIX + "whitelist", "Allows the user to modify the server whitelist", PermissionDefault.OP, parent);
 
         DefaultPermissions.registerPermission(PREFIX + "whitelist.add", "Allows the user to add a player to the server whitelist", whitelist);
@@ -21,10 +21,9 @@ public final class CommandPermissions {
 
         whitelist.recalculatePermissibles();
 
-        return whitelist;
     }
 
-    private static Permission registerBan(Permission parent) {
+    private static void registerBan(Permission parent) {
         Permission ban = DefaultPermissions.registerPermission(PREFIX + "ban", "Allows the user to ban people", PermissionDefault.OP, parent);
 
         DefaultPermissions.registerPermission(PREFIX + "ban.player", "Allows the user to ban players", ban);
@@ -32,10 +31,9 @@ public final class CommandPermissions {
 
         ban.recalculatePermissibles();
 
-        return ban;
     }
 
-    private static Permission registerUnban(Permission parent) {
+    private static void registerUnban(Permission parent) {
         Permission unban = DefaultPermissions.registerPermission(PREFIX + "unban", "Allows the user to unban people", PermissionDefault.OP, parent);
 
         DefaultPermissions.registerPermission(PREFIX + "unban.player", "Allows the user to unban players", unban);
@@ -43,10 +41,9 @@ public final class CommandPermissions {
 
         unban.recalculatePermissibles();
 
-        return unban;
     }
 
-    private static Permission registerOp(Permission parent) {
+    private static void registerOp(Permission parent) {
         Permission op = DefaultPermissions.registerPermission(PREFIX + "op", "Allows the user to change operators", PermissionDefault.OP, parent);
 
         DefaultPermissions.registerPermission(PREFIX + "op.give", "Allows the user to give a player operator status", op);
@@ -54,10 +51,9 @@ public final class CommandPermissions {
 
         op.recalculatePermissibles();
 
-        return op;
     }
 
-    private static Permission registerSave(Permission parent) {
+    private static void registerSave(Permission parent) {
         Permission save = DefaultPermissions.registerPermission(PREFIX + "save", "Allows the user to save the worlds", PermissionDefault.OP, parent);
 
         DefaultPermissions.registerPermission(PREFIX + "save.enable", "Allows the user to enable automatic saving", save);
@@ -66,10 +62,9 @@ public final class CommandPermissions {
 
         save.recalculatePermissibles();
 
-        return save;
     }
 
-    private static Permission registerTime(Permission parent) {
+    private static void registerTime(Permission parent) {
         Permission time = DefaultPermissions.registerPermission(PREFIX + "time", "Allows the user to alter the time", PermissionDefault.OP, parent);
 
         DefaultPermissions.registerPermission(PREFIX + "time.add", "Allows the user to fast-forward time", time);
@@ -77,10 +72,9 @@ public final class CommandPermissions {
 
         time.recalculatePermissibles();
 
-        return time;
     }
 
-    public static Permission registerPermissions(Permission parent) {
+    public static void registerPermissions(Permission parent) {
         Permission commands = DefaultPermissions.registerPermission(ROOT, "Gives the user the ability to use all Craftbukkit commands", parent);
 
         registerWhitelist(commands);
@@ -106,6 +100,5 @@ public final class CommandPermissions {
 
         commands.recalculatePermissibles();
 
-        return commands;
     }
 }

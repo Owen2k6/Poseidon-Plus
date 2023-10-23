@@ -37,7 +37,7 @@ public class ShapedRecipe implements Recipe {
             throw new IllegalArgumentException("Crafting recipes should be 1, 2, or 3 rows.");
         }
         for (String row : shape) {
-            if (row == null || row.length() > 3 || row.length() < 1) {
+            if (row == null || row.length() > 3 || row.isEmpty()) {
                 throw new IllegalArgumentException("Crafting rows should be 1, 2, or 3 characters.");
             }
         }

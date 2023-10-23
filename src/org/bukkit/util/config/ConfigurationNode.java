@@ -66,12 +66,8 @@ public class ConfigurationNode {
     @SuppressWarnings("unchecked")
     public Object getProperty(String path) {
         if (!path.contains(".")) {
-            Object val = root.get(path);
 
-            if (val == null) {
-                return null;
-            }
-            return val;
+            return root.get(path);
         }
 
         String[] parts = path.split("\\.");
@@ -124,7 +120,7 @@ public class ConfigurationNode {
                 return;
             }
 
-            if (o == null || !(o instanceof Map)) {
+            if (!(o instanceof Map)) {
                 // This will override existing configuration data!
                 o = new HashMap<String, Object>();
                 node.put(parts[i], o);

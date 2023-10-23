@@ -103,8 +103,8 @@ public class SimplexOctaveGenerator extends OctaveGenerator {
         z *= zScale;
         w *= wScale;
 
-        for (int i = 0; i < octaves.length; i++) {
-            result += ((SimplexNoiseGenerator)octaves[i]).noise(x * freq, y * freq, z * freq, w * freq) * amp;
+        for (NoiseGenerator octave : octaves) {
+            result += ((SimplexNoiseGenerator) octave).noise(x * freq, y * freq, z * freq, w * freq) * amp;
             max += amp;
             freq *= frequency;
             amp *= amplitude;

@@ -68,7 +68,7 @@ public class SimpleServicesManager implements ServicesManager {
                     }
 
                     // Get rid of the empty list
-                    if (entry.getValue().size() == 0) {
+                    if (entry.getValue().isEmpty()) {
                         it.remove();
                     }
                 }

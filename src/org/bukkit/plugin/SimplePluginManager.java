@@ -182,16 +182,16 @@ public final class SimplePluginManager implements PluginManager {
                     itr.remove();
                 } catch (UnknownDependencyException ex) {
                     if (finalPass) {
-                        server.getLogger().log(Level.SEVERE, "Could not load '" + file.getPath() + "' in folder '" + directory.getPath() + "': " + ex.getMessage(), ex);
+                        server.getLogger().log(Level.SEVERE, "§cCould not load '" + file.getPath() + "' in folder '" + directory.getPath() + "': " + ex.getMessage(), ex);
                         itr.remove();
                     } else {
                         plugin = null;
                     }
                 } catch (InvalidPluginException ex) {
-                    server.getLogger().log(Level.SEVERE, "Could not load '" + file.getPath() + "' in folder '" + directory.getPath() + "': ", ex.getCause());
+                    server.getLogger().log(Level.SEVERE, "§cCould not load '" + file.getPath() + "' in folder '" + directory.getPath() + "': ", ex.getCause());
                     itr.remove();
                 } catch (InvalidDescriptionException ex) {
-                    server.getLogger().log(Level.SEVERE, "Could not load '" + file.getPath() + "' in folder '" + directory.getPath() + "': " + ex.getMessage(), ex);
+                    server.getLogger().log(Level.SEVERE, "§cCould not load '" + file.getPath() + "' in folder '" + directory.getPath() + "': " + ex.getMessage(), ex);
                     itr.remove();
                 }
 
@@ -241,7 +241,7 @@ public final class SimplePluginManager implements PluginManager {
 
         if (updateDirectory != null && updateDirectory.isDirectory() && (updateFile = new File(updateDirectory, file.getName())).isFile()) {
             if (FileUtil.copy(updateFile, file)) {
-                server.getLogger().info("An updated file for \"" + file.getName() + "\" has been found in the update folder. Replacing the original file.");
+                server.getLogger().info("§aAn updated file for \"" + file.getName() + "\" has been found in the update folder. Replacing the original file.");
                 updateFile.delete();
             }
         }
@@ -323,7 +323,7 @@ public final class SimplePluginManager implements PluginManager {
             try {
                 plugin.getPluginLoader().enablePlugin(plugin);
             } catch (Throwable ex) {
-                server.getLogger().log(Level.SEVERE, "Error occurred (in the plugin loader) while enabling " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
+                server.getLogger().log(Level.SEVERE, "§cError occurred (in the plugin loader) while enabling " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
             }
         }
     }
@@ -339,19 +339,19 @@ public final class SimplePluginManager implements PluginManager {
             try {
                 plugin.getPluginLoader().disablePlugin(plugin);
             } catch (Throwable ex) {
-                server.getLogger().log(Level.SEVERE, "Error occurred (in the plugin loader) while disabling " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
+                server.getLogger().log(Level.SEVERE, "§cError occurred (in the plugin loader) while disabling " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
             }
 
             try {
                 server.getScheduler().cancelTasks(plugin);
             } catch (Throwable ex) {
-                server.getLogger().log(Level.SEVERE, "Error occurred (in the plugin loader) while cancelling tasks for " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
+                server.getLogger().log(Level.SEVERE, "§cError occurred (in the plugin loader) while cancelling tasks for " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
             }
 
             try {
                 server.getServicesManager().unregisterAll(plugin);
             } catch (Throwable ex) {
-                server.getLogger().log(Level.SEVERE, "Error occurred (in the plugin loader) while unregistering services for " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
+                server.getLogger().log(Level.SEVERE, "§cError occurred (in the plugin loader) while unregistering services for " + plugin.getDescription().getFullName() + " (Is it up to date?): " + ex.getMessage(), ex);
             }
         }
     }
@@ -393,18 +393,18 @@ public final class SimplePluginManager implements PluginManager {
 
                         String author = "<NoAuthorGiven>";
 
-                        if (plugin.getDescription().getAuthors().size() > 0) {
+                        if (!plugin.getDescription().getAuthors().isEmpty()) {
                             author = plugin.getDescription().getAuthors().get(0);
                         }
                         server.getLogger().log(Level.SEVERE, String.format(
-                                "Nag author: '%s' of '%s' about the following: %s",
+                                "§cNag author: '%s' of '%s' about the following: %s",
                                 author,
                                 plugin.getDescription().getName(),
                                 ex.getMessage()
                         ));
                     }
                 } catch (Throwable ex) {
-                    server.getLogger().log(Level.SEVERE, "Could not pass event " + event.getType() + " to " + registration.getPlugin().getDescription().getName(), ex);
+                    server.getLogger().log(Level.SEVERE, "§cCould not pass event " + event.getType() + " to " + registration.getPlugin().getDescription().getName(), ex);
                 }
             }
         }
@@ -421,18 +421,18 @@ public final class SimplePluginManager implements PluginManager {
 
                         String author = "<NoAuthorGiven>";
 
-                        if (plugin.getDescription().getAuthors().size() > 0) {
+                        if (!plugin.getDescription().getAuthors().isEmpty()) {
                             author = plugin.getDescription().getAuthors().get(0);
                         }
                         server.getLogger().log(Level.SEVERE, String.format(
-                            "Nag author: '%s' of '%s' about the following: %s",
+                            "§cNag author: '%s' of '%s' about the following: %s",
                             author,
                             plugin.getDescription().getName(),
                             ex.getMessage()
                         ));
                     }
                 } catch (Throwable ex) {
-                    server.getLogger().log(Level.SEVERE, "Could not pass event " + event.getType() + " to " + registration.getPlugin().getDescription().getName(), ex);
+                    server.getLogger().log(Level.SEVERE, "§cCould not pass event " + event.getType() + " to " + registration.getPlugin().getDescription().getName(), ex);
                 }
             }
         }
@@ -448,7 +448,7 @@ public final class SimplePluginManager implements PluginManager {
      */
     public void registerEvent(Event.Type type, Listener listener, Priority priority, Plugin plugin) {
         if (!plugin.isEnabled()) {
-            throw new IllegalPluginAccessException("Plugin attempted to register " + type + " while not enabled");
+            throw new IllegalPluginAccessException("§cPlugin attempted to register " + type + " while not enabled");
         }
 
         getEventListeners(type).add(new RegisteredListener(listener, priority, plugin, type));
@@ -465,7 +465,7 @@ public final class SimplePluginManager implements PluginManager {
      */
     public void registerEvent(Event.Type type, Listener listener, EventExecutor executor, Priority priority, Plugin plugin) {
         if (!plugin.isEnabled()) {
-            throw new IllegalPluginAccessException("Plugin attempted to register " + type + " while not enabled");
+            throw new IllegalPluginAccessException("§cPlugin attempted to register " + type + " while not enabled");
         }
 
         getEventListeners(type).add(new RegisteredListener(listener, executor, priority, plugin));
@@ -509,7 +509,7 @@ public final class SimplePluginManager implements PluginManager {
         String name = perm.getName().toLowerCase();
 
         if (permissions.containsKey(name)) {
-            throw new IllegalArgumentException("The permission " + name + " is already defined!");
+            throw new IllegalArgumentException("§cThe permission " + name + " is already defined!");
         }
 
         permissions.put(name, perm);

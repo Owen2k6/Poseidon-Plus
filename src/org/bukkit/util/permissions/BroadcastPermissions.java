@@ -9,7 +9,7 @@ public final class BroadcastPermissions {
 
     private BroadcastPermissions() {}
 
-    public static Permission registerPermissions(Permission parent) {
+    public static void registerPermissions(Permission parent) {
         Permission broadcasts = DefaultPermissions.registerPermission(ROOT, "Allows the user to receive all broadcast messages", parent);
 
         DefaultPermissions.registerPermission(PREFIX + "admin", "Allows the user to receive administrative broadcasts", PermissionDefault.OP, broadcasts);
@@ -17,6 +17,5 @@ public final class BroadcastPermissions {
 
         broadcasts.recalculatePermissibles();
 
-        return broadcasts;
     }
 }

@@ -93,7 +93,7 @@ public class MaterialData {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj != null && obj instanceof MaterialData) {
+        if (obj instanceof MaterialData) {
             MaterialData md = (MaterialData) obj;
 
             return (md.getItemTypeId() == getItemTypeId() && md.getData() == getData());

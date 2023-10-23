@@ -152,7 +152,7 @@ public interface World {
 
     /**
      * Loads the {@link Chunk} at the specified coordinates
-     *
+     * <p>
      * If the chunk does not exist, it will be generated.
      * This method is analogous to {@link #loadChunk(int, int, boolean)} where generate is true.
      *
@@ -173,7 +173,7 @@ public interface World {
 
     /**
      * Safely unloads and saves the {@link Chunk} at the specified coordinates
-     *
+     * <p>
      * This method is analogous to {@link #unloadChunk(int, int, boolean, boolean)} where safe and saveis true
      *
      * @param chunk the chunk to unload
@@ -183,7 +183,7 @@ public interface World {
 
     /**
      * Safely unloads and saves the {@link Chunk} at the specified coordinates
-     *
+     * <p>
      * This method is analogous to {@link #unloadChunk(int, int, boolean, boolean)} where safe and saveis true
      *
      * @param x X-coordinate of the chunk
@@ -194,7 +194,7 @@ public interface World {
 
     /**
      * Safely unloads and optionally saves the {@link Chunk} at the specified coordinates
-     *
+     * <p>
      * This method is analogous to {@link #unloadChunk(int, int, boolean, boolean)} where save is true
      *
      * @param x X-coordinate of the chunk
@@ -217,7 +217,7 @@ public interface World {
 
     /**
      * Safely queues the {@link Chunk} at the specified coordinates for unloading
-     *
+     * <p>
      * This method is analogous to {@link #unloadChunkRequest(int, int, boolean)} where safe is true
      *
      * @param x X-coordinate of the chunk
@@ -250,9 +250,8 @@ public interface World {
      *
      * @param x X-coordinate of the chunk
      * @param z Z-coordinate of the chunk
-     * @return Whether the chunk was actually refreshed
      */
-    public boolean refreshChunk(int x, int z);
+    public void refreshChunk(int x, int z);
 
     /**
      * Drops an item at the specified {@link Location}
@@ -267,10 +266,9 @@ public interface World {
      * Drops an item at the specified {@link Location} with a random offset
      *
      * @param location Location to drop the item
-     * @param item ItemStack to drop
-     * @return ItemDrop entity created as a result of this method
+     * @param item     ItemStack to drop
      */
-    public Item dropItemNaturally(Location location, ItemStack item);
+    public void dropItemNaturally(Location location, ItemStack item);
 
     /**
      * Creates an {@link Arrow} entity at the given {@link Location}
@@ -315,7 +313,6 @@ public interface World {
      * Strikes lightning at the given {@link Location}
      *
      * @param loc The location to strike lightning
-     * @return
      */
     public LightningStrike strikeLightning(Location loc);
 
@@ -323,7 +320,6 @@ public interface World {
      * Strikes lightning at the given {@link Location} without doing damage
      *
      * @param loc The location to strike lightning
-     * @return
      */
     public LightningStrike strikeLightningEffect(Location loc);
 
@@ -528,7 +524,6 @@ public interface World {
      * Creates explosion at given coordinates with given power and optionally setting
      * blocks on fire.
      *
-     * @param loc
      * @param power The power of explosion, where 4F is TNT
      * @param setFire Whether or not to set blocks on fire
      * @return false if explosion was canceled, otherwise true
@@ -551,7 +546,6 @@ public interface World {
 
     /**
      * Gets the current PVP setting for this world.
-     * @return
      */
     public boolean getPVP();
 

@@ -53,7 +53,7 @@ public final class CraftServer implements Server {
     private final String serverName = "Poseidon Plus Craftbukkit";
     //Poseidon Versions
     private final String serverEnvironment = "POSEIDON";
-    private final String serverVersion = "1.2";
+    private final String serverVersion = "1.2 DEV";
     private final String releaseType = "RELEASE";
     private final String protocolVersion = "1.7.3";
     private final String GameVersion = "b1.7.3";
@@ -61,8 +61,8 @@ public final class CraftServer implements Server {
     private final BukkitScheduler scheduler = new CraftScheduler(this);
     private final SimpleCommandMap commandMap = new SimpleCommandMap(this);
     private final PluginManager pluginManager = new SimplePluginManager(this, commandMap);
-    protected final MinecraftServer console;
-    protected final ServerConfigurationManager server;
+    private final MinecraftServer console;
+    private final ServerConfigurationManager server;
     private final Map<String, World> worlds = new LinkedHashMap<String, World>();
     private final Configuration configuration;
     private final Yaml yaml = new Yaml(new SafeConstructor());
@@ -264,7 +264,7 @@ public final class CraftServer implements Server {
                 matchedPlayers.add(iterPlayer);
                 break;
             }
-            if (iterPlayerName.toLowerCase().indexOf(partialName.toLowerCase()) != -1) {
+            if (iterPlayerName.toLowerCase().contains(partialName.toLowerCase())) {
                 // Partial match
                 matchedPlayers.add(iterPlayer);
             }
@@ -348,8 +348,8 @@ public final class CraftServer implements Server {
 
 
     // NOTE: Should only be called from MinecraftServer.b()
-    public boolean dispatchCommand(CommandSender sender, ServerCommand serverCommand) {
-        return dispatchCommand(sender, serverCommand.command);
+    public void dispatchCommand(CommandSender sender, ServerCommand serverCommand) {
+        dispatchCommand(sender, serverCommand.command);
     }
 
     public boolean dispatchCommand(CommandSender sender, String commandLine) {
@@ -390,7 +390,7 @@ public final class CraftServer implements Server {
         while (pollCount < 50 && getScheduler().getActiveWorkers().size() > 0) {
             try {
                 Thread.sleep(50);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
             pollCount++;
         }
@@ -441,7 +441,7 @@ public final class CraftServer implements Server {
         } finally {
             try {
                 stream.close();
-            } catch (IOException ex) {
+            } catch (IOException ignored) {
             }
         }
 
@@ -573,7 +573,7 @@ public final class CraftServer implements Server {
             return false;
         }
 
-        if (handle.players.size() > 0) {
+        if (!handle.players.isEmpty()) {
             return false;
         }
 
@@ -591,7 +591,7 @@ public final class CraftServer implements Server {
         }
 
         worlds.remove(world.getName().toLowerCase());
-        console.worlds.remove(console.worlds.indexOf(handle));
+        console.worlds.remove(handle);
 
         return true;
     }

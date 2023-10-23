@@ -14,7 +14,7 @@ public final class ChunkCompressionThread implements Runnable {
     private static final ChunkCompressionThread instance = new ChunkCompressionThread();
     private static boolean isRunning = false;
 
-    private final int QUEUE_CAPACITY = 1024 * 10;
+    private final int QUEUE_CAPACITY = 1024 * 100;
     private final HashMap<EntityPlayer, Integer> queueSizePerPlayer = new HashMap<EntityPlayer, Integer>();
     private final BlockingQueue<QueuedPacket> packetQueue = new LinkedBlockingQueue<QueuedPacket>(QUEUE_CAPACITY);
 
@@ -37,7 +37,7 @@ public final class ChunkCompressionThread implements Runnable {
         while (true) {
             try {
                 handleQueuedPacket(packetQueue.take());
-            } catch (InterruptedException ie) {
+            } catch (InterruptedException ignored) {
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -121,7 +121,7 @@ public final class ChunkCompressionThread implements Runnable {
             try {
                 packetQueue.put(task);
                 return;
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
         }
     }

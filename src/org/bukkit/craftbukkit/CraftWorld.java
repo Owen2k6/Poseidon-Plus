@@ -1,6 +1,5 @@
 package org.bukkit.craftbukkit;
 
-import com.google.common.collect.MapMaker;
 import net.minecraft.server.*;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
 
 public class CraftWorld implements World {
     private final WorldServer world;
@@ -178,9 +176,9 @@ public class CraftWorld implements World {
         return chunk != null;
     }
 
-    public boolean refreshChunk(int x, int z) {
+    public void refreshChunk(int x, int z) {
         if (!isChunkLoaded(x, z)) {
-            return false;
+            return;
         }
 
         int px = x << 4;
@@ -196,7 +194,6 @@ public class CraftWorld implements World {
         }
         world.notify(px, 127, pz + 15);
 
-        return true;
     }
 
 
@@ -290,7 +287,7 @@ public class CraftWorld implements World {
         return new CraftItem(world.getServer(), entity);
     }
 
-    public org.bukkit.entity.Item dropItemNaturally(Location loc, ItemStack item) {
+    public void dropItemNaturally(Location loc, ItemStack item) {
         double xs = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double ys = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double zs = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
@@ -298,7 +295,7 @@ public class CraftWorld implements World {
         loc.setX(loc.getX() + xs);
         loc.setY(loc.getY() + ys);
         loc.setZ(loc.getZ() + zs);
-        return dropItem(loc, item);
+        dropItem(loc, item);
     }
 
     public Arrow spawnArrow(Location loc, Vector velocity, float speed, float spread) {

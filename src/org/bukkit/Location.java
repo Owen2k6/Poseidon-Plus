@@ -3,6 +3,8 @@ package org.bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import java.util.Objects;
+
 /**
  * Represents a 3-dimensional position in a world
  */
@@ -384,7 +386,7 @@ public class Location implements Cloneable {
         }
         final Location other = (Location) obj;
 
-        if (this.world != other.world && (this.world == null || !this.world.equals(other.world))) {
+        if (!Objects.equals(this.world, other.world)) {
             return false;
         }
         if (Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x)) {
@@ -399,10 +401,7 @@ public class Location implements Cloneable {
         if (Float.floatToIntBits(this.pitch) != Float.floatToIntBits(other.pitch)) {
             return false;
         }
-        if (Float.floatToIntBits(this.yaw) != Float.floatToIntBits(other.yaw)) {
-            return false;
-        }
-        return true;
+        return Float.floatToIntBits(this.yaw) == Float.floatToIntBits(other.yaw);
     }
 
     @Override

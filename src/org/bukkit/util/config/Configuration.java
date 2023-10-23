@@ -10,6 +10,7 @@ import org.yaml.snakeyaml.representer.Represent;
 import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,21 +68,13 @@ public class Configuration extends ConfigurationNode {
      * Loads the configuration file. All errors are thrown away.
      */
     public void load() {
-        FileInputStream stream = null;
 
-        try {
-            stream = new FileInputStream(file);
+        try (FileInputStream stream = new FileInputStream(file)) {
             read(yaml.load(new UnicodeReader(stream)));
         } catch (IOException e) {
             root = new HashMap<String, Object>();
         } catch (ConfigurationException e) {
             root = new HashMap<String, Object>();
-        } finally {
-            try {
-                if (stream != null) {
-                    stream.close();
-                }
-            } catch (IOException e) {}
         }
     }
 
@@ -142,19 +135,19 @@ public class Configuration extends ConfigurationNode {
 
         try {
             stream = new FileOutputStream(file);
-            OutputStreamWriter writer = new OutputStreamWriter(stream, "UTF-8");
+            OutputStreamWriter writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);
             if (header != null) {
                 writer.append(header);
                 writer.append("\r\n");
             }
             yaml.dump(root, writer);
             return true;
-        } catch (IOException e) {} finally {
+        } catch (IOException ignored) {} finally {
             try {
                 if (stream != null) {
                     stream.close();
                 }
-            } catch (IOException e) {}
+            } catch (IOException ignored) {}
         }
 
         return false;

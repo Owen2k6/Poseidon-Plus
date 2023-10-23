@@ -24,7 +24,7 @@ public class LoggerOutputStream extends ByteArrayOutputStream {
             String record = this.toString();
             super.reset();
 
-            if ((record.length() > 0) && (!record.equals(separator))) {
+            if ((!record.isEmpty()) && (!record.equals(separator))) {
                 logger.logp(level, "", "", record);
             }
         }
