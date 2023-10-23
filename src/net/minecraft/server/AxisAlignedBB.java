@@ -118,9 +118,13 @@ public class AxisAlignedBB {
                     }
                 }
 
+                return d0;
+            } else {
+                return d0;
             }
+        } else {
+            return d0;
         }
-        return d0;
     }
 
     public double b(AxisAlignedBB axisalignedbb, double d0) {
@@ -246,11 +250,7 @@ public class AxisAlignedBB {
 
         Vec3D vec3d8 = null;
 
-        if (vec3d2 != null) {
-            if (vec3d8 != null) {
-                vec3d.b(vec3d2);
-                vec3d.b(vec3d8);
-            }
+        if (vec3d2 != null && (vec3d8 == null || vec3d.b(vec3d2) < vec3d.b(vec3d8))) {
             vec3d8 = vec3d2;
         }
 

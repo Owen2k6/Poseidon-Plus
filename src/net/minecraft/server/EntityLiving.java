@@ -665,11 +665,11 @@ public abstract class EntityLiving extends Entity {
             this.c(this.yaw, this.pitch);
             List list = this.world.getEntities(this, this.boundingBox.shrink(0.03125D, 0.0D, 0.03125D));
 
-            if (!list.isEmpty()) {
+            if (list.size() > 0) {
                 double d4 = 0.0D;
 
-                for (Object o : list) {
-                    AxisAlignedBB axisalignedbb = (AxisAlignedBB) o;
+                for (int i = 0; i < list.size(); ++i) {
+                    AxisAlignedBB axisalignedbb = (AxisAlignedBB) list.get(i);
 
                     if (axisalignedbb.e > d4) {
                         d4 = axisalignedbb.e;
@@ -709,9 +709,9 @@ public abstract class EntityLiving extends Entity {
         this.a(this.az, this.aA);
         List list1 = this.world.b((Entity) this, this.boundingBox.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
-        if (list1 != null && !list1.isEmpty()) {
-            for (Object o : list1) {
-                Entity entity = (Entity) o;
+        if (list1 != null && list1.size() > 0) {
+            for (int j = 0; j < list1.size(); ++j) {
+                Entity entity = (Entity) list1.get(j);
 
                 if (entity.d_()) {
                     entity.collide(this);
