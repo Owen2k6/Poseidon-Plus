@@ -814,7 +814,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 s = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
                 minecraftServer.console.sendMessage(s);
                 for (Player recipient : event.getRecipients()) {
-                    recipient.sendMessage(s);
+                    ((CraftPlayer)recipient).sendMessage(s);
                 }
             }
         }

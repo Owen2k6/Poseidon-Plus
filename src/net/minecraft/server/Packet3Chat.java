@@ -17,6 +17,7 @@ public class Packet3Chat extends Packet {
         }
         // CraftBukkit end */
 
+        k = true; // high priority packet
         this.message = s;
     }
 

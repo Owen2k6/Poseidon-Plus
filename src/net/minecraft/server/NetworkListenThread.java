@@ -12,8 +12,8 @@ public class NetworkListenThread {
     public static Logger a = Logger.getLogger("Minecraft");
     private ServerSocket d;
     private Thread e;
-    public volatile boolean b = false;
-    private int f = 0;
+    public volatile boolean b = false; // i assume this is the "connected" or "running" flag
+    public int f = 0; // i believe this is the #/count of network listen threads
     private ArrayList g = new ArrayList();
     private ArrayList h = new ArrayList();
     public MinecraftServer c;
@@ -31,7 +31,7 @@ public class NetworkListenThread {
         this.h.add(netserverhandler);
     }
 
-    private void a(NetLoginHandler netloginhandler) {
+    public void a(NetLoginHandler netloginhandler) {
         if (netloginhandler == null) {
             throw new IllegalArgumentException("Got null pendingconnection!");
         } else {
@@ -83,10 +83,20 @@ public class NetworkListenThread {
         }
     }
 
+    public ServerSocket getServerSocket()
+    {
+        return d;
+    }
+
     static ServerSocket a(NetworkListenThread networklistenthread) {
         return networklistenthread.d;
     }
 
+    /**
+     * i believe this function increases the count/# of network listen threads, but it does it statically for no good reason as far as i can tell
+     * @param networklistenthread
+     * @return
+     */
     static int b(NetworkListenThread networklistenthread) {
         return networklistenthread.f++;
     }
