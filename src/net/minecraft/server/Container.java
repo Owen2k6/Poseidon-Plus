@@ -7,12 +7,12 @@ import java.util.Set;
 
 public abstract class Container {
 
-    public final List<ItemStack> d = new ArrayList<>();
-    public final List<Slot> e = new ArrayList<>();
+    public List d = new ArrayList();
+    public List e = new ArrayList();
     public int windowId = 0;
-    private final short a = 0;
-    protected final List<ICrafting> listeners = new ArrayList<>();
-    private final Set<EntityHuman> b = new HashSet<>();
+    private short a = 0;
+    protected List listeners = new ArrayList();
+    private Set b = new HashSet();
 
     public Container() {}
 
@@ -32,40 +32,50 @@ public abstract class Container {
         }
     }
 
-    public List<ItemStack> b() {
-        ArrayList<ItemStack> arraylist = new ArrayList<>();
+    public List b() {
+        ArrayList arraylist = new ArrayList();
 
-        for (Slot slot : this.e)
-            arraylist.add(slot.getItem());
+        for (int i = 0; i < this.e.size(); ++i) {
+            arraylist.add(((Slot) this.e.get(i)).getItem());
+        }
 
         return arraylist;
     }
 
     public void a() {
         for (int i = 0; i < this.e.size(); ++i) {
-            ItemStack itemstack = this.e.get(i).getItem();
-            ItemStack itemstack1 = this.d.get(i);
+            ItemStack itemstack = ((Slot) this.e.get(i)).getItem();
+            ItemStack itemstack1 = (ItemStack) this.d.get(i);
 
             if (!ItemStack.equals(itemstack1, itemstack)) {
                 itemstack1 = itemstack == null ? null : itemstack.cloneItemStack();
                 this.d.set(i, itemstack1);
 
-                for (ICrafting listener : this.listeners) listener.a(this, i, itemstack1);
+                for (int j = 0; j < this.listeners.size(); ++j) {
+                    ((ICrafting) this.listeners.get(j)).a(this, i, itemstack1);
+                }
             }
         }
     }
 
     public Slot a(IInventory iinventory, int i) {
-        for (Slot slot : this.e) if (slot.a(iinventory, i)) return slot;
+        for (int j = 0; j < this.e.size(); ++j) {
+            Slot slot = (Slot) this.e.get(j);
+
+            if (slot.a(iinventory, i)) {
+                return slot;
+            }
+        }
+
         return null;
     }
 
     public Slot b(int i) {
-        return this.e.get(i);
+        return (Slot) this.e.get(i);
     }
 
     public ItemStack a(int i) {
-        Slot slot = this.e.get(i);
+        Slot slot = (Slot) this.e.get(i);
 
         return slot != null ? slot.getItem() : null;
     }
@@ -77,7 +87,7 @@ public abstract class Container {
             InventoryPlayer inventoryplayer = entityhuman.inventory;
 
             if (i == -999) {
-                if (inventoryplayer.j() != null) {
+                if (inventoryplayer.j() != null && i == -999) {
                     if (j == 0) {
                         entityhuman.b(inventoryplayer.j());
                         inventoryplayer.b((ItemStack) null);
@@ -139,7 +149,7 @@ public abstract class Container {
 
                             inventoryplayer.b(itemstack4);
                             if (itemstack2.count == 0) {
-                                slot1.c(null);
+                                slot1.c((ItemStack) null);
                             }
 
                             slot1.a(inventoryplayer.j());
@@ -170,7 +180,7 @@ public abstract class Container {
                                 itemstack3.count += k;
                                 itemstack2.a(k);
                                 if (itemstack2.count == 0) {
-                                    slot1.c(null);
+                                    slot1.c((ItemStack) null);
                                 }
 
                                 slot1.a(inventoryplayer.j());
@@ -255,7 +265,7 @@ public abstract class Container {
             }
 
             while (!flag && k < j || flag && k >= i) {
-                slot = this.e.get(k);
+                slot = (Slot) this.e.get(k);
                 itemstack1 = slot.getItem();
                 if (itemstack1 == null) {
                     slot.c(itemstack.cloneItemStack());
