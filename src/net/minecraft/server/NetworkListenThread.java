@@ -27,10 +27,18 @@ public class NetworkListenThread {
         this.e.start();
     }
 
+    /**
+     * add server handler
+     * @param netserverhandler
+     */
     public void a(NetServerHandler netserverhandler) {
         this.h.add(netserverhandler);
     }
 
+    /**
+     * add login handler
+     * @param netloginhandler
+     */
     public void a(NetLoginHandler netloginhandler) {
         if (netloginhandler == null) {
             throw new IllegalArgumentException("Got null pendingconnection!");
