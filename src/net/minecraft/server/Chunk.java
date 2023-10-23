@@ -7,7 +7,7 @@ public class Chunk {
     public static boolean a;
     public byte[] b;
     public boolean c;
-    public final World world;
+    public World world;
     public NibbleArray e;
     public NibbleArray f;
     public NibbleArray g;
@@ -15,8 +15,8 @@ public class Chunk {
     public int i;
     public final int x;
     public final int z;
-    public final Map<ChunkPosition, TileEntity> tileEntities;
-    public final List<Entity>[] entitySlices;
+    public Map<ChunkPosition, TileEntity> tileEntities;
+    public List<Entity>[] entitySlices;
     public boolean done;
     public boolean o;
     public boolean p;
@@ -75,11 +75,11 @@ public class Chunk {
             for (k = 0; k < 16; ++k) {
                 int l = 127;
 
-                int i1 = 0;
+                int i1;
 
-                /*for (i1 = j << 11 | k << 7; l > 0 && Block.q[this.b[i1 + l - 1] & 255] == 0; --l) {
+                for (i1 = j << 11 | k << 7; l > 0 && Block.q[this.b[i1 + l - 1] & 255] == 0; --l) {
                     ;
-                }*/
+                }
 
                 this.heightMap[k << 4 | j] = (byte) l;
 
@@ -137,12 +137,15 @@ public class Chunk {
 
     private void g(int i, int j, int k) {
         int l = this.heightMap[k << 4 | i] & 255;
+        int i1 = l;
 
-        int i1 = Math.max(j, l);
+        if (j > l) {
+            i1 = j;
+        }
 
-        /*for (int j1 = i << 11 | k << 7; i1 > 0 && Block.q[this.b[j1 + i1 - 1] & 255] == 0; --i1) {
+        for (int j1 = i << 11 | k << 7; i1 > 0 && Block.q[this.b[j1 + i1 - 1] & 255] == 0; --i1) {
             ;
-        }*/
+        }
 
         if (i1 != l) {
             this.world.g(i, k, i1, l);
@@ -339,7 +342,7 @@ public class Chunk {
             System.out.println("Wrong location! " + entity);
             // Thread.dumpStack(); // CraftBukkit
             // CraftBukkit
-            System.out.println(entity.locX + "," + entity.locZ + "(" + i + "," + j + ") vs " + this.x + "," + this.z);
+            System.out.println("" + entity.locX + "," + entity.locZ + "(" + i + "," + j + ") vs " + this.x + "," + this.z);
         }
 
         int k = MathHelper.floor(entity.locY / 16.0D);
@@ -381,7 +384,7 @@ public class Chunk {
 
     public TileEntity d(int i, int j, int k) {
         ChunkPosition chunkposition = new ChunkPosition(i, j, k);
-        TileEntity tileentity = this.tileEntities.get(chunkposition);
+        TileEntity tileentity = (TileEntity) this.tileEntities.get(chunkposition);
 
         if (tileentity == null) {
             int l = this.getTypeId(i, j, k);
@@ -393,7 +396,7 @@ public class Chunk {
             BlockContainer blockcontainer = (BlockContainer) Block.byId[l];
 
             blockcontainer.c(this.world, this.x * 16 + i, j, this.z * 16 + k);
-            tileentity = this.tileEntities.get(chunkposition);
+            tileentity = (TileEntity) this.tileEntities.get(chunkposition);
         }
 
         if (tileentity != null && tileentity.g()) {
@@ -438,7 +441,7 @@ public class Chunk {
         ChunkPosition chunkposition = new ChunkPosition(i, j, k);
 
         if (this.c) {
-            TileEntity tileentity = this.tileEntities.remove(chunkposition);
+            TileEntity tileentity = (TileEntity) this.tileEntities.remove(chunkposition);
 
             if (tileentity != null) {
                 tileentity.h();
@@ -450,34 +453,38 @@ public class Chunk {
         this.c = true;
         this.world.a(this.tileEntities.values());
 
-        for (List<Entity> entitySlice : this.entitySlices)
-            this.world.a(entitySlice);
+        for (int i = 0; i < this.entitySlices.length; ++i) {
+            this.world.a(this.entitySlices[i]);
+        }
     }
 
     public void removeEntities() {
         this.c = false;
+        Iterator iterator = this.tileEntities.values().iterator();
 
-        for (TileEntity tileentity : this.tileEntities.values())
+        while (iterator.hasNext()) {
+            TileEntity tileentity = (TileEntity) iterator.next();
+
             world.markForRemoval(tileentity); // Craftbukkit
+        }
 
-        for (List<Entity> entitySlice : this.entitySlices)
-        {
+        for (int i = 0; i < this.entitySlices.length; ++i) {
             // CraftBukkit start
-            Iterator<Entity> entIterator = entitySlice.iterator();
-            while (entIterator.hasNext())
-            {
-                Entity entity = entIterator.next();
+            java.util.Iterator<Entity> iter = this.entitySlices[i].iterator();
+            while (iter.hasNext()) {
+                Entity entity = iter.next();
                 int cx = org.bukkit.Location.locToBlock(entity.locX) >> 4;
                 int cz = org.bukkit.Location.locToBlock(entity.locZ) >> 4;
 
                 // Do not pass along players, as doing so can get them stuck outside of time.
                 // (which for example disables inventory icon updates and prevents block breaking)
-                if (entity instanceof EntityPlayer && (cx != this.x || cz != this.z))
-                    entIterator.remove();
+                if (entity instanceof EntityPlayer && (cx != this.x || cz != this.z)) {
+                    iter.remove();
+                }
             }
             // CraftBukkit end
 
-            this.world.b(entitySlice);
+            this.world.b(this.entitySlices[i]);
         }
     }
 
@@ -485,7 +492,7 @@ public class Chunk {
         this.o = true;
     }
 
-    public void a(Entity entity, AxisAlignedBB axisalignedbb, List<Entity> list) {
+    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {
         int i = MathHelper.floor((axisalignedbb.b - 2.0D) / 16.0D);
         int j = MathHelper.floor((axisalignedbb.e + 2.0D) / 16.0D);
 
@@ -498,17 +505,19 @@ public class Chunk {
         }
 
         for (int k = i; k <= j; ++k) {
-            List<Entity> list1 = this.entitySlices[k];
+            List list1 = this.entitySlices[k];
 
-            for (Entity entity1 : list1)
-            {
-                if (entity1 != entity && entity1.boundingBox.a(axisalignedbb))
+            for (int l = 0; l < list1.size(); ++l) {
+                Entity entity1 = (Entity) list1.get(l);
+
+                if (entity1 != entity && entity1.boundingBox.a(axisalignedbb)) {
                     list.add(entity1);
+                }
             }
         }
     }
 
-    public void a(Class<? extends Entity> oclass, AxisAlignedBB axisalignedbb, List<Entity> list) {
+    public void a(Class oclass, AxisAlignedBB axisalignedbb, List list) {
         int i = MathHelper.floor((axisalignedbb.b - 2.0D) / 16.0D);
         int j = MathHelper.floor((axisalignedbb.e + 2.0D) / 16.0D);
 
@@ -521,12 +530,14 @@ public class Chunk {
         }
 
         for (int k = i; k <= j; ++k) {
-            List<Entity> list1 = this.entitySlices[k];
+            List list1 = this.entitySlices[k];
 
-            for (Entity value : list1)
-            {
-                if (oclass.isAssignableFrom(value.getClass()) && value.boundingBox.a(axisalignedbb))
-                    list.add(value);
+            for (int l = 0; l < list1.size(); ++l) {
+                Entity entity = (Entity) list1.get(l);
+
+                if (oclass.isAssignableFrom(entity.getClass()) && entity.boundingBox.a(axisalignedbb)) {
+                    list.add(entity);
+                }
             }
         }
     }
@@ -561,6 +572,7 @@ public class Chunk {
             k1 += this.g.a.length;
             System.arraycopy(this.f.a, 0, abyte, k1, this.f.a.length);
             k1 += this.f.a.length;
+            return k1;
         } else {
             int k2;
             int l2;
@@ -603,12 +615,12 @@ public class Chunk {
                 }
             }
 
+            return k1;
         }
-        return k1;
     }
 
     public Random a(long i) {
-        return new Random(this.world.getSeed() + ((long) this.x * this.x * 4987142) + (this.x * 5947611L) + (long) this.z * this.z * 4392871L + (this.z * 389711L) ^ i);
+        return new Random(this.world.getSeed() + (long) (this.x * this.x * 4987142) + (long) (this.x * 5947611) + (long) (this.z * this.z) * 4392871L + (long) (this.z * 389711) ^ i);
     }
 
     public boolean isEmpty() {
