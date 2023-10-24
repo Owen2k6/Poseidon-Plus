@@ -23,8 +23,8 @@ public class NetworkListenThread {
         this.d = new ServerSocket(i, 0, inetaddress);
         this.d.setPerformancePreferences(0, 2, 1);
         this.b = true;
-//        this.e = new NetworkAcceptThread(this, "Listen thread", minecraftserver);
-        //this.e.start();
+        this.e = new NetworkAcceptThread(this, "Listen thread", minecraftserver);
+        this.e.start();
     }
 
     /**

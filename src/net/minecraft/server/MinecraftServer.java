@@ -1,7 +1,6 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
-import com.oldschoolminecraft.net.ReduxListenThread;
 import com.projectposeidon.johnymuffin.UUIDManager;
 import com.legacyminecraft.poseidon.watchdog.WatchDogThread;
 import jline.ConsoleReader;
@@ -37,7 +36,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public static Logger log = Logger.getLogger("Minecraft");
     public static HashMap trackerList = new HashMap();
     public NetworkListenThread networkListenThread;
-    public ReduxListenThread reduxListenThread;
     public PropertyManager propertyManager;
     // public WorldServer[] worldServer; // CraftBukkit - removed!
     public ServerConfigurationManager serverConfigurationManager;
@@ -138,8 +136,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         log.info("Starting Minecraft server on " + (s.isEmpty() ? "*" : s) + ":" + i);
 
         try {
-            reduxListenThread = new ReduxListenThread(this, inetaddress, i); // Poseidon Plus
-            //this.networkListenThread = new NetworkListenThread(this, inetaddress, i);
+            this.networkListenThread = new NetworkListenThread(this, inetaddress, i);
         } catch (Throwable ioexception) { // CraftBukkit - IOException -> Throwable
             log.warning("**** FAILED TO BIND TO PORT!");
             log.log(Level.WARNING, "The exception was: " + ioexception.toString());
@@ -194,9 +191,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         log.info("[Poseidon] Finished loading Project Poseidon Modules!");
         //Project Poseidon End
-
-        // Poseidon Plus
-        reduxListenThread.start();
 
         // CraftBukkit start
         long elapsed = System.nanoTime() - j;
@@ -523,8 +517,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         }
         // } // CraftBukkit
 
-
-        //this.networkListenThread.a(); Poseidon Plus
+        this.networkListenThread.a();
         this.serverConfigurationManager.b();
 
         // CraftBukkit start

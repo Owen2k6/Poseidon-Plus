@@ -3,36 +3,25 @@ package com.oldschoolminecraft.net;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.NetLoginHandler;
 import net.minecraft.server.NetServerHandler;
-import net.minecraft.server.NetworkAcceptThread;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SocketHandler;
 
-public class ReduxListenThread extends Thread
+public class SocketHandlerThread extends Thread
 {
     private static Logger log = Logger.getLogger("Minecraft");
+    private Socket socket;
     private final ArrayList<NetLoginHandler> loginHandlers = new ArrayList<>();
     private final ArrayList<NetServerHandler> serverHandlers = new ArrayList<>();
     private MinecraftServer minecraftServer;
-    private ServerSocket serverSocket;
-    private Thread networkAcceptThread;
-    public volatile boolean running;
-    public int connectionThreadCount = 0;
 
-    public ReduxListenThread(MinecraftServer minecraftServer, InetAddress address, int port) throws IOException
+    public SocketHandlerThread(MinecraftServer minecraftServer, Socket socket)
     {
         this.minecraftServer = minecraftServer;
-        this.serverSocket = new ServerSocket(port, 0, address);
-        this.running = true;
-        this.networkAcceptThread = new NetworkAcceptThread(this, "Listen thread", minecraftServer);
-        this.networkAcceptThread.start();
-
-        log.warning("ReduxListenThread created and initialized!");
+        this.socket = socket;
     }
 
     public void registerLoginHandler(NetLoginHandler loginHandler)
@@ -44,15 +33,12 @@ public class ReduxListenThread extends Thread
     public void registerServerHandler(NetServerHandler serverHandler)
     {
         serverHandlers.add(serverHandler);
-        log.info("Registered server handler");
     }
 
     public void run()
     {
         while (MinecraftServer.isRunning(minecraftServer))
         {
-            int processedCount = 0;
-
             for (int i = 0; i < loginHandlers.size(); i++)
             {
                 NetLoginHandler loginHandler = this.loginHandlers.get(i);
@@ -75,11 +61,7 @@ public class ReduxListenThread extends Thread
                     this.loginHandlers.remove(i--);
 
                 loginHandler.networkManager.a();
-                processedCount++;
             }
-
-            //if (processedCount > 0) log.info("Listen thread processed " + processedCount + " login handlers.");
-            processedCount = 0;
 
             for (int i = 0; i < serverHandlers.size(); i++)
             {
@@ -97,20 +79,12 @@ public class ReduxListenThread extends Thread
                     this.serverHandlers.remove(i--);
 
                 serverHandler.networkManager.a();
-                processedCount++;
             }
-
-            //if (processedCount > 0) log.info("Listen thread processed " + processedCount + " login handlers.");
-
-            try
-            {
-                Thread.sleep(10L);
-            } catch (Exception ignored) {}
         }
     }
 
-    public ServerSocket getServerSocket()
+    public Socket getSocket()
     {
-        return serverSocket;
+        return socket;
     }
 }
