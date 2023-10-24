@@ -124,12 +124,12 @@ public class UUIDManager {
     }
 
     public UUID getUUIDFromUsername(String username, boolean online, Long afterUnix) {
-        for (int i = 0; i < UUIDJsonArray.size(); i++) {
-            JSONObject tmp = (JSONObject) UUIDJsonArray.get(i);
-            Long expire = Long.valueOf(String.valueOf(tmp.get("expiresOn")));
-            if (tmp.get("name").equals(username) && tmp.get("onlineUUID").equals(online) && expire > afterUnix) {
+        for (Object o : UUIDJsonArray)
+        {
+            JSONObject tmp = (JSONObject) o;
+            long expire = Long.parseLong(String.valueOf(tmp.get("expiresOn")));
+            if (tmp.get("name").equals(username) && tmp.get("onlineUUID").equals(online) && expire > afterUnix)
                 return UUID.fromString((String) tmp.get("uuid"));
-            }
         }
         return null;
     }

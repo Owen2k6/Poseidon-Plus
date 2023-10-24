@@ -11,6 +11,7 @@ import org.bukkit.generator.BlockPopulator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 // CraftBukkit start
@@ -84,11 +85,11 @@ public class ChunkProviderServer implements IChunkProvider {
                  * the World constructor. We can't reliably alter that, so we have
                  * no way of creating a CraftWorld/CraftServer at that point.
                  */
-                server.getPluginManager().callEvent(new ChunkLoadEvent(chunk.bukkitChunk, newChunk));
+                server.getPluginManager().callEvent(new ChunkLoadEvent(Objects.requireNonNull(chunk).bukkitChunk, newChunk));
             }
             // CraftBukkit end
 
-            if (!chunk.done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
+            if (!Objects.requireNonNull(chunk).done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
                 this.getChunkAt(this, i, j);
             }
 
@@ -129,12 +130,12 @@ public class ChunkProviderServer implements IChunkProvider {
 
 
         if (chunk == this.emptyChunk) return chunk;
-        if (i != chunk.x || j != chunk.z) {
+        if (i != Objects.requireNonNull(chunk).x || j != chunk.z) {
             MinecraftServer.log.info("Chunk (" + chunk.x + ", " + chunk.z + ") stored at  (" + i + ", " + j + ")");
             MinecraftServer.log.info(chunk.getClass().getName());
             Throwable ex = new Throwable();
             ex.fillInStackTrace();
-            ex.printStackTrace();
+            ex.printStackTrace(System.err);
         }
         return chunk;
         // CraftBukkit end

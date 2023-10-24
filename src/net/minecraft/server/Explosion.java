@@ -169,12 +169,11 @@ public class Explosion {
         }
 
         this.size = f;
-        ArrayList arraylist = new ArrayList();
 
-        arraylist.addAll(this.blocks);
+        ArrayList<ChunkPosition> arraylist = new ArrayList<ChunkPosition>(this.blocks);
         if (this.a) {
             for (int l2 = arraylist.size() - 1; l2 >= 0; --l2) {
-                ChunkPosition chunkposition = (ChunkPosition) arraylist.get(l2);
+                ChunkPosition chunkposition = arraylist.get(l2);
                 int i3 = chunkposition.x;
                 int j3 = chunkposition.y;
                 int k3 = chunkposition.z;
@@ -190,9 +189,8 @@ public class Explosion {
 
     public void a(boolean flag) {
         this.world.makeSound(this.posX, this.posY, this.posZ, "random.explode", 4.0F, (1.0F + (this.world.random.nextFloat() - this.world.random.nextFloat()) * 0.2F) * 0.7F);
-        ArrayList arraylist = new ArrayList();
 
-        arraylist.addAll(this.blocks);
+        ArrayList<ChunkPosition> arraylist = new ArrayList<ChunkPosition>(this.blocks);
 
         // CraftBukkit start
         org.bukkit.World bworld = this.world.getWorld();

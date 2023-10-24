@@ -3,6 +3,7 @@ package net.minecraft.server;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.Objects;
 
 public abstract class NBTBase {
 
@@ -33,7 +34,7 @@ public abstract class NBTBase {
         } else {
             NBTBase nbtbase = a(b0);
 
-            nbtbase.a = datainput.readUTF();
+            Objects.requireNonNull(nbtbase).a = datainput.readUTF();
             nbtbase.a(datainput);
             return nbtbase;
         }

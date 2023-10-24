@@ -231,7 +231,7 @@ public class PermissibleBase implements Permissible {
         return new HashSet<PermissionAttachmentInfo>(permissions.values());
     }
 
-    private class RemoveAttachmentRunnable implements Runnable {
+    private static class RemoveAttachmentRunnable implements Runnable {
         private PermissionAttachment attachment;
 
         public RemoveAttachmentRunnable(PermissionAttachment attachment) {

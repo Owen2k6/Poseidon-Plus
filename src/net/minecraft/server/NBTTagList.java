@@ -5,6 +5,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NBTTagList extends NBTBase {
 
@@ -37,7 +38,7 @@ public class NBTTagList extends NBTBase {
         for (int j = 0; j < i; ++j) {
             NBTBase nbtbase = NBTBase.a(this.b);
 
-            nbtbase.a(datainput);
+            Objects.requireNonNull(nbtbase).a(datainput);
             this.a.add(nbtbase);
         }
     }

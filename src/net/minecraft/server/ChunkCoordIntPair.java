@@ -19,6 +19,7 @@ public class ChunkCoordIntPair {
     }
 
     public boolean equals(Object object) {
+        if (!(object instanceof ChunkCoordIntPair)) throw new RuntimeException("Someone did some something extremely fucked up");
         ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) object;
 
         return chunkcoordintpair.x == this.x && chunkcoordintpair.z == this.z;

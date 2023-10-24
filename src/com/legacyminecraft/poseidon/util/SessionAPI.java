@@ -32,7 +32,7 @@ public class SessionAPI
     {
         try
         {
-            boolean checkIP = ip == "127.0.0.1" || ip == "localhost";
+            boolean checkIP = Objects.equals(ip, "127.0.0.1") || Objects.equals(ip, "localhost");
             StringBuilder sb = new StringBuilder();
             sb.append("https://sessionserver.mojang.com/session/minecraft/hasJoined");
             sb.append("?username=").append(username);
@@ -48,7 +48,7 @@ public class SessionAPI
             String res_ip = (obj.containsKey("ip") ? (String) obj.get("ip") : "noip");
             callback.callback(response.getResponseCode(), res_username, res_uuid, res_ip);
         } catch (Exception ex) {
-            System.out.println(String.format("Failed to authenticate session for '%s': %s", username, ex.getMessage()));
+            System.out.printf("Failed to authenticate session for '%s': %s%n", username, ex.getMessage());
             // TODO: if debug, print the stack trace
         }
     }

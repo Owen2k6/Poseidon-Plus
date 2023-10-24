@@ -25,6 +25,8 @@ import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.Objects;
+
 public class CraftEventFactory {
     private static boolean canBuild(CraftWorld world, Player player, int x, int z) {
         WorldServer worldServer = world.getHandle();
@@ -84,7 +86,7 @@ public class CraftEventFactory {
         CraftItemStack itemInHand = new CraftItemStack(new ItemStack(item));
         Material bucket = Material.getMaterial(itemstack.id);
 
-        CraftWorld craftWorld = (CraftWorld) player.getWorld();
+        CraftWorld craftWorld = (CraftWorld) Objects.requireNonNull(player).getWorld();
         CraftServer craftServer = (CraftServer) player.getServer();
 
         Block blockClicked = craftWorld.getBlockAt(clickedX, clickedY, clickedZ);
@@ -118,7 +120,7 @@ public class CraftEventFactory {
         Player player = (who == null) ? null : (Player) who.getBukkitEntity();
         CraftItemStack itemInHand = new CraftItemStack(itemstack);
 
-        CraftWorld craftWorld = (CraftWorld) player.getWorld();
+        CraftWorld craftWorld = (CraftWorld) Objects.requireNonNull(player).getWorld();
         CraftServer craftServer = (CraftServer) player.getServer();
 
         Block blockClicked = craftWorld.getBlockAt(clickedX, clickedY, clickedZ);
@@ -153,7 +155,7 @@ public class CraftEventFactory {
         Player player = (who == null) ? null : (Player) who.getBukkitEntity();
         CraftItemStack itemInHand = new CraftItemStack(itemstack);
 
-        CraftWorld craftWorld = (CraftWorld) player.getWorld();
+        CraftWorld craftWorld = (CraftWorld) Objects.requireNonNull(player).getWorld();
         CraftServer craftServer = (CraftServer) player.getServer();
 
         Block blockClicked = craftWorld.getBlockAt(x, y, z);
@@ -167,7 +169,7 @@ public class CraftEventFactory {
     public static BlockBreakEvent callBlockBreakEvent(EntityHuman who, int x, int y, int z) {
         Player player = (who == null) ? null : (Player) who.getBukkitEntity();
 
-        CraftWorld craftWorld = (CraftWorld) player.getWorld();
+        CraftWorld craftWorld = (CraftWorld) Objects.requireNonNull(player).getWorld();
         CraftServer craftServer = (CraftServer) player.getServer();
 
         Block blockClicked = craftWorld.getBlockAt(x, y, z);

@@ -213,7 +213,7 @@ public class Permission {
         Set<Entry<String, Boolean>> entries = input.entrySet();
 
         for (Map.Entry<String, Boolean> entry : entries) {
-            if (!(entry.getValue() instanceof Boolean)) {
+            if (entry.getValue() == null) {
                 throw new IllegalArgumentException("Child '" + entry.getKey() + "' contains invalid value");
             }
         }

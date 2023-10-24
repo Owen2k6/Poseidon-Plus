@@ -87,6 +87,7 @@ public class ConcurrentSoftMap<K, V> {
 
     // Doesn't support these either
 
+    @SuppressWarnings("all")
     public boolean equals(Object o) {
         emptyQueue();
         throw new UnsupportedOperationException("SoftMap doesn't support equals checks");

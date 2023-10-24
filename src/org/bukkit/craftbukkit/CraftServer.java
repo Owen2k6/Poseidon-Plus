@@ -163,7 +163,7 @@ public final class CraftServer implements Server {
 
     @Override
     public String getGameVersion() {
-        return getGameVersion();
+        return this.GameVersion;
     }
 
     @Override
@@ -187,7 +187,6 @@ public final class CraftServer implements Server {
         return serverVersion + " (MC: " + protocolVersion + ")";
     }
 
-    @SuppressWarnings("unchecked")
     public Player[] getOnlinePlayers() {
         List<EntityPlayer> online = server.players;
         Player[] players = new Player[online.size()];
@@ -727,7 +726,7 @@ public final class CraftServer implements Server {
             if (node != null) {
                 String name = node.getString("generator");
 
-                if ((name != null) && (!name.equals(""))) {
+                if ((name != null) && (!name.isEmpty())) {
                     String[] split = name.split(":", 2);
                     String id = (split.length > 1) ? split[1] : null;
                     Plugin plugin = pluginManager.getPlugin(split[0]);

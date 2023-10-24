@@ -163,9 +163,9 @@ public final class SimplePluginManager implements PluginManager {
         boolean allFailed = false;
         boolean finalPass = false;
 
-        LinkedList<File> filesList = new LinkedList(Arrays.asList(files));
+        LinkedList<File> filesList = new LinkedList<>(Arrays.asList(Objects.requireNonNull(files)));
 
-        if (!(server.getUpdateFolder().equals(""))) {
+        if (!(server.getUpdateFolder().isEmpty())) {
             updateDirectory = new File(directory, server.getUpdateFolder());
         }
 
@@ -208,7 +208,7 @@ public final class SimplePluginManager implements PluginManager {
             }
         }
 
-        return result.toArray(new Plugin[result.size()]);
+        return result.toArray(new Plugin[0]);
     }
 
     /**

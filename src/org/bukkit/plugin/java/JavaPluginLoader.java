@@ -1257,7 +1257,6 @@ public class JavaPluginLoader implements PluginLoader
         if (plugin.isEnabled())
         {
             JavaPlugin jPlugin = (JavaPlugin) plugin;
-            ClassLoader cloader = jPlugin.getClassLoader();
 
             try
             {
@@ -1271,15 +1270,17 @@ public class JavaPluginLoader implements PluginLoader
 
             loaders.remove(jPlugin.getDescription().getName());
 
-            if (cloader instanceof PluginClassLoader)
+            if (!(jPlugin.getClassLoader() instanceof PluginClassLoader)) throw new RuntimeException("There was an issue with plugin loading");
+            try (PluginClassLoader cloader = (PluginClassLoader) jPlugin.getClassLoader())
             {
-                PluginClassLoader loader = (PluginClassLoader) cloader;
-                Set<String> names = loader.getClasses();
+                Set<String> names = cloader.getClasses();
 
                 for (String name : names)
                 {
                     classes.remove(name);
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

@@ -1,5 +1,7 @@
 package org.bukkit.craftbukkit.scheduler;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.*;
 
 public class CraftFuture<T> implements Runnable, Future<T> {
@@ -44,7 +46,7 @@ public class CraftFuture<T> implements Runnable, Future<T> {
         return null;
     }
 
-    public T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public T get(long timeout, @NotNull TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         synchronized (this) {
             if (isDone()) {
                 return getResult();

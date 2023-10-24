@@ -181,13 +181,13 @@ public class SimpleCommandMap implements CommandMap {
         for (String alias : values.keySet()) {
             String[] targetNames = values.get(alias);
             List<Command> targets = new ArrayList<Command>();
-            String bad = "";
+            StringBuilder bad = new StringBuilder();
 
             for (String name : targetNames) {
                 Command command = getCommand(name);
 
                 if (command == null) {
-                    bad += name + ", ";
+                    bad.append(name).append(", ");
                 } else {
                     targets.add(command);
                 }
@@ -201,8 +201,8 @@ public class SimpleCommandMap implements CommandMap {
                 knownCommands.remove(alias.toLowerCase());
             }
 
-            if (!bad.isEmpty()) {
-                bad = bad.substring(0, bad.length() - 2);
+            if (bad.length() > 0) {
+                bad = new StringBuilder(bad.substring(0, bad.length() - 2));
                 server.getLogger().warning("The following command(s) could not be aliased under '" + alias + "' because they do not exist: " + bad);
             }
         }

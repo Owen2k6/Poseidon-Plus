@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.regex.Matcher;
 
@@ -22,7 +24,7 @@ class ChunkFile implements Comparable {
         }
     }
 
-    public int compareTo(Object o) {
+    public int compareTo(@NotNull Object o) {
         ChunkFile chunkfile = (ChunkFile) o;
         int i = this.b >> 5;
         int j = chunkfile.b >> 5;

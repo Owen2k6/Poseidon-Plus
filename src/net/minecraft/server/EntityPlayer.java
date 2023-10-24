@@ -69,7 +69,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (world == null) {
             this.dead = false;
             ChunkCoordinates position = null;
-            if (this.spawnWorld != null && !this.spawnWorld.equals("")) {
+            if (this.spawnWorld != null && !this.spawnWorld.isEmpty()) {
                 CraftWorld cworld = (CraftWorld) Bukkit.getServer().getWorld(this.spawnWorld);
                 if (cworld != null && this.getBed() != null) {
                     world = cworld.getHandle();

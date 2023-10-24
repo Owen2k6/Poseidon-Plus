@@ -2,6 +2,7 @@ package org.bukkit.craftbukkit.scheduler;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 
 public class CraftTask implements Comparable<Object>, BukkitTask {
 
@@ -71,7 +72,7 @@ public class CraftTask implements Comparable<Object>, BukkitTask {
         return idNumber;
     }
 
-    public int compareTo(Object other) {
+    public int compareTo(@NotNull Object other) {
         if (!(other instanceof CraftTask)) {
             return 0;
         } else {

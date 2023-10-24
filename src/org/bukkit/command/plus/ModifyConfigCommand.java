@@ -10,6 +10,7 @@ import org.yaml.snakeyaml.constructor.SafeConstructor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.util.Map;
 
 public class ModifyConfigCommand extends VanillaCommand
@@ -55,7 +56,7 @@ public class ModifyConfigCommand extends VanillaCommand
         {
             // Read YAML file into a Map
             Yaml yaml = new Yaml(new SafeConstructor());
-            Map<String, Object> data = (Map<String, Object>) yaml.load(new FileInputStream(f));
+            Map<String, Object> data = (Map<String, Object>) yaml.load(Files.newInputStream(f.toPath()));
 
             // Split key by periods and traverse Map to find the nested key
             String[] keyParts = key.split("\\.");

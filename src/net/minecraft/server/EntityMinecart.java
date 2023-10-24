@@ -5,6 +5,7 @@ import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.*;
 
 import java.util.List;
+import java.util.Objects;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -725,7 +726,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
                 // CraftBukkit end
 
-                double d0 = entity.locX - this.locX;
+                double d0 = Objects.requireNonNull(entity).locX - this.locX;
                 double d1 = entity.locZ - this.locZ;
                 double d2 = d0 * d0 + d1 * d1;
 
@@ -856,7 +857,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
                 // CraftBukkit end
 
-                entityhuman.mount(this);
+                Objects.requireNonNull(entityhuman).mount(this);
             }
         } else if (this.type == 1) {
             if (!this.world.isStatic) {

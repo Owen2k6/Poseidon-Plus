@@ -110,7 +110,7 @@ public class WorldMapCollection {
             File file1 = this.a.b("idcounts");
 
             if (file1 != null && file1.exists()) {
-                DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
+                DataInputStream datainputstream = new DataInputStream(Files.newInputStream(file1.toPath()));
                 NBTTagCompound nbttagcompound = CompressedStreamTools.a((DataInput) datainputstream);
 
                 datainputstream.close();

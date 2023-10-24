@@ -131,7 +131,7 @@ public class LongHashtable<V> extends LongHash {
         return ret;
     }
 
-    private class Entry {
+    private static class Entry {
         long key;
         Object value;
 

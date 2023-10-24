@@ -3,6 +3,7 @@ package net.minecraft.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class WorldLoader implements Convertable {
 
@@ -54,7 +55,7 @@ public class WorldLoader implements Convertable {
     protected static void a(File[] afile) {
         for (int i = 0; i < afile.length; ++i) {
             if (afile[i].isDirectory()) {
-                a(afile[i].listFiles());
+                a(Objects.requireNonNull(afile[i].listFiles()));
             }
 
             afile[i].delete();

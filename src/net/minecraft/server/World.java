@@ -135,7 +135,7 @@ public class World implements IBlockAccess {
             this.worldData.a(s);
         }
 
-        this.worldProvider.a(this);
+        Objects.requireNonNull(this.worldProvider).a(this);
         this.chunkProvider = this.b();
         if (flag) {
             this.c();
@@ -652,7 +652,7 @@ public class World implements IBlockAccess {
                 int l1 = this.getData(l, i1, j1);
                 Block block = Block.byId[k1];
 
-                if ((!flag1 || block == null || block.e(this, l, i1, j1) != null) && k1 > 0 && block.a(l1, flag)) {
+                if ((!flag1 || block == null || block.e(this, l, i1, j1) != null) && k1 > 0 && Objects.requireNonNull(block).a(l1, flag)) {
                     MovingObjectPosition movingobjectposition = block.a(this, l, i1, j1, vec3d, vec3d1);
 
                     if (movingobjectposition != null) {
@@ -780,7 +780,7 @@ public class World implements IBlockAccess {
                     int j2 = this.getData(l, i1, j1);
                     Block block1 = Block.byId[i2];
 
-                    if ((!flag1 || block1 == null || block1.e(this, l, i1, j1) != null) && i2 > 0 && block1.a(j2, flag)) {
+                    if ((!flag1 || block1 == null || block1.e(this, l, i1, j1) != null) && i2 > 0 && Objects.requireNonNull(block1).a(j2, flag)) {
                         MovingObjectPosition movingobjectposition1 = block1.a(this, l, i1, j1, vec3d, vec3d1);
 
                         if (movingobjectposition1 != null) {

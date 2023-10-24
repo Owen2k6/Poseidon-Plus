@@ -30,9 +30,7 @@ final class ConsoleLogFormatter extends Formatter {
         } else if (level == Level.WARNING) {
             stringbuilder.append(" [WARNING] ");
         } else if (level == Level.SEVERE) {
-            stringbuilder.append(" [SEVERE] ");
-        } else if (level == Level.SEVERE) {
-            stringbuilder.append(" [" + level.getLocalizedName() + "] ");
+            stringbuilder.append(" [").append(level.getLocalizedName()).append("] ");
         }
 
         stringbuilder.append(logrecord.getMessage());

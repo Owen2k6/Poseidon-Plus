@@ -260,7 +260,7 @@ public class LoginProcessHandler {
                 activePauses.add(connectionPause);
             }
         }
-        return activePauses.toArray(new ConnectionPause[activePauses.size()]);
+        return activePauses.toArray(new ConnectionPause[0]);
     }
 
     public String getConnectionPauseNames(boolean activeOnly) {

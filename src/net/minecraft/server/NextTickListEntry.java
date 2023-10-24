@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import org.jetbrains.annotations.NotNull;
+
 public class NextTickListEntry implements Comparable {
 
     private static long f = 0L;
@@ -37,7 +39,7 @@ public class NextTickListEntry implements Comparable {
         return this;
     }
 
-    public int compareTo(Object o) {
+    public int compareTo(@NotNull Object o) {
         NextTickListEntry nextticklistentry = (NextTickListEntry) o;
         return this.e < nextticklistentry.e ? -1 : (this.e > nextticklistentry.e ? 1 : (Long.compare(this.g, nextticklistentry.g)));
     }

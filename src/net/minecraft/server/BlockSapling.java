@@ -65,7 +65,7 @@ public class BlockSapling extends BlockFlower {
     }
 
     // CraftBukkit start
-    private class BlockChangeWithNotify implements BlockChangeDelegate {
+    private static class BlockChangeWithNotify implements BlockChangeDelegate {
         World world;
 
         BlockChangeWithNotify(World world) { this.world = world; }

@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ChunkCoordinates implements Comparable {
 
     public int x;
@@ -34,7 +36,7 @@ public class ChunkCoordinates implements Comparable {
         return this.x + this.z << 8 + this.y << 16;
     }
 
-    public int compareTo(Object o) {
+    public int compareTo(@NotNull Object o) {
         ChunkCoordinates chunkcoordinates = (ChunkCoordinates) o;
         return this.y == chunkcoordinates.y ? (this.z == chunkcoordinates.z ? this.x - chunkcoordinates.x : this.z - chunkcoordinates.z) : this.y - chunkcoordinates.y;
     }

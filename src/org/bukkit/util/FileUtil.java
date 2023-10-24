@@ -28,9 +28,9 @@ public class FileUtil {
         FileChannel in = null;
         FileChannel out = null;
 
-        try {
-            in = new FileInputStream(inFile).getChannel();
-            out = new FileOutputStream(outFile).getChannel();
+        try (FileInputStream fis = new FileInputStream(inFile); FileOutputStream fos = new FileOutputStream(outFile)) {
+            in = fis.getChannel();
+            out = fos.getChannel();
 
             long pos = 0;
             long size = in.size();
@@ -38,7 +38,7 @@ public class FileUtil {
             while (pos < size) {
                 pos += in.transferTo(pos, 10 * 1024 * 1024, out);
             }
-        } catch (IOException ioe) {
+        } catch (Exception ex) {
             return false;
         } finally {
             try {

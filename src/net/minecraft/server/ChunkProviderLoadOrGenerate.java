@@ -46,7 +46,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 chunk.addEntities();
             }
 
-            if (!chunk.done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
+            if (!Objects.requireNonNull(chunk).done && this.isChunkLoaded(i + 1, j + 1) && this.isChunkLoaded(i, j + 1) && this.isChunkLoaded(i + 1, j)) {
                 this.getChunkAt(this, i, j);
             }
 
