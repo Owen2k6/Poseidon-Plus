@@ -121,7 +121,6 @@ public class Configuration extends ConfigurationNode {
     /**
      * Saves the configuration to disk. All errors are clobbered.
      *
-     * @param header header to prepend
      * @return true if it was successful
      */
     public boolean save() {

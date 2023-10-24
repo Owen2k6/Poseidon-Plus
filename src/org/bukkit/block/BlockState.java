@@ -116,7 +116,6 @@ public interface BlockState {
      * eventuality.
      *
      * @return true if the update was successful, otherwise false
-     * @see BlockState.update(boolean force)
      */
     boolean update();
 

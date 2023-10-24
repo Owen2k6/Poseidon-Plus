@@ -146,13 +146,9 @@ public class AxisAlignedBB {
                     }
                 }
 
-                return d0;
-            } else {
-                return d0;
             }
-        } else {
-            return d0;
         }
+        return d0;
     }
 
     public double c(AxisAlignedBB axisalignedbb, double d0) {

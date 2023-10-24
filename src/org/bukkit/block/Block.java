@@ -47,7 +47,6 @@ public interface Block {
      *
      * @param face Face of this block to return
      * @return Block at the given face
-     * @see Block.getRelative(BlockFace face, int distance);
      */
     Block getRelative(BlockFace face);
 
