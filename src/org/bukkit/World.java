@@ -268,7 +268,7 @@ public interface World {
      * @param location Location to drop the item
      * @param item     ItemStack to drop
      */
-    public void dropItemNaturally(Location location, ItemStack item);
+    public Item dropItemNaturally(Location location, ItemStack item);
 
     /**
      * Creates an {@link Arrow} entity at the given {@link Location}

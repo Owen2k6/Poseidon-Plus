@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.entity.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
+import org.bukkit.entity.Item;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -287,7 +288,7 @@ public class CraftWorld implements World {
         return new CraftItem(world.getServer(), entity);
     }
 
-    public void dropItemNaturally(Location loc, ItemStack item) {
+    public Item dropItemNaturally(Location loc, ItemStack item) {
         double xs = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double ys = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double zs = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
@@ -295,7 +296,7 @@ public class CraftWorld implements World {
         loc.setX(loc.getX() + xs);
         loc.setY(loc.getY() + ys);
         loc.setZ(loc.getZ() + zs);
-        dropItem(loc, item);
+        return dropItem(loc, item);
     }
 
     public Arrow spawnArrow(Location loc, Vector velocity, float speed, float spread) {
