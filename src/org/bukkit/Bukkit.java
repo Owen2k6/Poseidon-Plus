@@ -98,8 +98,8 @@ public final class Bukkit {
         return server.hasWhitelist();
     }
 
-    public static void broadcastMessage(String message) {
-        server.broadcastMessage(message);
+    public static int broadcastMessage(String message) {
+        return server.broadcastMessage(message);
     }
 
     public static String getUpdateFolder() {
