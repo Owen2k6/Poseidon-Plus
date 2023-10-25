@@ -580,7 +580,7 @@ public interface World {
      * @param location the {@link Location} to spawn the entity at
      * @param clazz the class of the {@link Entity} to spawn
      * @return an instance of the spawned {@link Entity}
-     * @throws an {@link IllegalArgumentException} if either parameter is null or the {@link Entity} requested cannot be spawned
+     * @throws IllegalArgumentException if either parameter is null or the {@link Entity} requested cannot be spawned
      */
     public <T extends Entity> T spawn(Location location, Class<T> clazz) throws IllegalArgumentException;
 

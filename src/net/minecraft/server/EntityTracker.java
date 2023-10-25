@@ -105,28 +105,29 @@ public class EntityTracker {
 
     // CraftBukkit - synchronized
     public synchronized void updatePlayers() {
-        ArrayList arraylist = new ArrayList();
+//        ArrayList<EntityPlayer> arraylist = new ArrayList();
 
         for (Object o : this.a) {
             EntityTrackerEntry entitytrackerentry = (EntityTrackerEntry) o;
 
             entitytrackerentry.track(this.c.getWorldServer(this.e).players);
             if (entitytrackerentry.m && entitytrackerentry.tracker instanceof EntityPlayer) {
-                arraylist.add((EntityPlayer) entitytrackerentry.tracker);
+                EntityPlayer entityPlayer = (EntityPlayer) entitytrackerentry.tracker;
+                entitytrackerentry.b(entityPlayer);
+//                arraylist.add((EntityPlayer) entitytrackerentry.tracker);
             }
         }
 
-        for (Object o : arraylist) {
-            EntityPlayer entityplayer = (EntityPlayer) o;
-
-            for (Object object : this.a) {
-                EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) object;
-
-                if (entitytrackerentry1.tracker != entityplayer) {
-                    entitytrackerentry1.b(entityplayer);
-                }
-            }
-        }
+//        for (EntityPlayer entityplayer : arraylist) {
+//
+//            for (Object object : this.a) {
+//                EntityTrackerEntry entitytrackerentry1 = (EntityTrackerEntry) object;
+//
+//                if (entitytrackerentry1.tracker != entityplayer) {
+//                    entitytrackerentry1.b(entityplayer);
+//                }
+//            }
+//        }
     }
 
     // CraftBukkit - synchronized
