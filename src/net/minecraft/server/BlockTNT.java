@@ -20,6 +20,14 @@ public class BlockTNT extends Block {
         }
     }
 
+    /**
+     * Applies physics to TNT
+     * @param world This one is obvious
+     * @param i presumably X
+     * @param j presumably Y
+     * @param k presumably Z
+     * @param l a Block ID
+     */
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (l > 0 && Block.byId[l].isPowerSource() && world.isBlockIndirectlyPowered(i, j, k)) {
             this.postBreak(world, i, j, k, 1);
