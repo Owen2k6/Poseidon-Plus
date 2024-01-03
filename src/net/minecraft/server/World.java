@@ -438,7 +438,7 @@ public class World implements IBlockAccess {
 
             if (block != null) {
                 // CraftBukkit start
-                CraftWorld world = ((WorldServer) this).getWorld();
+                CraftWorld world = this.getWorld();
                 if (world != null) {
                     BlockPhysicsEvent event = new BlockPhysicsEvent(world.getBlockAt(i, j, k), l);
                     this.getServer().getPluginManager().callEvent(event);
@@ -449,7 +449,7 @@ public class World implements IBlockAccess {
                 }
                 // CraftBukkit end
 
-                block.doPhysics(this, i, j, k, l);
+                block.doPhysics(this, i, j, k, l); // triggers TNT prime
             }
         }
     }
