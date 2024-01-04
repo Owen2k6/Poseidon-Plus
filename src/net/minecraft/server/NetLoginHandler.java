@@ -7,10 +7,12 @@ import com.projectposeidon.johnymuffin.LoginProcessHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftServer;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -100,78 +102,43 @@ public class NetLoginHandler extends NetHandler {
             }
         } else {
             //Project Poseidon - Start (Release2Beta)
-            if (packet1login.d == (byte) -999) {
-                connectionType = ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING;
-            } else if (packet1login.d == (byte) 26) {
-                connectionType = ConnectionType.RELEASE2BETA_ONLINE_MODE_IP_FORWARDING;
-            } else if (packet1login.d == (byte) 1) {
-                connectionType = ConnectionType.RELEASE2BETA;
-            } else if (packet1login.d == (byte) 2) {
-                connectionType = ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING;
-            } else {
-                connectionType = ConnectionType.NORMAL;
-            }
+            List<Byte> legacyMagicHeaders = Arrays.asList((byte) -999, (byte) 26, (byte) 1, (byte) 2);
+            boolean ipForwardingEnabled = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.enable");
+            String allowedProxy = String.valueOf(PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.allowed-proxy", "127.0.0.1"));
+            boolean allowedOnly = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.allowed-only");
+            boolean useMagicHeaders = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.magic-headers");
 
             // the order of this must be in reverse in order to make sense
-            boolean[] bits = new boolean[] {
-                    (packet1login.d & 0x80) != 0,
-                    (packet1login.d & 0x40) != 0,
-                    (packet1login.d & 0x20) != 0,
-                    (packet1login.d & 0x10) != 0,
-                    (packet1login.d & 0x8) != 0,
-                    (packet1login.d & 0x4) != 0,
-                    (packet1login.d & 0x2) != 0,
-                    (packet1login.d & 0x1) != 0,
-            };
+            boolean[] bits = getBits(packet1login.d);
+            boolean isIPForwarded = bits[0] // first bit reserved for IP forward indicator
+                                       || (useMagicHeaders && legacyMagicHeaders.contains(packet1login.d));
 
-            // nothing of interest was detected prior, dimension variable is expected to be zero
-            if (connectionType == ConnectionType.NORMAL)
+            if (ipForwardingEnabled && !isIPForwarded)
             {
-                // first bit is reserved for bungeecord
-                if (bits[0]) connectionType = ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING;
-                this.networkManager.setBitFlags(bits);
-                // switch to CUSTOM if any of the 7 unreserved bit flags are enabled
-                for (int i = 1; i < bits.length; i++)
-                {
-                    if (bits[i])
-                    {
-                        connectionType = ConnectionType.CUSTOM;
-                        break;
-                    }
-                }
-            }
-
-            rawConnectionType = packet1login.d;
-            //TODO: We need to find a better and cleaner way to support these different Beta proxies, Maybe a handler class???
-            if ((Boolean) PoseidonConfig.getInstance().getConfigOption("settings.bungeecord.bungee-mode.enable") && !connectionType.equals(ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING) && !connectionType.equals(ConnectionType.BUNGEECORD_ONLINE_MODE_IP_FORWARDING)) {
-                a.info(packet1login.name + " is not using BungeeCord, kicking the player.");
-                this.disconnect((String) PoseidonConfig.getInstance().getConfigOption("settings.bungeecord.bungee-mode.kick-message"));
+                a.info(packet1login.name + " is not forwarding their IP, despite it being enabled. They have been kicked.");
+                this.disconnect("This server has IP forwarding enabled. Please enable it on your proxy.");
                 return;
             }
 
-            if (connectionType.equals(ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.RELEASE2BETA_ONLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING) || connectionType.equals(ConnectionType.BUNGEECORD_ONLINE_MODE_IP_FORWARDING)) {
-                //Proxy has IP Forwarding enabled
-                if ((Boolean) PoseidonConfig.getInstance().getConfigOption("settings.release2beta.enable-ip-pass-through")) {
-                    //IP Forwarding is enabled server side
-                    if (this.getSocket().getInetAddress().getHostAddress().equalsIgnoreCase(String.valueOf(PoseidonConfig.getInstance().getConfigOption("settings.release2beta.proxy-ip", "127.0.0.1")))) {
-                        //Release2Beta server is authorized - Override IP address
-                        InetSocketAddress address = deserializeAddress(packet1login.c);
-                        a.info(packet1login.name + " has been detected using Release2Beta, using the IP passed through: " + address.getAddress().getHostAddress());
-                        this.networkManager.setSocketAddress(address);
-                        this.usingReleaseToBeta = true;
-                    } else {
-                        //Release2Beta server isn't authorized
-                        a.info(packet1login.name + " is attempting to use a unauthorized Release2Beta server, kicking the player.");
-                        this.disconnect(ChatColor.RED + "The Release2Beta server you are connecting through is unauthorized.");
-                        return;
-                    }
-                } else {
-                    //Poseidon doesn't support IP Forwarding
-                    a.info(packet1login.name + " is trying to connect through R2B with IP Forwarding enabled, however, it is disabled in Poseidon. Kicking player!");
-                    this.disconnect(ChatColor.RED + "IP Forwarding is disabled in Poseidon. Please disable in Release2Beta.");
+            if (ipForwardingEnabled)
+            {
+                if (!this.getSocket().getInetAddress().getHostAddress().equals(allowedProxy) && allowedOnly)
+                {
+                    a.info(packet1login.name + " is not using an authorized proxy IP.");
+                    this.disconnect("The proxy you are using is not permitted.");
                     return;
                 }
+
+                InetSocketAddress address = deserializeAddress(packet1login.c);
+                a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + address.getAddress().getHostAddress());
+                this.networkManager.setSocketAddress(address);
+                this.usingReleaseToBeta = true; //TODO: rename variable?
+            } else {
+                a.info(packet1login.name + " is trying to forward their IP via an ambiguous proxy. This feature is disabled, so the player has been kicked.");
+                this.disconnect(ChatColor.RED + "IP forwarding is not enabled");
+                return;
             }
+            connectionType = ConnectionType.NORMAL;
             //Project Poseidon - End (Release2Beta
 
             if (((CraftServer) Bukkit.getServer()).isShuttingdown()) {
@@ -184,6 +151,20 @@ public class NetLoginHandler extends NetHandler {
             // (new ThreadLoginVerifier(this, packet1login, this.server.server)).start(); // CraftBukkit
 //            }
         }
+    }
+
+    private static boolean[] getBits(byte b)
+    {
+        return new boolean[] {
+                (b & 0x80) != 0,
+                (b & 0x40) != 0,
+                (b & 0x20) != 0,
+                (b & 0x10) != 0,
+                (b & 0x8) != 0,
+                (b & 0x4) != 0,
+                (b & 0x2) != 0,
+                (b & 0x1) != 0,
+        };
     }
 
     public void b(Packet1Login packet1login) {

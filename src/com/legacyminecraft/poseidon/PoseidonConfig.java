@@ -120,6 +120,13 @@ public class PoseidonConfig extends Configuration
         generateConfigOption("settings.bungeecord.bungee-mode.kick-message", "You must connect through BungeeCord to join this server!");
         generateConfigOption("settings.bungeecord.bungee-mode.info", "Only allows connections via BungeeCord to join. Includes optional custom kick message for players not using BungeeCord.");
 
+        // Bit Flag IP Forwarding
+        generateConfigOption("settings.bit-flags.enable", true);
+        generateConfigOption("settings.bit-flags.magic-headers", true);
+        generateConfigOption("settings.bit-flags.allowed-proxy", "127.0.0.1");
+        generateConfigOption("settings.bit-flags.allowed-only", true);
+        generateConfigOption("settings.bit-flags.info", "Use a better method for handling proxies and IP forwarding with individual bit flags rather than hogging the entire byte for one singular conditional check.");
+
         //Modded Jar Support
         generateConfigOption("settings.support.modloader.enable", false);
         generateConfigOption("settings.support.modloader.info", "EXPERIMENTAL support for ModloaderMP.");
