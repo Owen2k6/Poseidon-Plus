@@ -10,6 +10,7 @@ import org.bukkit.craftbukkit.CraftServer;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -110,6 +111,36 @@ public class NetLoginHandler extends NetHandler {
             } else {
                 connectionType = ConnectionType.NORMAL;
             }
+
+            // the order of this must be in reverse in order to make sense
+            boolean[] bits = new boolean[] {
+                    (packet1login.d & 0x80) != 0,
+                    (packet1login.d & 0x40) != 0,
+                    (packet1login.d & 0x20) != 0,
+                    (packet1login.d & 0x10) != 0,
+                    (packet1login.d & 0x8) != 0,
+                    (packet1login.d & 0x4) != 0,
+                    (packet1login.d & 0x2) != 0,
+                    (packet1login.d & 0x1) != 0,
+            };
+
+            // nothing of interest was detected prior, dimension variable is expected to be zero
+            if (connectionType == ConnectionType.NORMAL)
+            {
+                // first bit is reserved for bungeecord
+                if (bits[0]) connectionType = ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING;
+                this.networkManager.setBitFlags(bits);
+                // switch to CUSTOM if any of the 7 unreserved bit flags are enabled
+                for (int i = 1; i < bits.length; i++)
+                {
+                    if (bits[i])
+                    {
+                        connectionType = ConnectionType.CUSTOM;
+                        break;
+                    }
+                }
+            }
+
             rawConnectionType = packet1login.d;
             //TODO: We need to find a better and cleaner way to support these different Beta proxies, Maybe a handler class???
             if ((Boolean) PoseidonConfig.getInstance().getConfigOption("settings.bungeecord.bungee-mode.enable") && !connectionType.equals(ConnectionType.BUNGEECORD_OFFLINE_MODE_IP_FORWARDING) && !connectionType.equals(ConnectionType.BUNGEECORD_ONLINE_MODE_IP_FORWARDING)) {

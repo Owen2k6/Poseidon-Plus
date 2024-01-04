@@ -45,6 +45,7 @@ public class NetworkManager {
     private final boolean spamDetection;
 
     private final int threshold;
+    private boolean[] bitFlags = null;
 
     public NetworkManager(Socket socket, String s, NetHandler nethandler) {
         this.socket = socket;
@@ -299,6 +300,11 @@ public class NetworkManager {
         if (this.t && this.m.isEmpty()) {
             this.p.a(this.u, this.v);
         }
+    }
+
+    public void setBitFlags(boolean[] bits)
+    {
+        bitFlags = bits;
     }
 
     public SocketAddress getSocketAddress() {
