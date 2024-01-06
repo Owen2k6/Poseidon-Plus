@@ -11,13 +11,14 @@ import org.json.simple.parser.ParseException;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class AsyncUUIDLookup extends Thread
 {
     private static final String URL = PoseidonConfig.getInstance().getString("settings.fetch-uuids-from", "https://api.mojang.com/users/profiles/minecraft");
-    private static final String METHOD = PoseidonConfig.getInstance().getBoolean("settings.use-get-for-uuids.enabled", true) ? "GET" : "POST";
+    private static final String METHOD = "GET"; // ignore config, always use GET because it's better anyway
     private static final boolean ALLOW_CRACKED = PoseidonConfig.getInstance().getBoolean("settings.allow-graceful-uuids", true);
 
     private final String username;
@@ -35,8 +36,10 @@ public class AsyncUUIDLookup extends Thread
 
         try
         {
-            apiRes = readRemoteJSON(URL + "/" + username);
-        } catch (Exception ignored) {}
+            apiRes = readRemoteJSON(URL + "/" + encode(username));
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
 
         boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
         UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.generateOfflineUUID(username);
@@ -50,11 +53,13 @@ public class AsyncUUIDLookup extends Thread
         loginProcessHandler.userUUIDReceived(uuid, success);
     }
 
+    // muffin man code
     private UUID getWithDashes(String uuid)
     {
         return UUID.fromString(uuid.replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5"));
     }
 
+    // muffin man code
     private static String readAll(Reader rd) throws IOException
     {
         StringBuilder sb = new StringBuilder();
@@ -63,23 +68,29 @@ public class AsyncUUIDLookup extends Thread
         return sb.toString();
     }
 
+    // modified muffin man code
     private static RemoteJSONResponse readRemoteJSON(String url) throws IOException, ParseException
     {
         HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
         connection.setRequestMethod(METHOD);
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0");
-        connection.setRequestProperty("Accept", "application/json");
 
         int responseCode = connection.getResponseCode();
-
-        if (responseCode != 200) return new RemoteJSONResponse(responseCode);
-
         try (InputStream is = connection.getInputStream())
         {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
             JSONParser jsp = new JSONParser();
             return new RemoteJSONResponse(responseCode, (JSONObject) jsp.parse(jsonText));
+        }
+    }
+
+    // muffin man code
+    private String encode(String string) {
+        try {
+            return URLEncoder.encode(string, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return string;
         }
     }
 
