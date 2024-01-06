@@ -35,7 +35,7 @@ public class AsyncUUIDLookup extends Thread
 
         try
         {
-            apiRes = readRemoteJSON(URL);
+            apiRes = readRemoteJSON(URL + "/" + username);
         } catch (Exception ignored) {}
 
         boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
