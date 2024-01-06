@@ -55,7 +55,7 @@ public class PoseidonConfig extends Configuration
         generateConfigOption("settings.fetch-uuids-from", "https://api.mojang.com/profiles/minecraft");
         generateConfigOption("settings.remove-join-leave-debug", true);
         generateConfigOption("settings.enable-tpc-nodelay", false);
-        generateConfigOption("settings.use-get-for-uuids.enabled", false);
+        generateConfigOption("settings.use-get-for-uuids.enabled", true);
         generateConfigOption("settings.whitelist-kick-message", "&cServer currently whitelisted. Please try again later.");
         generateConfigOption("settings.use-get-for-uuids.info", "This setting causes the server to use the GET method for Username to UUID conversion. This is useful incase the POST method goes offline.");
 
