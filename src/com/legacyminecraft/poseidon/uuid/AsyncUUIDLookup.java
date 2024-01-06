@@ -44,7 +44,9 @@ public class AsyncUUIDLookup extends Thread
         {
             System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
             loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, we only support premium accounts.");
+            return;
         }
+        System.out.println("[Poseidon Plus] User logged in with UUID: " + uuid);
         loginProcessHandler.userUUIDReceived(uuid, success);
     }
 

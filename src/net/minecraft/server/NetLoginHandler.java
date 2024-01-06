@@ -113,29 +113,35 @@ public class NetLoginHandler extends NetHandler {
             boolean isIPForwarded = bits[0] // first bit reserved for IP forward indicator
                                        || (useMagicHeaders && legacyMagicHeaders.contains(packet1login.d));
 
-            if (ipForwardingEnabled && !isIPForwarded)
-            {
-                a.info(packet1login.name + " is not forwarding their IP, despite it being enabled. They have been kicked.");
-                this.disconnect("This server has IP forwarding enabled. Please enable it on your proxy.");
-                return;
-            }
+            // if forwarding is enabled, check to see if the IP is forwarded
+            // if the IP is not forwarded, but forwarding is enabled, kick the user.
+            // if it's not enabled, but the IP is still trying to be forwarded, kick the user.
 
             if (ipForwardingEnabled)
             {
-                if (!this.getSocket().getInetAddress().getHostAddress().equals(allowedProxy) && allowedOnly)
+                if (!isIPForwarded)
                 {
-                    a.info(packet1login.name + " is not using an authorized proxy IP.");
-                    this.disconnect("The proxy you are using is not permitted.");
+                    a.info(packet1login.name + " is not forwarding their IP, despite it being enabled. They have been kicked.");
+                    this.disconnect(ChatColor.RED + "This server has IP forwarding enabled. Please enable it on your proxy.");
                     return;
                 }
 
                 InetSocketAddress address = deserializeAddress(packet1login.c);
-                a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + address.getAddress().getHostAddress());
+                String host = address.getAddress().getHostAddress();
+
+                if (allowedOnly && !(host.equals(allowedProxy)))
+                {
+                    a.info(packet1login.name + " is not using the required proxy for IP forwarding. They have been kicked.");
+                    this.disconnect(ChatColor.RED + "The proxy you are using is not authorized for this server");
+                    return;
+                }
+
+                a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + host);
                 this.networkManager.setSocketAddress(address);
                 this.usingReleaseToBeta = true; //TODO: rename variable?
-            } else {
-                a.info(packet1login.name + " is trying to forward their IP via an ambiguous proxy. This feature is disabled, so the player has been kicked.");
-                this.disconnect(ChatColor.RED + "IP forwarding is not enabled");
+            } else if (isIPForwarded) {
+                a.info(packet1login.name + " is forwarding their IP, despite it being disabled. They have been kicked.");
+                this.disconnect(ChatColor.RED + "This server has IP forwarding disabled. Please connect directly.");
                 return;
             }
             connectionType = ConnectionType.NORMAL;
