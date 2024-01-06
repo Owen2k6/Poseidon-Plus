@@ -127,16 +127,17 @@ public class NetLoginHandler extends NetHandler {
                 }
 
                 InetSocketAddress address = deserializeAddress(packet1login.c);
-                String host = address.getAddress().getHostAddress();
+                String forwardedIP = address.getAddress().getHostAddress();
+                String realIP = this.networkManager.socket.getInetAddress().getHostAddress();
 
-                if (allowedOnly && !(host.equals(allowedProxy)))
+                if (allowedOnly && !(realIP.equals(allowedProxy.trim())))
                 {
                     a.info(packet1login.name + " is not using the required proxy for IP forwarding. They have been kicked.");
                     this.disconnect(ChatColor.RED + "The proxy you are using is not authorized for this server");
                     return;
                 }
 
-                a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + host);
+                a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + forwardedIP);
                 this.networkManager.setSocketAddress(address);
                 this.usingReleaseToBeta = true; //TODO: rename variable?
             } else if (isIPForwarded) {
