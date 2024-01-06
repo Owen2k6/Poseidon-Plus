@@ -3,6 +3,7 @@ package com.legacyminecraft.poseidon.uuid;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
 import com.projectposeidon.johnymuffin.UUIDManager;
+import org.bukkit.ChatColor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,6 +18,7 @@ public class AsyncUUIDLookup extends Thread
 {
     private static final String URL = PoseidonConfig.getInstance().getString("settings.fetch-uuids-from", "https://api.mojang.com/users/profiles/minecraft");
     private static final String METHOD = PoseidonConfig.getInstance().getBoolean("settings.use-get-for-uuids.enabled", true) ? "GET" : "POST";
+    private static final boolean ALLOW_CRACKED = PoseidonConfig.getInstance().getBoolean("settings.allow-graceful-uuids", true);
 
     private final String username;
     private final LoginProcessHandler loginProcessHandler;
@@ -38,6 +40,11 @@ public class AsyncUUIDLookup extends Thread
 
         boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
         UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.generateOfflineUUID(username);
+        if (!ALLOW_CRACKED)
+        {
+            System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
+            loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, we only support premium accounts.");
+        }
         loginProcessHandler.userUUIDReceived(uuid, success);
     }
 
