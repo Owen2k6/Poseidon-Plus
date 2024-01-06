@@ -2,6 +2,7 @@ package com.projectposeidon.johnymuffin;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.PoseidonPlugin;
+import com.legacyminecraft.poseidon.uuid.AsyncUUIDLookup;
 import com.legacyminecraft.poseidon.uuid.ThreadUUIDFetcher;
 import net.minecraft.server.NetLoginHandler;
 import net.minecraft.server.Packet1Login;
@@ -92,7 +93,8 @@ public class LoginProcessHandler {
         long unixTime = (System.currentTimeMillis() / 1000L);
         UUID uuid = UUIDManager.getInstance().getUUIDFromUsername(packet1Login.name, true, unixTime);
         if (uuid == null) {
-            (new ThreadUUIDFetcher(packet1Login, this, PoseidonConfig.getInstance().getBoolean("settings.use-get-for-uuids.enabled", false))).start();
+            (new AsyncUUIDLookup(packet1Login.name, this)).start();
+//            (new ThreadUUIDFetcher(packet1Login, this, PoseidonConfig.getInstance().getBoolean("settings.use-get-for-uuids.enabled", false))).start();
         } else {
             System.out.println("[Poseidon] Fetched UUID from Cache for " + packet1Login.name + " - " + uuid.toString());
             connectPlayer(uuid);

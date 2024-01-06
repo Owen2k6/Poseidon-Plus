@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -76,25 +77,22 @@ public class GetUUIDFetcher {
         return Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$").matcher(uuid).matches();
     }
 
-    private static String readAll(Reader rd) throws IOException {
+    private static String readAll(Reader rd) throws IOException
+    {
         StringBuilder sb = new StringBuilder();
         int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
+        while ((cp = rd.read()) != -1) sb.append((char) cp);
         return sb.toString();
     }
 
-    private static JSONObject readJsonFromUrl(String url) throws IOException, ParseException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+    private static JSONObject readJsonFromUrl(String url) throws IOException, ParseException
+    {
+        try (InputStream is = new URL(url).openStream())
+        {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
             JSONParser jsp = new JSONParser();
-            JSONObject json = (JSONObject) jsp.parse(jsonText);
-            return json;
-        } finally {
-            is.close();
+            return (JSONObject) jsp.parse(jsonText);
         }
     }
 }
