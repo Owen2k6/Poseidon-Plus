@@ -46,7 +46,7 @@ public class AsyncUUIDLookup extends Thread
             loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, we only support premium accounts.");
             return;
         }
-        System.out.println("[Poseidon Plus] User logged in with UUID: " + uuid);
+        System.out.println("[Poseidon Plus] User logged in with UUID: " + uuid + " (" + (success ? "ONLINE" : "OFFLINE") + ")");
         loginProcessHandler.userUUIDReceived(uuid, success);
     }
 
