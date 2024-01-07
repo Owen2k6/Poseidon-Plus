@@ -44,7 +44,7 @@ public class AsyncUUIDLookup extends Thread
         }
 
         boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
-        UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.generateOfflineUUID(username);
+        UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.getInstance().getUUIDGraceful(username);
         if (!GRACEFUL)
         {
             System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
