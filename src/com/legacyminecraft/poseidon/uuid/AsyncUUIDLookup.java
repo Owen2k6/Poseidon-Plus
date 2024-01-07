@@ -19,7 +19,7 @@ public class AsyncUUIDLookup extends Thread
 {
     private static final String URL = PoseidonConfig.getInstance().getString("settings.fetch-uuids-from", "https://api.mojang.com/users/profiles/minecraft");
     private static final String METHOD = "GET"; // ignore config, always use GET because it's better anyway
-    private static final boolean ALLOW_CRACKED = PoseidonConfig.getInstance().getBoolean("settings.allow-graceful-uuids", true);
+    private static final boolean GRACEFUL = PoseidonConfig.getInstance().getBoolean("settings.allow-graceful-uuids", true);
 
     private final String username;
     private final LoginProcessHandler loginProcessHandler;
@@ -34,16 +34,18 @@ public class AsyncUUIDLookup extends Thread
     {
         RemoteJSONResponse apiRes = null;
 
-        try
-        {
+        try {
             apiRes = readRemoteJSON(URL + "/" + encode(username));
-        } catch (Exception ex) {
+        } catch (FileNotFoundException ignored) {
+            // file not found means we got a 404, and the user does not exist
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace(System.err);
+            System.out.println("[Poseidon Plus] The Mojang profiles API appears to be malfunctioning.");
         }
 
         boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
         UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.generateOfflineUUID(username);
-        if (!ALLOW_CRACKED)
+        if (!GRACEFUL)
         {
             System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
             loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, we only support premium accounts.");
