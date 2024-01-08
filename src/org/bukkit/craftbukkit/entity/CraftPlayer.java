@@ -8,10 +8,13 @@ import org.bukkit.Statistic;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.inventory.CraftInventory;
 import org.bukkit.craftbukkit.map.CraftMapView;
 import org.bukkit.craftbukkit.map.RenderData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.map.MapView;
 
 import java.net.InetSocketAddress;
@@ -152,6 +155,11 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     //Project Poseidon Start
+    public void openInventory(Inventory inventory)
+    {
+        this.getHandle().openBukkitInventory(inventory);
+    }
+
     public UUID getUniqueId() {
         //return UUIDPlayerStorage.getInstance().getPlayerUUID(getName());
         return getHandle().playerUUID;

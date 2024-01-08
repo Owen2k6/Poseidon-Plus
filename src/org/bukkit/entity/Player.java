@@ -4,6 +4,7 @@ import com.projectposeidon.ConnectionType;
 import net.minecraft.server.Packet;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.map.MapView;
 
 
@@ -13,7 +14,8 @@ import java.util.UUID;
 /**
  * Represents a player, connected or not
  */
-public interface Player extends HumanEntity, CommandSender, OfflinePlayer {
+public interface Player extends HumanEntity, CommandSender, OfflinePlayer
+{
     /**
      * Gets the "friendly" name to display of this player. This may include color.
      * <p>
@@ -41,6 +43,8 @@ public interface Player extends HumanEntity, CommandSender, OfflinePlayer {
      */
     public void setCompassTarget(Location loc);
     //Project Poseidon Start
+
+    public void openInventory(Inventory inventory);
 
     /**
      * Get the players Mojang UUID.

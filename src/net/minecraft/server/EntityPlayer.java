@@ -6,9 +6,12 @@ import com.projectposeidon.api.PoseidonUUID;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.inventory.CraftInventory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.PlayerInventory;
 
 import java.util.*;
 
@@ -467,6 +470,15 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.ai();
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 1, "Crafting", 9));
         this.activeContainer = new ContainerWorkbench(this.inventory, this.world, i, j, k);
+        this.activeContainer.windowId = this.bO;
+        this.activeContainer.a((ICrafting) this);
+    }
+
+    public void openBukkitInventory(Inventory inventory)
+    {
+        this.ai();
+        this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 0, inventory.getName(), inventory.getSize()));
+        this.activeContainer = new ContainerChest(this.inventory, ((CraftInventory) inventory).getInventory());
         this.activeContainer.windowId = this.bO;
         this.activeContainer.a((ICrafting) this);
     }
