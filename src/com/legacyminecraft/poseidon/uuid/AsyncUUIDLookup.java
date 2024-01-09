@@ -38,7 +38,7 @@ public class AsyncUUIDLookup extends Thread
             apiRes = readRemoteJSON(URL + "/" + encode(username));
         } catch (FileNotFoundException ignored) {
             // file not found means we got a 404, and the user does not exist
-        } catch (IOException | ParseException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace(System.err);
             System.out.println("[Poseidon Plus] The Mojang profiles API appears to be malfunctioning.");
         }
@@ -71,7 +71,7 @@ public class AsyncUUIDLookup extends Thread
     }
 
     // modified muffin man code
-    private static RemoteJSONResponse readRemoteJSON(String url) throws IOException, ParseException
+    private static RemoteJSONResponse readRemoteJSON(String url) throws Exception
     {
         HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
         connection.setRequestMethod(METHOD);
