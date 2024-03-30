@@ -50,10 +50,29 @@ public class AsyncUUIDLookup extends Thread
         } catch (Exception ex) {
             ex.printStackTrace(System.err);
             System.out.println("[Poseidon Plus] The Mojang profiles API appears to be malfunctioning.");
+            loginProcessHandler.cancelLoginProcess(ChatColor.RED + "API malfunction. Please try again later.");
+            return;
         }
 
-        boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
-        UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.getInstance().getUUIDGraceful(username);
+        if (apiRes == null) // 404 received from API, user is cracked
+        {
+            UUID uuid = UUIDManager.getInstance().getUUIDGraceful(username);
+            System.out.println("[Poseidon Plus] User logged in with UUID: " + uuid + " (OFFLINE)");
+            loginProcessHandler.userUUIDReceived(uuid, false);
+            return;
+        }
+
+        int responseCode = apiRes.getResponseCode();
+
+        if (responseCode == 429) // rate-limit
+        {
+            System.out.println("[Poseidon Plus] The Mojang profiles API has been rate-limited!");
+            loginProcessHandler.cancelLoginProcess(ChatColor.RED + "API malfunction. Please try again later.");
+            return;
+        }
+
+        boolean success = (responseCode == 200 && apiRes.getResponseObject() != null);
+        UUID uuid = getWithDashes(String.valueOf(apiRes.getResponseObject().get("id")));
         if (!GRACEFUL && !success)
         {
             System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
