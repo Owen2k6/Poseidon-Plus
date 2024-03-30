@@ -235,7 +235,11 @@ public class RegionFile {
 
             this.b(i, j, (int) (System.currentTimeMillis() / 1000L));
         } catch (IOException ioexception) {
-            ioexception.printStackTrace(System.err);
+//            ioexception.printStackTrace(System.err);
+            try
+            {
+                b();
+            } catch (Exception ignored) {}
         }
     }
 
