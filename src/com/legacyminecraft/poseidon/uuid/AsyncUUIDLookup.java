@@ -32,6 +32,15 @@ public class AsyncUUIDLookup extends Thread
 
     public void run()
     {
+        UUID cachedUUID = UUIDManager.getInstance().getUUIDFromUsername(username, true);
+
+        if (cachedUUID != null)
+        {
+            System.out.println("[Poseidon Plus] User logged in with UUID: " + cachedUUID + " (CACHED)");
+            loginProcessHandler.userUUIDReceived(cachedUUID, true);
+            return;
+        }
+
         RemoteJSONResponse apiRes = null;
 
         try {
@@ -45,7 +54,7 @@ public class AsyncUUIDLookup extends Thread
 
         boolean success = (apiRes != null && apiRes.getResponseCode() == 200 && apiRes.getResponseObject() != null);
         UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.getInstance().getUUIDGraceful(username);
-        if (!GRACEFUL)
+        if (!GRACEFUL && !success)
         {
             System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
             loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, we only support premium accounts.");
