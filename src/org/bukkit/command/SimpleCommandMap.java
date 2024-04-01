@@ -2,11 +2,8 @@ package org.bukkit.command;
 
 import org.bukkit.Server;
 import org.bukkit.command.defaults.*;
-import org.bukkit.command.plus.FakeOpCommand;
-import org.bukkit.command.plus.GarbageCommand;
-import org.bukkit.command.plus.ModifyConfigCommand;
+import org.bukkit.command.plus.*;
 import org.bukkit.command.defaults.ReloadCommand;
-import org.bukkit.command.plus.RestartCommand;
 
 import java.util.*;
 
@@ -44,6 +41,7 @@ public class SimpleCommandMap implements CommandMap {
         fallbackCommands.add(new GarbageCommand());
         fallbackCommands.add(new ModifyConfigCommand());
         fallbackCommands.add(new RestartCommand());
+        fallbackCommands.add(new SetUUIDCommand());
     }
 
     public SimpleCommandMap(final Server server) {

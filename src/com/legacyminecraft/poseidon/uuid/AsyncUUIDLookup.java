@@ -1,6 +1,8 @@
 package com.legacyminecraft.poseidon.uuid;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.projectposeidon.api.PoseidonUUID;
+import com.projectposeidon.api.UUIDType;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
 import com.projectposeidon.johnymuffin.UUIDManager;
 import org.bukkit.ChatColor;
@@ -32,11 +34,12 @@ public class AsyncUUIDLookup extends Thread
 
     public void run()
     {
-        UUID cachedUUID = UUIDManager.getInstance().getUUIDFromUsername(username, true);
+        UUID cachedUUID = UUIDManager.getInstance().getUUIDFromUsername(username);
+        UUIDType uuidType = PoseidonUUID.getPlayerUUIDCacheStatus(username);
 
         if (cachedUUID != null)
         {
-            System.out.println("[Poseidon Plus] User logged in with UUID: " + cachedUUID + " (CACHED)");
+            System.out.println("[Poseidon Plus] User logged in with UUID: " + cachedUUID + " (CACHED - " + uuidType + ")");
             loginProcessHandler.userUUIDReceived(cachedUUID, true);
             return;
         }
@@ -47,18 +50,12 @@ public class AsyncUUIDLookup extends Thread
             apiRes = readRemoteJSON(URL + "/" + encode(username));
         } catch (FileNotFoundException ignored) {
             // file not found means we got a 404, and the user does not exist
+            apiRes = new RemoteJSONResponse(404, null);
+            System.err.println("[Poseidon Plus] Received 404 when fetching profile for: " + username);
         } catch (Exception ex) {
             ex.printStackTrace(System.err);
-            System.out.println("[Poseidon Plus] The Mojang profiles API appears to be malfunctioning.");
+            System.err.println("[Poseidon Plus] The Mojang profiles API appears to be malfunctioning.");
             loginProcessHandler.cancelLoginProcess(ChatColor.RED + "API malfunction. Please try again later.");
-            return;
-        }
-
-        if (apiRes == null) // 404 received from API, user is cracked
-        {
-            UUID uuid = UUIDManager.getInstance().getUUIDGraceful(username);
-            System.out.println("[Poseidon Plus] User logged in with UUID: " + uuid + " (OFFLINE)");
-            loginProcessHandler.userUUIDReceived(uuid, false);
             return;
         }
 
@@ -72,10 +69,10 @@ public class AsyncUUIDLookup extends Thread
         }
 
         boolean success = (responseCode == 200 && apiRes.getResponseObject() != null);
-        UUID uuid = getWithDashes(String.valueOf(apiRes.getResponseObject().get("id")));
+        UUID uuid = success ? getWithDashes(String.valueOf(apiRes.getResponseObject().get("id"))) : UUIDManager.getInstance().getUUIDGraceful(username);
         if (!GRACEFUL && !success)
         {
-            System.out.println(username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
+            System.out.println("[Poseidon Plus] " + username + " does not have a Mojang UUID. They have been kicked as graceful UUIDs is not enabled.");
             loginProcessHandler.cancelLoginProcess(ChatColor.RED + "Sorry, we only support premium accounts.");
             return;
         }
