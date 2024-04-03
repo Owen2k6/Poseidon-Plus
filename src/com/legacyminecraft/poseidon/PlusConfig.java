@@ -33,6 +33,7 @@ public class PlusConfig extends Configuration
         generateConfigOption("messages.kick.alternateLocation", "&cYou logged in from another location!");
         generateConfigOption("messages.broadcast.prefix", "&d[Server]");
         generateConfigOption("game.weather.lightning.can-start-fire", true);
+        generateConfigOption("uuids.ttl", 1382400L);
     }
 
     private void generateConfigOption(String key, Object defaultValue)

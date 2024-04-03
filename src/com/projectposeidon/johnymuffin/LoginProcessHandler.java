@@ -1,5 +1,6 @@
 package com.projectposeidon.johnymuffin;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.PoseidonPlugin;
 import com.legacyminecraft.poseidon.uuid.AsyncUUIDLookup;
@@ -111,8 +112,8 @@ public class LoginProcessHandler {
             }
         }
 
-
-        long unixTime = (System.currentTimeMillis() / 1000L) + 1382400;
+        long uuidTTL = (long) PlusConfig.getInstance().getConfigOption("uuids.ttl");
+        long unixTime = (System.currentTimeMillis() / 1000L) + uuidTTL;
         UUIDManager.getInstance().receivedUUID(packet1Login.name, uuid, unixTime, onlineMode);
         connectPlayer(uuid);
 
