@@ -22,7 +22,7 @@ public class SetUUIDCommand extends VanillaCommand
         super("setuuid");
         this.description = "Change a player's cached UUID";
         this.usageMessage = "/setuuid <username> <uuid> <premium>";
-        this.setPermission("bukkit.command.setuuid");
+        this.setPermission("poseidon.plus.setuuid");
     }
 
     @Override

@@ -51,6 +51,7 @@ public class SimpleCommandMap implements CommandMap {
 
     private void setDefaultCommands(final Server server) {
         register("poseidon", new PoseidonCommand("poseidon"));
+        register("poseidon", new SetUUIDCommand());
         register("bukkit", new VersionCommand("version"));
         register("bukkit", new ReloadCommand("reload"));
         register("bukkit", new PluginsCommand("plugins"));
