@@ -112,7 +112,7 @@ public class LoginProcessHandler {
             }
         }
 
-        long uuidTTL = (long) PlusConfig.getInstance().getConfigOption("uuids.ttl");
+        int uuidTTL = (int) PlusConfig.getInstance().getConfigOption("uuids.ttl");
         long unixTime = (System.currentTimeMillis() / 1000L) + uuidTTL;
         UUIDManager.getInstance().receivedUUID(packet1Login.name, uuid, unixTime, onlineMode);
         connectPlayer(uuid);

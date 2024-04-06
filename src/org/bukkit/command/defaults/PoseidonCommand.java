@@ -1,5 +1,7 @@
 package org.bukkit.command.defaults;
 
+import com.legacyminecraft.poseidon.PlusConfig;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.projectposeidon.api.PoseidonUUID;
 import com.projectposeidon.api.UUIDType;
 import org.bukkit.Bukkit;
@@ -25,8 +27,18 @@ public class PoseidonCommand extends Command {
         if (args.length == 0) {
             sender.sendMessage(ChatColor.GRAY + "This server is running " + ChatColor.AQUA + "Poseidon Plus" + ChatColor.GRAY + " Version: " + ChatColor.RED + Bukkit.getServer().getPoseidonVersion());
         } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("uuid")) {
+            if (args[0].equalsIgnoreCase("uuid"))
+            {
                 sender.sendMessage(ChatColor.GRAY + "Please specify a user /poseidon uuid (username)");
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                if (!(sender.isOp() || sender.hasPermission("poseidon.reload")))
+                {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+                    return true;
+                }
+                PoseidonConfig.getInstance().reload();
+                PlusConfig.getInstance().reload();
+                sender.sendMessage(ChatColor.GREEN + "Reloaded poseidon.yml & plus.yml configurations");
             } else {
                 sender.sendMessage(ChatColor.GRAY + "Unknown sub command.");
             }
