@@ -3,10 +3,7 @@ package net.minecraft.server;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import org.bukkit.craftbukkit.TrigMath;
 import org.bukkit.craftbukkit.entity.CraftEntity;
-import org.bukkit.event.entity.EntityDamageByBlockEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
 import java.util.List;
@@ -69,6 +66,14 @@ public abstract class EntityLiving extends Entity {
     protected float aE = 0.7F;
     private Entity b;
     protected int aF = 0;
+    // Begin Poseidon Plus
+    public CreatureSpawnEvent.SpawnReason spawnReason = CreatureSpawnEvent.SpawnReason.NATURAL;
+
+    public boolean isCreatedBySpawner()
+    {
+        return spawnReason == CreatureSpawnEvent.SpawnReason.SPAWNER;
+    }
+    // End Poseidon Plus
 
     public EntityLiving(World world) {
         super(world);

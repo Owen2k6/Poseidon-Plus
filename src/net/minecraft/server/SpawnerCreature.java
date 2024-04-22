@@ -246,6 +246,7 @@ public final class SpawnerCreature {
 
                                     entityliving.setPositionRotation((float) chunkcoordinates.x + 0.5F, chunkcoordinates.y, (float) chunkcoordinates.z + 0.5F, 0.0F, 0.0F);
                                     // CraftBukkit - added a reason for spawning this creature
+                                    entityliving.spawnReason = SpawnReason.BED;
                                     world.addEntity(entityliving, SpawnReason.BED);
                                     a(entityliving, world, (float) chunkcoordinates.x + 0.5F, (float) chunkcoordinates.y, (float) chunkcoordinates.z + 0.5F);
                                     entityhuman.a(true, false, false);

@@ -79,6 +79,7 @@ public class EntityPig extends EntityAnimal {
 
             entitypigzombie.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
              // CraftBukkit - added a reason for spawning this creature
+            entitypigzombie.spawnReason = SpawnReason.LIGHTNING;
             this.world.addEntity(entitypigzombie, SpawnReason.LIGHTNING);
             this.die();
         }
