@@ -22,7 +22,8 @@ public class EntityBoat extends Entity {
     private double i;
 
     // CraftBukkit start
-    public double maxSpeed = 0.4D;
+    //public double maxSpeed = 0.4D;
+    public double maxSpeed = 0.0D;
 
     @Override
     public void collide(Entity entity) {
@@ -121,13 +122,14 @@ public class EntityBoat extends Entity {
 
                 int j;
 
-                for (j = 0; j < 3; ++j) {
-                    this.a(Block.WOOD.id, 1, 0.0F);
-                }
-
-                for (j = 0; j < 2; ++j) {
-                    this.a(Item.STICK.id, 1, 0.0F);
-                }
+//                for (j = 0; j < 3; ++j) {
+//                    this.a(Block.WOOD.id, 1, 0.0F);
+//                }
+//
+//                for (j = 0; j < 2; ++j) {
+//                    this.a(Item.STICK.id, 1, 0.0F);
+//                }
+                this.a(Item.BOAT.id, 1, 0.0F);
 
                 this.die();
             }
@@ -228,27 +230,29 @@ public class EntityBoat extends Entity {
             }
 
             if (this.passenger != null) {
-                this.motX += this.passenger.motX * 0.2D;
-                this.motZ += this.passenger.motZ * 0.2D;
+                // Increase the multiplier from 0.2D to a higher value to make the boat go faster
+                this.motX += this.passenger.motX * maxSpeed; // Adjust this value as needed
+                this.motZ += this.passenger.motZ * maxSpeed; // Adjust this value as needed
             }
+
 
             // CraftBukkit
-            d3 = this.maxSpeed;
-            if (this.motX < -d3) {
-                this.motX = -d3;
-            }
-
-            if (this.motX > d3) {
-                this.motX = d3;
-            }
-
-            if (this.motZ < -d3) {
-                this.motZ = -d3;
-            }
-
-            if (this.motZ > d3) {
-                this.motZ = d3;
-            }
+//            d3 = this.maxSpeed;
+//            if (this.motX < -d3) {
+//                this.motX = -d3;
+//            }
+//
+//            if (this.motX > d3) {
+//                this.motX = d3;
+//            }
+//
+//            if (this.motZ < -d3) {
+//                this.motZ = -d3;
+//            }
+//
+//            if (this.motZ > d3) {
+//                this.motZ = d3;
+//            }
 
             if (this.onGround) {
                 this.motX *= 0.5D;
@@ -282,17 +286,17 @@ public class EntityBoat extends Entity {
 
             if (this.positionChanged && d4 > 0.15D) {
                 if (!this.world.isStatic) {
-                    this.die();
+                    //this.die();
 
-                    int k;
-
-                    for (k = 0; k < 3; ++k) {
-                        this.a(Block.WOOD.id, 1, 0.0F);
-                    }
-
-                    for (k = 0; k < 2; ++k) {
-                        this.a(Item.STICK.id, 1, 0.0F);
-                    }
+//                    int k;
+//
+//                    for (k = 0; k < 3; ++k) {
+//                        this.a(Block.WOOD.id, 1, 0.0F);
+//                    }
+//
+//                    for (k = 0; k < 2; ++k) {
+//                        this.a(Item.STICK.id, 1, 0.0F);
+//                    }
                 }
             } else {
                 this.motX *= 0.9900000095367432D;
