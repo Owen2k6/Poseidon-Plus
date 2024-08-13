@@ -25,17 +25,25 @@ public class EntityBoat extends Entity {
     //public double maxSpeed = 0.4D;
     public double maxSpeed = 0.0D;
 
+    //    @Override
+//    public void collide(Entity entity) {
+//        org.bukkit.entity.Entity hitEntity = (entity == null) ? null : entity.getBukkitEntity();
+//
+//        VehicleEntityCollisionEvent event = new VehicleEntityCollisionEvent((Vehicle) this.getBukkitEntity(), hitEntity);
+//        this.world.getServer().getPluginManager().callEvent(event);
+//
+//        if (event.isCancelled()) {
+//            return;
+//        }
+//
+//        super.collide(entity);
+//    }
     @Override
     public void collide(Entity entity) {
-        org.bukkit.entity.Entity hitEntity = (entity == null) ? null : entity.getBukkitEntity();
-
-        VehicleEntityCollisionEvent event = new VehicleEntityCollisionEvent((Vehicle) this.getBukkitEntity(), hitEntity);
-        this.world.getServer().getPluginManager().callEvent(event);
-
-        if (event.isCancelled()) {
+        // Skip collision logic for entities
+        if (entity != null) {
             return;
         }
-
         super.collide(entity);
     }
     // CraftBukkit end
@@ -54,15 +62,16 @@ public class EntityBoat extends Entity {
         return false;
     }
 
-    protected void b() {}
-
-    public AxisAlignedBB a_(Entity entity) {
-        return entity.boundingBox;
+    protected void b() {
     }
 
-    public AxisAlignedBB e_() {
-        return this.boundingBox;
-    }
+//    public AxisAlignedBB a_(Entity entity) {
+//        return entity.boundingBox;
+//    }
+//
+//    public AxisAlignedBB e_() {
+//        return this.boundingBox;
+//    }
 
     public boolean d_() {
         return true;
@@ -389,9 +398,11 @@ public class EntityBoat extends Entity {
         }
     }
 
-    protected void b(NBTTagCompound nbttagcompound) {}
+    protected void b(NBTTagCompound nbttagcompound) {
+    }
 
-    protected void a(NBTTagCompound nbttagcompound) {}
+    protected void a(NBTTagCompound nbttagcompound) {
+    }
 
     public boolean a(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {
