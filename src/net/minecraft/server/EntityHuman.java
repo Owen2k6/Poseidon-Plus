@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -208,7 +209,9 @@ public abstract class EntityHuman extends EntityLiving {
             List list = this.world.b((Entity) this, this.boundingBox.b(1.0D, 0.0D, 1.0D));
 
             if (list != null) {
-                for (Object object : list) {
+                List<Object> listCopy = new ArrayList<>();
+                listCopy.addAll(list); // ignore intellij warnings, use addAll();
+                for (Object object : listCopy) {
                     Entity entity = (Entity) object;
 
                     if (!entity.dead) {
