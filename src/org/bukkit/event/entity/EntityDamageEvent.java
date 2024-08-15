@@ -120,6 +120,10 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
          */
         DROWNING,
         /**
+         * Damage caused by being in the area when TNT explodes.
+         */
+        TNT_EXPLOSION,
+        /**
          * Damage caused by being in the area when a block explodes.
          *
          * Damage: variable
