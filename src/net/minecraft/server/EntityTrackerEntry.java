@@ -2,10 +2,7 @@ package net.minecraft.server;
 
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class EntityTrackerEntry {
 
@@ -192,9 +189,10 @@ public class EntityTrackerEntry {
 
     public void a(Packet packet) {
 
-        for (Object trackedPlayer : this.trackedPlayers) {
+        List<Object> trackedPlayersCopy = new ArrayList<>();
+        trackedPlayersCopy.addAll(this.trackedPlayers); // ignore intellij warning, use addAll();
+        for (Object trackedPlayer : trackedPlayersCopy) {
             EntityPlayer entityplayer = (EntityPlayer) trackedPlayer;
-
             entityplayer.netServerHandler.sendPacket(packet);
         }
     }

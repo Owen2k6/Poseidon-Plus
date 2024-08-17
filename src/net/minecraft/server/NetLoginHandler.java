@@ -211,7 +211,7 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void a(String s, Object[] aobject) {
-        a.info(this.b() + " lost connection");
+//        a.info(this.b() + " lost connection");
         this.c = true;
     }
 

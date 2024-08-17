@@ -1468,10 +1468,8 @@ public class World implements IBlockAccess {
 
     public Explosion createExplosion(Entity entity, double d0, double d1, double d2, float f, boolean flag) {
         Explosion explosion = new Explosion(this, entity, d0, d1, d2, f);
+        explosion.setFire = flag;
 
-        //explosion.a = flag; aparrently never existed
-        explosion.a();
-        explosion.a(true);
         return explosion;
     }
 
