@@ -17,9 +17,7 @@ public class CraftBoat extends CraftVehicle implements Boat {
     }
 
     public void setMaxSpeed(double speed) {
-        if (speed >= 0D) {
-            boat.maxSpeed = speed;
-        }
+        boat.maxSpeed = speed;
     }
 
     @Override
