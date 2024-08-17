@@ -153,7 +153,6 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
          * Damage: 1000
          */
         SUICIDE,
-        TNT_EXPLOSION,
         /**
          * Custom damage.
          *

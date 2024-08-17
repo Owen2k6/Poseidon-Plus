@@ -22,28 +22,19 @@ public class EntityBoat extends Entity {
     private double i;
 
     // CraftBukkit start
-    //public double maxSpeed = 0.4D;
-    public double maxSpeed = 0.0D;
+    public double maxSpeed = 0.4D;
 
-    //    @Override
-//    public void collide(Entity entity) {
-//        org.bukkit.entity.Entity hitEntity = (entity == null) ? null : entity.getBukkitEntity();
-//
-//        VehicleEntityCollisionEvent event = new VehicleEntityCollisionEvent((Vehicle) this.getBukkitEntity(), hitEntity);
-//        this.world.getServer().getPluginManager().callEvent(event);
-//
-//        if (event.isCancelled()) {
-//            return;
-//        }
-//
-//        super.collide(entity);
-//    }
     @Override
     public void collide(Entity entity) {
-        // Skip collision logic for entities
-        if (entity != null) {
+        org.bukkit.entity.Entity hitEntity = (entity == null) ? null : entity.getBukkitEntity();
+
+        VehicleEntityCollisionEvent event = new VehicleEntityCollisionEvent((Vehicle) this.getBukkitEntity(), hitEntity);
+        this.world.getServer().getPluginManager().callEvent(event);
+
+        if (event.isCancelled()) {
             return;
         }
+
         super.collide(entity);
     }
     // CraftBukkit end
@@ -62,16 +53,15 @@ public class EntityBoat extends Entity {
         return false;
     }
 
-    protected void b() {
+    protected void b() {}
+
+    public AxisAlignedBB a_(Entity entity) {
+        return entity.boundingBox;
     }
 
-//    public AxisAlignedBB a_(Entity entity) {
-//        return entity.boundingBox;
-//    }
-//
-//    public AxisAlignedBB e_() {
-//        return this.boundingBox;
-//    }
+    public AxisAlignedBB e_() {
+        return this.boundingBox;
+    }
 
     public boolean d_() {
         return true;
@@ -131,14 +121,13 @@ public class EntityBoat extends Entity {
 
                 int j;
 
-//                for (j = 0; j < 3; ++j) {
-//                    this.a(Block.WOOD.id, 1, 0.0F);
-//                }
-//
-//                for (j = 0; j < 2; ++j) {
-//                    this.a(Item.STICK.id, 1, 0.0F);
-//                }
-                this.a(Item.BOAT.id, 1, 0.0F);
+                for (j = 0; j < 3; ++j) {
+                    this.a(Block.WOOD.id, 1, 0.0F);
+                }
+
+                for (j = 0; j < 2; ++j) {
+                    this.a(Item.STICK.id, 1, 0.0F);
+                }
 
                 this.die();
             }
@@ -239,29 +228,27 @@ public class EntityBoat extends Entity {
             }
 
             if (this.passenger != null) {
-                // Increase the multiplier from 0.2D to a higher value to make the boat go faster
-                this.motX += this.passenger.motX * maxSpeed; // Adjust this value as needed
-                this.motZ += this.passenger.motZ * maxSpeed; // Adjust this value as needed
+                this.motX += this.passenger.motX * 0.2D;
+                this.motZ += this.passenger.motZ * 0.2D;
             }
 
-
             // CraftBukkit
-//            d3 = this.maxSpeed;
-//            if (this.motX < -d3) {
-//                this.motX = -d3;
-//            }
-//
-//            if (this.motX > d3) {
-//                this.motX = d3;
-//            }
-//
-//            if (this.motZ < -d3) {
-//                this.motZ = -d3;
-//            }
-//
-//            if (this.motZ > d3) {
-//                this.motZ = d3;
-//            }
+            d3 = this.maxSpeed;
+            if (this.motX < -d3) {
+                this.motX = -d3;
+            }
+
+            if (this.motX > d3) {
+                this.motX = d3;
+            }
+
+            if (this.motZ < -d3) {
+                this.motZ = -d3;
+            }
+
+            if (this.motZ > d3) {
+                this.motZ = d3;
+            }
 
             if (this.onGround) {
                 this.motX *= 0.5D;
@@ -295,17 +282,17 @@ public class EntityBoat extends Entity {
 
             if (this.positionChanged && d4 > 0.15D) {
                 if (!this.world.isStatic) {
-                    //this.die();
+                    this.die();
 
-//                    int k;
-//
-//                    for (k = 0; k < 3; ++k) {
-//                        this.a(Block.WOOD.id, 1, 0.0F);
-//                    }
-//
-//                    for (k = 0; k < 2; ++k) {
-//                        this.a(Item.STICK.id, 1, 0.0F);
-//                    }
+                    int k;
+
+                    for (k = 0; k < 3; ++k) {
+                        this.a(Block.WOOD.id, 1, 0.0F);
+                    }
+
+                    for (k = 0; k < 2; ++k) {
+                        this.a(Item.STICK.id, 1, 0.0F);
+                    }
                 }
             } else {
                 this.motX *= 0.9900000095367432D;
@@ -398,11 +385,9 @@ public class EntityBoat extends Entity {
         }
     }
 
-    protected void b(NBTTagCompound nbttagcompound) {
-    }
+    protected void b(NBTTagCompound nbttagcompound) {}
 
-    protected void a(NBTTagCompound nbttagcompound) {
-    }
+    protected void a(NBTTagCompound nbttagcompound) {}
 
     public boolean a(EntityHuman entityhuman) {
         if (this.passenger != null && this.passenger instanceof EntityHuman && this.passenger != entityhuman) {

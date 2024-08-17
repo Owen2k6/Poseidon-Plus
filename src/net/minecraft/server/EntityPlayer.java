@@ -42,7 +42,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         int j = chunkcoordinates.z;
         int k = chunkcoordinates.y;
 
-
         if (!world.worldProvider.e) {
             k = world.f(i, j); //Project Poseidon: This finds a solid block, this needs to be left outside of the setting
             if ((boolean) PoseidonConfig.getInstance().getProperty("world-settings.randomize-spawn")) { //Project Poseidon: Moved randomizing X and Y axis into a config option
@@ -380,15 +379,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void v() {
         super.v();
-    }
-
-    @Override
-    public void collide(Entity entity) {
-        // Skip collision logic for entities
-        if (entity != null) {
-            return;
-        }
-        super.collide(entity);
     }
 
     public void receive(Entity entity, int i) {
