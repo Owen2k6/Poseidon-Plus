@@ -241,6 +241,28 @@ public class BlockPiston extends Block {
     }
 
     private static boolean a(int i, World world, int j, int k, int l, boolean flag) {
+        // begin poseidon plus - fix piston break bug
+        if (i == Block.YELLOW_FLOWER.id) return false;
+        if (i == Block.RED_ROSE.id) return false;
+        if (i == Block.SUGAR_CANE_BLOCK.id) return false;
+        if (i == Block.SAPLING.id) return false;
+        if (i == Block.TORCH.id) return false;
+        if (i == Block.LEVER.id) return false;
+        if (i == Block.RED_MUSHROOM.id) return false;
+        if (i == Block.BROWN_MUSHROOM.id) return false;
+        if (i == Block.CROPS.id) return false;
+        if (i == Block.FIRE.id) return false;
+        if (i == Block.STONE_PLATE.id) return false;
+        if (i == Block.WOOD_PLATE.id) return false;
+        if (i == Block.DIODE_ON.id) return false;
+        if (i == Block.DIODE_OFF.id) return false;
+        if (i == Block.BED.id) return false;
+        if (i == Block.WEB.id) return false;
+        if (i == Block.STONE_BUTTON.id) return false;
+        if (i == Block.REDSTONE_WIRE.id) return false;
+        if (i == Block.SNOW.id) return false;
+        // end poseidon plus
+
         if (i == Block.OBSIDIAN.id) {
             return false;
         } else if ((i == Block.FURNACE.id || i == Block.BURNING_FURNACE.id) && PoseidonConfig.getInstance().getBoolean("world.settings.block-pistons-pushing-furnaces.enabled", true)) {
