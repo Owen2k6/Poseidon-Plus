@@ -709,6 +709,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet packet) {
+        if (firePacketEvents)
+        {
+            PacketReceivedEvent packetReceivedEvent = new PacketReceivedEvent((Player)player.getBukkitEntity(), packet);
+            Bukkit.getPluginManager().callEvent(packetReceivedEvent);
+            if (packetReceivedEvent.isCancelled())
+                return;
+        }
+
         a.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
         this.disconnect("Protocol error, unexpected packet");
     }
