@@ -1611,8 +1611,10 @@ public class World implements IBlockAccess {
                         flag = true;
                         return flag;
                     }
-
-                    ((MetadataChunkBlock) this.C.remove(this.C.size() - 1)).a(this);
+                    MetadataChunkBlock chunkBlock = (MetadataChunkBlock) this.C.remove(this.C.size() - 1);
+                    if (chunkBlock != null)
+                        chunkBlock.a(this);
+//                    ((MetadataChunkBlock) this.C.remove(this.C.size() - 1)).a(this);
                 }
 
                 flag = false;
