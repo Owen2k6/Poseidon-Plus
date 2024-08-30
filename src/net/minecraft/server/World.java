@@ -1974,7 +1974,10 @@ public class World implements IBlockAccess {
         int i = this.E.size();
 
         if (i != this.F.size()) {
-            throw new IllegalStateException("TickNextTick list out of synch");
+            // poseidon plus -- resync arrays. no idea if this will cause issues or not tbh
+            this.E.clear();
+            this.E.addAll(this.F);
+//            throw new IllegalStateException("TickNextTick list out of synch");
         } else {
             if (i > 1000) {
                 i = 1000;
