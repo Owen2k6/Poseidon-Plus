@@ -28,7 +28,7 @@ public class CraftWorld implements World {
     private final WorldServer world;
     private Environment environment;
     private final CraftServer server = (CraftServer)Bukkit.getServer();
-//    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
+    //    private ConcurrentMap<Integer, CraftChunk> unloadedChunks = new MapMaker().weakValues().makeMap();
     private final ChunkGenerator generator;
     private final List<BlockPopulator> populators = new ArrayList<BlockPopulator>();
 
@@ -276,9 +276,9 @@ public class CraftWorld implements World {
 
     public org.bukkit.entity.Item dropItem(Location loc, ItemStack item) {
         net.minecraft.server.ItemStack stack = new net.minecraft.server.ItemStack(
-            item.getTypeId(),
-            item.getAmount(),
-            item.getDurability()
+                item.getTypeId(),
+                item.getAmount(),
+                item.getDurability()
         );
         EntityItem entity = new EntityItem(world, loc.getX(), loc.getY(), loc.getZ(), stack);
         entity.pickupDelay = 10;
@@ -292,7 +292,6 @@ public class CraftWorld implements World {
         double xs = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double ys = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double zs = world.random.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        loc = loc.clone();
         loc.setX(loc.getX() + xs);
         loc.setY(loc.getY() + ys);
         loc.setZ(loc.getZ() + zs);
@@ -306,6 +305,8 @@ public class CraftWorld implements World {
         arrow.a(velocity.getX(), velocity.getY(), velocity.getZ(), speed, spread);
         return (Arrow) arrow.getBukkitEntity();
     }
+
+
 
     public LivingEntity spawnCreature(Location loc, CreatureType creatureType) {
         LivingEntity creature;
@@ -799,14 +800,13 @@ public class CraftWorld implements World {
         for (int x = -12; x <= 12; x++) {
             for (int z = -12; z <= 12; z++) {
                 if (keepLoaded) {
-                    loadChunk(chunkCoordX + x, chunkCoordZ + z);
+                    if (!isChunkLoaded(chunkCoordX + x, chunkCoordZ + z)) {
+                        loadChunk(chunkCoordX + x, chunkCoordZ + z);
+                    }
                 } else {
-                    if (isChunkLoaded(chunkCoordX + x, chunkCoordZ + z)) {
-                        if (this.getHandle().getChunkAt(chunkCoordX + x, chunkCoordZ + z).isEmpty()) {
-                            unloadChunk(chunkCoordX + x, chunkCoordZ + z, false);
-                        } else {
-                            unloadChunk(chunkCoordX + x, chunkCoordZ + z);
-                        }
+                    if (isChunkLoaded(chunkCoordX + x, chunkCoordZ + z) &&
+                            this.getHandle().getChunkAt(chunkCoordX + x, chunkCoordZ + z).isEmpty()) {
+                        unloadChunk(chunkCoordX + x, chunkCoordZ + z, false);
                     }
                 }
             }
