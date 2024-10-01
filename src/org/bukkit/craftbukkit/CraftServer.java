@@ -384,14 +384,15 @@ public final class CraftServer implements Server {
         commandMap.clearCommands();
 
         int pollCount = 0;
-
-        // Wait for at most 2.5 seconds for plugins to close their threads
-        while (pollCount < 50 && getScheduler().getActiveWorkers().size() > 0) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ignored) {
+        // Improved wait mechanism using getScheduler().wait with a notify pattern.
+        synchronized (getScheduler()) {
+            while (pollCount < 50 && getScheduler().getActiveWorkers().size() > 0) {
+                try {
+                    getScheduler().wait(50);  // Wait instead of sleep for more controlled handling.
+                } catch (InterruptedException ignored) {
+                }
+                pollCount++;
             }
-            pollCount++;
         }
 
         List<BukkitWorker> overdueWorkers = getScheduler().getActiveWorkers();
@@ -401,12 +402,7 @@ public final class CraftServer implements Server {
             if (plugin.getDescription().getAuthors().size() > 0) {
                 author = plugin.getDescription().getAuthors().get(0);
             }
-            getLogger().log(Level.SEVERE, String.format(
-                    "Nag author: '%s' of '%s' about the following: %s",
-                    author,
-                    plugin.getDescription().getName(),
-                    "This plugin is not properly shutting down its async tasks when it is being reloaded.  This may cause conflicts with the newly loaded version of the plugin"
-            ));
+            getLogger().log(Level.SEVERE, String.format("Nag author: '%s' of '%s' about the following: %s", author, plugin.getDescription().getName(), "This plugin is not properly shutting down its async tasks when it is being reloaded.  This may cause conflicts with the newly loaded version of the plugin"));
         }
         loadPlugins();
         enablePlugins(PluginLoadOrder.STARTUP);
@@ -604,12 +600,7 @@ public final class CraftServer implements Server {
     }
 
     public World getWorld(UUID uid) {
-        for (World world : worlds.values()) {
-            if (world.getUID().equals(uid)) {
-                return world;
-            }
-        }
-        return null;
+        return worlds.values().stream().filter(world -> world.getUID().equals(uid)).findFirst().orElse(null);
     }
 
     public void addWorld(World world) {
