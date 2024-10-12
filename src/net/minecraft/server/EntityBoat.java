@@ -28,14 +28,14 @@ public class EntityBoat extends Entity {
     public void collide(Entity entity) {
         org.bukkit.entity.Entity hitEntity = (entity == null) ? null : entity.getBukkitEntity();
 
+        // Fire the collision event but prevent actual collision
         VehicleEntityCollisionEvent event = new VehicleEntityCollisionEvent((Vehicle) this.getBukkitEntity(), hitEntity);
         this.world.getServer().getPluginManager().callEvent(event);
 
+        // Skip collision logic
         if (event.isCancelled()) {
             return;
         }
-
-        super.collide(entity);
     }
     // CraftBukkit end
 
@@ -232,22 +232,21 @@ public class EntityBoat extends Entity {
                 this.motZ += this.passenger.motZ * 0.2D;
             }
 
-            // CraftBukkit
-            d3 = this.maxSpeed;
-            if (this.motX < -d3) {
-                this.motX = -d3;
+            // Custom max speed limiter for gears
+            if (this.motX > this.maxSpeed) {
+                this.motX = this.maxSpeed;
             }
 
-            if (this.motX > d3) {
-                this.motX = d3;
+            if (this.motX < -this.maxSpeed) {
+                this.motX = -this.maxSpeed;
             }
 
-            if (this.motZ < -d3) {
-                this.motZ = -d3;
+            if (this.motZ > this.maxSpeed) {
+                this.motZ = this.maxSpeed;
             }
 
-            if (this.motZ > d3) {
-                this.motZ = d3;
+            if (this.motZ < -this.maxSpeed) {
+                this.motZ = -this.maxSpeed;
             }
 
             if (this.onGround) {
