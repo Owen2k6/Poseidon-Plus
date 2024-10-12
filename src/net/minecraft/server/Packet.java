@@ -14,62 +14,54 @@ import java.util.Set;
 
 public abstract class Packet {
 
-    private static Map packetIdToClassMap = new HashMap();
-    private static Map packetClassToIdMap = new HashMap();
-    private static Set clientPacketIdList = new HashSet();
-    private static Set serverPacketIdList = new HashSet();
+    private static final Map<Integer, Class<?>> packetIdToClassMap = new HashMap<>();
+    private static final Map<Class<?>, Integer> packetClassToIdMap = new HashMap<>();
+    private static final Set<Integer> clientPacketIdList = new HashSet<>();
+    private static final Set<Integer> serverPacketIdList = new HashSet<>();
     public final long timestamp = System.currentTimeMillis();
     public boolean k = false;
     private static HashMap e;
     private static int f;
 
-    public Packet() {}
-    
+    public Packet() {
+    }
+
     /**
      * Register a packet
-     * @author moderator_Man
+     *
      * @param id
      * @param clientSide
      * @param serverSide
      * @param oclass
+     * @author moderator_Man
      */
-    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass)
-    {
-        if (packetIdToClassMap.containsKey(id))
-            throw new IllegalArgumentException("Duplicate packet id:" + id);
+    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass) {
+        if (packetIdToClassMap.containsKey(id)) throw new IllegalArgumentException("Duplicate packet id:" + id);
         else if (packetClassToIdMap.containsKey(oclass))
             throw new IllegalArgumentException("Duplicate packet class:" + oclass);
         else {
             packetIdToClassMap.put(id, oclass);
             packetClassToIdMap.put(oclass, id);
-            if (clientSide)
-                clientPacketIdList.add(id);
-            if (serverSide)
-                serverPacketIdList.add(id);
+            if (clientSide) clientPacketIdList.add(id);
+            if (serverSide) serverPacketIdList.add(id);
         }
     }
-    
-    static void a(int i, boolean flag, boolean flag1, Class oclass) {
-        if (packetIdToClassMap.containsKey(i)) {
-            throw new IllegalArgumentException("Duplicate packet id:" + i);
-        } else if (packetClassToIdMap.containsKey(oclass)) {
-            throw new IllegalArgumentException("Duplicate packet class:" + oclass);
-        } else {
-            packetIdToClassMap.put(i, oclass);
-            packetClassToIdMap.put(oclass, i);
-            if (flag) {
-                clientPacketIdList.add(i);
-            }
 
-            if (flag1) {
-                serverPacketIdList.add(i);
-            }
+    static void a(int i, boolean flag, boolean flag1, Class oclass) {
+        if (packetIdToClassMap.putIfAbsent(i, oclass) != null || packetClassToIdMap.putIfAbsent(oclass, i) != null) {
+            throw new IllegalArgumentException("Duplicate packet id or class: " + i + " or " + oclass);
+        }
+        if (flag) {
+            clientPacketIdList.add(i);
+        }
+        if (flag1) {
+            serverPacketIdList.add(i);
         }
     }
 
     public static Packet a(int i) {
         try {
-            Class oclass = (Class) packetIdToClassMap.get(i);
+            Class<?> oclass = packetIdToClassMap.get(i);
 
             return oclass == null ? null : (Packet) oclass.newInstance();
         } catch (Exception exception) {
@@ -148,7 +140,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static void a(String s, DataOutputStream dataoutputstream)  throws IOException {
+    public static void a(String s, DataOutputStream dataoutputstream) throws IOException {
         if (s.length() > 32767) {
             throw new IOException("String too big");
         } else {
@@ -158,7 +150,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static String a(DataInputStream datainputstream, int i)  throws IOException {
+    public static String a(DataInputStream datainputstream, int i) throws IOException {
         short short1 = datainputstream.readShort();
 
         if (short1 > i) {

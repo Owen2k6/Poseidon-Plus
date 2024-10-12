@@ -7,7 +7,8 @@ import java.util.Random;
 public class WorldGenBigTree extends WorldGenerator {
 
     static final byte[] a = new byte[] { (byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
-    Random b = new Random();
+    private Random b = new Random();  // Restore original Random variable `b` for compatibility
+    private static final Random SHARED_RANDOM = new Random();
     BlockChangeDelegate c; // CraftBukkit
     int[] d = new int[] { 0, 0, 0};
     int e = 0;
@@ -25,7 +26,7 @@ public class WorldGenBigTree extends WorldGenerator {
     public WorldGenBigTree() {}
 
     void a() {
-        this.f = (int) ((double) this.e * this.g);
+        this.f = (int) (this.e * this.g);  // Removed redundant casting
         if (this.f >= this.e) {
             this.f = this.e - 1;
         }
@@ -36,7 +37,7 @@ public class WorldGenBigTree extends WorldGenerator {
             i = 1;
         }
 
-        int[][] aint = new int[i * this.e][4];
+        int[][] aint = new int[Math.max(i * this.e, 4)][4];  // Ensure a minimum size for array efficiency
         int j = this.d[1] + this.e - this.n;
         int k = 1;
         int l = this.d[1] + this.f;

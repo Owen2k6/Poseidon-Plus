@@ -53,7 +53,7 @@ class NetworkWriterThread extends Thread {
 
                     //ioexception.printStackTrace(); //Project Poseidon Remove - Credit to Notcz in Modification Station
                 }
-                
+
                 if (this.fast) { // Poseidon
                     try {
                         sleep(2L);

@@ -63,7 +63,7 @@ public final class ChunkCompressionThread implements Runnable {
 
         int dataSize = packet.rawData.length;
         if (deflateBuffer.length < dataSize + 100) {
-            deflateBuffer = new byte[dataSize + 100];
+            deflateBuffer = new byte[Math.max(deflateBuffer.length * 2, dataSize + 100)];
         }
 
         deflater.reset();
@@ -96,9 +96,10 @@ public final class ChunkCompressionThread implements Runnable {
     }
 
     private void addToPlayerQueueSize(EntityPlayer player, int amount) {
+        if (player == null) return;  // Prevent NullPointerException
         synchronized (queueSizePerPlayer) {
-            Integer count = queueSizePerPlayer.get(player);
-            amount += (count == null) ? 0 : count;
+            Integer count = queueSizePerPlayer.getOrDefault(player, 0);
+            amount += count;
             if (amount == 0) {
                 queueSizePerPlayer.remove(player);
             } else {
@@ -117,12 +118,10 @@ public final class ChunkCompressionThread implements Runnable {
     private void addQueuedPacket(QueuedPacket task) {
         addToPlayerQueueSize(task.player, +1);
 
-        while (true) {
-            try {
-                packetQueue.put(task);
-                return;
-            } catch (InterruptedException ignored) {
-            }
+        try {
+            packetQueue.put(task);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();  // Restore interruption status
         }
     }
 

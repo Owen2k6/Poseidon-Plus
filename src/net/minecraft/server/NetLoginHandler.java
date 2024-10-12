@@ -103,15 +103,16 @@ public class NetLoginHandler extends NetHandler {
         } else {
             //Project Poseidon - Start (Release2Beta)
             List<Byte> legacyMagicHeaders = Arrays.asList((byte) -999, (byte) 26, (byte) 1, (byte) 2);
-            boolean ipForwardingEnabled = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.enable");
-            String allowedProxy = String.valueOf(PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.allowed-proxy", "127.0.0.1"));
-            boolean allowedOnly = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.allowed-only");
-            boolean useMagicHeaders = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.magic-headers");
+            PoseidonConfig config = PoseidonConfig.getInstance();
+            boolean ipForwardingEnabled = (boolean) config.getConfigOption("settings.bit-flags.enable");
+            String allowedProxy = String.valueOf(config.getConfigOption("settings.bit-flags.allowed-proxy", "127.0.0.1"));
+            boolean allowedOnly = (boolean) config.getConfigOption("settings.bit-flags.allowed-only");
+            boolean useMagicHeaders = (boolean) config.getConfigOption("settings.bit-flags.magic-headers");
 
             // the order of this must be in reverse in order to make sense
             boolean[] bits = getBits(packet1login.d);
             boolean isIPForwarded = bits[0] // first bit reserved for IP forward indicator
-                                       || (useMagicHeaders && legacyMagicHeaders.contains(packet1login.d));
+                    || (useMagicHeaders && legacyMagicHeaders.contains(packet1login.d));
 
             // if forwarding is enabled, check to see if the IP is forwarded
             // if the IP is not forwarded, but forwarding is enabled, kick the user.
@@ -160,18 +161,17 @@ public class NetLoginHandler extends NetHandler {
         }
     }
 
-    private static boolean[] getBits(byte b)
-    {
-        return new boolean[] {
-                (b & 0x80) != 0,
-                (b & 0x40) != 0,
-                (b & 0x20) != 0,
-                (b & 0x10) != 0,
-                (b & 0x8) != 0,
-                (b & 0x4) != 0,
-                (b & 0x2) != 0,
-                (b & 0x1) != 0,
-        };
+    private static boolean[] getBits(byte b) {
+        boolean[] bits = new boolean[8];
+        bits[0] = (b & 0x80) != 0;
+        bits[1] = (b & 0x40) != 0;
+        bits[2] = (b & 0x20) != 0;
+        bits[3] = (b & 0x10) != 0;
+        bits[4] = (b & 0x8) != 0;
+        bits[5] = (b & 0x4) != 0;
+        bits[6] = (b & 0x2) != 0;
+        bits[7] = (b & 0x1) != 0;
+        return bits;
     }
 
     public void b(Packet1Login packet1login) {

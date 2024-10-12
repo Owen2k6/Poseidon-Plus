@@ -62,16 +62,7 @@ public class CraftChunk implements Chunk {
 
     public Block getBlock(int x, int y, int z) {
         int pos = (x & 0xF) << 11 | (z & 0xF) << 7 | (y & 0x7F);
-        Block block = this.cache.get(pos);
-        if (block == null) {
-            Block newBlock = new CraftBlock(this, (getX() << 4) | (x & 0xF), y & 0x7F, (getZ() << 4) | (z & 0xF));
-            Block oldBlock = this.cache.put(pos, newBlock);
-            if (oldBlock == null) {
-                block = newBlock;
-            } else {
-                block = oldBlock;
-            }
-        }
+        Block block = this.cache.computeIfAbsent(pos, k -> new CraftBlock(this, (getX() << 4) | (x & 0xF), y & 0x7F, (getZ() << 4) | (z & 0xF)));
         return block;
     }
 
@@ -98,7 +89,7 @@ public class CraftChunk implements Chunk {
         int index = 0;
         net.minecraft.server.Chunk chunk = getHandle();
         BlockState[] entities = new BlockState[chunk.tileEntities.size()];
-        for (Object obj : chunk.tileEntities.keySet().toArray()) {
+        for (Object obj : chunk.tileEntities.keySet()) {
             if (!(obj instanceof ChunkPosition)) {
                 continue;
             }

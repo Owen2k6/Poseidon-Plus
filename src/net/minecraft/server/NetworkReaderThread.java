@@ -14,23 +14,20 @@ class NetworkReaderThread extends Thread {
 
     public void run() {
         Object object = NetworkManager.a;
-
+        boolean flag = false;  // Restore the flag variable
         synchronized (NetworkManager.a) {
             ++NetworkManager.b;
         }
 
-        while (true) {
-            boolean flag = false;
-
+        // Simplified main loop control and flag handling
+        boolean continueRunning = true;
+        while (continueRunning) {
             try {
-                flag = true;
-                if (!NetworkManager.a(this.a)) {
-                    flag = false;
-                    break;
-                }
+                // Caching the repetitive method calls for efficiency
+                boolean managerA = NetworkManager.a(this.a);
+                boolean managerB = NetworkManager.b(this.a);
 
-                if (NetworkManager.b(this.a)) {
-                    flag = false;
+                if (!managerA || managerB) {
                     break;
                 }
 
@@ -54,7 +51,6 @@ class NetworkReaderThread extends Thread {
             }
         }
 
-        object = NetworkManager.a;
         synchronized (NetworkManager.a) {
             --NetworkManager.b;
         }

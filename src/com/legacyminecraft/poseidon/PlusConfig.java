@@ -23,8 +23,8 @@ public class PlusConfig extends Configuration
 
     private void write()
     {
-        generateConfigOption("messages.player.join", "§e%player% joined the game.");
-        generateConfigOption("messages.player.leave", "§e%player% left the game.");
+        generateConfigOption("messages.player.join", "&e%player% joined the game.");
+        generateConfigOption("messages.player.leave", "&e%player% left the game.");
         generateConfigOption("messages.kick.ban", "&cYou have been banned from this server.");
         generateConfigOption("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         generateConfigOption("messages.kick.shutdown", "&cThe server is shutting down.");

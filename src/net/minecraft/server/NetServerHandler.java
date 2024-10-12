@@ -50,7 +50,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private int rawConnectionType = 0; //Project Poseidon - Create Variable
     private boolean receivedKeepAlive = false;
     private boolean firePacketEvents;
-    
+
     private final String msgPlayerLeave;
 
     public boolean isReceivedKeepAlive() {
@@ -169,8 +169,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet27);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         this.player.a(packet27.c(), packet27.e(), packet27.g(), packet27.h(), packet27.d(), packet27.f());
     }
@@ -179,8 +178,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet10flying);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
@@ -480,8 +478,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet14blockdig);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 
@@ -566,8 +563,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet15place);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
@@ -709,12 +705,10 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void a(Packet packet) {
-        if (firePacketEvents)
-        {
-            PacketReceivedEvent packetReceivedEvent = new PacketReceivedEvent((Player)player.getBukkitEntity(), packet);
+        if (firePacketEvents) {
+            PacketReceivedEvent packetReceivedEvent = new PacketReceivedEvent((Player) player.getBukkitEntity(), packet);
             Bukkit.getPluginManager().callEvent(packetReceivedEvent);
-            if (packetReceivedEvent.isCancelled())
-                return;
+            if (packetReceivedEvent.isCancelled()) return;
         }
 
         a.warning(this.getClass() + " wasn\'t prepared to deal with a " + packet.getClass());
@@ -761,8 +755,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet16blockitemswitch);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 
@@ -783,8 +776,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet3chat);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         String s = packet3chat.message;
 
@@ -819,10 +811,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     return true;
                 }
 
-                s = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
+                String format = event.getFormat();
+                String displayName = event.getPlayer().getDisplayName();
+                String message = event.getMessage();
+                s = format.replace("%1$s", displayName).replace("%2$s", message);
                 minecraftServer.console.sendMessage(s);
                 for (Player recipient : event.getRecipients()) {
-                    ((CraftPlayer)recipient).sendMessage(s);
+                    ((CraftPlayer) recipient).sendMessage(s);
                 }
             }
         }
@@ -902,8 +897,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet18armanimation);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 
@@ -946,8 +940,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet19entityaction);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         // CraftBukkit start
         if (this.player.dead) return;
@@ -980,8 +973,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet255kickdisconnect);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         this.networkManager.a("disconnect.quitting", new Object[0]);
     }
@@ -1002,8 +994,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet7useentity);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 
@@ -1049,8 +1040,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet9respawn);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         if (this.player.health <= 0) {
             this.player = this.minecraftServer.serverConfigurationManager.moveToWorld(this.player, 0);
@@ -1069,8 +1059,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet102windowclick);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 
@@ -1102,8 +1091,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent event = new PacketReceivedEvent(server.getPlayer(player), packet106transaction);
         server.getPluginManager().callEvent(event);
-        if (event.isCancelled())
-            return;
+        if (event.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 
@@ -1118,8 +1106,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // poseidon
         PacketReceivedEvent pevent = new PacketReceivedEvent(server.getPlayer(player), packet130updatesign);
         server.getPluginManager().callEvent(pevent);
-        if (pevent.isCancelled())
-            return;
+        if (pevent.isCancelled()) return;
 
         if (this.player.dead) return; // CraftBukkit
 

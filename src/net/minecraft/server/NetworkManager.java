@@ -130,9 +130,8 @@ public class NetworkManager {
             int[] aint;
 
             if (!this.highPriorityQueue.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((Packet) this.highPriorityQueue.get(0)).timestamp >= (long) this.f)) {
-                object = this.g;
                 synchronized (this.g) {
-                    packet = (Packet) this.highPriorityQueue.remove(0);
+                    packet = (Packet) highPriorityQueue.remove(0);
                     this.x -= packet.a() + 1;
                 }
 
@@ -243,12 +242,10 @@ public class NetworkManager {
             this.a("disconnect.overflow", new Object[0]);
         }
 
-        if (this.m.isEmpty()) {
-            if (this.w++ == 1200) {
-                this.a("disconnect.timeout", new Object[0]);
-            }
-        } else {
+        if (!this.m.isEmpty()) {
             this.w = 0;
+        } else if (++this.w == 1200) {
+            this.a("disconnect.timeout", new Object[0]);
         }
 
         int i = (fast ? 1000 : 100);

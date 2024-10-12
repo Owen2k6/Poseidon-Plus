@@ -48,9 +48,9 @@ public class ServerConfigurationManager {
         msgKickBanned = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
         msgKickWhitelist = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
-        this.msgKickIPBanned = PoseidonConfig.getInstance().getConfigString("message.kick.ip-banned");
-        this.msgPlayerJoin = PoseidonConfig.getInstance().getConfigString("message.player.join");
-        this.msgPlayerLeave = PoseidonConfig.getInstance().getConfigString("message.player.leave");
+        this.msgKickIPBanned = PlusConfig.getInstance().getString("messages.kick.ip-banned", "&cYour IP address is banned from this server.");
+        this.msgPlayerJoin = PlusConfig.getInstance().getString("messages.player.join", "&e%player% joined the game.");
+        this.msgPlayerLeave = PlusConfig.getInstance().getString("messages.player.leave", "&e%player% left the game.");
 
         this.server = minecraftserver;
         this.j = minecraftserver.a("banned-players.txt");
@@ -115,14 +115,14 @@ public class ServerConfigurationManager {
 
         worldserver.chunkProviderServer.getChunkAt((int) entityplayer.locX >> 4, (int) entityplayer.locZ >> 4);
 
-        if((boolean) PoseidonConfig.getInstance().getConfigOption("world-settings.teleport-to-highest-safe-block")) {
+        if ((boolean) PoseidonConfig.getInstance().getConfigOption("world-settings.teleport-to-highest-safe-block")) {
             while (!worldserver.getEntities(entityplayer, entityplayer.boundingBox).isEmpty()) {
                 entityplayer.setPosition(entityplayer.locX, entityplayer.locY + 1.0D, entityplayer.locZ);
             }
         }
 
         // CraftBukkit start
-        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(this.cserver.getPlayer(entityplayer), msgPlayerJoin.replace("%player%", entityplayer.name));
+        PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(this.cserver.getPlayer(entityplayer), msgPlayerJoin.replace("%player%", entityplayer.name).replace("&", "\u00A7"));
         this.cserver.getPluginManager().callEvent(playerJoinEvent);
 
         String joinMessage = playerJoinEvent.getJoinMessage();
@@ -147,7 +147,7 @@ public class ServerConfigurationManager {
         // CraftBukkit start
         // Quitting must be before we do final save of data, in case plugins need to modify it
         this.getPlayerManager(entityplayer.dimension).removePlayer(entityplayer);
-        PlayerQuitEvent playerQuitEvent = new PlayerQuitEvent(this.cserver.getPlayer(entityplayer), this.msgPlayerLeave.replace("%player%", entityplayer.name));
+        PlayerQuitEvent playerQuitEvent = new PlayerQuitEvent(this.cserver.getPlayer(entityplayer), this.msgPlayerLeave.replace("%player%", entityplayer.name).replace("&", "\u00A7"));
         this.cserver.getPluginManager().callEvent(playerQuitEvent);
         // CraftBukkit end
 
@@ -189,19 +189,9 @@ public class ServerConfigurationManager {
         s1 = s1.substring(s1.indexOf("/") + 1);
         s1 = s1.substring(0, s1.indexOf(":"));
 
-        PlayerLoginEvent.Result result =
-                this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED :
-                        this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP :
-                                !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST :
-                                        this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL :
-                                                PlayerLoginEvent.Result.ALLOWED;
+        PlayerLoginEvent.Result result = this.banByName.contains(s.trim().toLowerCase()) ? PlayerLoginEvent.Result.KICK_BANNED : this.banByIP.contains(s1) ? PlayerLoginEvent.Result.KICK_BANNED_IP : !this.isWhitelisted(s) ? PlayerLoginEvent.Result.KICK_WHITELIST : this.players.size() >= this.maxPlayers ? PlayerLoginEvent.Result.KICK_FULL : PlayerLoginEvent.Result.ALLOWED;
 
-        String kickMessage =
-                result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned :
-                        result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned :
-                                result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist :
-                                        result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull :
-                                                s1;
+        String kickMessage = result.equals(PlayerLoginEvent.Result.KICK_BANNED) ? this.msgKickBanned : result.equals(PlayerLoginEvent.Result.KICK_BANNED_IP) ? this.msgKickIPBanned : result.equals(PlayerLoginEvent.Result.KICK_WHITELIST) ? this.msgKickWhitelist : result.equals(PlayerLoginEvent.Result.KICK_FULL) ? msgKickServerFull : s1;
 
         event.disallow(result, kickMessage);
 
@@ -211,8 +201,7 @@ public class ServerConfigurationManager {
             return null;
         }
 
-        for (EntityPlayer entityPlayer : this.players)
-        {
+        for (EntityPlayer entityPlayer : this.players) {
             if (entityPlayer.name.equalsIgnoreCase(s))
                 entityPlayer.netServerHandler.disconnect(alternateLocationKickMessage);
         }
@@ -349,17 +338,14 @@ public class ServerConfigurationManager {
     }
 
     public void sendAll(Packet packet) {
-        for (EntityPlayer player : this.players)
-        {
+        for (EntityPlayer player : this.players) {
             player.netServerHandler.sendPacket(packet);
         }
     }
 
     public void a(Packet packet, int i) {
-        for (EntityPlayer player : this.players)
-        {
-            if (player.dimension == i)
-                player.netServerHandler.sendPacket(packet);
+        for (EntityPlayer player : this.players) {
+            if (player.dimension == i) player.netServerHandler.sendPacket(packet);
         }
     }
 
@@ -407,8 +393,7 @@ public class ServerConfigurationManager {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
 
-            for (String s : this.banByName)
-            {
+            for (String s : this.banByName) {
                 printwriter.println(s);
             }
 
@@ -448,8 +433,7 @@ public class ServerConfigurationManager {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
 
-            for (String s : this.banByIP)
-            {
+            for (String s : this.banByIP) {
                 printwriter.println(s);
             }
 
@@ -504,8 +488,7 @@ public class ServerConfigurationManager {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.l, false));
 
-            for (String s : this.h)
-            {
+            for (String s : this.h) {
                 printwriter.println(s);
             }
 
@@ -536,8 +519,7 @@ public class ServerConfigurationManager {
         try {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.m, false));
 
-            for (String s : this.i)
-            {
+            for (String s : this.i) {
                 printwriter.println(s);
             }
 
@@ -557,10 +539,8 @@ public class ServerConfigurationManager {
     }
 
     public EntityPlayer i(String s) {
-        for (EntityPlayer player : this.players)
-        {
-            if (player.name.equalsIgnoreCase(s))
-                return player;
+        for (EntityPlayer player : this.players) {
+            if (player.name.equalsIgnoreCase(s)) return player;
         }
 
         return null;
@@ -579,16 +559,13 @@ public class ServerConfigurationManager {
     }
 
     public void sendPacketNearby(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet) {
-        for (EntityPlayer player : this.players)
-        {
-            if (player != entityhuman && player.dimension == i)
-            {
+        for (EntityPlayer player : this.players) {
+            if (player != entityhuman && player.dimension == i) {
                 double d4 = d0 - player.locX;
                 double d5 = d1 - player.locY;
                 double d6 = d2 - player.locZ;
 
-                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3)
-                    player.netServerHandler.sendPacket(packet);
+                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) player.netServerHandler.sendPacket(packet);
             }
         }
     }
@@ -596,10 +573,8 @@ public class ServerConfigurationManager {
     public void j(String s) {
         Packet3Chat packet3chat = new Packet3Chat(s);
 
-        for (EntityPlayer player : this.players)
-        {
-            if (this.isOp(player.name))
-                player.netServerHandler.sendPacket(packet3chat);
+        for (EntityPlayer player : this.players) {
+            if (this.isOp(player.name)) player.netServerHandler.sendPacket(packet3chat);
         }
     }
 
@@ -615,8 +590,7 @@ public class ServerConfigurationManager {
     }
 
     public void savePlayers() {
-        for (EntityPlayer player : this.players)
-        {
+        for (EntityPlayer player : this.players) {
             this.playerFileData.a(player);
         }
     }

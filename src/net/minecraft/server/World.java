@@ -834,7 +834,7 @@ public class World implements IBlockAccess {
 
 
     public boolean addEntity(Entity entity, SpawnReason spawnReason) { // Changed signature, added SpawnReason
-    // CraftBukkit end
+        // CraftBukkit end
         int i = MathHelper.floor(entity.locX / 16.0D);
         int j = MathHelper.floor(entity.locZ / 16.0D);
         boolean flag = false;
@@ -1942,15 +1942,15 @@ public class World implements IBlockAccess {
                     }
 
                     // CraftBukkit start
-                        if (l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
-                            BlockState blockState = this.getWorld().getBlockAt(l + i, k1 - 1, j1 + j).getState();
-                            blockState.setTypeId(Block.ICE.id);
+                    if (l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
+                        BlockState blockState = this.getWorld().getBlockAt(l + i, k1 - 1, j1 + j).getState();
+                        blockState.setTypeId(Block.ICE.id);
 
-                            BlockFormEvent iceBlockForm = new BlockFormEvent(blockState.getBlock(), blockState);
-                            this.getServer().getPluginManager().callEvent(iceBlockForm);
-                            if (!iceBlockForm.isCancelled()) {
-                                blockState.update(true);
-                            }
+                        BlockFormEvent iceBlockForm = new BlockFormEvent(blockState.getBlock(), blockState);
+                        this.getServer().getPluginManager().callEvent(iceBlockForm);
+                        if (!iceBlockForm.isCancelled()) {
+                            blockState.update(true);
+                        }
                     }
                     // CraftBukkit end
                 }

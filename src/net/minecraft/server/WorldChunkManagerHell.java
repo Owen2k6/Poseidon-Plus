@@ -23,6 +23,9 @@ public class WorldChunkManagerHell extends WorldChunkManager {
     }
 
     public BiomeBase[] getBiomeData(int i, int j, int k, int l) {
+        if (this.d == null || this.d.length < k * l) {
+            this.d = new BiomeBase[k * l];  // Only allocate when necessary
+        }
         this.d = this.a(this.d, i, j, k, l);
         return this.d;
     }
@@ -32,7 +35,11 @@ public class WorldChunkManagerHell extends WorldChunkManager {
             adouble = new double[k * l];
         }
 
-        Arrays.fill(adouble, 0, k * l, this.f);
+        if (adouble.length < k * l) {
+            Arrays.fill(adouble, 0, adouble.length, this.f);  // Avoid overfilling the array
+        } else {
+            Arrays.fill(adouble, 0, k * l, this.f);
+        }
         return adouble;
     }
 
