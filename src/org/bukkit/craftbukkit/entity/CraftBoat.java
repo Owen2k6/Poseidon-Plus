@@ -1,7 +1,13 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package org.bukkit.craftbukkit.entity;
 
 import net.minecraft.server.EntityBoat;
 import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.util.Car;
 import org.bukkit.entity.Boat;
 
 public class CraftBoat extends CraftVehicle implements Boat {
@@ -9,20 +15,33 @@ public class CraftBoat extends CraftVehicle implements Boat {
 
     public CraftBoat(CraftServer server, EntityBoat entity) {
         super(server, entity);
-        boat = entity;
+        this.boat = entity;
     }
 
     public double getMaxSpeed() {
-        return boat.maxSpeed;
+        return this.boat.maxSpeed;
     }
 
     public void setMaxSpeed(double speed) {
-        if (speed >= 0D) {
-            boat.maxSpeed = speed;
-        }
+        this.boat.maxSpeed = speed;
     }
 
-    @Override
+    public Car getCar() {
+        return this.boat.car;
+    }
+
+    public void setCar(Car car) {
+        this.boat.car = car;
+    }
+
+    public int getGear() {
+        return this.boat.gear;
+    }
+
+    public void setGear(int gear) {
+        this.boat.gear = gear;
+    }
+
     public String toString() {
         return "CraftBoat";
     }

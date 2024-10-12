@@ -1,19 +1,22 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package org.bukkit.entity;
 
-/**
- * Represents a boat entity.
- *
- * @author sk89q
- */
+import org.bukkit.craftbukkit.util.Car;
+
 public interface Boat extends Vehicle {
+    double getMaxSpeed();
 
+    void setMaxSpeed(double var1);
 
-    public double getMaxSpeed();
+    Car getCar();
 
-    /**
-     * Sets the maximum speed of a boat. Must be nonnegative. Default is 0.4D.
-     *
-     * @param speed
-     */
-    public void setMaxSpeed(double speed);
+    void setCar(Car var1);
+
+    int getGear();
+
+    void setGear(int var1);
 }
