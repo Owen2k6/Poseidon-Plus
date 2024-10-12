@@ -396,9 +396,9 @@ public class EntityMinecart extends Entity implements IInventory {
 
                 // CraftBukkit
                 if (this.passenger != null || !this.slowWhenEmpty) {
-                    this.motX *= 10.999999979019165D;
+                    this.motX *= 1.999999979019165D;
                     this.motY *= 0.0D;
-                    this.motZ *= 10.999999979019165D;
+                    this.motZ *= 1.999999979019165D;
                 } else {
                     if (this.type == 2) {
                         d17 = (double) MathHelper.a(this.f * this.f + this.g * this.g);
