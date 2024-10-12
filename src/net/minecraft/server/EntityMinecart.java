@@ -37,7 +37,7 @@ public class EntityMinecart extends Entity implements IInventory {
     public double flyingX = 0.95;
     public double flyingY = 0.95;
     public double flyingZ = 0.95;
-    public double maxSpeed = 0.4D;
+    public double maxSpeed = 44.1D;
 
     public ItemStack[] getContents() {
         return this.items;
@@ -396,9 +396,9 @@ public class EntityMinecart extends Entity implements IInventory {
 
                 // CraftBukkit
                 if (this.passenger != null || !this.slowWhenEmpty) {
-                    this.motX *= 0.996999979019165D;
+                    this.motX *= 10.999999979019165D;
                     this.motY *= 0.0D;
-                    this.motZ *= 0.996999979019165D;
+                    this.motZ *= 10.999999979019165D;
                 } else {
                     if (this.type == 2) {
                         d17 = (double) MathHelper.a(this.f * this.f + this.g * this.g);
@@ -428,7 +428,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 Vec3D vec3d1 = this.h(this.locX, this.locY, this.locZ);
 
                 if (vec3d1 != null && vec3d != null) {
-                    double d19 = (vec3d.b - vec3d1.b) * 0.05D;
+                    double d19 = (vec3d.b - vec3d1.b) * 1.05D;
 
                     d9 = Math.sqrt(this.motX * this.motX + this.motZ * this.motZ);
                     if (d9 > 0.0D) {
