@@ -1,0 +1,13 @@
+jailed: false
+socialspy: false
+npc: false
+newplayer: true
+teleportenabled: true
+afk: false
+inventory:
+    size: 0
+muted: false
+godmode: true
+timestamps:
+    login: 1728791667116
+    logout: 1728791533735

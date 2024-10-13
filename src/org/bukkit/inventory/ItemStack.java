@@ -186,14 +186,16 @@ public class ItemStack {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof ItemStack)) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        ItemStack item = (ItemStack) obj;
+        ItemStack other = (ItemStack) obj;
 
-        return item.getAmount() == getAmount() && item.getTypeId() == getTypeId();
+        // Compare item type and damage value
+        return this.getTypeId() == other.getTypeId() && this.getDurability() == other.getDurability();
     }
+
+
 
     @Override
     public ItemStack clone() {

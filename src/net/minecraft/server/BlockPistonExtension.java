@@ -11,6 +11,7 @@ public class BlockPistonExtension extends Block {
         super(i, j, Material.PISTON);
         this.a(h);
         this.c(0.5F);
+        this.a(true);
     }
 
     public void remove(World world, int i, int j, int k) {

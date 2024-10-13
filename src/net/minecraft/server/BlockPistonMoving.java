@@ -7,6 +7,7 @@ public class BlockPistonMoving extends BlockContainer {
     public BlockPistonMoving(int i) {
         super(i, Material.PISTON);
         this.c(-1.0F);
+        this.a(true);
     }
 
     protected TileEntity a_() {

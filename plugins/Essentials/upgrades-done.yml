@@ -1,0 +1,5 @@
+moveWorthValuesToWorthYml: true
+updateUsersToNewDefaultHome: true
+updateUsersPowerToolsFormat: true
+updateUsersHomesFormat: true
+sanitizeAllUserFilenames: true

@@ -534,6 +534,7 @@ public class Block {
     }
 
     static {
+        // Register specific ItemBlocks before the loop
         Item.byId[WOOL.id] = (new ItemCloth(WOOL.id - 256)).a("cloth");
         Item.byId[LOG.id] = (new ItemLog(LOG.id - 256)).a("log");
         Item.byId[STEP.id] = (new ItemStep(STEP.id - 256)).a("stoneSlab");
@@ -542,12 +543,19 @@ public class Block {
         Item.byId[PISTON.id] = new ItemPiston(PISTON.id - 256);
         Item.byId[PISTON_STICKY.id] = new ItemPiston(PISTON_STICKY.id - 256);
 
+// Register custom items for IDs 34 and 36
+        Item.byId[34] = new ItemBlockPistonExtension(34 - 256);
+        Item.byId[36] = new ItemBlockPistonMoving(36 - 256);
+
+
+// Loop for remaining blocks
         for (int i = 0; i < 256; ++i) {
             if (byId[i] != null && Item.byId[i] == null) {
                 Item.byId[i] = new ItemBlock(i - 256);
                 byId[i].h();
             }
         }
+
 
         r[0] = true;
         StatisticList.b();
