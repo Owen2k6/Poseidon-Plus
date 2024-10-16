@@ -1,5 +1,6 @@
 package org.bukkit.command.defaults;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.PoseidonPlugin;
 import org.bukkit.Bukkit;
@@ -17,7 +18,7 @@ public class StopCommand extends VanillaCommand {
         this.description = "Stops the server";
         this.usageMessage = "/stop";
         this.setPermission("bukkit.command.stop");
-        this.msgKickShutdown = PoseidonConfig.getInstance().getConfigString("message.kick.shutdown");
+        this.msgKickShutdown = PlusConfig.getInstance().getConfigString("messages.kick.shutdown");
     }
 
     @Override

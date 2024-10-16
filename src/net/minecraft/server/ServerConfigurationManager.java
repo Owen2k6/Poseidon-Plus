@@ -48,9 +48,9 @@ public class ServerConfigurationManager {
         msgKickBanned = PlusConfig.getInstance().getString("messages.kick.ban", "&cYou have been banned from this server.");
         msgKickWhitelist = PlusConfig.getInstance().getString("messages.kick.whitelist", "&cServer currently whitelisted. Please try again later.");
         // CraftBukkit end
-        this.msgKickIPBanned = PoseidonConfig.getInstance().getConfigString("message.kick.ip-banned");
-        this.msgPlayerJoin = PoseidonConfig.getInstance().getConfigString("message.player.join");
-        this.msgPlayerLeave = PoseidonConfig.getInstance().getConfigString("message.player.leave");
+        this.msgKickIPBanned = PlusConfig.getInstance().getConfigString("messages.kick.banip");
+        this.msgPlayerJoin = PlusConfig.getInstance().getConfigString("messages.player.join");
+        this.msgPlayerLeave = PlusConfig.getInstance().getConfigString("messages.player.leave");
 
         this.server = minecraftserver;
         this.j = minecraftserver.a("banned-players.txt");
