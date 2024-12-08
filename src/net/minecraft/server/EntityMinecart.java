@@ -36,8 +36,8 @@ public class EntityMinecart extends Entity implements IInventory {
     public double derailedZ = 0.5;
     public double flyingX = 0.95;
     public double flyingY = 0.95;
-    public double flyingZ = 0.95;
-    public double maxSpeed = 0.4D;
+    public double flyingZ = 0.45;
+    public double maxSpeed = 0.65D;
 
     public ItemStack[] getContents() {
         return this.items;
