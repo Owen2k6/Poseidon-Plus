@@ -2,6 +2,7 @@ package org.bukkit.craftbukkit.entity;
 
 import net.minecraft.server.EntityWolf;
 import net.minecraft.server.PathEntity;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.Player;
@@ -45,7 +46,9 @@ public class CraftWolf extends CraftAnimals implements Wolf {
         // If the wolf has a previously set owner use that, otherwise try and find the player who owns it
         if (owner == null) {
             // TODO try and recover owner from persistence store before defaulting to playername
-            owner = getServer().getPlayer(getOwnerName());
+            OfflinePlayer offlinePlayer = getServer().getOfflinePlayer(getOwnerName());
+            if (offlinePlayer.isOnline()) owner = getServer().getPlayer(getOwnerName());
+            else owner = offlinePlayer;
         }
         return owner;
     }
