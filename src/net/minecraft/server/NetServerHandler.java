@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PlusConfig;
 import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
 import com.projectposeidon.ConnectionType;
 import com.legacyminecraft.poseidon.PoseidonConfig;
@@ -71,7 +72,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // CraftBukkit start
         this.server = minecraftserver.server;
         this.firePacketEvents = PoseidonConfig.getInstance().getBoolean("settings.packet-events.enabled", false); //Poseidon
-        this.msgPlayerLeave = PoseidonConfig.getInstance().getConfigString("message.player.leave");
+        this.msgPlayerLeave = PlusConfig.getInstance().getConfigString("messages.player.leave");
     }
 
     //Project Poseidon - Start

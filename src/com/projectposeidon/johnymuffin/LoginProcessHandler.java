@@ -43,7 +43,7 @@ public class LoginProcessHandler {
         this.server = server;
         this.onlineMode = onlineMode;
 
-        this.msgKickAlreadyOnline = PoseidonConfig.getInstance().getConfigString("message.kick.already-online");
+        this.msgKickAlreadyOnline = PlusConfig.getInstance().getConfigString("messages.kick.alternateLocation");
 
         processAuthentication();
 
