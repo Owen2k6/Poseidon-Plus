@@ -33,6 +33,7 @@ public class PlusConfig extends Configuration
         generateConfigOption("messages.kick.full", "&cThe server is full.");
         generateConfigOption("messages.kick.alternateLocation", "&cYou logged in from another location!");
         generateConfigOption("messages.broadcast.prefix", "&d[Server]");
+        generateConfigOption("world.chunk.buffer-size", 8192);
         generateConfigOption("game.weather.lightning.can-start-fire", true);
         generateConfigOption("uuids.ttl", 1382400L);
     }

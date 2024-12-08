@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PlusConfig;
+
 import java.io.ByteArrayOutputStream;
 
 class ChunkBuffer extends ByteArrayOutputStream {
@@ -10,7 +12,7 @@ class ChunkBuffer extends ByteArrayOutputStream {
     final RegionFile a;
 
     public ChunkBuffer(RegionFile regionfile, int i, int j) {
-        super(8096);
+        super(PlusConfig.getInstance().getConfigInteger("world.chunk.buffer-size"));
         this.a = regionfile;
         this.b = i;
         this.c = j;
