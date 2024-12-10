@@ -86,8 +86,11 @@ public class EntityCreeper extends EntityMonster {
 
     public void die(Entity entity) {
         super.die(entity);
-        if (entity instanceof EntitySkeleton) {
-            this.b(Item.GOLD_RECORD.id + this.random.nextInt(2), 1);
+        if (entity instanceof EntityArrow) {
+            EntityLiving shooter = ((EntityArrow) entity).shooter;
+            if (shooter instanceof EntitySkeleton) {
+                this.b(Item.GOLD_RECORD.id + this.random.nextInt(2), 1);
+            }
         }
     }
 
@@ -163,7 +166,7 @@ public class EntityCreeper extends EntityMonster {
         if (!powered) {
             this.datawatcher.watch(17, (byte) 0);
         } else
-        // CraftBukkit end
-          this.datawatcher.watch(17, (byte) 1);
+            // CraftBukkit end
+            this.datawatcher.watch(17, (byte) 1);
     }
 }
