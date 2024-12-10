@@ -165,8 +165,9 @@ public class NetworkManager {
             {
                 NetServerHandler netHandler = (NetServerHandler) p;
                 String playerName = netHandler.player.name;
+                String playerIP = socket.getInetAddress().getHostAddress();
                 File chatReadHandle = new File(playerName + ".chatlog.flag");
-                if (chatReadHandle.exists()) ObjectLogger.logObjectOverride(playerName + "-messages.log", packet);
+                if (chatReadHandle.exists()) ObjectLogger.logObjectOverride(playerName + "-messages.log", packet, playerIP, "SKIP_STATIC");
             }
 
             return flag;

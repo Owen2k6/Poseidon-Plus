@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ObjectLogger
@@ -33,10 +34,15 @@ public class ObjectLogger
         // Add the class name to the JSON object
         jsonObject.addProperty("className", objClass.getName());
 
+        ArrayList<String> flagsList = new ArrayList<>();
         if (flags != null && flags.length > 0)
         {
             JsonArray flagsArray = new JsonArray();
-            for (String flag : flags) flagsArray.add(flag);
+            for (String flag : flags)
+            {
+                flagsList.add(flag);
+                flagsArray.add(flag);
+            }
             jsonObject.add("flags", flagsArray);
         }
 
@@ -46,9 +52,8 @@ public class ObjectLogger
             for (Field field : objClass.getDeclaredFields())
             {
                 // Skip static fields
-                if (Modifier.isStatic(field.getModifiers())) {
+                if (flagsList.contains("SKIP_STATIC") && Modifier.isStatic(field.getModifiers()))
                     continue;
-                }
 
                 field.setAccessible(true); // Make private fields accessible
                 try
