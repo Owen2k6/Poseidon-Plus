@@ -2,12 +2,14 @@ package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerReceivePacketEvent;
+import net.oldschoolminecraft.poseidon.ObjectLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,7 +127,7 @@ public class NetworkManager {
 
         try {
             Object object;
-            Packet packet;
+            Packet packet = null;
             int i;
             int[] aint;
 
@@ -157,6 +159,14 @@ public class NetworkManager {
                 aint[i] += packet.a() + 1;
                 this.lowPriorityQueueDelay = 0;
                 flag = true;
+            }
+
+            if (p instanceof NetServerHandler && (packet instanceof Packet3Chat))
+            {
+                NetServerHandler netHandler = (NetServerHandler) p;
+                String playerName = netHandler.player.name;
+                File chatReadHandle = new File(playerName + ".chatlog.flag");
+                if (chatReadHandle.exists()) ObjectLogger.logObjectOverride(playerName + "-messages.log", packet);
             }
 
             return flag;
