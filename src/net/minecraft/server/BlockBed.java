@@ -70,16 +70,16 @@ public class BlockBed extends Block {
                         return true;
                     }
 
-                    a(world, i, j, k, false);
+                    entityhuman.a("The growling sounds of the walkers prevents you from sleeping.");
                 }
 
                 EnumBedError enumbederror = entityhuman.a(i, j, k);
 
                 if (enumbederror == EnumBedError.OK) {
-                    a(world, i, j, k, true);
+                    entityhuman.a("The growling sounds of the walkers prevents you from sleeping.");
                 } else {
                     if (enumbederror == EnumBedError.NOT_POSSIBLE_NOW) {
-                        entityhuman.a("tile.bed.noSleep");
+                        entityhuman.a("The growling sounds of the walkers prevents you from sleeping.");
                     }
 
                 }

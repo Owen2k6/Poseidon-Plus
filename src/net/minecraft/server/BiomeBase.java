@@ -39,11 +39,7 @@ public class BiomeBase {
         this.t = new ArrayList<>();
         this.u = new ArrayList<>();
         this.w = true;
-        this.s.add(new BiomeMeta(EntitySpider.class, 10));
         this.s.add(new BiomeMeta(EntityZombie.class, 10));
-        this.s.add(new BiomeMeta(EntitySkeleton.class, 10));
-        this.s.add(new BiomeMeta(EntityCreeper.class, 10));
-        this.s.add(new BiomeMeta(EntitySlime.class, 10));
         this.t.add(new BiomeMeta(EntitySheep.class, 12));
         this.t.add(new BiomeMeta(EntityPig.class, 10));
         this.t.add(new BiomeMeta(EntityChicken.class, 10));

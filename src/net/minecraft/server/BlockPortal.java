@@ -162,12 +162,12 @@ public class BlockPortal extends BlockBreakable {
 
     public void a(World world, int i, int j, int k, Entity entity) {
         if (entity.vehicle == null && entity.passenger == null) {
-            // CraftBukkit start - Entity in portal
-            EntityPortalEnterEvent event = new EntityPortalEnterEvent(entity.getBukkitEntity(), new org.bukkit.Location(world.getWorld(), i, j, k));
-            world.getServer().getPluginManager().callEvent(event);
-            // CraftBukkit end
-
-            entity.P();
+//            // CraftBukkit start - Entity in portal
+//            EntityPortalEnterEvent event = new EntityPortalEnterEvent(entity.getBukkitEntity(), new org.bukkit.Location(world.getWorld(), i, j, k));
+//            world.getServer().getPluginManager().callEvent(event);
+//            // CraftBukkit end
+//
+//            entity.P();
         }
     }
 }

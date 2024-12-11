@@ -5,17 +5,14 @@ import org.bukkit.event.block.BlockFromToEvent;
 
 import java.util.Random;
 
-// CraftBukkit start
-// CraftBukkit end
-
 public class BlockFlowing extends BlockFluids {
 
     int a = 0;
     boolean[] b = new boolean[4];
     int[] c = new int[4];
 
-    protected BlockFlowing(int i, Material material) {
-        super(i, material);
+    protected BlockFlowing(int id, Material material) {
+        super(id, material);
     }
 
     private void i(World world, int i, int j, int k) {
@@ -27,12 +24,6 @@ public class BlockFlowing extends BlockFluids {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-        // CraftBukkit start
-        org.bukkit.World bworld = world.getWorld();
-        org.bukkit.Server server = world.getServer();
-        org.bukkit.block.Block source = bworld == null ? null : bworld.getBlockAt(i, j, k);
-        // CraftBukkit end
-
         int l = this.g(world, i, j, k);
         byte b0 = 1;
 
@@ -68,11 +59,7 @@ public class BlockFlowing extends BlockFluids {
             }
 
             if (this.a >= 2 && this.material == Material.WATER) {
-                if (world.getMaterial(i, j - 1, k).isBuildable()) {
-                    i1 = 0;
-                } else if (world.getMaterial(i, j - 1, k) == this.material && world.getData(i, j, k) == 0) {
-                    i1 = 0;
-                }
+                i1 = -1; // Prevent infinite water source creation
             }
 
             if (this.material == Material.LAVA && i1 < 8 && i1 > l && random.nextInt(4) != 0) {
@@ -97,11 +84,8 @@ public class BlockFlowing extends BlockFluids {
         }
 
         if (this.l(world, i, j - 1, k)) {
-            // CraftBukkit start - send "down" to the server
-            BlockFromToEvent event = new BlockFromToEvent(source, BlockFace.DOWN);
-            if (server != null) {
-                server.getPluginManager().callEvent(event);
-            }
+            BlockFromToEvent event = new BlockFromToEvent(world.getWorld().getBlockAt(i, j, k), BlockFace.DOWN);
+            world.getServer().getPluginManager().callEvent(event);
 
             if (!event.isCancelled()) {
                 if (l >= 8) {
@@ -110,7 +94,6 @@ public class BlockFlowing extends BlockFluids {
                     world.setTypeIdAndData(i, j - 1, k, this.id, l + 8);
                 }
             }
-            // CraftBukkit end
         } else if (l >= 0 && (l == 0 || this.k(world, i, j - 1, k))) {
             boolean[] aboolean = this.j(world, i, j, k);
 
@@ -123,16 +106,15 @@ public class BlockFlowing extends BlockFluids {
                 return;
             }
 
-            // CraftBukkit start - all four cardinal directions. Do not change the order!
             BlockFace[] faces = new BlockFace[] { BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST };
             int index = 0;
 
             for (BlockFace currentFace: faces) {
                 if (aboolean[index]) {
-                    BlockFromToEvent event = new BlockFromToEvent(source, currentFace);
+                    BlockFromToEvent event = new BlockFromToEvent(world.getWorld().getBlockAt(i, j, k), currentFace);
 
-                    if (server != null) {
-                        server.getPluginManager().callEvent(event);
+                    if (world.getServer() != null) {
+                        world.getServer().getPluginManager().callEvent(event);
                     }
 
                     if (!event.isCancelled()) {
@@ -141,7 +123,6 @@ public class BlockFlowing extends BlockFluids {
                 }
                 index++;
             }
-            // CraftBukkit end
         }
     }
 
@@ -157,7 +138,10 @@ public class BlockFlowing extends BlockFluids {
                 }
             }
 
-            world.setTypeIdAndData(i, j, k, this.id, l);
+            // Prevent forming full water sources: ensure flowing water only
+            if (world.getMaterial(i, j, k) != Material.WATER || world.getData(i, j, k) != 0) {
+                world.setTypeIdAndData(i, j, k, this.id, l);
+            }
         }
     }
 

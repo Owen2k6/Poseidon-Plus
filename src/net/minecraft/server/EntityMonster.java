@@ -13,7 +13,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
 
     public EntityMonster(World world) {
         super(world);
-        this.health = 20;
+        this.health = 60;
     }
 
     public void v() {
@@ -34,7 +34,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
     }
 
     protected Entity findTarget() {
-        EntityHuman entityhuman = this.world.findNearbyPlayer(this, 16.0D);
+        EntityHuman entityhuman = this.world.findNearbyPlayer(this, 128.0D);
 
         return entityhuman != null && this.e(entityhuman) ? entityhuman : null;
     }
@@ -111,17 +111,7 @@ public class EntityMonster extends EntityCreature implements IMonster {
         if (this.world.a(EnumSkyBlock.SKY, i, j, k) > this.random.nextInt(32)) {
             return false;
         } else {
-            int l = this.world.getLightLevel(i, j, k);
-
-            if (this.world.u()) {
-                int i1 = this.world.f;
-
-                this.world.f = 10;
-                l = this.world.getLightLevel(i, j, k);
-                this.world.f = i1;
-            }
-
-            return l <= this.random.nextInt(8) && super.d();
+            return true;
         }
     }
 }

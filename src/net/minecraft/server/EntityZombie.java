@@ -7,24 +7,13 @@ public class EntityZombie extends EntityMonster {
     public EntityZombie(World world) {
         super(world);
         this.texture = "/mob/zombie.png";
-        this.aE = 0.5F;
-        this.damage = 5;
+        this.aE = 0.2F;
+        this.damage = 6;
     }
 
     public void v() {
         if (this.world.d()) {
             float f = this.c(1.0F);
-
-            if (f > 0.5F && this.world.isChunkLoaded(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ)) && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                // CraftBukkit start
-                EntityCombustEvent event = new EntityCombustEvent(this.getBukkitEntity());
-                this.world.getServer().getPluginManager().callEvent(event);
-
-                if (!event.isCancelled()) {
-                    this.fireTicks = 300;
-                }
-                // CraftBukkit end
-            }
         }
 
         super.v();
@@ -43,6 +32,22 @@ public class EntityZombie extends EntityMonster {
     }
 
     protected int j() {
-        return Item.FEATHER.id;
+        int i =  this.random.nextInt(25);
+        if (i == 0) {
+            return Item.IRON_INGOT.id;
+        } else if (i == 1) {
+            return Item.ARROW.id;
+        } else if (i == 2) {
+            return Item.IRON_INGOT.id;
+        } else if (i == 3) {
+            return Item.SULPHUR.id;
+        } else if (i == 4) {
+            return Item.STICK.id;
+        } else if (i <= 5 || i >= 10 ){
+            return Block.DIRT.id;
+        }
+        else {
+            return Item.FEATHER.id;
+        }
     }
 }
