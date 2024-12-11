@@ -1,5 +1,6 @@
 package org.bukkit.plugin;
 
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
@@ -11,19 +12,22 @@ public class RegisteredListener {
     private final Event.Priority priority;
     private final Plugin plugin;
     private final EventExecutor executor;
+    private final boolean ignoreCancelled;
 
     public RegisteredListener(final Listener pluginListener, final EventExecutor eventExecutor, final Event.Priority eventPriority, final Plugin registeredPlugin) {
-        listener = pluginListener;
-        priority = eventPriority;
-        plugin = registeredPlugin;
-        executor = eventExecutor;
+        this(pluginListener, eventExecutor, eventPriority, registeredPlugin, false);
+    }
+
+    public RegisteredListener(final Listener pluginListener, final EventExecutor eventExecutor, final Event.Priority eventPriority, final Plugin registeredPlugin, final boolean ignoreCancelled) {
+        this.listener = pluginListener;
+        this.priority = eventPriority;
+        this.plugin = registeredPlugin;
+        this.executor = eventExecutor;
+        this.ignoreCancelled = ignoreCancelled;
     }
 
     public RegisteredListener(final Listener pluginListener, final Event.Priority eventPriority, final Plugin registeredPlugin, Event.Type type) {
-        listener = pluginListener;
-        priority = eventPriority;
-        plugin = registeredPlugin;
-        executor = registeredPlugin.getPluginLoader().createExecutor(type, pluginListener);
+        this(pluginListener, registeredPlugin.getPluginLoader().createExecutor(type, pluginListener), eventPriority, registeredPlugin, false);
     }
 
     public void registerAll() {
@@ -32,6 +36,7 @@ public class RegisteredListener {
 
     /**
      * Gets the listener for this registration
+     *
      * @return Registered Listener
      */
     public Listener getListener() {
@@ -40,6 +45,7 @@ public class RegisteredListener {
 
     /**
      * Gets the plugin for this registration
+     *
      * @return Registered Plugin
      */
     public Plugin getPlugin() {
@@ -48,6 +54,7 @@ public class RegisteredListener {
 
     /**
      * Gets the priority for this registration
+     *
      * @return Registered Priority
      */
     public Event.Priority getPriority() {
@@ -56,9 +63,15 @@ public class RegisteredListener {
 
     /**
      * Calls the event executor
+     *
      * @return Registered Priority
      */
     public void callEvent(Event event) {
+        if(event instanceof Cancellable) {
+            if(((Cancellable) event).isCancelled() && ignoreCancelled) {
+                return;
+            }
+        }
         executor.execute(listener, event);
     }
 }

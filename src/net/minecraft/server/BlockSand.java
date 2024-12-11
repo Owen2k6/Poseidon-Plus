@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.Random;
 
 public class BlockSand extends Block {
@@ -27,6 +29,9 @@ public class BlockSand extends Block {
             byte b0 = 32;
 
             if (!instaFall && world.a(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+                if (PoseidonConfig.getInstance().getConfigBoolean("world.settings.pistons.sand-gravel-duping-fix.enabled")) {
+                    world.setTypeId(i, j, k, 0);
+                }
                 EntityFallingSand entityfallingsand = new EntityFallingSand(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.id);
 
                 world.addEntity(entityfallingsand);

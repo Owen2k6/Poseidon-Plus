@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 import java.util.*;
 
 public class Chunk {
@@ -41,7 +43,7 @@ public class Chunk {
 
         // CraftBukkit start
         org.bukkit.craftbukkit.CraftWorld cworld = this.world.getWorld();
-            this.bukkitChunk = new org.bukkit.craftbukkit.CraftChunk(this);
+        this.bukkitChunk = new org.bukkit.craftbukkit.CraftChunk(this);
     }
 
     public org.bukkit.Chunk bukkitChunk;
@@ -63,7 +65,8 @@ public class Chunk {
         return this.heightMap[j << 4 | i] & 255;
     }
 
-    public void a() {}
+    public void a() {
+    }
 
     public void initLighting() {
         int i = 127;
@@ -110,7 +113,8 @@ public class Chunk {
         this.o = true;
     }
 
-    public void loadNOP() {}
+    public void loadNOP() {
+    }
 
     private void c(int i, int j) {
         int k = this.b(i, j);
@@ -224,11 +228,18 @@ public class Chunk {
             int i2 = this.z * 16 + k;
 
             this.b[i << 11 | k << 7 | j] = (byte) (b0 & 255);
-            if (k1 != 0 && !this.world.isStatic) {
-                Block.byId[k1].remove(this.world, l1, j, i2);
+            if (PoseidonConfig.getInstance().getConfigBoolean("world.settings.pistons.transmutation-fix.enabled")) {
+                this.e.a(i, j, k, i1);
+                if (k1 != 0 && !this.world.isStatic) {
+                    Block.byId[k1].remove(this.world, l1, j, i2);
+                }
+            } else {
+                if (k1 != 0 && !this.world.isStatic) {
+                    Block.byId[k1].remove(this.world, l1, j, i2);
+                }
+                this.e.a(i, j, k, i1);
             }
 
-            this.e.a(i, j, k, i1);
             if (!this.world.worldProvider.e) {
                 if (Block.q[b0 & 255] != 0) {
                     if (j >= j1) {
@@ -243,7 +254,6 @@ public class Chunk {
 
             this.world.a(EnumSkyBlock.BLOCK, l1, j, i2, l1, j, i2);
             this.c(i, k);
-            this.e.a(i, j, k, i1);
             if (l != 0) {
                 Block.byId[l].c(this.world, l1, j, i2);
             }
