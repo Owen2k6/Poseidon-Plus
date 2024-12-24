@@ -238,7 +238,7 @@ public class EntityTrackerEntry {
                         }
                     }
                     
-                    entityplayer.removeQueue.remove(Integer.valueOf(this.tracker.id));
+                    entityplayer.removeQueue.remove(this.tracker.id);
                     // CraftBukkit end
                     
                     this.trackedPlayers.add(entityplayer);
