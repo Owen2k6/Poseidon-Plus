@@ -107,6 +107,7 @@ public class NetLoginHandler extends NetHandler {
             String allowedProxy = String.valueOf(PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.allowed-proxy", "127.0.0.1"));
             boolean allowedOnly = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.allowed-only");
             boolean useMagicHeaders = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.magic-headers");
+            boolean kickUnforwardedPlayers = (boolean) PoseidonConfig.getInstance().getConfigOption("settings.bit-flags.kick-unforwarded", false);
 
             // the order of this must be in reverse in order to make sense
             boolean[] bits = getBits(packet1login.d);
@@ -119,7 +120,7 @@ public class NetLoginHandler extends NetHandler {
 
             if (ipForwardingEnabled)
             {
-                if (!isIPForwarded)
+                if (!isIPForwarded && kickUnforwardedPlayers)
                 {
                     a.info(packet1login.name + " is not forwarding their IP, despite it being enabled. They have been kicked.");
                     this.disconnect(ChatColor.RED + "This server has IP forwarding enabled. Please enable it on your proxy.");
@@ -130,7 +131,7 @@ public class NetLoginHandler extends NetHandler {
                 String forwardedIP = address.getAddress().getHostAddress();
                 String realIP = this.networkManager.socket.getInetAddress().getHostAddress();
 
-                if (allowedOnly && !(realIP.equals(allowedProxy.trim())))
+                if (allowedOnly && !(realIP.equals(allowedProxy.trim()) || realIP.equals("127.0.0.1"))) // localhost is always allowed
                 {
                     a.info(packet1login.name + " is not using the required proxy for IP forwarding. They have been kicked.");
                     this.disconnect(ChatColor.RED + "The proxy you are using is not authorized for this server");

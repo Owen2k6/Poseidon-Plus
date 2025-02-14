@@ -127,6 +127,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.bit-flags.magic-headers", true);
         generateConfigOption("settings.bit-flags.allowed-proxy", "127.0.0.1");
         generateConfigOption("settings.bit-flags.allowed-only", false);
+        generateConfigOption("settings.bit-flags.kick-unforwarded", false);
         generateConfigOption("settings.bit-flags.info", "Use a better method for handling proxies and IP forwarding with individual bit flags rather than hogging the entire byte for one singular conditional check.");
 
         //Modded Jar Support
