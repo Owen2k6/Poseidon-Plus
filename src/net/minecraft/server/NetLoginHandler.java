@@ -129,18 +129,21 @@ public class NetLoginHandler extends NetHandler {
 
                 InetSocketAddress address = deserializeAddress(packet1login.c);
                 String forwardedIP = address.getAddress().getHostAddress();
-                String realIP = this.networkManager.socket.getInetAddress().getHostAddress();
+                String proxyIP = this.networkManager.socket.getInetAddress().getHostAddress();
 
-                if (allowedOnly && isIPForwarded && !(realIP.equals(allowedProxy.trim()) || realIP.equals("127.0.0.1"))) // localhost is always allowed
+                if (allowedOnly && isIPForwarded && !(proxyIP.equals(allowedProxy.trim()) || proxyIP.equals("127.0.0.1"))) // localhost is always allowed
                 {
                     a.info(packet1login.name + " is not using the required proxy for IP forwarding. They have been kicked.");
                     this.disconnect(ChatColor.RED + "The proxy you are using is not authorized for this server");
                     return;
                 }
 
-                a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + forwardedIP);
-                this.networkManager.setSocketAddress(address);
-                this.usingReleaseToBeta = true; //TODO: rename variable?
+                if (isIPForwarded)
+                {
+                    a.info(packet1login.name + " is using IP forwarding from an ambiguous compatible proxy: " + forwardedIP);
+                    this.networkManager.setSocketAddress(address);
+                    this.usingReleaseToBeta = true; //TODO: rename variable?
+                }
             } else if (isIPForwarded) {
                 a.info(packet1login.name + " is forwarding their IP, despite it being disabled. They have been kicked.");
                 this.disconnect(ChatColor.RED + "This server has IP forwarding disabled. Please connect directly.");
