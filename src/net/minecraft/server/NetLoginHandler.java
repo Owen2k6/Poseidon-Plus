@@ -131,7 +131,7 @@ public class NetLoginHandler extends NetHandler {
                 String forwardedIP = address.getAddress().getHostAddress();
                 String realIP = this.networkManager.socket.getInetAddress().getHostAddress();
 
-                if (allowedOnly && !(realIP.equals(allowedProxy.trim()) || realIP.equals("127.0.0.1"))) // localhost is always allowed
+                if (allowedOnly && isIPForwarded && !(realIP.equals(allowedProxy.trim()) || realIP.equals("127.0.0.1"))) // localhost is always allowed
                 {
                     a.info(packet1login.name + " is not using the required proxy for IP forwarding. They have been kicked.");
                     this.disconnect(ChatColor.RED + "The proxy you are using is not authorized for this server");
