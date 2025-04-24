@@ -36,7 +36,7 @@ public class ChunkRegionLoader implements IChunkLoader {
                 return chunk;
             }
         } else {
-            System.err.println("Chunk file at " + i + "," + j + " is missing, or could not be read, skipping");
+//            System.err.println("Chunk file at " + i + "," + j + " is missing, or could not be read, skipping");
             return null;
         }
     }
