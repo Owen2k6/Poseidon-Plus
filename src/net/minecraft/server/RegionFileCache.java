@@ -17,29 +17,35 @@ public class RegionFileCache {
     private RegionFileCache() {}
 
     public static synchronized RegionFile a(File file1, int i, int j) {
-        File file2 = new File(file1, "region");
-        File file3 = new File(file2, "r." + (i >> 5) + "." + (j >> 5) + ".mcr");
-        Reference<RegionFile> reference = a.get(file3);
-        RegionFile regionfile;
+        try
+        {
+            File file2 = new File(file1, "region");
+            File file3 = new File(file2, "r." + (i >> 5) + "." + (j >> 5) + ".mcr");
+            Reference<RegionFile> reference = a.get(file3);
+            RegionFile regionfile;
 
-        if (reference != null) {
-            regionfile = reference.get();
-            if (regionfile != null) {
-                return regionfile;
+            if (reference != null) {
+                regionfile = reference.get();
+                if (regionfile != null) {
+                    return regionfile;
+                }
             }
-        }
 
-        if (!file2.exists()) {
-            file2.mkdirs();
-        }
+            if (!file2.exists()) {
+                file2.mkdirs();
+            }
 
-        if (a.size() >= 256) {
-            a();
-        }
+            if (a.size() >= 256) {
+                a();
+            }
 
-        regionfile = new RegionFile(file3);
-        a.put(file3, new SoftReference<>(regionfile));
-        return regionfile;
+            regionfile = new RegionFile(file3);
+            a.put(file3, new SoftReference<>(regionfile));
+            return regionfile;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+            return null;
+        }
     }
 
     public static synchronized void a() {
@@ -64,17 +70,23 @@ public class RegionFileCache {
     public static int b(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
 
+        if (regionfile == null) return -1;
+
         return regionfile.a();
     }
 
     public static DataInputStream c(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
 
+        if (regionfile == null) return null;
+
         return regionfile.a(i & 31, j & 31);
     }
 
     public static DataOutputStream d(File file1, int i, int j) {
         RegionFile regionfile = a(file1, i, j);
+
+        if (regionfile == null) return null;
 
         return regionfile.b(i & 31, j & 31);
     }
