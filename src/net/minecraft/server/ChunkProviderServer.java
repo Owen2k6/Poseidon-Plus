@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import net.oldschoolminecraft.poseidon.ChunkSaveException;
+import net.oldschoolminecraft.poseidon.ObjectLogger;
 import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.craftbukkit.util.LongHashset;
 import org.bukkit.craftbukkit.util.LongHashtable;
@@ -218,17 +220,24 @@ public class ChunkProviderServer implements IChunkProvider {
         for (int j = 0; j < this.chunkList.size(); ++j) {
             Chunk chunk = (Chunk) this.chunkList.get(j);
 
-            if (flag && !chunk.p) {
-                this.saveChunkNOP(chunk);
-            }
-
-            if (chunk.a(flag)) {
-                this.saveChunk(chunk);
-                chunk.o = false;
-                ++i;
-                if (i == 24 && !flag) {
-                    return false;
+            try
+            {
+                if (flag && !chunk.p) {
+                    this.saveChunkNOP(chunk);
                 }
+
+                if (chunk.a(flag)) {
+                    this.saveChunk(chunk);
+                    chunk.o = false;
+                    ++i;
+                    if (i == 24 && !flag) {
+                        return false;
+                    }
+                }
+            } catch (Exception ex) {
+                System.out.println("CHUNK SAVE FAILED @ " + chunk.x + "," + chunk.z);
+                ex.printStackTrace(System.err);
+                ObjectLogger.logObjectOverride("chunk-save-fails.log", new ChunkSaveException("CHUNK " + chunk.x + "," + chunk.z + " -- ORIGINAL EXCEPTION FOLLOWS", ex), "SKIP_STATIC");
             }
         }
 
