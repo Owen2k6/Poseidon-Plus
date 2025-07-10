@@ -1090,6 +1090,9 @@ public class World implements IBlockAccess {
 
         for (i = 0; i < this.entityList.size(); ++i) {
             entity = (Entity) this.entityList.get(i);
+            if (entity == null) {
+                continue; // poseidon plus - fixed NPE
+            }
             if (entity.vehicle != null) {
                 if (!entity.vehicle.dead && entity.vehicle.passenger == entity) {
                     continue;
