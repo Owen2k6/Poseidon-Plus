@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+import net.oldschoolminecraft.poseidon.ChunkLightingException;
+import net.oldschoolminecraft.poseidon.ObjectLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
@@ -1614,9 +1616,19 @@ public class World implements IBlockAccess {
                         flag = true;
                         return flag;
                     }
+
                     MetadataChunkBlock chunkBlock = (MetadataChunkBlock) this.C.remove(this.C.size() - 1);
-                    if (chunkBlock != null)
-                        chunkBlock.a(this);
+
+                    try
+                    {
+                        if (chunkBlock != null)
+                            chunkBlock.a(this);
+                    } catch (NullPointerException ex) {
+                        System.out.println("Caught NPE in lighting update, skipping this update to prevent crash");
+
+                        ObjectLogger.logObjectOverride("lighting-NPE-log.json", new ChunkLightingException("NullPointerException when performing world lighting routine", ex), "SKIP_STATIC");
+                        if (chunkBlock != null) ObjectLogger.logObjectOverride("lighting-NPE-log.json", chunkBlock, "SKIP_STATIC");
+                    }
 //                    ((MetadataChunkBlock) this.C.remove(this.C.size() - 1)).a(this);
                 }
 

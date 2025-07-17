@@ -237,7 +237,7 @@ public class ChunkProviderServer implements IChunkProvider {
             } catch (Exception ex) {
                 System.out.println("CHUNK SAVE FAILED @ " + chunk.x + "," + chunk.z);
                 ex.printStackTrace(System.err);
-                ObjectLogger.logObjectOverride("chunk-save-fails.log", new ChunkSaveException("CHUNK " + chunk.x + "," + chunk.z + " -- ORIGINAL EXCEPTION FOLLOWS", ex), "SKIP_STATIC");
+                ObjectLogger.logObjectOverride("chunk-save-fails.json", new ChunkSaveException("CHUNK " + chunk.x + "," + chunk.z + " -- ORIGINAL EXCEPTION FOLLOWS", ex), "SKIP_STATIC");
             }
         }
 
