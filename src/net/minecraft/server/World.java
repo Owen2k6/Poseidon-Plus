@@ -1126,6 +1126,9 @@ public class World implements IBlockAccess {
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
 
+            if (tileentity == null)
+                continue; // poseidon plus - fixed NPE
+
             if (!tileentity.g()) {
                 tileentity.g_();
             }
