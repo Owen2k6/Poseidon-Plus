@@ -1034,7 +1034,8 @@ public class World implements IBlockAccess {
                 int j1 = this.getTypeId(nextticklistentry.a, nextticklistentry.b, nextticklistentry.c);
 
                 if (j1 == nextticklistentry.d && j1 > 0) {
-                    Block.byId[j1].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.random);
+                    if (j1 != Block.FIRE.id) //TODO: attempt to fix stackoverflow caused by fire spreading
+                        Block.byId[j1].a(this, nextticklistentry.a, nextticklistentry.b, nextticklistentry.c, this.random);
                 }
             }
         } else {
