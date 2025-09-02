@@ -3,6 +3,7 @@ package org.bukkit.craftbukkit;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import net.minecraft.server.MinecraftServer;
+import net.oldschoolminecraft.poseidon.GlobalErrorHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Todo: Installation script
+
+        // poseidon plus stackoverflow watchdog
+        Thread.setDefaultUncaughtExceptionHandler(new GlobalErrorHandler());
+
         OptionParser parser = new OptionParser() {
             {
                 acceptsAll(asList("?", "help"), "Show the help");

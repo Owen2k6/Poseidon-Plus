@@ -12,7 +12,7 @@ import java.util.Set;
 public final class SpawnerCreature {
 
     private static final Set<ChunkCoordIntPair> b = new HashSet<>();
-    private static final Class<? extends EntityLiving>[] a = new Class[] { EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
+    private static final Class[] a = { EntitySpider.class, EntityCreeper.class, EntitySkeleton.class};
 
     public SpawnerCreature() {}
 

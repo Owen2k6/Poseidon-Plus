@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
@@ -58,11 +60,24 @@ public class BlockFire extends Block {
         return 40;
     }
 
+    // moderator_man poseidon plus
+    private void fireExtinguished(World world, Location position)
+    {
+        if (!CraftEventFactory.callBlockFadeEvent(
+                world.getWorld().getBlockAt((int) position.getX(), (int) position.getY(), (int) position.getZ()), 0
+        ).isCancelled()) {
+//            world.setAir(position);
+            world.setTypeId(position.getBlockX(), position.getBlockY(), position.getBlockZ(), 0);
+        }
+    }
+
     public void a(World world, int i, int j, int k, Random random) {
         boolean flag = world.getTypeId(i, j - 1, k) == Block.NETHERRACK.id;
 
         if (!this.canPlace(world, i, j, k)) {
-            world.setTypeId(i, j, k, 0);
+//            world.setTypeId(i, j, k, 0);
+            // poseidon plus use craftbukkit event factory
+            fireExtinguished(world, new Location(world.getWorld(), i, j, k));
         }
 
         if (!flag && world.v() && (world.s(i, j, k) || world.s(i - 1, j, k) || world.s(i + 1, j, k) || world.s(i, j, k - 1) || world.s(i, j, k + 1))) {
