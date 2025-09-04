@@ -129,19 +129,6 @@ public class WorldGenDungeons extends WorldGenerator {
     private String b(Random random) {
         int i = random.nextInt(4);
 
-//        return i == 0 ? "Skeleton" : (i == 1 ? "Zombie" : (i == 2 ? "Zombie" : (i == 3 ? "Spider" : "")));
-        if(i == 0) {
-            return "Skeleton";
-        }
-        if(i == 1) {
-            return "Zombie";
-        }
-        if(i == 2) {
-            return "Creeper";
-        }
-        if(i == 3) {
-            return "Spider";
-        }
-        return "";
+        return i == 0 ? "Skeleton" : (i == 1 ? "Zombie" : (i == 2 ? "Zombie" : (i == 3 ? "Spider" : "")));
     }
 }
