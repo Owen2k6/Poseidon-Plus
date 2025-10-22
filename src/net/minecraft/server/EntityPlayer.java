@@ -10,6 +10,7 @@ import org.bukkit.craftbukkit.inventory.CraftInventory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.inventory.ChestOpenedEvent;
+import org.bukkit.event.inventory.ChestOpenedEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
