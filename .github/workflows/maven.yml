@@ -1,35 +1,53 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Build Poseidon
+name: Maven build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ main, master ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 8
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Java 1.8 (Temurin)
       uses: actions/setup-java@v4
       with:
-        java-version: '8'
         distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+        java-version: '1.8'
+        cache: 'maven'   # caches ~/.m2/repository automatically
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    - name: Show java & maven info
+      run: |
+        java -version
+        mvn -version
+
+    - name: Install system-scoped jars (if present)
+      run: |
+        # Install ModLoaderMP.jar into local maven repo so the build can resolve the system-scoped dependency.
+        if [ -f libs/ModLoaderMP.jar ]; then
+          echo "Installing libs/ModLoaderMP.jar into local Maven repo..."
+          mvn -B org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+            -Dfile=libs/ModLoaderMP.jar \
+            -DgroupId=modloader \
+            -DartifactId=ModLoaderMP-B1.7.3 \
+            -Dversion=1.0 \
+            -Dpackaging=jar
+        else
+          echo "No libs/ModLoaderMP.jar found — continuing. If your build requires it, add it to libs/ or change the POM to use a proper repository."
+        fi
+
+    - name: Build with Maven (clean package)
+      run: mvn -B -U -e clean package
+      # -B = batch mode, -U = force updates, -e = show errors for debugging
+
+    - name: Upload build artifact (jar)
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: poseidon-plus-jar
+        path: target/*.jar
