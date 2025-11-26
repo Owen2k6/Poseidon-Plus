@@ -11,43 +11,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Java 1.8 (Temurin)
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '1.8'
-        cache: 'maven'   # caches ~/.m2/repository automatically
+      - name: Set up Java 1.8 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '8'        # use '8' rather than '1.8'
+          cache: 'maven'
 
-    - name: Show java & maven info
-      run: |
-        java -version
-        mvn -version
+        # If you ever need to pin an exact Temurin build, use a value like:
+        # java-version: '8.0.472+8'
 
-    - name: Install system-scoped jars (if present)
-      run: |
-        # Install ModLoaderMP.jar into local maven repo so the build can resolve the system-scoped dependency.
-        if [ -f libs/ModLoaderMP.jar ]; then
-          echo "Installing libs/ModLoaderMP.jar into local Maven repo..."
-          mvn -B org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
-            -Dfile=libs/ModLoaderMP.jar \
-            -DgroupId=modloader \
-            -DartifactId=ModLoaderMP-B1.7.3 \
-            -Dversion=1.0 \
-            -Dpackaging=jar
-        else
-          echo "No libs/ModLoaderMP.jar found — continuing. If your build requires it, add it to libs/ or change the POM to use a proper repository."
-        fi
+      - name: Show java & maven info
+        run: |
+          java -version
+          mvn -version
 
-    - name: Build with Maven (clean package)
-      run: mvn -B -U -e clean package
-      # -B = batch mode, -U = force updates, -e = show errors for debugging
+      - name: Install system-scoped jars (if present)
+        run: |
+          if [ -f libs/ModLoaderMP.jar ]; then
+            echo "Installing libs/ModLoaderMP.jar into local Maven repo..."
+            mvn -B org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+              -Dfile=libs/ModLoaderMP.jar \
+              -DgroupId=modloader \
+              -DartifactId=ModLoaderMP-B1.7.3 \
+              -Dversion=1.0 \
+              -Dpackaging=jar
+          else
+            echo "No libs/ModLoaderMP.jar found — continuing. If your build requires it, add it to libs/ or change the POM to use a proper repository."
+          fi
 
-    - name: Upload build artifact (jar)
-      if: success()
-      uses: actions/upload-artifact@v4
-      with:
-        name: poseidon-plus-jar
-        path: target/*.jar
+      - name: Build with Maven (clean package)
+        run: mvn -B -U -e clean package
+
+      - name: Upload build artifact (jar)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: poseidon-plus-jar
+          path: target/*.jar
