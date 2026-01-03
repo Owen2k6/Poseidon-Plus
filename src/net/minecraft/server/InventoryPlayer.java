@@ -1,5 +1,8 @@
 package net.minecraft.server;
 
+import net.oldschoolminecraft.poseidon.InventoryChangedEvent;
+import org.bukkit.Bukkit;
+
 public class InventoryPlayer implements IInventory {
 
     public ItemStack[] items = new ItemStack[36];
@@ -105,6 +108,7 @@ public class InventoryPlayer implements IInventory {
                 j -= l;
                 this.items[k].count += l;
                 this.items[k].b = 5;
+                Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
                 return j;
             }
         }
@@ -116,6 +120,7 @@ public class InventoryPlayer implements IInventory {
                 this.items[i].a(this.d.world, this.d, i, this.itemInHandIndex == i);
             }
         }
+        Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
     }
 
     public boolean b(int i) {
@@ -141,6 +146,7 @@ public class InventoryPlayer implements IInventory {
                 this.items[i] = ItemStack.b(itemstack);
                 this.items[i].b = 5;
                 itemstack.count = 0;
+                Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
                 return true;
             } else {
                 return false;
@@ -150,6 +156,8 @@ public class InventoryPlayer implements IInventory {
                 i = itemstack.count;
                 itemstack.count = this.e(itemstack);
             } while (itemstack.count > 0 && itemstack.count < i);
+
+            Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
 
             return itemstack.count < i;
         }
@@ -169,12 +177,15 @@ public class InventoryPlayer implements IInventory {
             if (aitemstack[i].count <= j) {
                 itemstack = aitemstack[i];
                 aitemstack[i] = null;
+                Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
                 return itemstack;
             } else {
                 itemstack = aitemstack[i].a(j);
                 if (aitemstack[i].count == 0) {
                     aitemstack[i] = null;
                 }
+
+                Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
 
                 return itemstack;
             }
@@ -192,6 +203,7 @@ public class InventoryPlayer implements IInventory {
         }
 
         aitemstack[i] = itemstack;
+        Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
     }
 
     public float a(Block block) {
@@ -325,6 +337,8 @@ public class InventoryPlayer implements IInventory {
                 }
             }
         }
+
+        Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
     }
 
     public void h() {
@@ -343,6 +357,8 @@ public class InventoryPlayer implements IInventory {
                 this.armor[i] = null;
             }
         }
+
+        Bukkit.getServer().getPluginManager().callEvent(new InventoryChangedEvent(Bukkit.getPlayer(d.name)));
     }
 
     public void update() {

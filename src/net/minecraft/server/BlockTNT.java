@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import net.oldschoolminecraft.poseidon.RedstoneTNTIgnitionEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.event.block.BlockIgniteEvent;
 
 import java.io.File;
 import java.util.Random;
@@ -18,11 +18,12 @@ public class BlockTNT extends Block {
 
     public void c(World world, int i, int j, int k) {
         super.c(world, i, j, k);
-        if (world.isBlockIndirectlyPowered(i, j, k)) {
-            RedstoneTNTIgnitionEvent event = new RedstoneTNTIgnitionEvent(world.getWorld().getBlockAt(i, j, k));
+        boolean isIndirectlyPowered = world.isBlockIndirectlyPowered(i, j, k);
+        if (isIndirectlyPowered) {
+            BlockIgniteEvent event = new BlockIgniteEvent(world.getWorld().getBlockAt(i, j, k), BlockIgniteEvent.IgniteCause.REDSTONE, null);
             Bukkit.getServer().getPluginManager().callEvent(event);
             if (event.isCancelled()) return;
-            this.postBreak(world, i, j, k, 1);
+            this.postBreak(world, i, j, k, 1); // MODMAN: this is ultimately responsible for TNT priming.
             world.setTypeId(i, j, k, 0);
         }
     }
@@ -37,6 +38,9 @@ public class BlockTNT extends Block {
      */
     public void doPhysics(World world, int i, int j, int k, int l) {
         if (l > 0 && Block.byId[l].isPowerSource() && world.isBlockIndirectlyPowered(i, j, k)) {
+            BlockIgniteEvent event = new BlockIgniteEvent(world.getWorld().getBlockAt(i, j, k), BlockIgniteEvent.IgniteCause.REDSTONE, null);
+            Bukkit.getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) return;
             this.postBreak(world, i, j, k, 1);
             world.setTypeId(i, j, k, 0);
         }
@@ -59,8 +63,6 @@ public class BlockTNT extends Block {
                 this.a(world, i, j, k, new ItemStack(Block.TNT.id, 1, 0));
             } else {
                 EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F));
-
-                if (new File("tnt.debug").exists()) Thread.dumpStack();
 
                 world.addEntity(entitytntprimed);
                 world.makeSound(entitytntprimed, "random.fuse", 1.0F, 1.0F);
