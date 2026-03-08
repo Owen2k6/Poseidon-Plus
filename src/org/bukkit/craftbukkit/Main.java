@@ -3,6 +3,7 @@ package org.bukkit.craftbukkit;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import net.minecraft.server.MinecraftServer;
+import net.oldschoolminecraft.poseidon.CompatibilityPrintStream;
 import net.oldschoolminecraft.poseidon.GlobalErrorHandler;
 
 import java.io.File;
@@ -18,6 +19,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Todo: Installation script
+
+        // poseidon plus java 25 compatibility print stream
+        System.setOut(new CompatibilityPrintStream(System.out));
+        System.setErr(new CompatibilityPrintStream(System.err));
 
         // poseidon plus stackoverflow watchdog
         Thread.setDefaultUncaughtExceptionHandler(new GlobalErrorHandler());
