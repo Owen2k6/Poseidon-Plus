@@ -1058,16 +1058,20 @@ public class World implements IBlockAccess {
         int i;
         Entity entity;
 
-        for (i = 0; i < this.e.size(); ++i) {
-            entity = (Entity) this.e.get(i);
-            // CraftBukkit start - fixed an NPE
+        // snapshot to avoid concurrent modification during entity.m_()
+        List eSnapshot = new ArrayList(this.e);
+
+        for (i = 0; i < eSnapshot.size(); ++i) {
+            entity = (Entity) eSnapshot.get(i);
+
             if (entity == null) {
                 continue;
             }
-            // CraftBukkit end
+
             entity.m_();
+
             if (entity.dead) {
-                this.e.remove(i--);
+                this.e.remove(entity);
             }
         }
 
@@ -1091,11 +1095,16 @@ public class World implements IBlockAccess {
 
         this.D.clear();
 
-        for (i = 0; i < this.entityList.size(); ++i) {
-            entity = (Entity) this.entityList.get(i);
+        // snapshot to avoid concurrent modification during playerJoinedWorld()
+        List entitySnapshot = new ArrayList(this.entityList);
+
+        for (i = 0; i < entitySnapshot.size(); ++i) {
+            entity = (Entity) entitySnapshot.get(i);
+
             if (entity == null) {
-                continue; // poseidon plus - fixed NPE
+                continue;
             }
+
             if (entity.vehicle != null) {
                 if (!entity.vehicle.dead && entity.vehicle.passenger == entity) {
                     continue;
@@ -1112,30 +1121,34 @@ public class World implements IBlockAccess {
             if (entity.dead) {
                 j = entity.bH;
                 k = entity.bJ;
+
                 if (entity.bG && this.isChunkLoaded(j, k)) {
                     this.getChunkAt(j, k).b(entity);
                 }
 
-                this.entityList.remove(i--);
+                this.entityList.remove(entity);
                 this.d(entity);
             }
         }
 
         this.L = true;
-        Iterator iterator = this.c.iterator();
+
+        // snapshot to avoid concurrent modification during tile updates
+        Iterator iterator = new ArrayList(this.c).iterator();
 
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
 
             if (tileentity == null)
-                continue; // poseidon plus - fixed NPE
+                continue;
 
             if (!tileentity.g()) {
                 tileentity.g_();
             }
 
             if (tileentity.g()) {
-                iterator.remove();
+                this.c.remove(tileentity);
+
                 Chunk chunk = this.getChunkAt(tileentity.x >> 4, tileentity.z >> 4);
 
                 if (chunk != null) {
@@ -1146,34 +1159,26 @@ public class World implements IBlockAccess {
 
         this.L = false;
 
-        // Craftbukkit start
         if (!tileEntitiesToUnload.isEmpty()) {
             this.c.removeAll(tileEntitiesToUnload);
             this.tileEntitiesToUnload.clear();
         }
-        // Craftbukkit end
 
         if (!this.G.isEmpty()) {
-            Iterator iterator1 = this.G.iterator();
+            Iterator iterator1 = new ArrayList(this.G).iterator();
 
             while (iterator1.hasNext()) {
                 TileEntity tileentity1 = (TileEntity) iterator1.next();
 
                 if (!tileentity1.g()) {
-                    // CraftBukkit - order matters, moved down
-                    /* if (!this.c.contains(tileentity1)) {
-                        this.c.add(tileentity1);
-                    } */
-
                     Chunk chunk1 = this.getChunkAt(tileentity1.x >> 4, tileentity1.z >> 4);
 
                     if (chunk1 != null) {
                         chunk1.placeTileEntity(tileentity1.x & 15, tileentity1.y, tileentity1.z & 15, tileentity1);
-                        // CraftBukkit start - moved in from above
+
                         if (!this.c.contains(tileentity1)) {
                             this.c.add(tileentity1);
                         }
-                        // CraftBukkit end
                     }
 
                     this.notify(tileentity1.x, tileentity1.y, tileentity1.z);
