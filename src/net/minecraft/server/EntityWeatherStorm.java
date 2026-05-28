@@ -80,59 +80,6 @@ public class EntityWeatherStorm extends EntityWeather {
         }
     }
 
-    public EntityWeatherStorm recycle(World world, double d0, double d1, double d2)
-    {
-        this.world = world;
-        this.cworld = world.getWorld();
-        // CraftBukkit end
-
-        this.setPositionRotation(d0, d1, d2, 0.0F, 0.0F);
-        this.lifeTicks = 2;
-        this.a = this.random.nextLong();
-        this.c = this.random.nextInt(3) + 1;
-        // CraftBukkit
-        if (!isEffect && world.spawnMonsters >= 2 && world.areChunksLoaded(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2), 10)) {
-            int i = MathHelper.floor(d0);
-            int j = MathHelper.floor(d1);
-            int k = MathHelper.floor(d2);
-
-            if (world.getTypeId(i, j, k) == 0 && Block.FIRE.canPlace(world, i, j, k)) {
-                // CraftBukkit start
-                if (PlusConfig.getInstance().getConfigBoolean("game.weather.lightning.can-start-fire"))
-                {
-                    BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(i, j, k), IgniteCause.LIGHTNING, null);
-                    world.getServer().getPluginManager().callEvent(event);
-
-                    if (!event.isCancelled()) {
-                        world.setTypeId(i, j, k, Block.FIRE.id);
-                    }
-                    // CraftBukkit end
-                }
-
-
-            }
-
-            for (i = 0; i < 4; ++i) {
-                j = MathHelper.floor(d0) + this.random.nextInt(3) - 1;
-                k = MathHelper.floor(d1) + this.random.nextInt(3) - 1;
-                int l = MathHelper.floor(d2) + this.random.nextInt(3) - 1;
-
-                if (world.getTypeId(j, k, l) == 0 && Block.FIRE.canPlace(world, j, k, l)) {
-                    // CraftBukkit start
-                    if (PlusConfig.getInstance().getConfigBoolean("game.weather.lightning.can-start-fire")){
-                        BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(j, k, l), IgniteCause.LIGHTNING, null);
-                        world.getServer().getPluginManager().callEvent(event);
-
-                        if (!event.isCancelled()) {
-                            world.setTypeId(j, k, l, Block.FIRE.id);
-                        }
-                        // CraftBukkit end
-                }}
-            }
-        }
-        return this;
-    }
-
     public void m_() {
         super.m_();
         if (this.lifeTicks == 2) {

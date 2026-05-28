@@ -295,7 +295,7 @@ public class Explosion {
         return blockDensity;
     }
 
-    public static class CacheKey {
+    static class CacheKey {
         private final World world;
         private final double posX, posY, posZ;
         private final double minX, minY, minZ;

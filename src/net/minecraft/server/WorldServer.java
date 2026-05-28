@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // CraftBukkit start
+
 public class WorldServer extends World implements BlockChangeDelegate {
     // CraftBukkit end
 
@@ -33,7 +34,6 @@ public class WorldServer extends World implements BlockChangeDelegate {
     public PlayerManager manager;
     // CraftBukkit end
 
-    @Override
     public void entityJoinedWorld(Entity entity, boolean flag) {
         /* CraftBukkit start - We prevent spawning in general, so this butchering is not needed
         if (!this.server.spawnAnimals && (entity instanceof EntityAnimal || entity instanceof EntityWaterAnimal)) {
@@ -50,22 +50,20 @@ public class WorldServer extends World implements BlockChangeDelegate {
         super.entityJoinedWorld(entity, flag);
     }
 
-    @Override
     protected IChunkProvider b() {
         IChunkLoader ichunkloader = this.w.a(this.worldProvider);
 
         // CraftBukkit start
-        final InternalChunkGenerator gen;
-        final long seed = this.getSeed();
+        InternalChunkGenerator gen;
 
         if (this.generator != null) {
-            gen = new CustomChunkGenerator(this, seed, this.generator);
+            gen = new CustomChunkGenerator(this, this.getSeed(), this.generator);
         } else if (this.worldProvider instanceof WorldProviderHell) {
-            gen = new NetherChunkGenerator(this, seed);
+            gen = new NetherChunkGenerator(this, this.getSeed());
         } else if (this.worldProvider instanceof WorldProviderSky) {
-            gen = new SkyLandsChunkGenerator(this, seed);
+            gen = new SkyLandsChunkGenerator(this, this.getSeed());
         } else {
-            gen = new NormalChunkGenerator(this, seed);
+            gen = new NormalChunkGenerator(this, this.getSeed());
         }
 
         this.chunkProviderServer = new ChunkProviderServer(this, ichunkloader, gen);
@@ -75,18 +73,12 @@ public class WorldServer extends World implements BlockChangeDelegate {
     }
 
     public List getTileEntities(int i, int j, int k, int l, int i1, int j1) {
-        // Pre-size to avoid rehashing; most queries touch a small region
-        final ArrayList arraylist = new ArrayList(this.c.size());
-        final List tileEntities = this.c;
-        final int size = tileEntities.size();
+        ArrayList arraylist = new ArrayList();
 
-        for (int k1 = 0; k1 < size; ++k1) {
-            final TileEntity tileentity = (TileEntity) tileEntities.get(k1);
+        for (int k1 = 0; k1 < this.c.size(); ++k1) {
+            TileEntity tileentity = (TileEntity) this.c.get(k1);
 
-            // Fail-fast: check the axis most likely to exclude first (X, then Z, then Y)
-            if (tileentity.x >= i && tileentity.x < l
-                    && tileentity.z >= k && tileentity.z < j1
-                    && tileentity.y >= j && tileentity.y < i1) {
+            if (tileentity.x >= i && tileentity.y >= j && tileentity.z >= k && tileentity.x < l && tileentity.y < i1 && tileentity.z < j1) {
                 arraylist.add(tileentity);
             }
         }
@@ -95,25 +87,22 @@ public class WorldServer extends World implements BlockChangeDelegate {
     }
 
     public boolean a(EntityHuman entityhuman, int i, int j, int k) {
-        // Use Math.max to resolve the conditional in a single branchless operation
-        final int i1 = Math.max(
-                (int) MathHelper.abs((float) (i - this.worldData.c())),
-                (int) MathHelper.abs((float) (k - this.worldData.e()))
-        );
+        int l = (int) MathHelper.abs((float) (i - this.worldData.c()));
+        int i1 = (int) MathHelper.abs((float) (k - this.worldData.e()));
+
+        if (l > i1) {
+            i1 = l;
+        }
 
         // CraftBukkit - Configurable spawn protection
-        // Cache getServer() to avoid two virtual calls
-        final org.bukkit.Server srv = this.getServer();
-        return i1 > srv.getSpawnRadius() || this.server.serverConfigurationManager.isOp(entityhuman.name);
+        return i1 > this.getServer().getSpawnRadius() || this.server.serverConfigurationManager.isOp(entityhuman.name);
     }
 
-    @Override
     protected void c(Entity entity) {
         super.c(entity);
         this.G.a(entity.id, entity);
     }
 
-    @Override
     protected void d(Entity entity) {
         super.d(entity);
         this.G.d(entity.id);
@@ -125,7 +114,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
 
     public boolean strikeLightning(Entity entity) {
         // CraftBukkit start
-        final LightningStrikeEvent lightning = new LightningStrikeEvent(this.getWorld(), (org.bukkit.entity.LightningStrike) entity.getBukkitEntity());
+        LightningStrikeEvent lightning = new LightningStrikeEvent(this.getWorld(), (org.bukkit.entity.LightningStrike) entity.getBukkitEntity());
         this.getServer().getPluginManager().callEvent(lightning);
 
         if (lightning.isCancelled()) {
@@ -133,9 +122,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         }
 
         if (super.strikeLightning(entity)) {
-            this.server.serverConfigurationManager.sendPacketNearby(
-                    entity.locX, entity.locY, entity.locZ,
-                    512.0D, this.dimension, new Packet71Weather(entity));
+            this.server.serverConfigurationManager.sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.dimension, new Packet71Weather(entity));
             // CraftBukkit end
             return true;
         } else {
@@ -144,16 +131,15 @@ public class WorldServer extends World implements BlockChangeDelegate {
     }
 
     public void a(Entity entity, byte b0) {
-        final Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.id, b0);
+        Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.id, b0);
 
         // CraftBukkit
         this.server.getTracker(this.dimension).sendPacketToEntity(entity, packet38entitystatus);
     }
 
-    @Override
     public Explosion createExplosion(Entity entity, double d0, double d1, double d2, float f, boolean flag) {
         // CraftBukkit start
-        final Explosion explosion = super.createExplosion(entity, d0, d1, d2, f, flag);
+        Explosion explosion = super.createExplosion(entity, d0, d1, d2, f, flag);
 
         if (explosion.wasCanceled) {
             return explosion;
@@ -164,49 +150,35 @@ public class WorldServer extends World implements BlockChangeDelegate {
         explosion.a();
         explosion.a(false);
         */
-        this.server.serverConfigurationManager.sendPacketNearby(
-                d0, d1, d2, 64.0D, this.dimension,
-                new Packet60Explosion(d0, d1, d2, f, explosion.blocks));
+        this.server.serverConfigurationManager.sendPacketNearby(d0, d1, d2, 64.0D, this.dimension, new Packet60Explosion(d0, d1, d2, f, explosion.blocks));
         // CraftBukkit end
         return explosion;
     }
 
-    @Override
     public void playNote(int i, int j, int k, int l, int i1) {
         super.playNote(i, j, k, l, i1);
         // CraftBukkit
-        this.server.serverConfigurationManager.sendPacketNearby(
-                (double) i, (double) j, (double) k, 64.0D, this.dimension,
-                new Packet54PlayNoteBlock(i, j, k, l, i1));
+        this.server.serverConfigurationManager.sendPacketNearby((double) i, (double) j, (double) k, 64.0D, this.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
     }
 
     public void saveLevel() {
         this.w.e();
     }
 
-    @Override
     protected void i() {
-        final boolean flag = this.v();
+        boolean flag = this.v();
 
         super.i();
-
         if (flag != this.v()) {
             // CraftBukkit start - only sending weather packets to those affected
-            // Cache list reference and size to avoid repeated field reads and size() calls
-            final List players = this.players;
-            final int size = players.size();
-            final Packet70Bed packet = new Packet70Bed(flag ? 2 : 1);
-
-            for (int i = 0; i < size; ++i) {
-                final EntityPlayer ep = (EntityPlayer) players.get(i);
-                if (ep.world == this) {
-                    ep.netServerHandler.sendPacket(packet);
+            for (int i = 0; i < this.players.size(); ++i) {
+                if (((EntityPlayer) this.players.get(i)).world == this) {
+                    ((EntityPlayer) this.players.get(i)).netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
                 }
             }
             // CraftBukkit end
         }
     }
-
     // Poseidon
     public PlayerManager getPlayerManager() {
         return this.manager;

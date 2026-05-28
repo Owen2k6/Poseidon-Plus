@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
 import net.oldschoolminecraft.poseidon.ChunkLightingException;
 import net.oldschoolminecraft.poseidon.ObjectLogger;
 import org.bukkit.Bukkit;
@@ -8,6 +9,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -17,14 +19,13 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 // CraftBukkit start
 // CraftBukkit end
 
 public class World implements IBlockAccess {
 
-    public boolean a;
+    public boolean a = false;
     private List C = new ArrayList();
     public List entityList = new ArrayList();
     private List D = new ArrayList();
@@ -35,21 +36,21 @@ public class World implements IBlockAccess {
     public List players = new ArrayList();
     public List e = new ArrayList();
     private long H = 16777215L;
-    public int f;
+    public int f = 0;
     protected int g = (new Random()).nextInt();
     protected final int h = 1013904223;
     protected float i;
     protected float j;
     protected float k;
     protected float l;
-    protected int m;
-    public int n;
-    public boolean suppressPhysics;
+    protected int m = 0;
+    public int n = 0;
+    public boolean suppressPhysics = false;
     private long I = System.currentTimeMillis();
     protected int p = 40;
     public int spawnMonsters;
     public Random random = new Random();
-    public boolean s;
+    public boolean s = false;
     public WorldProvider worldProvider; // CraftBukkit - remove final
     protected List u = new ArrayList();
     public IChunkProvider chunkProvider; // CraftBukkit - protected -> public
@@ -60,15 +61,15 @@ public class World implements IBlockAccess {
     public WorldMapCollection worldMaps;
     private ArrayList K = new ArrayList();
     private boolean L;
-    private int M;
+    private int M = 0;
     public boolean allowMonsters = true; // CraftBukkit - private -> public
     public boolean allowAnimals = true; // CraftBukkit - private -> public
-    static int A;
+    static int A = 0;
     private Set P = new HashSet();
     private int Q;
     private List R;
     public boolean isStatic;
-    public final ConcurrentHashMap<Explosion.CacheKey, Float> explosionDensityCache = new ConcurrentHashMap<>(); // Paper - Optimize explosions
+    public final Map<Explosion.CacheKey, Float> explosionDensityCache = new HashMap<>(); // Paper - Optimize explosions
 
     public WorldChunkManager getWorldChunkManager() {
         return this.worldProvider.b;
@@ -164,10 +165,10 @@ public class World implements IBlockAccess {
         // CraftBukkit start
         if (this.generator != null) {
             Random rand = new Random(this.getSeed());
-            Location spawn = this.generator.getFixedSpawnLocation(this.getWorld(), rand);
+            Location spawn = this.generator.getFixedSpawnLocation(((WorldServer) this).getWorld(), rand);
 
             if (spawn != null) {
-                if (!spawn.getWorld().equals(this.getWorld())) {
+                if (spawn.getWorld() != ((WorldServer) this).getWorld()) {
                     throw new IllegalStateException("Cannot set spawn point for " + this.worldData.name + " to be in another world (" + spawn.getWorld().getName() + ")");
                 } else {
                     this.worldData.setSpawn(spawn.getBlockX(), spawn.getBlockY(), spawn.getBlockZ());
@@ -267,12 +268,14 @@ public class World implements IBlockAccess {
     // CraftBukkit start
     public Chunk getChunkAt(int i, int j) {
         Chunk result = null;
-        if (this.lastChunkAccessed == null || this.lastXAccessed != i || this.lastZAccessed != j) {
-            this.lastXAccessed = i;
-            this.lastZAccessed = j;
-            this.lastChunkAccessed = this.chunkProvider.getOrCreateChunk(i, j);
+        synchronized (this.chunkLock) {
+            if (this.lastChunkAccessed == null || this.lastXAccessed != i || this.lastZAccessed != j) {
+                this.lastXAccessed = i;
+                this.lastZAccessed = j;
+                this.lastChunkAccessed = this.chunkProvider.getOrCreateChunk(i, j);
+            }
+            result = this.lastChunkAccessed;
         }
-        result = this.lastChunkAccessed;
         return result;
     }
     // CraftBukkit end
@@ -661,7 +664,7 @@ public class World implements IBlockAccess {
 
                 k1 = 200;
 
-                while (k1 >= 0) {
+                while (k1-- >= 0) {
                     if (Double.isNaN(vec3d.a) || Double.isNaN(vec3d.b) || Double.isNaN(vec3d.c)) {
                         return null;
                     }
@@ -786,8 +789,6 @@ public class World implements IBlockAccess {
                             return movingobjectposition1;
                         }
                     }
-
-                    k1--;
                 }
 
                 return null;
@@ -1618,7 +1619,7 @@ public class World implements IBlockAccess {
             try {
                 int i = 500;
 
-                while (!this.C.isEmpty()) {
+                while (this.C.size() > 0) {
                     --i;
                     if (i <= 0) {
                         flag = true;
@@ -1627,9 +1628,17 @@ public class World implements IBlockAccess {
 
                     MetadataChunkBlock chunkBlock = (MetadataChunkBlock) this.C.remove(this.C.size() - 1);
 
-                    if (chunkBlock != null)
-                        chunkBlock.a(this);
-                    ((MetadataChunkBlock) this.C.remove(this.C.size() - 1)).a(this);
+                    try
+                    {
+                        if (chunkBlock != null)
+                            chunkBlock.a(this);
+                    } catch (NullPointerException ex) {
+                        System.out.println("Caught NPE in lighting update, skipping this update to prevent crash");
+
+                        ObjectLogger.logObjectOverride("lighting-NPE-log.json", new ChunkLightingException("NullPointerException when performing world lighting routine", ex), "SKIP_STATIC");
+                        if (chunkBlock != null) ObjectLogger.logObjectOverride("lighting-NPE-log.json", chunkBlock, "SKIP_STATIC");
+                    }
+//                    ((MetadataChunkBlock) this.C.remove(this.C.size() - 1)).a(this);
                 }
 
                 flag = false;
@@ -1863,8 +1872,6 @@ public class World implements IBlockAccess {
         // CraftBukkit end
     }
 
-    private final EntityWeatherStorm j_entityWeatherStorm = new EntityWeatherStorm(this, 0d, 0d, 0d);
-
     protected void j() {
         this.P.clear();
 
@@ -1929,7 +1936,7 @@ public class World implements IBlockAccess {
                 j1 = j + (k >> 8 & 15);
                 k1 = this.e(l, j1);
                 if (this.s(l, k1, j1)) {
-                    this.strikeLightning(j_entityWeatherStorm.recycle(this, l, k1, j1));
+                    this.strikeLightning(new EntityWeatherStorm(this, (double) l, (double) k1, (double) j1));
                     this.m = 2;
                 }
             }
@@ -2308,9 +2315,7 @@ public class World implements IBlockAccess {
         return true;
     }
 
-    public void a(Entity entity, byte b0) {
-        // this has an override, its intentionally empty
-    }
+    public void a(Entity entity, byte b0) {}
 
     public IChunkProvider o() {
         return this.chunkProvider;
