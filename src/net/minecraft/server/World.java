@@ -235,26 +235,24 @@ public class World implements IBlockAccess {
     }
 
     public boolean a(int i, int j, int k, int l, int i1, int j1) {
-        if (i1 >= 0 && j < 128) {
-            i >>= 4;
-            j >>= 4;
-            k >>= 4;
-            l >>= 4;
-            i1 >>= 4;
-            j1 >>= 4;
-
-            for (int k1 = i; k1 <= l; ++k1) {
-                for (int l1 = k; l1 <= j1; ++l1) {
-                    if (!this.isChunkLoaded(k1, l1)) {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        } else {
+        if (i1 < 0 || j >= 128) {
             return false;
         }
+
+        final int minChunkX = i >> 4;
+        final int maxChunkX = l >> 4;
+        final int minChunkZ = k >> 4;
+        final int maxChunkZ = j1 >> 4;
+
+        for (int chunkX = minChunkX; chunkX <= maxChunkX; ++chunkX) {
+            for (int chunkZ = minChunkZ; chunkZ <= maxChunkZ; ++chunkZ) {
+                if (!this.isChunkLoaded(chunkX, chunkZ)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean isChunkLoaded(int i, int j) {
