@@ -220,6 +220,8 @@ public class ChunkProviderServer implements IChunkProvider {
         for (int j = 0; j < this.chunkList.size(); ++j) {
             Chunk chunk = (Chunk) this.chunkList.get(j);
 
+            if (chunk == null) continue; // null guard
+
             try
             {
                 if (flag && !chunk.p) {
@@ -235,9 +237,7 @@ public class ChunkProviderServer implements IChunkProvider {
                     }
                 }
             } catch (Exception ex) {
-                System.out.println("CHUNK SAVE FAILED @ " + chunk.x + "," + chunk.z);
                 ex.printStackTrace(System.err);
-                ObjectLogger.logObjectOverride("chunk-save-fails.json", new ChunkSaveException("CHUNK " + chunk.x + "," + chunk.z + " -- ORIGINAL EXCEPTION FOLLOWS", ex), "SKIP_STATIC");
             }
         }
 
