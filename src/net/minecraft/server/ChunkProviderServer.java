@@ -237,6 +237,7 @@ public class ChunkProviderServer implements IChunkProvider {
                     }
                 }
             } catch (Exception ex) {
+                System.err.println("CHUNK SAVE FAIL: x=" + chunk.x + ", z=" + chunk.z + " - error follows:");
                 ex.printStackTrace(System.err);
             }
         }
