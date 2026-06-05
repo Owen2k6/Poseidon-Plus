@@ -66,7 +66,7 @@ public class World implements IBlockAccess {
     static int A = 0;
     private final Set<ChunkCoordIntPair> P = new HashSet<>();
     private int Q;
-    private final List R;
+    private final List<Entity> R;
     public boolean isStatic;
     public final ConcurrentHashMap<Explosion.CacheKey, Float> explosionDensityCache = new ConcurrentHashMap<>(); // Paper - Optimize explosions
 

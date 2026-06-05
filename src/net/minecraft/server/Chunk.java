@@ -502,7 +502,7 @@ public class Chunk {
         this.o = true;
     }
 
-    public void a(Entity entity, AxisAlignedBB axisalignedbb, List list) {
+    public void a(Entity entity, AxisAlignedBB axisalignedbb, List<Entity> list) {
         int i = MathHelper.floor((axisalignedbb.b - 2.0D) / 16.0D);
         int j = MathHelper.floor((axisalignedbb.e + 2.0D) / 16.0D);
 
