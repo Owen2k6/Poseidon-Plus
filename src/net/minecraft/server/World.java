@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
 import net.oldschoolminecraft.poseidon.ChunkLightingException;
 import net.oldschoolminecraft.poseidon.ObjectLogger;
 import org.bukkit.Bukkit;
@@ -9,7 +8,6 @@ import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
-import org.bukkit.entity.Player;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -19,6 +17,7 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -26,16 +25,16 @@ import java.util.*;
 public class World implements IBlockAccess {
 
     public boolean a = false;
-    private List C = new ArrayList();
-    public List entityList = new ArrayList();
-    private List D = new ArrayList();
-    private TreeSet E = new TreeSet();
-    private Set F = new HashSet();
-    public List c = new ArrayList();
-    private List G = new ArrayList();
-    public List players = new ArrayList();
-    public List e = new ArrayList();
-    private long H = 16777215L;
+    private final List<MetadataChunkBlock> C = new ArrayList<>();
+    public List<Entity> entityList = new ArrayList<>();
+    private final List<Entity> D = new ArrayList<>();
+    private final TreeSet<NextTickListEntry> E = new TreeSet<>();
+    private final Set<NextTickListEntry> F = new HashSet<>();
+    public List<TileEntity> c = new ArrayList<>();
+    private final List<TileEntity> G = new ArrayList<>();
+    public List<EntityHuman> players = new ArrayList<>();
+    public List<Entity> e = new ArrayList<>();
+//    private final long H = 16777215L;
     public int f = 0;
     protected int g = (new Random()).nextInt();
     protected final int h = 1013904223;
@@ -46,30 +45,30 @@ public class World implements IBlockAccess {
     protected int m = 0;
     public int n = 0;
     public boolean suppressPhysics = false;
-    private long I = System.currentTimeMillis();
+//    private final long I = System.currentTimeMillis();
     protected int p = 40;
     public int spawnMonsters;
     public Random random = new Random();
-    public boolean s = false;
+    public boolean s;
     public WorldProvider worldProvider; // CraftBukkit - remove final
-    protected List u = new ArrayList();
+    protected List<IWorldAccess> u = new ArrayList<>();
     public IChunkProvider chunkProvider; // CraftBukkit - protected -> public
     protected final IDataManager w;
     public WorldData worldData; // CraftBukkit - protected -> public
     public boolean isLoading;
     private boolean J;
     public WorldMapCollection worldMaps;
-    private ArrayList K = new ArrayList();
+    private final ArrayList<AxisAlignedBB> K = new ArrayList<>();
     private boolean L;
     private int M = 0;
     public boolean allowMonsters = true; // CraftBukkit - private -> public
     public boolean allowAnimals = true; // CraftBukkit - private -> public
     static int A = 0;
-    private Set P = new HashSet();
+    private final Set<ChunkCoordIntPair> P = new HashSet<>();
     private int Q;
-    private List R;
+    private final List R;
     public boolean isStatic;
-    public final Map<Explosion.CacheKey, Float> explosionDensityCache = new HashMap<>(); // Paper - Optimize explosions
+    public final ConcurrentHashMap<Explosion.CacheKey, Float> explosionDensityCache = new ConcurrentHashMap<>(); // Paper - Optimize explosions
 
     public WorldChunkManager getWorldChunkManager() {
         return this.worldProvider.b;
@@ -1122,10 +1121,10 @@ public class World implements IBlockAccess {
         }
 
         this.L = true;
-        Iterator iterator = this.c.iterator();
 
-        while (iterator.hasNext()) {
-            TileEntity tileentity = (TileEntity) iterator.next();
+        for (i = 0; i < this.c.size(); ++i)
+        {
+            TileEntity tileentity = (TileEntity) this.c.get(i);
 
             if (tileentity == null)
                 continue; // poseidon plus - fixed NPE
@@ -1135,7 +1134,7 @@ public class World implements IBlockAccess {
             }
 
             if (tileentity.g()) {
-                iterator.remove();
+                this.c.remove(i--);
                 Chunk chunk = this.getChunkAt(tileentity.x >> 4, tileentity.z >> 4);
 
                 if (chunk != null) {
@@ -1154,10 +1153,8 @@ public class World implements IBlockAccess {
         // Craftbukkit end
 
         if (!this.G.isEmpty()) {
-            Iterator iterator1 = this.G.iterator();
-
-            while (iterator1.hasNext()) {
-                TileEntity tileentity1 = (TileEntity) iterator1.next();
+            for (i = 0; i < this.G.size(); ++i) {
+                TileEntity tileentity1 = (TileEntity) this.G.get(i);
 
                 if (!tileentity1.g()) {
                     // CraftBukkit - order matters, moved down
